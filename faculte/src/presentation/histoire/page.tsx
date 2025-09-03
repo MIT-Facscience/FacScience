@@ -75,7 +75,7 @@ export default function HistoirePage() {
                   alt="Histoire de la faculté" 
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-purple-800/60 to-amber-900/40"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-white-900/80 via-gray-800/60"></div>
               </div>
               <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
@@ -264,38 +264,38 @@ export default function HistoirePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-800 text-white">
+              <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-50 to-purple-100 text-white">
                 <CardHeader className="pb-4 sm:pb-6">
-                  <CardTitle className="text-2xl sm:text-3xl text-center mb-4 sm:mb-6">Nos Valeurs Fondamentales</CardTitle>
+                  <CardTitle className="text-2xl sm:text-3xl text-center text-gray-500 mb-4 sm:mb-6">Nos Valeurs Fondamentales</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                     <div className="text-center">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-400 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <Award className="h-6 w-6 sm:h-8 sm:w-8 text-purple-800" />
+                        <Award className="h-6 w-6 sm:h-8 sm:w-8 text-gray-50" />
                       </div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Excellence</h3>
-                      <p className="text-purple-100 text-sm sm:text-base leading-relaxed">
+                      <h3 className="text-lg sm:text-xl text-gray-600 font-semibold mb-2 sm:mb-3">Excellence</h3>
+                      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                         Nous visons l'excellence dans tous nos programmes d'enseignement et de recherche.
                       </p>
                     </div>
                     
                     <div className="text-center">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-400 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <Users className="h-6 w-6 sm:h-8 sm:w-8 text-purple-800" />
+                        <Users className="h-6 w-6 sm:h-8 sm:w-8 text-gray-50" />
                       </div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Collaboration</h3>
-                      <p className="text-purple-100 text-sm sm:text-base leading-relaxed">
+                      <h3 className="text-lg sm:text-xl text-gray-600 font-semibold mb-2 sm:mb-3">Collaboration</h3>
+                      <p className=" text-gray-600 text-sm sm:text-base leading-relaxed">
                         Nous favorisons la collaboration entre étudiants, enseignants et partenaires internationaux.
                       </p>
                     </div>
                     
                     <div className="text-center">
                       <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-400 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <Microscope className="h-6 w-6 sm:h-8 sm:w-8 text-purple-800" />
+                        <Microscope className="h-6 w-6 sm:h-8 sm:w-8 text-gray-50" />
                       </div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Innovation</h3>
-                      <p className="text-purple-100 text-sm sm:text-base leading-relaxed">
+                      <h3 className="text-lg sm:text-xl text-gray-600 font-semibold mb-2 sm:mb-3">Innovation</h3>
+                      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                         Nous encourageons l'innovation et la créativité dans la recherche scientifique.
                       </p>
                     </div>

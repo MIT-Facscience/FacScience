@@ -31,7 +31,7 @@ export function Navigation() {
 
       <header className="fixed top-0 left-0 right-0 z-50 w-full">
          {/* Bandeau université en haut */}
-        <div className=" top-0 left-0 right-0 z-50 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-800 py-1">
+        {/* <div className=" top-0 left-0 right-0 z-50 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-800 py-1">
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-center">
               <p className="text-sm font-medium tracking-wide text-align-middle">
@@ -39,7 +39,7 @@ export function Navigation() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Navbar avec touches de couleurs subtiles */}
         <div className="bg-white/95 backdrop-blur-xl border-b border-purple-200/30 shadow-sm">
           <div className="container mx-auto px-6">
@@ -56,7 +56,9 @@ export function Navigation() {
                     className="rounded-full"
                   />
                   <div>
-                    <h1 className="text-xl font-semibold text-slate-800 tracking-tight">Faculté des Sciences</h1>
+                    <h1 className="text-sm font-semibold text-slate-800 tracking-tight">Faculté des Sciences</h1>
+                      <h3 className="text-xs font-semibold text-slate-600 tracking-tight">Université d'Antananarivo</h3>
+
                   </div>
                 </Link>
                 
@@ -188,6 +190,7 @@ export function Navigation() {
                     />
                     <div>
                       <h1 className="text-xl font-semibold text-slate-800 tracking-tight">Faculté des Sciences</h1>
+
                     </div>
                 </Link>
                   <button 

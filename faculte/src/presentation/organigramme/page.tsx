@@ -180,7 +180,7 @@ export default function OrganigrammePage() {
                   alt="Histoire de la faculté" 
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-purple-800/60 to-amber-900/40"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-black-900/80 to-gray-800/60 "></div>
               </div>
               <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">

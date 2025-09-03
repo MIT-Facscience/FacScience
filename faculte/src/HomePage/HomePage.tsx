@@ -327,22 +327,22 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.3 }}
           >
-            <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-800 text-white overflow-hidden">
+            <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-100 to-purple-200 text-white overflow-hidden">
               <CardContent className="p-12 text-center">
-                <h2 className="text-4xl font-bold mb-6">
+                <h2 className="text-4xl font-bold mb-6 text-gray-500">
                   Rejoignez-nous
                 </h2>
-                <p className="text-xl text-black-100 mb-8 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-xl text-gray-500 mb-8 max-w-3xl mx-auto leading-relaxed">
                   Découvrez nos programmes d'excellence et devenez acteur du développement scientifique de Madagascar
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                  <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-400 text-purple-800 font-semibold">
+                  <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-400 text-gray-500 font-semibold">
                     <Link to="/formation">
                       Découvrir nos formations
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="border-2 border-amber-300 text-amber-100 hover:bg-amber-300 hover:text-purple-800">
+                  <Button asChild variant="outline" size="lg" className="border-2 border-amber-300 text-gray-500 hover:bg-amber-300 hover:text-purple-800">
                     <Link to="/contact">Nous contacter</Link>
                   </Button>
                 </div>
