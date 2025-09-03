@@ -1,82 +1,96 @@
 // import { Navigation } from "@/components/navigation"
 // import { Footer } from "@/components/footer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { BookOpen, Users, Award, Calendar, DollarSign, Briefcase } from "lucide-react"
-import {Link} from "react-router-dom"
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Badge } from "@/components/ui/badge";
+// import { Button } from "@/components/ui/button";
+// import {
+//   BookOpen,
+//   Users,
+//   Award,
+//   Calendar,
+//   DollarSign,
+//   Briefcase,
+// } from "lucide-react";
+// import { Link } from "react-router-dom";
 // import Image from "next/image"
 
-export default function FormationPage() {
-  const departements = [
-    {
-      name: "Mathématiques et Informatique",
-      to: "/formation/mathematiques-informatique",
-      description: "Formation en mathématiques pures et appliquées, informatique théorique et pratique",
-      niveaux: ["Licence", "Master", "Doctorat"],
-      effectifs: "450 étudiants",
-    },
-    {
-      name: "MIT (MISA) - Mention Informatique et Technologique",
-      to: "/formation/mit",
-      description: "Formation pluridisciplinaire en informatique, mathématiques et techniques appliquées",
-      niveaux: ["Licence", "Master"],
-      effectifs: "320 étudiants",
-    },
-    {
-      name: "Physique",
-      to: "/formation/physique",
-      description: "Physique fondamentale et appliquée, physique des matériaux",
-      niveaux: ["Licence", "Master", "Doctorat"],
-      effectifs: "280 étudiants",
-    },
-    {
-      name: "Chimie",
-      to: "/formation/chimie",
-      description: "Chimie générale, organique, analytique et industrielle",
-      niveaux: ["Licence", "Master", "Doctorat"],
-      effectifs: "350 étudiants",
-    },
-    {
-      name: "Biologie/Sciences de la Vie",
-      to: "/formation/biologie",
-      description: "Biologie générale, écologie, biotechnologies",
-      niveaux: ["Licence", "Master", "Doctorat"],
-      effectifs: "520 étudiants",
-    },
-    {
-      name: "Géologie/Sciences de la Terre",
-      to: "/formation/geologie",
-      description: "Géologie, géophysique, sciences de l'environnement",
-      niveaux: ["Licence", "Master", "Doctorat"],
-      effectifs: "180 étudiants",
-    },
-  ]
+import AllMention from "./allMention";
 
-  const parcoursProf = [
-    {
-      name: "IGCRR",
-      fullName: "Ingénierie en Gestion de Catastrophe et Réduction des Risques",
-      to: "/formation/igcrr",
-      description: "Formation spécialisée en gestion des risques naturels et technologiques",
-      duree: "2 ans (Master)",
-      debouches: "Gestionnaire de risques, Expert en catastrophes naturelles",
-    },
-    {
-      name: "IPSS",
-      fullName: "Ingénierie en Physique des Signaux et Systèmes",
-      to: "/formation/ipss",
-      description: "Formation en traitement du signal et systèmes embarqués",
-      duree: "2 ans (Master)",
-      debouches: "Ingénieur en télécommunications, Développeur systèmes embarqués",
-    },
-  ]
+export default function FormationPage() {
+  // const departements = [
+  //   {
+  //     name: "Mathématiques et Informatique",
+  //     to: "/formation/mathematiques-informatique",
+  //     description:
+  //       "Formation en mathématiques pures et appliquées, informatique théorique et pratique",
+  //     niveaux: ["Licence", "Master", "Doctorat"],
+  //     effectifs: "450 étudiants",
+  //   },
+  //   {
+  //     name: "MIT (MISA) - Mention Informatique et Technologique",
+  //     to: "/formation/mit",
+  //     description:
+  //       "Formation pluridisciplinaire en informatique, mathématiques et techniques appliquées",
+  //     niveaux: ["Licence", "Master"],
+  //     effectifs: "320 étudiants",
+  //   },
+  //   {
+  //     name: "Physique",
+  //     to: "/formation/physique",
+  //     description: "Physique fondamentale et appliquée, physique des matériaux",
+  //     niveaux: ["Licence", "Master", "Doctorat"],
+  //     effectifs: "280 étudiants",
+  //   },
+  //   {
+  //     name: "Chimie",
+  //     to: "/formation/chimie",
+  //     description: "Chimie générale, organique, analytique et industrielle",
+  //     niveaux: ["Licence", "Master", "Doctorat"],
+  //     effectifs: "350 étudiants",
+  //   },
+  //   {
+  //     name: "Biologie/Sciences de la Vie",
+  //     to: "/formation/biologie",
+  //     description: "Biologie générale, écologie, biotechnologies",
+  //     niveaux: ["Licence", "Master", "Doctorat"],
+  //     effectifs: "520 étudiants",
+  //   },
+  //   {
+  //     name: "Géologie/Sciences de la Terre",
+  //     to: "/formation/geologie",
+  //     description: "Géologie, géophysique, sciences de l'environnement",
+  //     niveaux: ["Licence", "Master", "Doctorat"],
+  //     effectifs: "180 étudiants",
+  //   },
+  // ];
+
+  // const parcoursProf = [
+  //   {
+  //     name: "IGCRR",
+  //     fullName: "Ingénierie en Gestion de Catastrophe et Réduction des Risques",
+  //     to: "/formation/igcrr",
+  //     description:
+  //       "Formation spécialisée en gestion des risques naturels et technologiques",
+  //     duree: "2 ans (Master)",
+  //     debouches: "Gestionnaire de risques, Expert en catastrophes naturelles",
+  //   },
+  //   {
+  //     name: "IPSS",
+  //     fullName: "Ingénierie en Physique des Signaux et Systèmes",
+  //     to: "/formation/ipss",
+  //     description: "Formation en traitement du signal et systèmes embarqués",
+  //     duree: "2 ans (Master)",
+  //     debouches:
+  //       "Ingénieur en télécommunications, Développeur systèmes embarqués",
+  //   },
+  // ];
 
   return (
     <div className="min-h-screen">
+      <AllMention />
       {/* <Navigation /> */}
 
-      <main className="py-16">
+      {/* <main className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -92,10 +106,9 @@ export default function FormationPage() {
                   height={400}
                   className="rounded-lg mx-auto shadow-lg"
                 />
-              </div> */}
+              </div>
             </div>
 
-            {/* Actions rapides */}
             <div className="grid md:grid-cols-3 gap-4 mb-12">
               <Button asChild className="h-auto p-4 flex flex-col items-center space-y-2">
                 <Link to="/formation/inscription">
@@ -103,16 +116,7 @@ export default function FormationPage() {
                   <span>S'inscrire</span>
                 </Link>
               </Button>
-              {/* <Button
-                asChild
-                variant="outline"
-                className="h-auto p-4 flex flex-col items-center space-y-2 bg-transparent"
-              >
-                <Link to="/formation/calendrier">
-                  <Calendar className="h-6 w-6" />
-                  <span>Calendrier</span>
-                </Link>
-              </Button> */}
+              </Button> 
               <Button
                 asChild
                 variant="outline"
@@ -135,7 +139,6 @@ export default function FormationPage() {
               </Button>
             </div>
 
-            {/* Départements */}
             <section className="mb-12">
               <h2 className="text-3xl font-bold mb-8">Départements et Filières</h2>
               <div className="grid md:grid-cols-2 gap-6">
@@ -166,7 +169,6 @@ export default function FormationPage() {
               </div>
             </section>
 
-            {/* Parcours professionnalisants */}
             <section className="mb-12">
               <h2 className="text-3xl font-bold mb-8">Parcours Professionnalisants</h2>
               <div className="grid md:grid-cols-2 gap-6">
@@ -194,7 +196,6 @@ export default function FormationPage() {
               </div>
             </section>
 
-            {/* Informations générales */}
             <section>
               <h2 className="text-3xl font-bold mb-8">Informations Générales</h2>
               <div className="grid md:grid-cols-3 gap-6">
@@ -221,7 +222,6 @@ export default function FormationPage() {
                       </div>
                     </div>
                     <Button asChild variant="outline" className="w-full mt-4 bg-transparent">
-                      {/* <Link to="/formation/stages">Voir les stages</Link> */}
                       <Link to="/formation/">Voir les stages</Link>
 
                     </Button>
@@ -287,9 +287,7 @@ export default function FormationPage() {
             </section>
           </div>
         </div>
-      </main>
-
-      {/* <Footer /> */}
+      </main> */}
     </div>
-  )
+  );
 }
