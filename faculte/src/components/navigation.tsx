@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -231,7 +231,7 @@ export function Navigation() {
                     items: rechercheItems,
                     accent: "border-purple-400",
                   },
-                ].map((section, sectionIndex) => (
+                ].map((section) => (
                   <div key={section.title} className="space-y-3">
                     <h3
                       className={`font-semibold text-slate-800 text-sm tracking-wide uppercase border-b ${section.accent} pb-2`}

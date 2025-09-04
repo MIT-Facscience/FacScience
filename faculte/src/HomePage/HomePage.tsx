@@ -3,9 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
-import { BookOpen, Users, Award, Microscope, Globe, ArrowRight, Calendar, MapPin } from "lucide-react"
+import { BookOpen, Users, Award, Microscope, ArrowRight, Calendar, MapPin } from "lucide-react"
 import { motion } from "framer-motion"
-import { ChevronLeft, ChevronRight,Clock, Bell } from "lucide-react"
+import { Clock, Bell } from "lucide-react"
 
 export default function HomePage() {
   const departments = [
@@ -24,29 +24,29 @@ export default function HomePage() {
     { number: "20+", label: "Laboratoires", icon: <Microscope className="h-6 w-6" /> }
   ]
 
-  const actualites = [
-    {
-      title: "Nouvelle collaboration avec l'Université de La Réunion",
-      date: "15 Janvier 2025",
-      category: "Partenariat",
-      description: "Signature d'un accord de coopération pour les échanges étudiants et la recherche collaborative.",
-      image: "/journ-e-portes-ouvertes-universit---tudiants.png"
-    },
-    {
-      title: "Inauguration du nouveau laboratoire de biotechnologie",
-      date: "10 Janvier 2025",
-      category: "Infrastructure",
-      description: "Un laboratoire moderne équipé des dernières technologies pour la recherche en biotechnologie.",
-      image: "/laboratoire-biotechnologie-moderne--quipements.png"
-    },
-    {
-      title: "Conférence internationale sur les sciences de l'environnement",
-      date: "5 Janvier 2025",
-      category: "Événement",
-      description: "Organisation d'une conférence réunissant des experts internationaux sur les défis environnementaux.",
-      image: "/c-r-monie-remise-dipl-mes-universit-.png"
-    }
-  ]
+  // const actualites = [
+  //   {
+  //     title: "Nouvelle collaboration avec l'Université de La Réunion",
+  //     date: "15 Janvier 2025",
+  //     category: "Partenariat",
+  //     description: "Signature d'un accord de coopération pour les échanges étudiants et la recherche collaborative.",
+  //     image: "/journ-e-portes-ouvertes-universit---tudiants.png"
+  //   },
+  //   {
+  //     title: "Inauguration du nouveau laboratoire de biotechnologie",
+  //     date: "10 Janvier 2025",
+  //     category: "Infrastructure",
+  //     description: "Un laboratoire moderne équipé des dernières technologies pour la recherche en biotechnologie.",
+  //     image: "/laboratoire-biotechnologie-moderne--quipements.png"
+  //   },
+  //   {
+  //     title: "Conférence internationale sur les sciences de l'environnement",
+  //     date: "5 Janvier 2025",
+  //     category: "Événement",
+  //     description: "Organisation d'une conférence réunissant des experts internationaux sur les défis environnementaux.",
+  //     image: "/c-r-monie-remise-dipl-mes-universit-.png"
+  //   }
+  // ]
 
   const latestNews = [
     {

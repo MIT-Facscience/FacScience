@@ -20,7 +20,7 @@ import {
   BookOpen,
   Microscope,
   ChevronDown,
-  MessageCircle,
+
   MessageCircleMore
 } from "lucide-react"
 
@@ -126,7 +126,7 @@ export default function ContactPage() {
     },
   ]
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -134,7 +134,7 @@ export default function ContactPage() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log('Form submitted:', formData)
     // Ici vous pourriez ajouter la logique d'envoi

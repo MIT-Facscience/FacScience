@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { GraduationCap, MapPin, Phone, Mail, Facebook, Twitter, Linkedin, ExternalLink } from 'lucide-react';
 
 export function Footer() {

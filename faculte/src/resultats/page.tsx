@@ -82,43 +82,43 @@ export default function ResultatsPage() {
     },
   ]
 
-  const calendrier_examens = [
-    {
-      niveau: "Licence 1",
-      periode: "Décembre 2024",
-      debut: "2024-12-02",
-      fin: "2024-12-14",
-      statut: "À venir",
-    },
-    {
-      niveau: "Licence 2",
-      periode: "Décembre 2024",
-      debut: "2024-12-02",
-      fin: "2024-12-14",
-      statut: "À venir",
-    },
-    {
-      niveau: "Licence 3",
-      periode: "Décembre 2024",
-      debut: "2024-12-02",
-      fin: "2024-12-14",
-      statut: "À venir",
-    },
-    {
-      niveau: "Master 1",
-      periode: "Décembre 2024",
-      debut: "2024-12-16",
-      fin: "2024-12-21",
-      statut: "À venir",
-    },
-    {
-      niveau: "Master 2",
-      periode: "Décembre 2024",
-      debut: "2024-12-16",
-      fin: "2024-12-21",
-      statut: "À venir",
-    },
-  ]
+  // const calendrier_examens = [
+  //   {
+  //     niveau: "Licence 1",
+  //     periode: "Décembre 2024",
+  //     debut: "2024-12-02",
+  //     fin: "2024-12-14",
+  //     statut: "À venir",
+  //   },
+  //   {
+  //     niveau: "Licence 2",
+  //     periode: "Décembre 2024",
+  //     debut: "2024-12-02",
+  //     fin: "2024-12-14",
+  //     statut: "À venir",
+  //   },
+  //   {
+  //     niveau: "Licence 3",
+  //     periode: "Décembre 2024",
+  //     debut: "2024-12-02",
+  //     fin: "2024-12-14",
+  //     statut: "À venir",
+  //   },
+  //   {
+  //     niveau: "Master 1",
+  //     periode: "Décembre 2024",
+  //     debut: "2024-12-16",
+  //     fin: "2024-12-21",
+  //     statut: "À venir",
+  //   },
+  //   {
+  //     niveau: "Master 2",
+  //     periode: "Décembre 2024",
+  //     debut: "2024-12-16",
+  //     fin: "2024-12-21",
+  //     statut: "À venir",
+  //   },
+  // ]
 
   const statistiques_departements = [
     {

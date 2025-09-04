@@ -3,8 +3,8 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+// import { Navigation } from "@/components/navigation"
+// import { Footer } from "@/components/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,32 +17,59 @@ import { FileText, Upload, CheckCircle, AlertCircle } from "lucide-react"
 
 export default function InscriptionPage() {
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState({
-    nom: "",
-    prenoms: "",
-    dateNaissance: "",
-    lieuNaissance: "",
-    nationalite: "Malgache",
-    adresse: "",
-    telephone: "",
-    email: "",
-    serieBac: "",
-    anneeBac: "",
-    mentionBac: "",
-    etablissementBac: "",
-    filiere: "",
-    niveau: "",
-    motivation: "",
-  })
 
-  const [files, setFiles] = useState({
-    acteNaissance: null,
-    diplome: null,
-    releves: null,
-    photo: null,
-  })
+  interface FormData {
+  nom: string;
+  prenoms: string;
+  dateNaissance: string;
+  lieuNaissance: string;
+  nationalite: string;
+  adresse: string;
+  telephone: string;
+  email: string;
+  serieBac: string;
+  anneeBac: string;
+  mentionBac: string;
+  etablissementBac: string;
+  filiere: string;
+  niveau: string;
+  motivation: string;
+}
 
-  const conditions = {
+
+  const [formData, setFormData] = useState<FormData>({
+  nom: "",
+  prenoms: "",
+  dateNaissance: "",
+  lieuNaissance: "",
+  nationalite: "Malgache",
+  adresse: "",
+  telephone: "",
+  email: "",
+  serieBac: "",
+  anneeBac: "",
+  mentionBac: "",
+  etablissementBac: "",
+  filiere: "",
+  niveau: "",
+  motivation: "",
+});
+
+interface conditionsType {
+  [key:string]:{
+    diplome: string,
+    age: string,
+    autres: string,
+  }
+}
+  // const [files, setFiles] = useState({
+  //   acteNaissance: null,
+  //   diplome: null,
+  //   releves: null,
+  //   photo: null,
+  // })
+
+  const conditions:conditionsType = {
     "Licence 1": {
       diplome: "Baccalauréat série C, D ou équivalent",
       age: "Moins de 25 ans",
