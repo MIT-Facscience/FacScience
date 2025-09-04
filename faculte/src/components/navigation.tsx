@@ -8,16 +8,16 @@ const presentationItems = [
   { title: "Vision et Objectifs", to: "/presentation/vision" },
 ];
 
-const formationItems = [
-  {
-    title: "Mathématiques et Informatique",
-    to: "/formation/mathematiques-informatique",
-  },
-  { title: "MIT", to: "/formation/mit" },
-  { title: "Physique", to: "/formation/physique" },
-  { title: "Chimie", to: "/formation/chimie" },
-  { title: "Biologie", to: "/formation/biologie" },
-];
+// const formationItems = [
+//   {
+//     title: "Mathématiques et Informatique",
+//     to: "/formation/mathematiques-informatique",
+//   },
+//   { title: "MIT", to: "/formation/mit" },
+//   { title: "Physique", to: "/formation/physique" },
+//   { title: "Chimie", to: "/formation/chimie" },
+//   { title: "Biologie", to: "/formation/biologie" },
+// ];
 
 const rechercheItems = [
   { title: "Laboratoires", to: "/recherche/laboratoires" },
@@ -96,26 +96,9 @@ export function Navigation() {
                 <div className="relative group">
                   <button className="flex items-center space-x-1 px-5 py-3 text-slate-700 hover:text-purple-700 transition-all duration-300 font-medium text-sm tracking-wide group-hover:bg-purple-50/50 rounded-lg">
                     <span>
-                      <Link to="/formation"> Formation</Link>
+                      <Link to="/formation"> Formation</Link>{" "}
                     </span>
-                    <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-purple-600/60" />
                   </button>
-                  <div className="absolute top-full left-0 mt-1 w-96 bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <div className="p-6">
-                      <div className="grid grid-cols-1 gap-1">
-                        {formationItems.map((item, index) => (
-                          <a
-                            key={item.to}
-                            href={item.to}
-                            className="block px-4 py-3 text-slate-600 hover:text-purple-700 hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 rounded-xl transition-all duration-200 text-sm font-medium border-l-2 border-transparent hover:border-amber-300"
-                            style={{ transitionDelay: `${index * 30}ms` }}
-                          >
-                            {item.title}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Recherche Dropdown */}
@@ -219,11 +202,6 @@ export function Navigation() {
                     title: "Présentation",
                     items: presentationItems,
                     accent: "border-purple-300",
-                  },
-                  {
-                    title: "Formation",
-                    items: formationItems,
-                    accent: "border-amber-300",
                   },
                   {
                     title: "Recherche",

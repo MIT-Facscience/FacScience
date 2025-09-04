@@ -1,52 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import getAllMention from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
-import {
-  Atom,
-  Calculator,
-  Dna,
-  FlaskConical,
-  Laptop,
-  // Users,
-} from "lucide-react";
+
+import { Link } from "react-router-dom";
 export default function AllMention() {
-  const mentions = [
-    {
-      id: "mathematiques",
-      name: "Mathématiques Informatiques",
-      icon: <Calculator className="h-8 w-8" />,
-      color: "bg-blue-500",
-      description: "Formation rigoureuse en mathématiques pures et appliquées",
-    },
-    {
-      id: "physique",
-      name: "Physique",
-      icon: <Atom className="h-8 w-8" />,
-      color: "bg-purple-500",
-      description: "Exploration des lois fondamentales de l'univers",
-    },
-    {
-      id: "chimie",
-      name: "Chimie",
-      icon: <FlaskConical className="h-8 w-8" />,
-      color: "bg-green-500",
-      description: "Science de la matière et de ses transformations",
-    },
-    {
-      id: "biologie",
-      name: "Biologie",
-      icon: <Dna className="h-8 w-8" />,
-      color: "bg-emerald-500",
-      description: "Étude du vivant sous toutes ses formes",
-    },
-    {
-      id: "informatique",
-      name: "Informatique et Technologie",
-      icon: <Laptop className="h-8 w-8" />,
-      color: "bg-indigo-500",
-      description: "Sciences et technologies de l'information",
-    },
-  ];
+  const mentions = getAllMention();
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -78,9 +37,12 @@ export default function AllMention() {
               </motion.div>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-600 mb-10">
+              <h1 className="text-3xl font-bold text-slate-600 text-center">
                 Nos Mentions Disponibles
               </h1>
+              <p className="text-center mb-10 mt-2">
+                Voici la listes des mentions disponibles dans notre faculté
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {mentions.map((mention, index) => (
                   <Card
@@ -100,9 +62,11 @@ export default function AllMention() {
                       <p className="text-muted-foreground mb-4">
                         {mention.description}
                       </p>
-                      <Button className="bg-white transition-all duration-300 text-slate-600 font-semibold cursor-pointer hover:border hover:bg-white rounded-full">
-                        Voir les details
-                      </Button>
+                      <Link to={`detail?` + mention.id}>
+                        <Button className="bg-white transition-all duration-300 text-slate-600 font-semibold cursor-pointer hover:border hover:bg-white rounded-full">
+                          Voir les details
+                        </Button>
+                      </Link>
                     </CardContent>
                   </Card>
                 ))}
