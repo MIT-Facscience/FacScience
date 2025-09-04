@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import {
@@ -6,28 +7,16 @@ import {
   Dna,
   FlaskConical,
   Laptop,
-  Users,
+  // Users,
 } from "lucide-react";
 export default function AllMention() {
   const mentions = [
     {
       id: "mathematiques",
-      name: "Mathématiques",
+      name: "Mathématiques Informatiques",
       icon: <Calculator className="h-8 w-8" />,
       color: "bg-blue-500",
       description: "Formation rigoureuse en mathématiques pures et appliquées",
-      niveaux: ["L1", "L2", "L3", "M1", "M2"],
-      specialisations: [
-        "Mathématiques Pures",
-        "Mathématiques Appliquées",
-        "Statistiques et Probabilités",
-      ],
-      debouches: [
-        "Enseignement secondaire et supérieur",
-        "Recherche académique",
-        "Analyse financière et actuariat",
-        "Data Science et statistiques",
-      ],
     },
     {
       id: "physique",
@@ -35,18 +24,6 @@ export default function AllMention() {
       icon: <Atom className="h-8 w-8" />,
       color: "bg-purple-500",
       description: "Exploration des lois fondamentales de l'univers",
-      niveaux: ["L1", "L2", "L3", "M1", "M2"],
-      specialisations: [
-        "Physique Fondamentale",
-        "Physique des Matériaux",
-        "Astrophysique",
-      ],
-      debouches: [
-        "Recherche en physique",
-        "Ingénierie technologique",
-        "Enseignement",
-        "Industrie aérospatiale",
-      ],
     },
     {
       id: "chimie",
@@ -54,18 +31,6 @@ export default function AllMention() {
       icon: <FlaskConical className="h-8 w-8" />,
       color: "bg-green-500",
       description: "Science de la matière et de ses transformations",
-      niveaux: ["L1", "L2", "L3", "M1", "M2"],
-      specialisations: [
-        "Chimie Organique",
-        "Chimie Inorganique",
-        "Chimie Analytique",
-      ],
-      debouches: [
-        "Industrie pharmaceutique",
-        "Recherche et développement",
-        "Contrôle qualité",
-        "Enseignement",
-      ],
     },
     {
       id: "biologie",
@@ -73,33 +38,13 @@ export default function AllMention() {
       icon: <Dna className="h-8 w-8" />,
       color: "bg-emerald-500",
       description: "Étude du vivant sous toutes ses formes",
-      niveaux: ["L1", "L2", "L3", "M1", "M2"],
-      specialisations: ["Biologie Moléculaire", "Écologie", "Biotechnologies"],
-      debouches: [
-        "Recherche biomédicale",
-        "Conservation environnementale",
-        "Biotechnologies",
-        "Enseignement",
-      ],
     },
     {
       id: "informatique",
-      name: "Informatique",
+      name: "Informatique et Technologie",
       icon: <Laptop className="h-8 w-8" />,
       color: "bg-indigo-500",
       description: "Sciences et technologies de l'information",
-      niveaux: ["L1", "L2", "L3", "M1", "M2"],
-      specialisations: [
-        "Génie Logiciel",
-        "Intelligence Artificielle",
-        "Réseaux et Systèmes",
-      ],
-      debouches: [
-        "Développement logiciel",
-        "Administration systèmes",
-        "Intelligence artificielle",
-        "Cybersécurité",
-      ],
     },
   ];
   return (
@@ -133,17 +78,17 @@ export default function AllMention() {
               </motion.div>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-600">
+              <h1 className="text-2xl font-bold text-slate-600 mb-10">
                 Nos Mentions Disponibles
               </h1>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {mentions.map((mention, index) => (
                   <Card
                     key={mention.id}
-                    className={`cursor-pointer transition-all duration-300 hover:shadow-purple-400 animate-scale-in border-0 shadow-card `}
+                    className={`cursor-pointer transition-all duration-300 shadow-xl hover:shadow-purple-300 animate-scale-in border-0 hover:shadow-2xl hover:-translate-y-2 `}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <CardContent className="p-6 text-center">
+                    <CardContent className="p-5 text-center">
                       <div
                         className={`w-16 h-16 ${mention.color} rounded-full flex items-center justify-center mx-auto mb-4 text-white`}
                       >
@@ -155,12 +100,9 @@ export default function AllMention() {
                       <p className="text-muted-foreground mb-4">
                         {mention.description}
                       </p>
-                      <div className="flex items-center justify-center text-sm text-muted-foreground">
-                        <Users className="h-4 w-4 mr-2" />
-                        <span>
-                          {mention.niveaux.length} niveaux disponibles
-                        </span>
-                      </div>
+                      <Button className="bg-white transition-all duration-300 text-slate-600 font-semibold cursor-pointer hover:border hover:bg-white rounded-full">
+                        Voir les details
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}

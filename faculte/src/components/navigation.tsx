@@ -16,8 +16,7 @@ const formationItems = [
   { title: "MIT", to: "/formation/mit" },
   { title: "Physique", to: "/formation/physique" },
   { title: "Chimie", to: "/formation/chimie" },
-  { title: "Biologie/Sciences de la Vie", to: "/formation/biologie" },
-  { title: "Géologie/Sciences de la Terre", to: "/formation/geologie" },
+  { title: "Biologie", to: "/formation/biologie" },
 ];
 
 const rechercheItems = [
@@ -232,7 +231,7 @@ export function Navigation() {
                     accent: "border-purple-400",
                   },
                 ].map((section, sectionIndex) => (
-                  <div key={section.title} className="space-y-3">
+                  <div key={sectionIndex} className="space-y-3">
                     <h3
                       className={`font-semibold text-slate-800 text-sm tracking-wide uppercase border-b ${section.accent} pb-2`}
                     >
