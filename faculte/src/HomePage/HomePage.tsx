@@ -1,3 +1,9 @@
+import biologie from "@/assets/departements/biologie.jpg";
+import chimie from "@/assets/departements/chimie.jpg";
+import geologie from "@/assets/departements/geologie.jpg";
+import informatique from "@/assets/departements/informatique.jpg";
+import math from "@/assets/departements/mathematiques.jpg";
+import physique from "@/assets/departements/physique.jpg";
 import { HeroSection } from "@/components/hero-section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,37 +28,37 @@ export default function HomePage() {
       name: "Mathématiques et Informatique",
       students: "800+",
       color: "bg-primary",
-      image: "/images/mathematiques.jpg",
+      image: math,
     },
     {
       name: "MIT",
       students: "600+",
       color: "bg-secondary",
-      image: "/images/informatique.jpg",
+      image: informatique,
     },
     {
       name: "Physique",
       students: "400+",
       color: "bg-primary/80",
-      image: "/images/physique.jpg",
+      image: physique,
     },
     {
       name: "Chimie",
       students: "350+",
       color: "bg-secondary/80",
-      image: "/images/chimie.jpg",
+      image: chimie,
     },
     {
       name: "Biologie",
       students: "500+",
       color: "bg-primary/90",
-      image: "/images/biologie.jpg",
+      image: biologie,
     },
     {
       name: "Géologie",
       students: "300+",
       color: "bg-secondary/90",
-      image: "/images/geologie.jpg",
+      image: geologie,
     },
   ];
 
@@ -319,7 +325,7 @@ export default function HomePage() {
                   <Button
                     variant="outline"
                     asChild
-                    className="border-secondary text-secondary-foreground hover:bg-secondary/10 bg-transparent"
+                    className="border-secondary text-secondary-foreground hover:bg-secondary/10 bg-transparent hover:text-secondary-foreground/90"
                   >
                     <Link to="/formation">Nos Formations</Link>
                   </Button>
@@ -358,7 +364,7 @@ export default function HomePage() {
                         <img
                           src={dept.image || "/placeholder.svg"}
                           alt={`Département ${dept.name}`}
-                          className="object-cover"
+                          className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                         <div className="absolute bottom-4 left-4 right-4">
@@ -421,7 +427,7 @@ export default function HomePage() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-2 border-secondary text-secondary-foreground hover:bg-secondary/10 bg-transparent"
+                    className="border-2 border-secondary text-secondary-foreground hover:bg-secondary/10 bg-transparent hover:text-secondary-foreground/90"
                   >
                     <Link to="/contact">Nous contacter</Link>
                   </Button>
