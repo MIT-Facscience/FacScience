@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ const rechercheItems = [
   { title: "École doctorale", to: "/recherche/ecole-doctorale" },
 ];
 
-export function Navigation() {
+export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
