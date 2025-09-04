@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Building, Microscope, Computer, BookOpen, Wifi, Car } from "lucide-react"
-import Image from "next/image"
+// import Image from "next/image"
 
 export default function InfrastructurePage() {
   return (
@@ -19,7 +19,7 @@ export default function InfrastructurePage() {
                 Découvrez nos installations modernes et équipements de pointe
               </p>
               <div className="mt-8">
-                <Image
+                <img
                   src="/entree.png"
                   alt="Vue d'ensemble du campus de la Faculté des Sciences"
                   width={800}
@@ -32,12 +32,12 @@ export default function InfrastructurePage() {
             <div className="space-y-8">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Notre Campus en Images</CardTitle>
+                  <CardTitle className="text-2xl">Notre Campus en imgs</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div className="space-y-3">
-                      <Image
+                      <img
                         src="/devant-fac-science.png"
                         alt="Façade principale de la Faculté des Sciences"
                         width={400}
@@ -51,7 +51,7 @@ export default function InfrastructurePage() {
                     </div>
 
                     <div className="space-y-3">
-                      <Image
+                      <img
                         src="/departement.png"
                         alt="Bâtiments des départements"
                         width={400}
@@ -65,7 +65,7 @@ export default function InfrastructurePage() {
                     </div>
 
                     <div className="space-y-3">
-                      <Image
+                      <img
                         src="/chalet.png"
                         alt="Espace d'étude extérieur"
                         width={400}
@@ -79,7 +79,7 @@ export default function InfrastructurePage() {
                     </div>
 
                     <div className="space-y-3">
-                      <Image
+                      <img
                         src="/science-pierre.png"
                         alt="Monument emblématique de la faculté"
                         width={400}
@@ -93,7 +93,7 @@ export default function InfrastructurePage() {
                     </div>
 
                     <div className="space-y-3">
-                      <Image
+                      <img
                         src="/dinosaure.png"
                         alt="Fresque artistique du campus"
                         width={400}
@@ -107,7 +107,7 @@ export default function InfrastructurePage() {
                     </div>
 
                     <div className="space-y-3">
-                      <Image
+                      <img
                         src="/entree.png"
                         alt="Cour centrale du campus"
                         width={400}

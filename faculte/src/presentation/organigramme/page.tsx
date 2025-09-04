@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { User, Users, Building, Phone, Mail, MapPin, ChevronDown, ChevronUp } from "lucide-react"
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+// import { Badge } from "@/components/ui/badge"
+import { User,  Building, Phone, Mail, MapPin, ChevronDown, ChevronUp } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 

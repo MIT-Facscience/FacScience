@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+// import { Badge } from "@/components/ui/badge"
 import { Target, Eye, Lightbulb, Users, Globe, Award, BookOpen, Microscope, Heart, Zap } from "lucide-react"
 import { motion } from "framer-motion"
 
