@@ -73,31 +73,31 @@ export default function VisionPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50/30 via-white to-amber-50/20">
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      <main className="pt-20 sm:pt-24 pb-12 sm:pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto">
             
             {/* Header avec image de fond */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative mb-16 rounded-3xl overflow-hidden"
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative mb-12 sm:mb-16 overflow-hidden"
             >
               <div className="absolute inset-0">
                 <img 
-                  src="/entree.png" 
-                  alt="Vision et objectifs" 
-                  className="w-full h-80 object-cover"
+                  src="/modern-university-campus-with-science-buildings-an.png" 
+                  alt="Histoire de la faculté" 
+                  className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-purple-800/60 to-amber-900/40"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-white-900/80 via-gray-800/60"></div>
               </div>
-              <div className="relative z-10 text-center py-20 px-6">
-                <h1 className="text-5xl font-bold mb-6 text-white">
+              <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
                   Vision & Objectifs
                 </h1>
-                <p className="text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
                   Notre vision d'avenir et les objectifs stratégiques qui guident notre développement
                 </p>
               </div>

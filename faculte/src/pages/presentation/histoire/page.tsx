@@ -57,17 +57,17 @@ export default function HistoirePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+   <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <main className="pt-20 sm:pt-24 pb-12 sm:pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto">
             
             {/* Header avec image de fond - Responsive */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative mb-12 sm:mb-16 rounded-2xl sm:rounded-3xl overflow-hidden"
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative mb-12 sm:mb-16 overflow-hidden"
             >
               <div className="absolute inset-0">
                 <img 
@@ -77,7 +77,7 @@ export default function HistoirePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-white-900/80 via-gray-800/60"></div>
               </div>
-              <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
+              <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
                   Notre Histoire
                 </h1>
@@ -95,10 +95,10 @@ export default function HistoirePage() {
               className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16"
             >
               {stats.map((stat, index) => (
-                <Card key={index} className="text-center border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <Card key={index} className="rounded-none text-center border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   <CardContent className="pt-4 sm:pt-6 pb-4 sm:pb-6">
                     <div className="flex justify-center mb-3 sm:mb-4">
-                      <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-600 to-purple-700 text-white rounded-full">
+                      <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-600 to-purple-700 text-white">
                         {stat.icon}
                       </div>
                     </div>
@@ -116,10 +116,10 @@ export default function HistoirePage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16"
             >
-              <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100/50 hover:shadow-xl transition-all duration-300">
+              <Card className="rounded-none border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100/50 hover:shadow-xl transition-all duration-300">
                 <CardHeader className="pb-4 sm:pb-6">
                   <CardTitle className="text-xl sm:text-2xl text-gray-800 flex items-center space-x-3">
-                    <div className="p-2 bg-purple-600 text-white rounded-lg">
+                    <div className="p-2 bg-purple-600 text-white ">
                       <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
                     <span>Notre Mission</span>
@@ -137,10 +137,10 @@ export default function HistoirePage() {
                 </CardContent>
               </Card>
 
-              <Card className="border-0 shadow-lg bg-gradient-to-br from-amber-50 to-amber-100/50 hover:shadow-xl transition-all duration-300">
+              <Card className="rounded-none border-0 shadow-lg bg-gradient-to-br from-amber-50 to-amber-100/50 hover:shadow-xl transition-all duration-300">
                 <CardHeader className="pb-4 sm:pb-6">
                   <CardTitle className="text-xl sm:text-2xl text-gray-800 flex items-center space-x-3">
-                    <div className="p-2 bg-amber-600 text-white rounded-lg">
+                    <div className="p-2 bg-amber-600 text-white">
                       <Globe className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
                     <span>Notre Vision</span>
@@ -185,7 +185,7 @@ export default function HistoirePage() {
                       className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
                     >
                       <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8'}`}>
-                        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/90 backdrop-blur-sm">
+                        <Card className="rounded-none border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/90 backdrop-blur-sm">
                           <CardHeader className="pb-4">
                             <div className="flex items-center space-x-3">
                               <Badge variant="secondary" className={`${event.color} text-white border-0`}>
