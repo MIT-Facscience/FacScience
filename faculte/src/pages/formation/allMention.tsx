@@ -17,7 +17,7 @@ export default function AllMention() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative mb-12 sm:mb-16 rounded-2xl sm:rounded-3xl overflow-hidden"
+                className="relative mb-12 sm:mb-16 overflow-hidden"
               >
                 <div className="absolute inset-0">
                   <img
@@ -46,30 +46,6 @@ export default function AllMention() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                 {mentions.map((mention, index) => (
-                  // <Card
-                  //   key={mention.id}
-                  //   className={`cursor-pointer transition-all duration-300 shadow-xl hover:shadow-purple-300 animate-scale-in border-0 hover:shadow-2xl hover:-translate-y-2 `}
-                  //   style={{ animationDelay: `${index * 100}ms` }}
-                  // >
-                  //   <CardContent className="p-5 text-center">
-                  //     <div
-                  //       className={`w-16 h-16 ${mention.color} rounded-full flex items-center justify-center mx-auto mb-4 text-white`}
-                  //     >
-                  //       {mention.icon}
-                  //     </div>
-                  //     <h3 className="text-xl font-bold mb-3 text-foreground">
-                  //       {mention.name}
-                  //     </h3>
-                  //     <p className="text-muted-foreground mb-4">
-                  //       {mention.description}
-                  //     </p>
-                  //     <Link to={`detail?` + mention.id}>
-                  //       <Button className="bg-white transition-all duration-300 text-slate-600 font-semibold cursor-pointer hover:border hover:bg-white rounded-full">
-                  //         Voir les details
-                  //       </Button>
-                  //     </Link>
-                  //   </CardContent>
-                  // </Card>
                   <MentionCard dept={mention} index={index} key={index} />
                 ))}
               </div>

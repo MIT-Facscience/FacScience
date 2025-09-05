@@ -828,6 +828,38 @@ const departments = [
   },
 ];
 
+const parcoursList = [
+  {
+    title: "Licence 1",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+    color: "bg-primary",
+    niveau: "L1",
+  },
+  {
+    title: "Licence 2",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+    color: "bg-amber-600",
+    niveau: "L2",
+  },
+  {
+    title: "Licence 3",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+    color: "bg-primary",
+    niveau: "L3",
+  },
+  {
+    title: "Master 1",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+    color: "bg-amber-500",
+    niveau: "M1",
+  },
+  {
+    title: "Master 2",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+    color: "bg-primary",
+    niveau: "M2",
+  },
+];
 export default function getAllMention() {
   return mentions;
 }
@@ -842,4 +874,8 @@ export function getStatsById(id: string) {
 
 export function getAllDepartments() {
   return departments;
+}
+
+export function getAllParcours() {
+  return parcoursList;
 }

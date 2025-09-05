@@ -1,13 +1,19 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { getParcoursById, getStatsById } from "@/dataTestFormation/mention";
+import {
+  getAllParcours,
+  getParcoursById,
+  getStatsById,
+} from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
 import { Users, Clock, BookOpen, Award } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+import ParcourItems from "./ParcourItems";
 export default function FormationItems() {
   const id = useSearchParams()[0].toString()[0];
   const data = getParcoursById(id);
   const stats = getStatsById(id);
   const icon = [<Users />, <BookOpen />, <Clock />, <Award />];
+  const parcours = getAllParcours();
   console.log(stats);
   return (
     <>
@@ -19,7 +25,7 @@ export default function FormationItems() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative mb-12 sm:mb-16 rounded-2xl sm:rounded-3xl overflow-hidden"
+                className="relative mb-12 sm:mb-16 overflow-hidden"
               >
                 <div className="absolute inset-0">
                   <img
@@ -34,7 +40,7 @@ export default function FormationItems() {
                     {data?.name}
                   </h1>
                   <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                    Découvrez les parcours d'excellence sdans le mention{" "}
+                    Découvrez les parcours d'excellences dans le mention{" "}
                     {data?.name}
                   </p>
                 </div>
@@ -49,10 +55,10 @@ export default function FormationItems() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
-                    <Card className="text-center border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <Card className="text-center rounded-none border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <CardContent className="pt-6">
                         <div className="flex justify-center mb-4">
-                          <div className="p-3 bg-gradient-to-br from-purple-600 to-purple-700 text-white rounded-full">
+                          <div className="p-3 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full">
                             {icon[index]}
                           </div>
                         </div>
@@ -67,6 +73,24 @@ export default function FormationItems() {
                   </motion.div>
                 ))}
             </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="bg-slate-100 mt-10 rounded-md py-20"
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
+                Nos parcours disponibles
+              </h2>
+              <div className="relative h-auto">
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
+                <div className="space-y-8">
+                  {parcours.map((items, index) => (
+                    <ParcourItems index={index} parcours={items} />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </main>
       </div>
