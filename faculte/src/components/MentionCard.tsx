@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Link } from "react-router-dom";
+import math from "/public/departement.png";
 export default function MentionCard({
   dept,
   index,
@@ -23,11 +24,11 @@ export default function MentionCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
     >
-      <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
+      <Card className="border-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
         <CardHeader className="p-0">
           <div className="relative w-full h-48 mb-4">
             <img
-              src={dept.image || "/placeholder.svg"}
+              src={math}
               alt={`Département ${dept.name}`}
               className="w-full h-full object-cover"
             />
@@ -44,11 +45,11 @@ export default function MentionCard({
             <Badge variant="secondary" className="bg-primary/10 text-primary">
               {dept.students} étudiants
             </Badge>
-            <Link to="detail">
+            <Link to={"detail?" + index}>
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-primary hover:text-primary/80"
+                className="text-primary hover:text-primary/80 hover:bg-muted cursor-pointer"
               >
                 En savoir plus
                 <ArrowRight className="ml-1 h-3 w-3" />

@@ -92,16 +92,6 @@ export default function Navigation() {
                     </div>
                   </div>
                 </div>
-
-                {/* Formation Dropdown */}
-                <div className="relative group">
-                  <button className="flex items-center space-x-1 px-5 py-3 text-slate-700 hover:text-purple-700 transition-all duration-300 font-medium text-sm tracking-wide group-hover:bg-purple-50/50 rounded-lg">
-                    <span>
-                      <Link to="/formation"> Formation</Link>{" "}
-                    </span>
-                  </button>
-                </div>
-
                 {/* Recherche Dropdown */}
                 <div className="relative group">
                   <button className="flex items-center space-x-1 px-5 py-3 text-slate-700 hover:text-purple-700 transition-all duration-300 font-medium text-sm tracking-wide group-hover:bg-purple-50/50 rounded-lg">
@@ -127,6 +117,13 @@ export default function Navigation() {
                 </div>
 
                 {/* Liens directs avec accents colorés */}
+                <a
+                  href="/formation"
+                  className="px-5 py-3 text-slate-700 hover:text-purple-700 transition-all duration-300 font-medium text-sm tracking-wide hover:bg-purple-50/50 rounded-lg relative group"
+                >
+                  Formation
+                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
+                </a>
                 <a
                   href="/actualites"
                   className="px-5 py-3 text-slate-700 hover:text-purple-700 transition-all duration-300 font-medium text-sm tracking-wide hover:bg-purple-50/50 rounded-lg relative group"
@@ -232,9 +229,15 @@ export default function Navigation() {
                 <div className="space-y-3 pt-6 border-t border-purple-200/50">
                   {[
                     {
-                      name: "Actualités",
+                      name: "Formation",
                       gradient: "from-purple-50 to-purple-100",
                       hover: "hover:from-purple-100 hover:to-purple-150",
+                      border: "border-purple-200",
+                    },
+                    {
+                      name: "Actualités",
+                      gradient: "from-purple-100 to-purple-200",
+                      hover: "hover:from-purple-200 hover:to-purple-350",
                       border: "border-purple-200",
                     },
                     {
