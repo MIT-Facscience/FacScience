@@ -192,7 +192,7 @@ export default function HomePage() {
       <HeroSection />
 
       <main className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
           <section className="py-16 bg-gradient-to-br from-muted to-card">
             <div className="container mx-auto px-4">
               <div className="mx-auto">

@@ -134,7 +134,7 @@ export default function ActualitesPage() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-primary/10 to-secondary/10">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
               Actualités
@@ -149,7 +149,7 @@ export default function ActualitesPage() {
 
       {/* Featured Article */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
           <div className="mb-12">
             <h2 className="text-2xl font-bold mb-8">À la une</h2>
             <Card className="overflow-hidden">
@@ -201,7 +201,7 @@ export default function ActualitesPage() {
 
       {/* All Articles */}
       <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
           <h2 className="text-2xl font-bold mb-8">Toutes les actualités</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {actualites.slice(1).map((actualite) => {
@@ -256,7 +256,7 @@ export default function ActualitesPage() {
 
       {/* Newsletter Section */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
           <Card className="max-w-2xl mx-auto text-center">
             <CardHeader>
               <CardTitle className="text-2xl">Restez informé</CardTitle>
