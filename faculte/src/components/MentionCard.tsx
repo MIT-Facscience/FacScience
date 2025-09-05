@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { Link } from "react-router-dom";
 export default function MentionCard({
   dept,
   index,
@@ -20,7 +21,7 @@ export default function MentionCard({
       key={index}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
+      transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
     >
       <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
         <CardHeader className="p-0">
@@ -43,14 +44,16 @@ export default function MentionCard({
             <Badge variant="secondary" className="bg-primary/10 text-primary">
               {dept.students} étudiants
             </Badge>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-primary hover:text-primary/80"
-            >
-              En savoir plus
-              <ArrowRight className="ml-1 h-3 w-3" />
-            </Button>
+            <Link to="detail">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-primary hover:text-primary/80"
+              >
+                En savoir plus
+                <ArrowRight className="ml-1 h-3 w-3" />
+              </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>
