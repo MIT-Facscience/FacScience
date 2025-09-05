@@ -454,33 +454,33 @@ export default function ContactPage() {
             </div>
 
             {/* Quick actions */}
-            <div className="bg-secondary border-0 text-white overflow-hidden relative rounded-lg">
+            <div className="bg-white border-1 border-purple-200 text-white overflow-hidden relative rounded-lg">
               <div className="absolute inset-0 "></div>
               <div className="p-6 relative">
                 <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-                  <Zap className="h-6 w-6" />
-                  Actions Rapides
+                  <Zap className="h-6 w-6 text-black" />
+                <h2 className="text-black"> Actions Rapides</h2> 
                 </h3>
                 <div className="space-y-3">
                   <button className="w-full p-3 bg-white/20 hover:bg-white/30 rounded-lg text-left transition-all duration-300 hover:transform hover:scale-105">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-gray-100"/>
+                      <MapPin className="w-6 h-6 text-gray-600"/>
                       </div>
                       <div>
-                        <p className="font-semibold">Plan du Campus</p>
-                        <p className="text-xs opacity-80">Trouvez votre chemin</p>
+                        <p className="font-semibold text-black">Plan du Campus</p>
+                        <p className="text-xs text-black opacity-80">Trouvez votre chemin</p>
                       </div>
                     </div>
                   </button>
                   <button className="w-full p-3 bg-white/20 hover:bg-white/30 rounded-lg text-left transition-all duration-300 hover:transform hover:scale-105">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                        <Phone className="w-6 h-6 text-gray-100"/>
+                        <Phone className="w-6 h-6 text-gray-600"/>
                       </div>
                       <div>
-                        <p className="font-semibold">Urgence</p>
-                        <p className="text-xs opacity-80">Contact immédiat</p>
+                        <p className="font-semibold text-black">Urgence</p>
+                        <p className="text-xs text-black opacity-80">Contact immédiat</p>
                       </div>
                     </div>
                   </button>
