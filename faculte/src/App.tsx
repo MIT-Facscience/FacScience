@@ -9,7 +9,6 @@ import PresentationPage from "./pages/presentation/histoire/page";
 import RecherchePage from "./pages/recherche/page";
 // Import des sous-pages de recherche
 import AdminPage from "./pages/admin/page";
-import AllMention from "./pages/formation/allMention";
 import FraisPage from "./pages/formation/frais/page";
 import InscriptionPage from "./pages/formation/inscription/page";
 import EcoleDoctoralePage from "./pages/recherche/ecole-doctorale/page";
@@ -28,6 +27,7 @@ import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 // import AllMention from "./formation/allMention";
 import FormationItems from "./pages/formation/formationItems";
 import ResultatsPage from "./pages/resultats/page";
+import ParcourDetail from "./pages/formation/ParcourDetail";
 // import MathInfoPage from "./formation/mathematiques-informatique/page";
 export default function App() {
   return (
@@ -60,7 +60,8 @@ export default function App() {
         <Route path="/math" element={<MathInfoPage />} />
         <Route path="/presentation/vision" element={<VisionPage />} />
         <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
-        <Route path="" element={<AllMention />} />
+        <Route path="/formation/detailparcours" element={<ParcourDetail />} />
+        {/* <Route path="" element={<AllMention />} /> */}
       </Routes>
 
       <Footer />

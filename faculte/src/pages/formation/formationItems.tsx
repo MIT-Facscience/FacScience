@@ -1,13 +1,15 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import {
   getAllParcours,
   getParcoursById,
   getStatsById,
 } from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
-import { Users, Clock, BookOpen, Award } from "lucide-react";
+import { Users, Clock, BookOpen, Award, User } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import ParcourItems from "./ParcourItems";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 export default function FormationItems() {
   const id = useSearchParams()[0].toString()[0];
   const data = getParcoursById(id);
@@ -73,6 +75,29 @@ export default function FormationItems() {
                   </motion.div>
                 ))}
             </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <Card className="border-none rounded-none shadow-lg flex items-center flex-col p-10 mt-5 transition-all duration-300 hover:-translate-y-1">
+                <CardTitle className="flex flex-col items-center justify-center gap-3 text-xl font-semibold">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-primary text-white">
+                    <User />
+                  </div>
+                  Responsable du mention
+                </CardTitle>
+                <CardContent className="text-sm text-slate-600 font-medium flex flex-col items-center gap-4">
+                  <span>
+                    <span className="font-bold">Chef mention : </span> RAKOTO
+                    Jean
+                  </span>
+                  <Link to="/contact">
+                    <Button className="cursor-pointer">Contactez</Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

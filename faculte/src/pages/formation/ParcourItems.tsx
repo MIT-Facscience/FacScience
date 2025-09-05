@@ -41,9 +41,9 @@ export default function ParcourItems({
                   <span>{parcours.title}</span>
                   <span className="space-x-2">
                     <Badge variant="secondary" className="text-white">
-                      semestre {parcours.semestre[0]}
+                      S{parcours.semestre[0]}
                     </Badge>
-                    <Badge>semestre {parcours.semestre[1]}</Badge>
+                    <Badge>S{parcours.semestre[1]}</Badge>
                   </span>
                 </CardTitle>
               </div>
@@ -54,14 +54,14 @@ export default function ParcourItems({
               </p>
             </div>
 
-            <Link to={"detail?" + index}>
+            <Link to={"/formation/detailparcours?" + index}>
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-primary -translate-x-2 hover:text-primary/80 hover:bg-muted"
+                className="text-primary font-medium -translate-x-2 hover:text-primary/80 hover:bg-muted cursor-pointer"
               >
                 En savoir plus
-                <ArrowRight className="ml-1 h-3 w-3" />
+                <ArrowRight className="h-3 w-3" />
               </Button>
             </Link>
           </Card>
