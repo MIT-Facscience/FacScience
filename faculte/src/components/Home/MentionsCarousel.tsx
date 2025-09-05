@@ -1,4 +1,4 @@
-import math from "@/assets/mentions/mathematiques.jpg";
+import math from "@/assets/mentions/entree.png";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ function MentionsCarousel() {
       name: "Mathématiques et Informatique",
       students: "800+",
       color: "bg-primary",
-      image: math,
+      image: "/mathematiques.jpg",
     },
     {
       name: "MIT",
@@ -175,7 +175,7 @@ function MentionsCarousel() {
     ))}
   </div> */}
       <div className="relative">
-        <div className="overflow-hidden pb-6">
+        <div className="overflow-hidden pt-3 pb-6">
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -195,15 +195,15 @@ function MentionsCarousel() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 * index }}
                       >
-                        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
+                        <Card className="border-0 p-0 pb-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
                           <CardHeader className="p-0">
-                            <div className="relative w-full h-48 mb-4">
+                            <div className="relative w-full h-auto mb-4">
                               <img
-                                src={dept.image || "/placeholder.svg"}
+                                src={math}
                                 alt={`Département ${dept.name}`}
-                                className="object-cover"
+                                className="object-cover scale-110"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                              {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /> */}
                               <div className="absolute bottom-4 left-4 right-4">
                                 <CardTitle className="text-lg text-white leading-tight">
                                   {dept.name}
@@ -239,21 +239,18 @@ function MentionsCarousel() {
         </div>
 
         <Button
-          variant="outline"
-          size="icon"
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/10"
+          className="absolute -left-4 top-1/2 -translate-y-1/2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 rounded-lg cursor-pointer"
           onClick={prevSlide}
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-6 w-6" />
         </Button>
 
         <Button
-          variant="outline"
           size="icon"
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/10"
+          className="absolute -right-4 top-1/2 -translate-y-1/2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 rounded-lg cursor-pointer"
           onClick={nextSlide}
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-6 w-6" />
         </Button>
 
         <div className="flex justify-center space-x-2">

@@ -1,8 +1,7 @@
-import { cn } from "@/lib/utils";
 import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { buttonVariants } from "./ui/button";
+import PrimaryButton from "./ui/PrimaryButton";
 
 const presentationItems = [
   { title: "Histoire et Mission", to: "/presentation/histoire" },
@@ -144,15 +143,9 @@ export default function Navigation() {
                 </a>
 
                 {/* CTA Contact avec les couleurs du logo */}
-                <a
-                  href="/contact"
-                  className={cn(
-                    buttonVariants({}),
-                    "ml-4 px-6 py-2.5  font-medium text-sm tracking-wide rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ring-1"
-                  )}
-                >
-                  Contact
-                </a>
+                <Link to="/contact">
+                  <PrimaryButton>Contact</PrimaryButton>
+                </Link>
               </nav>
 
               {/* Menu mobile */}
