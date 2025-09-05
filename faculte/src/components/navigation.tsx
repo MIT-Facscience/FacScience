@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Menu, ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ChevronDown, Menu } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { buttonVariants } from "./ui/button";
 
 const presentationItems = [
   { title: "Histoire et Mission", to: "/presentation/histoire" },
@@ -25,7 +27,7 @@ const rechercheItems = [
   { title: "École doctorale", to: "/recherche/ecole-doctorale" },
 ];
 
-export function Navigation() {
+export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -43,7 +45,7 @@ export function Navigation() {
         </div> */}
         {/* Navbar avec touches de couleurs subtiles */}
         <div className="bg-white/95 backdrop-blur-xl border-b border-purple-200/30 shadow-sm">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 md:px-6 xl:px-8">
             <div className="flex h-18 items-center justify-between">
               {/* Logo avec les vraies couleurs */}
               <div className="flex items-center space-x-4">
@@ -144,7 +146,10 @@ export function Navigation() {
                 {/* CTA Contact avec les couleurs du logo */}
                 <a
                   href="/contact"
-                  className="ml-4 px-6 py-2.5 bg-gradient-to-r from-purple-700 to-purple-800 hover:from-purple-600 hover:to-purple-700 text-white font-medium text-sm tracking-wide rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ring-1 ring-purple-600/20"
+                  className={cn(
+                    buttonVariants({}),
+                    "ml-4 px-6 py-2.5  font-medium text-sm tracking-wide rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ring-1"
+                  )}
                 >
                   Contact
                 </a>
@@ -208,8 +213,8 @@ export function Navigation() {
                     items: rechercheItems,
                     accent: "border-purple-400",
                   },
-                ].map((section, sectionIndex) => (
-                  <div key={sectionIndex} className="space-y-3">
+                ].map((section) => (
+                  <div key={section.title} className="space-y-3">
                     <h3
                       className={`font-semibold text-slate-800 text-sm tracking-wide uppercase border-b ${section.accent} pb-2`}
                     >

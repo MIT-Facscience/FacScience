@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { AlertTriangle, Shield, Users, Target, Award } from "lucide-react"
-import Link from "next/link"
+import {Link} from "react-router-dom"
 
 export default function IGCRRPage() {
   const programme = {
@@ -210,7 +210,7 @@ export default function IGCRRPage() {
                 </div>
                 <div className="mt-6">
                   <Button asChild>
-                    <Link href="/formation/inscription">Candidater au Parcours IGCRR</Link>
+                    <Link to="/formation/inscription">Candidater au Parcours IGCRR</Link>
                   </Button>
                 </div>
               </CardContent>

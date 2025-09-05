@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+// import { Card, CardContent } from "@/components/ui/card"
+// import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
-import { ChevronLeft, ChevronRight, Calendar, Users, Clock, MapPin, Bell } from "lucide-react"
+import { ChevronLeft, ChevronRight, } from "lucide-react"
 import { useState, useEffect } from "react"
 
 export function HeroSection() {
