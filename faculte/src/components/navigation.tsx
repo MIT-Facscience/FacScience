@@ -46,7 +46,7 @@ export default function Navigation() {
         </div> */}
         {/* Navbar avec touches de couleurs subtiles */}
         <div className="bg-white/95 backdrop-blur-xl border-b border-purple-200/30 shadow-sm">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 md:px-6 xl:px-8">
             <div className="flex h-18 items-center justify-between">
               {/* Logo avec les vraies couleurs */}
               <div className="flex items-center space-x-4">
