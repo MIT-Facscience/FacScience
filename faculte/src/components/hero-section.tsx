@@ -78,15 +78,15 @@ export function HeroSection() {
                     <Button
                       asChild
                       size="lg"
-                      className=" text-gray-500 bg-gradient-to-r from-purple-200 to-amber-100 hover:from-purple-500 hover:to-purple-600 border-0 shadow-lg"
+                      className="border-0 shadow-lg rounded-none"
                     >
                       <Link to="/formation">Découvrir nos formations</Link>
                     </Button>
                     <Button
-                      variant="outline"
+                      variant="secondary"
                       size="lg"
                       asChild
-                      className="border-2 border-purple-200 text-amber-100 hover:bg-amber-300 hover:text-purple-900 bg-transparent backdrop-blur-sm"
+                      className="border-2 rounded-none text-amber-100 backdrop-blur-sm"
                     >
                       <Link to="/presentation">En savoir plus</Link>
                     </Button>
