@@ -834,30 +834,35 @@ const parcoursList = [
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     color: "bg-primary",
     niveau: "L1",
+    semestre: ["1", "2"],
   },
   {
     title: "Licence 2",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     color: "bg-amber-600",
     niveau: "L2",
+    semestre: ["3", "4"],
   },
   {
     title: "Licence 3",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     color: "bg-primary",
     niveau: "L3",
+    semestre: ["5", "6"],
   },
   {
     title: "Master 1",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     color: "bg-amber-500",
     niveau: "M1",
+    semestre: ["7", "8"],
   },
   {
     title: "Master 2",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     color: "bg-primary",
     niveau: "M2",
+    semestre: ["9", "10"],
   },
 ];
 export default function getAllMention() {

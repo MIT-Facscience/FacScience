@@ -1,4 +1,5 @@
 // import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -13,6 +14,7 @@ export default function ParcourItems({
     description: string;
     color: string;
     niveau: string;
+    semestre: string[];
   };
   index: number;
 }) {
@@ -35,8 +37,14 @@ export default function ParcourItems({
           <Card className="w-2/3 p-5 flex flex-col gap-2 rounded-none border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/90 backdrop-blur-sm">
             <div>
               <div className="flex items-center space-x-3">
-                <CardTitle className="text-lg text-gray-800">
-                  {parcours.title}
+                <CardTitle className="text-lg w-full text-gray-800 flex justify-between items-center">
+                  <span>{parcours.title}</span>
+                  <span className="space-x-2">
+                    <Badge variant="secondary" className="text-white">
+                      semestre {parcours.semestre[0]}
+                    </Badge>
+                    <Badge>semestre {parcours.semestre[1]}</Badge>
+                  </span>
                 </CardTitle>
               </div>
             </div>
