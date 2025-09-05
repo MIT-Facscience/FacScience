@@ -342,10 +342,10 @@ export default function HomePage() {
           >
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-primary mb-4">
-                Nos Départements
+                Nos Mentions
               </h2>
               <p className="text-xl text-foreground max-w-3xl mx-auto">
-                Six départements d'excellence couvrant l'ensemble des
+                Quatorze mention d'excellence couvrant l'ensemble des
                 disciplines scientifiques
               </p>
             </div>

@@ -1,6 +1,8 @@
+import { cn } from "@/lib/utils";
+import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
-import { Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import { buttonVariants } from "./ui/button";
 
 const presentationItems = [
   { title: "Histoire et Mission", to: "/presentation/histoire" },
@@ -162,7 +164,10 @@ export default function Navigation() {
                 {/* CTA Contact avec les couleurs du logo */}
                 <a
                   href="/contact"
-                  className="ml-4 px-6 py-2.5 bg-gradient-to-r from-purple-700 to-purple-800 hover:from-purple-600 hover:to-purple-700 text-white font-medium text-sm tracking-wide rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ring-1 ring-purple-600/20"
+                  className={cn(
+                    buttonVariants({}),
+                    "ml-4 px-6 py-2.5  font-medium text-sm tracking-wide rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ring-1"
+                  )}
                 >
                   Contact
                 </a>
