@@ -740,6 +740,94 @@ const Stats = [
     ],
   },
 ];
+
+const departments = [
+  {
+    name: "Mathématiques et Informatique",
+    students: "800+",
+    color: "bg-primary",
+    image: "/images/mathematiques.jpg",
+  },
+  {
+    name: "MIT",
+    students: "600+",
+    color: "bg-secondary",
+    image: "/images/informatique.jpg",
+  },
+  {
+    name: "Physique",
+    students: "400+",
+    color: "bg-primary/80",
+    image: "/images/physique.jpg",
+  },
+  {
+    name: "Chimie",
+    students: "350+",
+    color: "bg-secondary/80",
+    image: "/images/chimie.jpg",
+  },
+  {
+    name: "Biologie",
+    students: "500+",
+    color: "bg-primary/90",
+    image: "/images/biologie.jpg",
+  },
+  {
+    name: "Géologie",
+    students: "300+",
+    color: "bg-secondary/90",
+    image: "/images/geologie.jpg",
+  },
+  {
+    name: "Astronomie",
+    students: "150+",
+    color: "bg-primary/70",
+    image: "/images/astronomie.jpg",
+  },
+  {
+    name: "Biotechnologie",
+    students: "250+",
+    color: "bg-secondary/70",
+    image: "/images/biotechnologie.jpg",
+  },
+  {
+    name: "Sciences de l'Environnement",
+    students: "320+",
+    color: "bg-primary/60",
+    image: "/images/environnement.jpg",
+  },
+  {
+    name: "Statistiques",
+    students: "280+",
+    color: "bg-secondary/60",
+    image: "/images/statistiques.jpg",
+  },
+  {
+    name: "Océanographie",
+    students: "180+",
+    color: "bg-primary/50",
+    image: "/images/oceanographie.jpg",
+  },
+  {
+    name: "Météorologie",
+    students: "200+",
+    color: "bg-secondary/50",
+    image: "/images/meteorologie.jpg",
+  },
+  {
+    name: "Géophysique",
+    students: "160+",
+    color: "bg-primary/40",
+    image: "/images/geophysique.jpg",
+  },
+  {
+    name: "Sciences des Matériaux",
+    students: "220+",
+    color: "bg-secondary/40",
+    image: "/images/materiaux.jpg",
+  },
+];
+
 export default function getAllMention() {
   return mentions;
 }
@@ -750,4 +838,8 @@ export function getParcoursById(id: string) {
 
 export function getStatsById(id: string) {
   return Stats.find((stat) => stat.id === id)?.stats;
+}
+
+export function getAllDepartments() {
+  return departments;
 }

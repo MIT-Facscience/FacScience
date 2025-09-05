@@ -15,19 +15,20 @@ import InscriptionPage from "./formation/inscription/page";
 import AdminPage from "./admin/page";
 import AllMention from "./formation/allMention";
 import FraisPage from "./formation/frais/page";
-import InscriptionPage from "./formation/inscription/page";
+// import InscriptionPage from "./formation/inscription/page";
 import MathInfoPage from "./formation/mathematiques-informatique/page";
-import MITPage from "./formation/mit/page";
+// import MITPage from "./formation/mit/page";
 import HistoirePage from "./presentation/histoire/page";
 import OrganigrammePage from "./presentation/organigramme/page";
 import VisionPage from "./presentation/vision/page";
-import EcoleDoctoralePage from "./recherche/ecole-doctorale/page";
-import LaboratoiresPage from "./recherche/laboratoires/page";
-import PublicationsPage from "./recherche/publications/page";
+// import EcoleDoctoralePage from "./recherche/ecole-doctorale/page";
+// import LaboratoiresPage from "./recherche/laboratoires/page";
+// import PublicationsPage from "./recherche/publications/page";
 import ListesAdmisPage from "./resultats/listes-admis/page";
-import AllMention from "./formation/allMention";
+// import AllMention from "./formation/allMention";
 import FormationItems from "./formation/formationItems";
-import MathInfoPage from "./formation/mathematiques-informatique/page";
+import ResultatsPage from "./resultats/page";
+// import MathInfoPage from "./formation/mathematiques-informatique/page";
 export default function App() {
   return (
     <div className="min-h-screen">
