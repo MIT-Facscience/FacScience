@@ -22,7 +22,8 @@ import {
   ChevronDown,
 
   MessageCircleMore,
-  Mailbox
+  Mailbox,
+  BookText
 } from "lucide-react"
 
 export default function ContactPage() {
@@ -152,13 +153,13 @@ export default function ContactPage() {
       <div className="container mx-auto px-4 py-12 relative z-10">
         {/* Hero Section */}
         <div className="text-center mb-16 relative">
-          <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-full text-sm font-medium text-purple-700 mb-6">
+          <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-full text-sm font-medium text-primary mb-6">
             <Star className="h-4 w-4" />
             Faculté d'Excellence
             <Star className="h-4 w-4" />
           </div>
           
-          <h1 className="text-6xl font-black bg-gradient-to-r from-purple-600 via-purple-700 to-amber-100 bg-clip-text text-transparent mb-6 leading-tight">
+          <h1 className="text-6xl font-black bg-primary bg-clip-text text-transparent mb-6 leading-tight">
             Contactez-nous
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
@@ -167,7 +168,7 @@ export default function ContactPage() {
           </p>
           
           {/* Stats rapides */}
-          <div className="flex justify-center gap-8 mt-12">
+          {/* <div className="flex justify-center gap-8 mt-12">
             <div className="text-center group cursor-pointer">
               <div className="w-16 h-16 mx-auto bg-purple-300 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
                 <Users className="h-8 w-8 text-white" />
@@ -189,21 +190,21 @@ export default function ContactPage() {
               <p className="text-2xl font-bold text-purple-300">50+</p>
               <p className="text-sm text-slate-600">Années</p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Colonne principale */}
           <div className="lg:col-span-2 space-y-8">
             {/* Coordonnées générales */}
-            <div className="bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-500 overflow-hidden relative group rounded-lg">
+            <div className="bg-white/80 backdrop-blur-sm border-0  transition-all duration-500 overflow-hidden relative group ">
               <div className="absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="p-6 relative">
                 <div className="flex items-center gap-3 text-2xl mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-700 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                     <Building className="h-6 w-6 text-white" />
                   </div>
-                  <span className="bg-purple-700 bg-clip-text text-transparent font-bold">
+                  <span className="bg-primary bg-clip-text text-transparent font-bold">
                     Informations Principales
                   </span>
                 </div>
@@ -211,30 +212,30 @@ export default function ContactPage() {
                 <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-6">
-                      <div className="p-4 border-gradient-to-r from-purple-50 to-purple-100/50 rounded-xl border border-purple-200/50">
+                      <div className="p-4 border-gradient-to-r from-purple-50 to-purple-100/50  border border-amber-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-purple-100 to-purple-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-amber-200/100 rounded-full flex items-center justify-center flex-shrink-0">
                             <MapPin className="h-5 w-5 text-white" />
                           </div>
                           <div>
-                            <h4 className="font-bold text-purple-800 mb-2">Notre Adresse</h4>
+                            <h4 className="font-bold text-secondary mb-2">Notre Adresse</h4>
                             <p className="text-slate-700 leading-relaxed">
                               Faculté des Sciences<br />
                               Université d'Antananarivo<br />
                               BP 906, Antananarivo 101<br />
-                              <span className="text-purple-600 font-semibold">Madagascar 🇲🇬</span>
+                              <span className="text-amber-400 font-semibold">Madagascar 🇲🇬</span>
                             </p>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="p-4 border-gradient-to-r from-amber-50 to-amber-100/50 rounded-xl border border-amber-200/50">
+                      <div className="p-4 border-gradient-to-r from-amber-50 to-amber-100/50  border border-amber-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-amber-100 to-orange-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-amber-200/100 rounded-full flex items-center justify-center flex-shrink-0">
                             <Phone className="h-5 w-5 text-white" />
                           </div>
                           <div>
-                            <h4 className="font-bold text-amber-800 mb-2">Téléphone</h4>
+                            <h4 className="font-bold text-secondary mb-2">Téléphone</h4>
                             <p className="text-slate-700">
                               <span className="block text-lg font-semibold">+261 20 22 123 40</span>
                               <span className="text-sm text-slate-500">Fax: +261 20 22 123 41</span>
@@ -245,13 +246,13 @@ export default function ContactPage() {
                     </div>
                     
                     <div className="space-y-6">
-                      <div className="p-4 border-gradient-to-r from-purple-50 to-purple-100/50 rounded-xl border border-purple-200/50">
+                      <div className="p-4 border-gradient-to-r from-purple-50 to-purple-100/50  border border-amber-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-purple-100 to-indigo-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-amber-200/100 rounded-full flex items-center justify-center flex-shrink-0">
                             <Mail className="h-5 w-5 text-white" />
                           </div>
                           <div>
-                            <h4 className="font-bold text-purple-800 mb-2">Email</h4>
+                            <h4 className="font-bold text-secondary mb-2">Email</h4>
                             <p className="text-slate-700 space-y-1">
                               <span className="block hover:text-purple-600 cursor-pointer transition-colors">contact@sciences.univ-antananarivo.mg</span>
                               <span className="block hover:text-purple-600 cursor-pointer transition-colors">doyen@sciences.univ-antananarivo.mg</span>
@@ -260,13 +261,13 @@ export default function ContactPage() {
                         </div>
                       </div>
                       
-                      <div className="p-4 border-gradient-to-r from-amber-50 to-yellow-100/50 rounded-xl border border-amber-200/50">
+                      <div className="p-4 border-gradient-to-r from-amber-50 to-yellow-100/50  border border-amber-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-amber-100 to-yellow-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-amber-200/100 rounded-full flex items-center justify-center flex-shrink-0">
                             <Clock className="h-5 w-5 text-white" />
                           </div>
                           <div>
-                            <h4 className="font-bold text-amber-800 mb-2">Horaires</h4>
+                            <h4 className="font-bold text-secondary mb-2">Horaires</h4>
                             <p className="text-slate-700 text-sm space-y-1">
                               <span className="block">📅 Lun-Ven: <strong>7h30 - 17h00</strong></span>
                               <span className="block">📅 Samedi: <strong>8h00 - 12h00</strong></span>
@@ -305,11 +306,11 @@ export default function ContactPage() {
             </div>
 
             {/* Formulaire de contact */}
-            <div className="bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-amber-500/10 hover:shadow-amber-500/20 transition-all duration-500 overflow-hidden relative group rounded-lg">
+            <div className="bg-white/80 backdrop-blur-sm border-1 border-purple-100  transition-all duration-500 overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-purple-500/5 opacity-0"></div>
               <div className="p-6 relative">
                 <div className="flex items-center gap-3 text-2xl mb-2">
-                  <div className="w-12 h-12 bg-amber-300 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-border rounded-full flex items-center justify-center">
                     <MessageSquare className="h-6 w-6 text-white" />
                   </div>
                   <span className="bg-border bg-clip-text text-transparent font-bold">
@@ -321,7 +322,7 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-bold text-slate-700 mb-2  flex items-center gap-2">
                         <Heart className="h-4 w-4 text-border" />
                         Nom complet
                       </label>
@@ -331,11 +332,11 @@ export default function ContactPage() {
                         value={formData.nom}
                         onChange={handleInputChange}
                         placeholder="Votre nom complet" 
-                        className="w-full px-4 py-3 border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none"
+                        className="w-full px-4 py-3 border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300  h-12 outline-none"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                         <Mail className="h-4 w-4 text-border" />
                         Email
                       </label>
@@ -345,13 +346,13 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="votre.email@exemple.com" 
-                        className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-amber-100 transition-all duration-300 rounded-xl h-12 outline-none"
+                        className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300  h-12 outline-none"
                       />
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
                         <Phone className="h-4 w-4 text-border" />
                         Téléphone
                       </label>
@@ -361,11 +362,11 @@ export default function ContactPage() {
                         value={formData.telephone}
                         onChange={handleInputChange}
                         placeholder="+261 XX XX XXX XX" 
-                        className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none"
+                        className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300  h-12 outline-none"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
+                      <label className="text-sm font-bold text-slate-700 mb-2  flex items-center gap-2">
                         <Zap className="h-4 w-4 text-border" />
                         Sujet
                       </label>
@@ -374,7 +375,7 @@ export default function ContactPage() {
                           name="sujet"
                           value={formData.sujet}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none appearance-none bg-white"
+                          className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300  h-12 outline-none appearance-none bg-white"
                         >
                           <option value="">Choisir un sujet</option>
                           <option value="admission">🎓 Admission</option>
@@ -397,12 +398,12 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={handleInputChange}
                       placeholder="Décrivez votre demande en détail... " 
-                      className="w-full px-4 py-3 min-h-[140px] border-1 border-border focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl resize-none outline-none"
+                      className="w-full px-4 py-3 min-h-[140px] border-1 border-border focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300  resize-none outline-none"
                     />
                   </div>
                   <button 
                     type="submit"
-                    className="w-full h-14 bg-purple-300 hover:from-purple-700 hover:to-amber-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
+                    className="w-full h-14 bg-border hover:from-purple-700 hover:to-amber-700 text-white font-bold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
                   >
                     <Send className="h-5 w-5" />
                     Envoyer le message 
@@ -414,13 +415,13 @@ export default function ContactPage() {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <div className="bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-purple-500/10 overflow-hidden rounded-lg">
+            <div className="bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-purple-500/5 overflow-hidden ">
               <div className="p-6">
                 <div className="flex items-center gap-3 text-xl mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                     <Microscope className="h-5 w-5 text-white" />
                   </div>
-                  <span className="bg-gradient-to-r from-purple-700 to-indigo-600 bg-clip-text text-transparent font-bold">
+                  <span className="bg-primary bg-clip-text text-transparent font-bold">
                     Départements
                   </span>
                 </div>
@@ -429,11 +430,12 @@ export default function ContactPage() {
                   {departements_contacts.slice(0, 3).map((dept, index) => (
                     <div
                       key={index}
-                      className="group p-4 rounded-xl bg-gray-50  hover:to-amber-50 border border-slate-200 hover:border-purple-300 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                      className="group p-4  bg-gray-50  hover:to-amber-50 border border-slate-200 hover:border-purple-300 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
                     >
                       <div className="flex items-center gap-3 mb-2">
-                        <div className={`w-8 h-8 bg-gradient-to-r ${dept.color} rounded-lg flex items-center justify-center text-sm`}>
-                          {dept.icon}
+                        <div className={`min-w-8 h-8 bg-gradient-to-r bg-amber-200 rounded-full flex items-center justify-center text-sm`}>
+                          {/* {dept.icon} */}
+                          <BookText className="w-4 h-4 text-white"/>
                         </div>
                         <h4 className="font-bold text-slate-800 text-sm group-hover:text-purple-700 transition-colors">
                           {dept.nom}
@@ -446,7 +448,7 @@ export default function ContactPage() {
                       </div>
                     </div>
                   ))}
-                  <button className="w-full mt-4 px-4 py-2 border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50 rounded-lg text-purple-700 font-medium transition-all duration-300">
+                  <button className="w-full mt-4 px-4 py-2 border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50  text-purple-700 font-medium transition-all duration-300">
                     Voir tous les départements
                   </button>
                 </div>
@@ -454,7 +456,7 @@ export default function ContactPage() {
             </div>
 
             {/* Quick actions */}
-            <div className="bg-white border-1 border-purple-200 text-white overflow-hidden relative rounded-lg">
+            <div className="bg-white border-1 border-purple-200 text-white overflow-hidden relative">
               <div className="absolute inset-0 "></div>
               <div className="p-6 relative">
                 <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
@@ -491,24 +493,24 @@ export default function ContactPage() {
         </div>
 
         {/* Section départements complète */}
-        <div className="mt-12 bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-purple-500/10 overflow-hidden rounded-lg">
+        <div className="mt-12 bg-white/80 backdrop-blur-sm border-0  overflow-hidden ">
           <div className="p-6">
             <div className="flex items-center gap-3 text-2xl mb-6">
-              <div className="w-12 h-12 bg-purple-300 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-border rounded-full flex items-center justify-center">
                 <Building className="h-6 w-6 text-white" />
               </div>
-              <span className="bg-purple-700 bg-clip-text text-transparent font-bold">
+              <span className="bg-primary bg-clip-text text-transparent font-bold">
                 Tous nos Départements & Services
               </span>
             </div>
             
             <div className="w-full">
-              <div className="flex bg-gradient-to-r from-purple-100 to-amber-100 p-1 rounded-xl mb-6">
+              <div className="flex bg-gradient-to-r from-purple-100 to-amber-100 p-1 mb-6">
                 <button 
                   onClick={() => setActiveTab("departements")}
-                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 ${
+                  className={`flex-1 py-3 px-4  font-semibold transition-all duration-300 ${
                     activeTab === "departements" 
-                      ? "bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-lg" 
+                      ? "bg-white  shadow-lg" 
                       : "text-purple-700 hover:bg-white/50"
                   }`}
                 >
@@ -516,9 +518,9 @@ export default function ContactPage() {
                 </button>
                 <button 
                   onClick={() => setActiveTab("services")}
-                  className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 ${
+                  className={`flex-1 py-3 px-4 font-semibold transition-all duration-300 ${
                     activeTab === "services" 
-                      ? "bg-amber-500 text-white shadow-lg" 
+                      ? "bg-white shadow-lg" 
                       : "text-amber-700 hover:bg-white/50"
                   }`}
                 >
@@ -529,15 +531,15 @@ export default function ContactPage() {
               {activeTab === "departements" && (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {departements_contacts.map((dept, index) => (
-                    <div key={index} className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-purple-200 bg-gradient-to-br from-white to-slate-50 overflow-hidden rounded-lg">
+                    <div key={index} className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-1 border-purple-100 hover:border-purple-200 bg-gradient-to-br from-white to-slate-50 overflow-hidden">
                       <div className="p-6">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className={`w-12 h-12 bg-gradient-to-r ${dept.color} rounded-xl flex items-center justify-center text-xl`}>
+                          <div className={`min-w-12 h-12 bg-gradient-to-r bg-border rounded-full flex items-center justify-center text-xl`}>
                             {/* {dept.icon} */}
                             <BookOpen className="text-gray-100"/>
                           </div>
                           <div>
-                            <h3 className="text-lg leading-tight group-hover:text-purple-700 transition-colors font-bold">
+                            <h3 className="text-lg leading-tight group-hover:text-border transition-colors font-bold">
                               {dept.nom}
                             </h3>
                             <p className="text-sm font-medium text-slate-600">
@@ -547,25 +549,25 @@ export default function ContactPage() {
                         </div>
                       
                         <div className="space-y-3 mt-4">
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-purple-50 transition-colors group/item cursor-pointer">
-                            <Mail className="h-4 w-4 text-purple-600 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-purple-700 transition-colors truncate">{dept.email}</span>
+                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item cursor-pointer">
+                            <Mail className="h-4 w-4 text-slate-500 group-hover/item:scale-110 transition-transform" />
+                            <span className="text-sm text-slate-600 group-hover/item:text-slate-800 transition-colors truncate">{dept.email}</span>
                           </div>
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-amber-50 transition-colors group/item cursor-pointer">
-                            <Phone className="h-4 w-4 text-amber-600 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-amber-700 transition-colors">{dept.telephone}</span>
+                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item cursor-pointer">
+                            <Phone className="h-4 w-4 text-slate-500 group-hover/item:scale-110 transition-transform" />
+                            <span className="text-sm text-slate-600 group-hover/item:text-slate-800 transition-colors">{dept.telephone}</span>
                           </div>
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-50 transition-colors group/item">
-                            <Building className="h-4 w-4 text-blue-600" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-blue-700 transition-colors">{dept.bureau}</span>
+                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                            <Building className="h-4 w-4 text-slate-500" />
+                            <span className="text-sm text-slate-600 group-hover/item:text-slate-700 transition-colors">{dept.bureau}</span>
                           </div>
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 transition-colors group/item">
-                            <Clock className="h-4 w-4 text-green-600" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-green-700 transition-colors">{dept.horaires}</span>
+                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
+                            <Clock className="h-4 w-4 text-slate-500" />
+                            <span className="text-sm text-slate-600 group-hover/item:text-slate-700 transition-colors">{dept.horaires}</span>
                           </div>
                         </div>
                        <button 
-                          className={`flex w-full items-center justify-center gap-2 mt-4 px-4 py-2 bg-gradient-to-r ${dept.color} hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-white border-0 rounded-lg font-medium`}
+                          className={`flex w-full items-center justify-center gap-2 mt-4 px-4 py-2 bg-gradient-to-r bg-border hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-white border-0  font-medium`}
                         >
                           <h2 className="text-white">Contacter</h2>
                           <MessageCircleMore className="text-gray-100" />
@@ -579,15 +581,15 @@ export default function ContactPage() {
               {activeTab === "services" && (
                 <div className="grid md:grid-cols-2 gap-6">
                   {services_administratifs.map((service, index) => (
-                    <div key={index} className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-amber-200 bg-gradient-to-br from-white to-amber-50/30 overflow-hidden rounded-lg">
+                    <div key={index} className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-2 border-amber-100 hover:border-amber-200 bg-gradient-to-br from-white to-amber-50/30 overflow-hidden">
                       <div className="p-6">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className={`w-12 h-12 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center text-xl shadow-lg`}>
+                          <div className={`w-12 h-12 bg-gradient-to-r bg-secondary rounded-full flex items-center justify-center text-xl shadow-lg`}>
                             {/* {service.icon} */}
                             <Mailbox className="w-6 h-6 text-gray-100 "/>
                           </div>
                           <div>
-                            <h3 className="text-lg group-hover:text-amber-700 transition-colors font-bold">
+                            <h3 className="text-lg group-hover:text-secondary transition-colors font-bold">
                               {service.service}
                             </h3>
                             <p className="text-sm font-medium text-slate-600">
@@ -597,21 +599,21 @@ export default function ContactPage() {
                         </div>
                         
                         <div className="grid grid-cols-1 gap-3 mt-4">
-                          <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 transition-all group/item cursor-pointer">
-                            <Mail className="h-4 w-4 text-amber-600 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-700 group-hover/item:text-amber-800 transition-colors font-medium truncate">{service.email}</span>
+                          <div className="flex items-center gap-3 p-3  bg-gradient-to-r from-slate-50 to-slate-50 hover:from-slate-100 hover:to-slate-100 transition-all group/item cursor-pointer">
+                            <Mail className="h-4 w-4 text-slate-600 group-hover/item:scale-110 transition-transform" />
+                            <span className="text-sm text-slate-700 group-hover/item:text-slate-800 transition-colors font-medium truncate">{service.email}</span>
                           </div>
-                          <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 transition-all group/item cursor-pointer">
-                            <Phone className="h-4 w-4 text-purple-600 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-700 group-hover/item:text-purple-800 transition-colors font-medium">{service.telephone}</span>
+                          <div className="flex items-center gap-3 p-3  bg-gradient-to-r from-slate-50 to-slate-50 hover:from-slate-100 hover:to-slate-100 transition-all group/item cursor-pointer">
+                            <Phone className="h-4 w-4 text-slate-600 group-hover/item:scale-110 transition-transform" />
+                            <span className="text-sm text-slate-700 group-hover/item:text-slate-800 transition-colors font-medium">{service.telephone}</span>
                           </div>
-                          <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 transition-all group/item">
+                          <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 transition-all group/item">
                             <Building className="h-4 w-4 text-slate-600" />
                             <span className="text-sm text-slate-700 group-hover/item:text-slate-800 transition-colors font-medium">{service.bureau}</span>
                           </div>
                         </div>
                         <button 
-                          className={`flex w-full items-center justify-center mt-4 px-4 py-2 bg-gradient-to-r ${service.color} hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-white border-0 rounded-lg font-medium`}
+                          className={`flex w-full items-center justify-center mt-4 px-4 py-2 bg-gradient-to-r bg-secondary hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-white border-0  font-medium`}
                         >
                          <h2>Contacter le Service </h2> 
                          <Phone className="ml-2 w-4 h-4"/>
@@ -627,7 +629,7 @@ export default function ContactPage() {
 
         {/* Section CTA finale */}
         <div className="mt-16 text-center">
-          <div className="bg-purple-100 rounded-3xl p-12 relative overflow-hidden">
+          <div className="bg-purple-100  p-12 relative overflow-hidden">
             <div className="absolute inset-0"></div>
             <div className="absolute top-0 left-1/4 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
@@ -648,11 +650,11 @@ export default function ContactPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button className="px-8 py-4 bg-white text-purple-700 hover:bg-slate-100 font-bold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center gap-2">
+                <button className="px-8 py-4 bg-white text-primary hover:bg-slate-100 font-bold  transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center gap-2">
                   <MessageSquare className="h-5 w-5" />
                   Nous Écrire Maintenant
                 </button>
-                <button className="px-8 py-4 border-2 border-white text-gray-500 hover:bg-white hover:text-purple-700 font-bold rounded-xl transform hover:scale-105 transition-all duration-300 bg-transparent flex items-center gap-2">
+                <button className="px-8 py-4 border-2 border-white text-gray-500 hover:bg-white hover:text-primary font-bold  transform hover:scale-105 transition-all duration-300 bg-transparent flex items-center gap-2">
                   <Phone className="h-5 w-5" />
                   Appeler Directement 
                 </button>
@@ -678,7 +680,7 @@ export default function ContactPage() {
 
         {/* Footer rapide */}
         <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-6 bg-white/80 backdrop-blur-sm px-8 py-4 rounded-2xl shadow-lg border border-slate-200">
+          <div className="inline-flex items-center gap-6 bg-white/80 backdrop-blur-sm px-8 py-4  shadow-lg border border-slate-200">
             <div className="flex items-center gap-2 text-sm">
               <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-slate-600">En ligne maintenant</span>

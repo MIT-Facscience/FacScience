@@ -3,6 +3,7 @@ import MentionsCarousel from "@/components/Home/MentionsCarousel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import PrimaryButton from "@/components/ui/PrimaryButton";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -105,11 +106,12 @@ export default function HomePage() {
                   {latestNews.map((news) => (
                     <Card
                       key={news.id}
-                      className="relative border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card/90 backdrop-blur-sm overflow-hidden"
+                      className="relative border-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card/90 backdrop-blur-sm"
                     >
                       {news.urgent && (
-                        <div className="absolute top-0 right-0 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground px-3 py-1 text-xs font-semibold rounded-bl-lg">
+                        <div className="urgent-clip-path z-40 absolute top-3 -right-1 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground pl-5 pr-3 py-1 text-xs font-semibold">
                           URGENT
+                          <span className="right-0 top-full z-50 bg-amber-400 absolute w-[400px] h-[400px]" />
                         </div>
                       )}
 
@@ -172,14 +174,10 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                <div className="text-center mt-12">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 border-0 shadow-lg"
-                  >
-                    <Link to="/actualites">Voir toutes les actualités</Link>
-                  </Button>
+                <div className="text-center w-full flex items-center justify-center mt-12">
+                  <Link to="/actualites">
+                    <PrimaryButton>Voir toutes les actualités</PrimaryButton>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -199,7 +197,7 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="text-center border-0 shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <Card className="text-center border-0 rounded-none shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <CardContent className="pt-6">
                       <div className="flex justify-center mb-4">
                         <div className="p-3 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full">
@@ -244,7 +242,7 @@ export default function HomePage() {
                 <img
                   src="/chalet.png"
                   alt="Étudiants en bibliothèque"
-                  className="rounded-2xl shadow-xl w-full h-80 object-cover"
+                  className=" shadow-xl w-full h-80 object-cover"
                 />
               </motion.div>
 
@@ -269,20 +267,13 @@ export default function HomePage() {
                   développement scientifique et technologique de la région.
                 </p>
                 <div className="flex space-x-4">
-                  <Button
-                    asChild
-                    className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-                  >
+                  <Button asChild className="rounded-none">
                     <Link to="/presentation/histoire">
                       Notre Histoire
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
-                  <Button
-                    variant="outline"
-                    asChild
-                    className="border-secondary text-secondary-foreground hover:bg-secondary/10 bg-transparent hover:text-secondary-foreground/90"
-                  >
+                  <Button variant="secondary" asChild className="rounded-none">
                     <Link to="/formation">Nos Formations</Link>
                   </Button>
                 </div>

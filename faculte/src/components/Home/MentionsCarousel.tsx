@@ -195,7 +195,7 @@ function MentionsCarousel() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 * index }}
                       >
-                        <Card className="border-0 p-0 pb-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
+                        <Card className="border-0 rounded-none p-0 pb-5 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
                           <CardHeader className="p-0">
                             <div className="relative w-full h-auto mb-4">
                               <img
