@@ -21,7 +21,8 @@ import {
   Microscope,
   ChevronDown,
 
-  MessageCircleMore
+  MessageCircleMore,
+  Mailbox
 } from "lucide-react"
 
 export default function ContactPage() {
@@ -138,11 +139,11 @@ export default function ContactPage() {
     e.preventDefault()
     console.log('Form submitted:', formData)
     // Ici vous pourriez ajouter la logique d'envoi
-    alert('Message envoyé ! Nous vous répondrons sous 24h 🚀')
+    alert('Message envoyé ! Nous vous répondrons sous 24h')
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-amber-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
       {/* Éléments décoratifs flottants */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-purple-400/10 to-amber-400/10 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-amber-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -151,41 +152,41 @@ export default function ContactPage() {
       <div className="container mx-auto px-4 py-12 relative z-10">
         {/* Hero Section */}
         <div className="text-center mb-16 relative">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-100 to-amber-100 px-4 py-2 rounded-full text-sm font-medium text-purple-700 mb-6">
+          <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-full text-sm font-medium text-purple-700 mb-6">
             <Star className="h-4 w-4" />
             Faculté d'Excellence
             <Star className="h-4 w-4" />
           </div>
           
-          <h1 className="text-6xl font-black bg-gradient-to-r from-purple-600 via-purple-700 to-amber-600 bg-clip-text text-transparent mb-6 leading-tight">
+          <h1 className="text-6xl font-black bg-gradient-to-r from-purple-600 via-purple-700 to-amber-100 bg-clip-text text-transparent mb-6 leading-tight">
             Contactez-nous
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
             Nous sommes là pour vous accompagner dans votre parcours scientifique. 
-            <span className="text-purple-600 font-semibold"> Une équipe passionnée</span> à votre service.
+            <span className="text-gray-600 font-semibold"> Une équipe passionnée</span> à votre service.
           </p>
           
           {/* Stats rapides */}
           <div className="flex justify-center gap-8 mt-12">
             <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 mx-auto bg-gradient-to-r from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
+              <div className="w-16 h-16 mx-auto bg-purple-300 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
                 <Users className="h-8 w-8 text-white" />
               </div>
-              <p className="text-2xl font-bold text-purple-700">5000+</p>
+              <p className="text-2xl font-bold text-purple-300">5000+</p>
               <p className="text-sm text-slate-600">Étudiants</p>
             </div>
             <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 mx-auto bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-amber-300/50">
+              <div className="w-16 h-16 mx-auto bg-amber-200 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-amber-300/50">
                 <BookOpen className="h-8 w-8 text-white" />
               </div>
               <p className="text-2xl font-bold text-amber-700">5</p>
               <p className="text-sm text-slate-600">Départements</p>
             </div>
             <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 mx-auto bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
+              <div className="w-16 h-16 mx-auto bg-purple-300 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
                 <Award className="h-8 w-8 text-white" />
               </div>
-              <p className="text-2xl font-bold text-purple-700">50+</p>
+              <p className="text-2xl font-bold text-purple-300">50+</p>
               <p className="text-sm text-slate-600">Années</p>
             </div>
           </div>
@@ -196,13 +197,13 @@ export default function ContactPage() {
           <div className="lg:col-span-2 space-y-8">
             {/* Coordonnées générales */}
             <div className="bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-500 overflow-hidden relative group rounded-lg">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="p-6 relative">
                 <div className="flex items-center gap-3 text-2xl mb-6">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-700 rounded-xl flex items-center justify-center">
                     <Building className="h-6 w-6 text-white" />
                   </div>
-                  <span className="bg-gradient-to-r from-purple-700 to-amber-600 bg-clip-text text-transparent font-bold">
+                  <span className="bg-purple-700 bg-clip-text text-transparent font-bold">
                     Informations Principales
                   </span>
                 </div>
@@ -210,9 +211,9 @@ export default function ContactPage() {
                 <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-6">
-                      <div className="p-4 bg-gradient-to-r from-purple-50 to-purple-100/50 rounded-xl border border-purple-200/50">
+                      <div className="p-4 border-gradient-to-r from-purple-50 to-purple-100/50 rounded-xl border border-purple-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-gradient-to-r from-purple-100 to-purple-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
                             <MapPin className="h-5 w-5 text-white" />
                           </div>
                           <div>
@@ -227,9 +228,9 @@ export default function ContactPage() {
                         </div>
                       </div>
                       
-                      <div className="p-4 bg-gradient-to-r from-amber-50 to-amber-100/50 rounded-xl border border-amber-200/50">
+                      <div className="p-4 border-gradient-to-r from-amber-50 to-amber-100/50 rounded-xl border border-amber-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-gradient-to-r from-amber-100 to-orange-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
                             <Phone className="h-5 w-5 text-white" />
                           </div>
                           <div>
@@ -244,9 +245,9 @@ export default function ContactPage() {
                     </div>
                     
                     <div className="space-y-6">
-                      <div className="p-4 bg-gradient-to-r from-purple-50 to-indigo-100/50 rounded-xl border border-purple-200/50">
+                      <div className="p-4 border-gradient-to-r from-purple-50 to-purple-100/50 rounded-xl border border-purple-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-gradient-to-r from-purple-100 to-indigo-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
                             <Mail className="h-5 w-5 text-white" />
                           </div>
                           <div>
@@ -259,9 +260,9 @@ export default function ContactPage() {
                         </div>
                       </div>
                       
-                      <div className="p-4 bg-gradient-to-r from-amber-50 to-yellow-100/50 rounded-xl border border-amber-200/50">
+                      <div className="p-4 border-gradient-to-r from-amber-50 to-yellow-100/50 rounded-xl border border-amber-200/50">
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 bg-gradient-to-r from-amber-100 to-yellow-200/100 rounded-lg flex items-center justify-center flex-shrink-0">
                             <Clock className="h-5 w-5 text-white" />
                           </div>
                           <div>
@@ -305,13 +306,13 @@ export default function ContactPage() {
 
             {/* Formulaire de contact */}
             <div className="bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-amber-500/10 hover:shadow-amber-500/20 transition-all duration-500 overflow-hidden relative group rounded-lg">
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-purple-500/5 opacity-0"></div>
               <div className="p-6 relative">
                 <div className="flex items-center gap-3 text-2xl mb-2">
-                  <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-amber-300 rounded-xl flex items-center justify-center">
                     <MessageSquare className="h-6 w-6 text-white" />
                   </div>
-                  <span className="bg-gradient-to-r from-amber-700 to-purple-600 bg-clip-text text-transparent font-bold">
+                  <span className="bg-border bg-clip-text text-transparent font-bold">
                     Envoyez-nous un Message
                   </span>
                 </div>
@@ -321,7 +322,7 @@ export default function ContactPage() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
-                        <Heart className="h-4 w-4 text-purple-500" />
+                        <Heart className="h-4 w-4 text-border" />
                         Nom complet
                       </label>
                       <input 
@@ -330,12 +331,12 @@ export default function ContactPage() {
                         value={formData.nom}
                         onChange={handleInputChange}
                         placeholder="Votre nom complet" 
-                        className="w-full px-4 py-3 border-2 border-purple-100 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none"
+                        className="w-full px-4 py-3 border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none"
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
-                        <Mail className="h-4 w-4 text-amber-500" />
+                        <Mail className="h-4 w-4 text-border" />
                         Email
                       </label>
                       <input 
@@ -344,14 +345,14 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="votre.email@exemple.com" 
-                        className="w-full px-4 py-3 border-2 border-amber-100 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 rounded-xl h-12 outline-none"
+                        className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-amber-100 transition-all duration-300 rounded-xl h-12 outline-none"
                       />
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
-                        <Phone className="h-4 w-4 text-purple-500" />
+                        <Phone className="h-4 w-4 text-border" />
                         Téléphone
                       </label>
                       <input 
@@ -360,12 +361,12 @@ export default function ContactPage() {
                         value={formData.telephone}
                         onChange={handleInputChange}
                         placeholder="+261 XX XX XXX XX" 
-                        className="w-full px-4 py-3 border-2 border-purple-100 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none"
+                        className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none"
                       />
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
-                        <Zap className="h-4 w-4 text-amber-500" />
+                        <Zap className="h-4 w-4 text-border" />
                         Sujet
                       </label>
                       <div className="relative">
@@ -373,7 +374,7 @@ export default function ContactPage() {
                           name="sujet"
                           value={formData.sujet}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border-2 border-amber-100 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 transition-all duration-300 rounded-xl h-12 outline-none appearance-none bg-white"
+                          className="w-full px-4 py-3 border-1 border-border focus:border-border focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl h-12 outline-none appearance-none bg-white"
                         >
                           <option value="">Choisir un sujet</option>
                           <option value="admission">🎓 Admission</option>
@@ -382,26 +383,26 @@ export default function ContactPage() {
                           <option value="partenariat">🤝 Partenariat</option>
                           <option value="autre">💭 Autre</option>
                         </select>
-                        <ChevronDown className="h-5 w-5 text-amber-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+                        <ChevronDown className="h-5 w-5 text-border absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
                       </div>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 mb-2 block flex items-center gap-2">
-                      <MessageSquare className="h-4 w-4 text-purple-500" />
+                    <label className="text-sm font-bold text-slate-700 mb-2  flex items-center gap-2">
+                      <MessageSquare className="h-4 w-4 text-border" />
                       Votre Message
                     </label>
                     <textarea 
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Décrivez votre demande en détail... ✨" 
-                      className="w-full px-4 py-3 min-h-[140px] border-2 border-purple-100 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl resize-none outline-none"
+                      placeholder="Décrivez votre demande en détail... " 
+                      className="w-full px-4 py-3 min-h-[140px] border-1 border-border focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 rounded-xl resize-none outline-none"
                     />
                   </div>
                   <button 
                     type="submit"
-                    className="w-full h-14 bg-gradient-to-r from-purple-600 to-amber-600 hover:from-purple-700 hover:to-amber-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
+                    className="w-full h-14 bg-purple-300 hover:from-purple-700 hover:to-amber-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
                   >
                     <Send className="h-5 w-5" />
                     Envoyer le message 
@@ -428,7 +429,7 @@ export default function ContactPage() {
                   {departements_contacts.slice(0, 3).map((dept, index) => (
                     <div
                       key={index}
-                      className="group p-4 rounded-xl bg-gradient-to-r from-white to-slate-50 hover:from-purple-50 hover:to-amber-50 border border-slate-200 hover:border-purple-300 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+                      className="group p-4 rounded-xl bg-gray-50  hover:to-amber-50 border border-slate-200 hover:border-purple-300 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
                     >
                       <div className="flex items-center gap-3 mb-2">
                         <div className={`w-8 h-8 bg-gradient-to-r ${dept.color} rounded-lg flex items-center justify-center text-sm`}>
@@ -453,8 +454,8 @@ export default function ContactPage() {
             </div>
 
             {/* Quick actions */}
-            <div className="bg-gradient-to-br from-purple-500 to-amber-500 border-0 text-white overflow-hidden relative rounded-lg">
-              <div className="absolute inset-0 bg-black/10"></div>
+            <div className="bg-secondary border-0 text-white overflow-hidden relative rounded-lg">
+              <div className="absolute inset-0 "></div>
               <div className="p-6 relative">
                 <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
                   <Zap className="h-6 w-6" />
@@ -464,7 +465,7 @@ export default function ContactPage() {
                   <button className="w-full p-3 bg-white/20 hover:bg-white/30 rounded-lg text-left transition-all duration-300 hover:transform hover:scale-105">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                        📍
+                      <MapPin className="w-6 h-6 text-gray-100"/>
                       </div>
                       <div>
                         <p className="font-semibold">Plan du Campus</p>
@@ -475,7 +476,7 @@ export default function ContactPage() {
                   <button className="w-full p-3 bg-white/20 hover:bg-white/30 rounded-lg text-left transition-all duration-300 hover:transform hover:scale-105">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                        📞
+                        <Phone className="w-6 h-6 text-gray-100"/>
                       </div>
                       <div>
                         <p className="font-semibold">Urgence</p>
@@ -493,10 +494,10 @@ export default function ContactPage() {
         <div className="mt-12 bg-white/80 backdrop-blur-sm border-0 shadow-2xl shadow-purple-500/10 overflow-hidden rounded-lg">
           <div className="p-6">
             <div className="flex items-center gap-3 text-2xl mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-amber-500 rounded-xl flex items-center justify-center">
-                {/* <Building className="h-6 w-6 text-white" /> */}
+              <div className="w-12 h-12 bg-purple-300 rounded-xl flex items-center justify-center">
+                <Building className="h-6 w-6 text-white" />
               </div>
-              <span className="bg-gradient-to-r from-purple-700 to-amber-600 bg-clip-text text-transparent font-bold">
+              <span className="bg-purple-700 bg-clip-text text-transparent font-bold">
                 Tous nos Départements & Services
               </span>
             </div>
@@ -517,7 +518,7 @@ export default function ContactPage() {
                   onClick={() => setActiveTab("services")}
                   className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 ${
                     activeTab === "services" 
-                      ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg" 
+                      ? "bg-amber-500 text-white shadow-lg" 
                       : "text-amber-700 hover:bg-white/50"
                   }`}
                 >
@@ -582,7 +583,8 @@ export default function ContactPage() {
                       <div className="p-6">
                         <div className="flex items-center gap-3 mb-2">
                           <div className={`w-12 h-12 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center text-xl shadow-lg`}>
-                            {service.icon}
+                            {/* {service.icon} */}
+                            <Mailbox className="w-6 h-6 text-gray-100 "/>
                           </div>
                           <div>
                             <h3 className="text-lg group-hover:text-amber-700 transition-colors font-bold">
@@ -625,22 +627,22 @@ export default function ContactPage() {
 
         {/* Section CTA finale */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-purple-600 to-amber-600 rounded-3xl p-12 relative overflow-hidden">
-            <div className="absolute inset-0 bg-black/10"></div>
+          <div className="bg-purple-100 rounded-3xl p-12 relative overflow-hidden">
+            <div className="absolute inset-0"></div>
             <div className="absolute top-0 left-1/4 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
             
-            <div className="relative z-10 text-white">
-              <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
+            <div className="relative z-10 text-gray-400">
+              <div className="inline-flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
                 <Star className="h-4 w-4" />
                 Excellence Scientifique
                 <Star className="h-4 w-4" />
               </div>
               
-              <h2 className="text-4xl font-black mb-4">
+              <h2 className="text-4xl text-gray-400 font-black mb-4">
                 Rejoignez l'Excellence Scientifique !
               </h2>
-              <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+              <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto opacity-90">
                 Une question ? Un projet ? Une collaboration ? 
                 Notre équipe passionnée vous attend !
               </p>
@@ -650,7 +652,7 @@ export default function ContactPage() {
                   <MessageSquare className="h-5 w-5" />
                   Nous Écrire Maintenant
                 </button>
-                <button className="px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-purple-700 font-bold rounded-xl transform hover:scale-105 transition-all duration-300 bg-transparent flex items-center gap-2">
+                <button className="px-8 py-4 border-2 border-white text-gray-500 hover:bg-white hover:text-purple-700 font-bold rounded-xl transform hover:scale-105 transition-all duration-300 bg-transparent flex items-center gap-2">
                   <Phone className="h-5 w-5" />
                   Appeler Directement 
                 </button>
