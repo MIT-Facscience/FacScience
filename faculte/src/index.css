@@ -23,7 +23,7 @@ accent: #010302
   --secondary-foreground: #262626;
   --accent: #010302;
   --accent-foreground: #ffffff;
-  --muted: #e4dee4;
+  --muted: #f1f5f9;
   --muted-foreground: #524751;
   --destructive: #c91a4f;
   --destructive-foreground: #f0e0f0;
@@ -127,4 +127,12 @@ accent: #010302
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.urgent-clip-path {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 10% 50%);
+}
+
+.triangle {
+  clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
 }

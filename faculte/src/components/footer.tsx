@@ -15,7 +15,7 @@ export function Footer() {
       {/* Accent coloré en haut - même style que la navbar */}
       <div className="h-0.5 bg-gradient-to-r from-primary via-purple-500 to-secondary"></div>
 
-      <div className="container mx-auto px-6 pt-16">
+      <div className="container mx-auto px-4 md:px-6 xl:px-8 pt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo et description */}
           <div className="space-y-6 lg:col-span-1">
