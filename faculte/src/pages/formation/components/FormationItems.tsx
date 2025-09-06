@@ -88,7 +88,11 @@ export default function FormationItems() {
                 <div className="space-y-8">
                   {parcours &&
                     parcours.data.map((items, index) => (
-                      <ParcourItems index={index} parcours={items} />
+                      <ParcourItems
+                        key={index}
+                        index={index}
+                        parcours={items}
+                      />
                     ))}
                 </div>
               </div>
