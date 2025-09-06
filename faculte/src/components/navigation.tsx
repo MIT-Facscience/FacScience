@@ -166,7 +166,7 @@ export default function Navigation() {
               className="absolute right-0 top-0 w-80 h-full bg-white/95 backdrop-blur-xl shadow-2xl border-l border-purple-200/40"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-8 space-y-8">
+              <div className="p-5 space-y-8 h-screen overflow-auto">
                 {/* Header mobile coloré */}
                 <div className="flex items-center justify-between pb-6 border-b border-purple-200/50">
                   <Link to="/" className="flex items-center space-x-3">
