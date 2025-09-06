@@ -91,7 +91,7 @@ const mentions = [
   },
   {
     id: "9",
-    name: "PROCEDES ET ECOLOGIE INDUSTRIELLE ",
+    name: "PROCEDES ET ECOLOGIE INDUSTRIELLE",
     icon: <Laptop className="h-8 w-8" />,
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",

@@ -11,13 +11,46 @@ export default function ParcourItems({
 }: {
   parcours: {
     title: string;
-    description: string;
-    color: string;
-    niveau: string;
-    semestre: string[];
+    parcours: string[];
+    specialité?: string[];
   };
   index: number;
 }) {
+  const dataSem = [
+    {
+      value: "licence1",
+      semestre: [1, 2],
+      niveau: "L1",
+      title: "Licence 1",
+    },
+    {
+      value: "licence2",
+      semestre: [3, 4],
+      niveau: "L2",
+      title: "Licence 2",
+    },
+
+    {
+      value: "licence3",
+      semestre: [5, 6],
+      niveau: "L3",
+      title: "Licence 3",
+    },
+
+    {
+      value: "master1",
+      semestre: [7, 8],
+      niveau: "M1",
+      title: "Master 1",
+    },
+
+    {
+      value: "master2",
+      semestre: [9, 10],
+      niveau: "M2",
+      title: "Master 2",
+    },
+  ];
   return (
     <>
       <motion.div
@@ -42,19 +75,32 @@ export default function ParcourItems({
             <div>
               <div className="flex items-center space-x-3">
                 <CardTitle className="text-lg w-full text-gray-800 flex justify-between items-center">
-                  <span>{parcours.title}</span>
+                  <span>
+                    {dataSem.find((d) => d.value == parcours.title)?.title ??
+                      "Licence 1"}
+                  </span>
                   <span className="space-x-2">
                     <Badge variant="secondary" className="text-white">
-                      S{parcours.semestre[0]}
+                      S
+                      {dataSem
+                        .find((d) => d.value == parcours.title)
+                        ?.semestre[0].toString() ?? "1"}
                     </Badge>
-                    <Badge>S{parcours.semestre[1]}</Badge>
+                    <Badge>
+                      S
+                      {dataSem
+                        .find((d) => d.value == parcours.title)
+                        ?.semestre[1].toString() ?? "1"}
+                    </Badge>
                   </span>
                 </CardTitle>
               </div>
             </div>
             <div>
-              <p className="text-gray-600 leading-relaxed font-medium text-xs lg:text-sm">
-                {parcours.description}
+              <p className="text-gray-600 leading-relaxed space-x-2 font-medium text-xs lg:text-sm">
+                {parcours.parcours.map((items, index) => (
+                  <span key={index}>{items}</span>
+                ))}
               </p>
             </div>
 
@@ -72,9 +118,11 @@ export default function ParcourItems({
         </div>
         <div className="relative z-10">
           <div
-            className={`w-10 h-10 text-sm lg:text-lg lg:w-12 lg:h-12 ${parcours.color} rounded-full flex items-center justify-center text-white shadow-lg font-bold`}
+            className={`w-10 h-10 text-sm lg:text-lg lg:w-12 lg:h-12 ${
+              index % 2 == 0 ? "bg-primary" : "bg-amber-500"
+            } rounded-full flex items-center justify-center text-white shadow-lg font-bold`}
           >
-            {parcours.niveau}
+            {dataSem.find((d) => d.value == parcours.title)?.niveau ?? "L1"}
           </div>
         </div>
         <div className="lg:w-full xl:w-1/2 h-12 lg:mx-2 xl:mx-0"></div>

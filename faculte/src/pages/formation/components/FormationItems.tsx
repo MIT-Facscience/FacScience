@@ -1,15 +1,12 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import {
-  getAllParcours,
-  getRespo,
-  getStatsById,
-} from "@/dataTestFormation/mention";
+import { getRespo, getStatsById } from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
 import { Users, Clock, BookOpen, Award, User } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import ParcourItems from "./ParcourItems";
 import { Link } from "react-router-dom";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import getParoursById from "@/dataTestFormation/parcours";
 // import SpecialiteItems from "./SpecialiteItems";
 export default function FormationItems() {
   const id = useSearchParams()[0].toString().split("=")[0];
@@ -17,7 +14,7 @@ export default function FormationItems() {
   const data = getRespo(id);
   const stats = getStatsById(id);
   const icon = [<Users />, <BookOpen />, <Clock />, <Award />];
-  const parcours = getAllParcours();
+  const parcours = getParoursById(id);
   console.log(stats);
   return (
     <>
@@ -89,9 +86,10 @@ export default function FormationItems() {
               <div className="relative h-auto">
                 <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
                 <div className="space-y-8">
-                  {parcours.map((items, index) => (
-                    <ParcourItems index={index} parcours={items} />
-                  ))}
+                  {parcours &&
+                    parcours.data.map((items, index) => (
+                      <ParcourItems index={index} parcours={items} />
+                    ))}
                 </div>
               </div>
             </motion.div>
