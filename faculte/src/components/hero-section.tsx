@@ -48,7 +48,7 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="relative h-[600px] overflow-hidden">
+      <section className="relative h-[700px] overflow-hidden">
         <div className="relative h-full">
           {campusImages.map((image, index) => (
             <div

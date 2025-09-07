@@ -98,7 +98,7 @@ export default function HistoirePage() {
                 <Card key={index} className="rounded-none text-center border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                   <CardContent className="pt-4 sm:pt-6 pb-4 sm:pb-6">
                     <div className="flex justify-center mb-3 sm:mb-4">
-                      <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-600 to-purple-700 text-white">
+                      <div className="p-2 sm:p-3 bg-gradient-to-br from-border/90 to-primary text-white">
                         {stat.icon}
                       </div>
                     </div>
@@ -119,7 +119,7 @@ export default function HistoirePage() {
               <Card className="rounded-none border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100/50 hover:shadow-xl transition-all duration-300">
                 <CardHeader className="pb-4 sm:pb-6">
                   <CardTitle className="text-xl sm:text-2xl text-gray-800 flex items-center space-x-3">
-                    <div className="p-2 bg-purple-600 text-white ">
+                    <div className="p-2 bg-primary/90 text-white ">
                       <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
                     <span>Notre Mission</span>
