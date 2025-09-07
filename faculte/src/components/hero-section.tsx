@@ -10,19 +10,19 @@ export function HeroSection() {
 
   const campusImages = [
     {
-      src: "/devant-fac-science.png",
+      src: "/1.jpg",
       alt: "Campus principal de la Faculté des Sciences",
       title: "Campus Moderne",
       description: "Un environnement d'apprentissage exceptionnel",
     },
     {
-      src: "/chalet.png",
+      src: "/2.jpg",
       alt: "Environnement d'apprentissage",
       title: "Environnement d'apprentissage",
       description: "Ressources documentaires complètes",
     },
     {
-      src: "/science-pierre.png",
+      src: "/3.jpg",
       alt: "Environnement accueillant",
       title: "Environnement accueillant",
       description: "Technologies de pointe pour la recherche",

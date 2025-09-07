@@ -27,8 +27,8 @@ accent: #010302
   --muted-foreground: #524751;
   --destructive: #c91a4f;
   --destructive-foreground: #f0e0f0;
-  --border: #780376;
-  --ring: #780376;
+  --border: #b40ab1;
+  --ring: #a813a6;
   --focus: #9b0799;
   --hover: #b102af;
   --hover-2: #cf02cc;
@@ -138,3 +138,8 @@ accent: #010302
 .triangle {
   clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
 }
+
+
+
+
+    

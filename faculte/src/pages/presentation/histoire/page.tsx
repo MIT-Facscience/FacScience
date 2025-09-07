@@ -10,7 +10,7 @@ export default function HistoirePage() {
       title: "Fondation de la Faculté",
       description: "Création de la Faculté des Sciences de l'Université d'Antananarivo, première institution d'enseignement supérieur scientifique de Madagascar.",
       icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-purple-600"
+      color: "bg-primary"
     },
     {
       year: "1975",
@@ -24,7 +24,7 @@ export default function HistoirePage() {
       title: "Modernisation des Laboratoires",
       description: "Mise en place de laboratoires modernes et acquisition d'équipements de pointe pour la recherche et l'enseignement.",
       icon: <Award className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-purple-500"
+      color: "bg-primary"
     },
     {
       year: "2005",
@@ -38,7 +38,7 @@ export default function HistoirePage() {
       title: "Campus Numérique",
       description: "Lancement du projet de digitalisation avec l'introduction de plateformes d'apprentissage en ligne et de laboratoires virtuels.",
       icon: <Users className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-purple-700"
+      color: "bg-primary"
     },
     {
       year: "2023",
@@ -173,7 +173,7 @@ export default function HistoirePage() {
               {/* Desktop Timeline */}
               <div className="relative hidden lg:block">
                 {/* Ligne centrale */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-ring via-amber-500 to-border rounded-full"></div>
                 
                 <div className="space-y-12">
                   {timelineEvents.map((event, index) => (
@@ -217,7 +217,7 @@ export default function HistoirePage() {
               <div className="lg:hidden">
                 <div className="relative">
                   {/* Ligne verticale à gauche */}
-                  <div className="absolute left-6 top-0 w-0.5 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600"></div>
+                  <div className="absolute left-6 top-0 w-0.5 h-full bg-gradient-to-b from-ring via-amber-500 to-border"></div>
                   
                   <div className="space-y-8">
                     {timelineEvents.map((event, index) => (

@@ -1,75 +1,43 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Badge } from "@/components/ui/badge"
-import { Target, Eye, Lightbulb, Users, Globe, Award, BookOpen, Microscope, Heart, Zap } from "lucide-react"
+import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Globe, Award, Microscope, Calendar } from "lucide-react"
+import { CardContent} from "@/components/ui/card"
+import { Target, Eye, Lightbulb, Users,  BookOpen, Heart, Zap } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function VisionPage() {
-  const objectives = [
+  const latestNews = [
     {
-      title: "Excellence Académique",
-      description: "Maintenir et améliorer la qualité de nos programmes d'enseignement pour former des diplômés compétents et innovants.",
-      icon: <Award className="h-6 w-6" />,
-      color: "bg-purple-600",
-      targets: ["Accréditation internationale", "Programmes modernisés", "Évaluation continue"]
+      title: "Partenariat International: Collaboration avec l'Université etrangeres",
+      description: "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe",
+      image: "/coursera.jpg",
+      date: "Decouvrir",
     },
     {
-      title: "Recherche de Pointe",
-      description: "Développer une recherche scientifique de haut niveau qui contribue à l'avancement des connaissances et au développement durable.",
-      icon: <Microscope className="h-6 w-6" />,
-      color: "bg-amber-600",
-      targets: ["Publications internationales", "Projets collaboratifs", "Innovation technologique"]
+      title: "Bourse d'Excellence: 50 nouveaux étudiants bénéficiaires",
+      description: "Programme de bourses pour promouvoir l'excellence académique et l'inclusion sociale",
+      image: "/coursera.jpg",
+      date: "Decouvrir",
     },
     {
-      title: "Partenariats Stratégiques",
-      description: "Établir et renforcer les collaborations avec les universités, entreprises et institutions de recherche nationales et internationales.",
-      icon: <Globe className="h-6 w-6" />,
-      color: "bg-purple-500",
-      targets: ["Échanges étudiants", "Projets conjoints", "Mobilité enseignante"]
+      title: "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
+      description: "Découvrez les motivations de nos nouveaux enseignants-chercheurs",
+      image: "/coursera.jpg",
+      date: "Decouvrir",
     },
-    {
-      title: "Formation Continue",
-      description: "Offrir des programmes de formation continue et de perfectionnement professionnel pour répondre aux besoins du marché du travail.",
-      icon: <BookOpen className="h-6 w-6" />,
-      color: "bg-amber-500",
-      targets: ["Certifications professionnelles", "Formations courtes", "E-learning"]
-    },
-    {
-      title: "Inclusion et Diversité",
-      description: "Promouvoir l'égalité des chances et l'inclusion de tous les étudiants, indépendamment de leur origine sociale ou géographique.",
-      icon: <Heart className="h-6 w-6" />,
-      color: "bg-purple-700",
-      targets: ["Bourses d'études", "Programmes d'accompagnement", "Accessibilité"]
-    },
-    {
-      title: "Innovation Pédagogique",
-      description: "Intégrer les nouvelles technologies et méthodes pédagogiques pour améliorer l'expérience d'apprentissage des étudiants.",
-      icon: <Zap className="h-6 w-6" />,
-      color: "bg-amber-700",
-      targets: ["Plateformes numériques", "Pédagogie active", "Laboratoires virtuels"]
-    }
   ]
 
-  const visionPoints = [
+  const events = [
     {
-      title: "Centre d'Excellence Régional",
-      description: "Devenir la référence en matière d'enseignement supérieur scientifique dans l'Océan Indien",
-      icon: <Target className="h-8 w-8" />
+      title: "Digitalisation",
+      subtitle: "avec les Laboratoires de Recherche le 10 Déc",
+      date: "A venir",
     },
     {
-      title: "Innovation et Recherche",
-      description: "Être reconnu pour nos contributions à l'innovation scientifique et technologique",
-      icon: <Lightbulb className="h-8 w-8" />
+      title: "Conférence Innovation Technologique",
+      subtitle: "Premier événement",
+      date: "A venir",
     },
-    {
-      title: "Impact Sociétal",
-      description: "Contribuer significativement au développement socio-économique de Madagascar",
-      icon: <Users className="h-8 w-8" />
-    },
-    {
-      title: "Rayonnement International",
-      description: "Établir notre réputation sur la scène scientifique internationale",
-      icon: <Globe className="h-8 w-8" />
-    }
   ]
 
   return (
@@ -103,186 +71,116 @@ export default function VisionPage() {
               </div>
             </motion.div>
 
-            {/* Vision principale */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-16"
-            >
-              <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-300 to-purple-500 text-white overflow-hidden">
-                <CardHeader className="text-center pb-8">
-                  <div className="flex justify-center mb-6">
-                    <div className="p-4 bg-amber-400 rounded-full">
-                      <Eye className="h-12 w-12 text-purple-800" />
-                    </div>
-                  </div>
-                  <CardTitle className="text-4xl mb-6">Notre Vision 2030</CardTitle>
-                  <p className="text-xl text-purple-100 max-w-4xl mx-auto leading-relaxed">
-                    Devenir un centre d'excellence reconnu internationalement pour l'enseignement supérieur et la recherche 
-                    scientifique, tout en étant un acteur clé du développement socio-économique de Madagascar et de la région 
-                    de l'Océan Indien.
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {visionPoints.map((point, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                        className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
-                      >
-                        <div className="flex justify-center mb-4">
-                          <div className="p-3 bg-amber-400 rounded-full text-purple-800">
-                            {point.icon}
-                          </div>
-                        </div>
-                        <h3 className="text-lg font-semibold mb-3 text-amber-100">{point.title}</h3>
-                        <p className="text-sm text-purple-100 leading-relaxed">{point.description}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+            <div className="min-h-screen bg-white">
+              <main className="pt-20 pb-12">
+                <div className="container mx-auto px-4">
+                  {/* Three Column Layout */}
+                  <div className="grid lg:grid-cols-3 gap-8 mb-16">
+                    {/* LATEST Column */}
+                    <div className="space-y-6 p-16">
+                      <h2 className="text-4xl font-black text-gray-900 mb-8">STRATEGIE</h2>
 
-            {/* Objectifs stratégiques */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="mb-16"
-            >
-              <h2 className="text-4xl font-bold text-center mb-4 text-purple-800">
-                Objectifs Stratégiques
-              </h2>
-              <p className="text-xl text-center text-black-600 mb-12 max-w-3xl mx-auto">
-                Six axes prioritaires pour concrétiser notre vision et assurer notre développement durable
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-8">
-                {objectives.map((objective, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
-                  >
-                    <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white/90 backdrop-blur-sm h-full">
-                      <CardHeader>
-                        <div className="flex items-center space-x-4 mb-4">
-                          <div className={`p-3 ${objective.color} rounded-xl text-white`}>
-                            {objective.icon}
+                      {latestNews.map((news, index) => (
+                        <div key={index} className="space-y-4">
+                          <img
+                            src={news.image || "/coursera.jpg"}
+                            alt={news.title}
+                            className="w-full h-32 object-cover"
+                          />
+                          <div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{news.title}</h3>
+                            <p className="text-sm text-gray-600 mb-2">{news.description}</p>
+                            <Badge variant="outline" className="text-xs">
+                              {news.date}
+                            </Badge>
                           </div>
-                          <CardTitle className="text-xl text-black-800">{objective.title}</CardTitle>
                         </div>
-                        <p className="text-black-600 leading-relaxed">{objective.description}</p>
-                      </CardHeader>
-                      <CardContent>
-                        <h4 className="font-semibold text-black-700 mb-3">Cibles prioritaires :</h4>
-                        <div className="space-y-2">
-                          {objective.targets.map((target, targetIndex) => (
-                            <div key={targetIndex} className="flex items-center space-x-2">
-                              <div className={`w-2 h-2 ${objective.color} rounded-full`}></div>
-                              <span className="text-sm text-black-600">{target}</span>
+                      ))}
+                    </div>
+
+                    {/* FEATURE Column */}
+                    <div className="space-y-6 ">
+                      <h2 className="text-4xl font-black text-gray-900 mb-8 text-center">Vision</h2>
+
+                      <div className="text-center">
+                        <h1 className="text-3xl font-serif text-amber-700 mb-8 leading-tight">
+                          Think Global, Act National 
+                        </h1>
+
+                        <img
+                          src="/presidentUniv.png"
+                          alt="Vision 2030"
+                          className="w-full h-64 object-cover mb-6"
+                        />
+
+                        <div className="text-left space-y-4">
+                          <p className="text-gray-700 leading-relaxed">
+                            La nouvelle présidence de l’Université d’Antananarivo a choisi le slogan « Think Global, Act National » comme la ligne conductrice qui portera toute la politique et les actions de l’Université. Ainsi, la stratégie communicationnelle, ainsi que sa traduction au niveau opérationnel, tourneront autour de celle-ci.
+
+L’Université d’Antananarivo s’attache à ses valeurs de modernité à la pointe des technologies. Elle se connecte au monde par tous les moyens. Elle fait partie des leaders dans le domaine de la formation et de la recherche. Dans cette optique, elle développe des formations adaptées aux vrais besoins de la société. L’Université d’Antananarivo, étant le regroupement d’intellectuels, reste une voix que l’on écoute dans les débats publics. Elle reste une référence mondiale sur le plan académique grace à ses partenaires et ses alumnis.
+                          </p>
+
+                          <div className="grid grid-cols-2 gap-4 mt-6">
+                            <div className="text-center p-4 bg-purple-50 rounded-lg">
+                              <div className="text-2xl font-bold text-purple-800">95%</div>
+                              <div className="text-xs text-purple-600">Taux d'employabilité</div>
                             </div>
-                          ))}
+                            <div className="text-center p-4 bg-amber-50 rounded-lg">
+                              <div className="text-2xl font-bold text-amber-800">50+</div>
+                              <div className="text-xs text-amber-600">Publications/an</div>
+                            </div>
+                          </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+                      </div>
+                    </div>
 
-            {/* Indicateurs de performance */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.6 }}
-              className="mb-16"
-            >
-              <Card className="border-0 shadow-xl bg-gradient-to-br from-amber-50 to-amber-100/50">
-                <CardHeader>
-                  <CardTitle className="text-3xl text-center text-amber-800 mb-6">
-                    Indicateurs de Performance 2025-2030
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="text-center p-6 bg-white/80 rounded-2xl shadow-md">
-                      <div className="text-3xl font-bold text-purple-800 mb-2">95%</div>
-                      <div className="text-sm text-purple-600 font-medium">Taux d'employabilité des diplômés</div>
-                    </div>
-                    <div className="text-center p-6 bg-white/80 rounded-2xl shadow-md">
-                      <div className="text-3xl font-bold text-amber-800 mb-2">50+</div>
-                      <div className="text-sm text-amber-600 font-medium">Publications internationales/an</div>
-                    </div>
-                    <div className="text-center p-6 bg-white/80 rounded-2xl shadow-md">
-                      <div className="text-3xl font-bold text-purple-800 mb-2">20+</div>
-                      <div className="text-sm text-purple-600 font-medium">Partenariats internationaux</div>
-                    </div>
-                    <div className="text-center p-6 bg-white/80 rounded-2xl shadow-md">
-                      <div className="text-3xl font-bold text-amber-800 mb-2">100%</div>
-                      <div className="text-sm text-amber-600 font-medium">Programmes accrédités</div>
+                    {/* EVENTS Column */}
+                    <div className="space-y-6 p-16">
+                      <h2 className="text-4xl font-black text-gray-900 mb-8 text-right">STRATEGIE</h2>
+
+                      <img
+                        src="/digital.jpg"
+                        alt="Campus Events"
+                        className="w-full h-32 object-cover rounded-lg"
+                      />
+
+                      <div className="space-y-6">
+                        {events.map((event, index) => (
+                          <div key={index} className="border-b border-gray-200 pb-4">
+                            <h3 className="text-lg font-bold text-gray-900 mb-1">{event.title}</h3>
+                            <p className="text-sm text-gray-600 mb-2">{event.subtitle}</p>
+                            <div className="flex items-center space-x-2">
+                              <Calendar className="h-4 w-4 text-gray-400" />
+                              <span className="text-xs text-gray-500">{event.date}</span>
+                            </div>
+                          </div>
+                        ))}
+
+                        <div className="mt-6">
+                          <a href="#" className="text-sm text-purple-600 hover:text-purple-800 font-medium">
+                            Voir plus d'événements
+                          </a>
+                        </div>
+
+                        <div className="mt-4">
+                          <a href="#" className="text-sm text-purple-600 hover:text-purple-800 font-medium">
+                            Événements à la Demande
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
 
-            {/* Plan d'action */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.8 }}
-            >
-              <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-600 to-purple-800 text-white">
-                <CardHeader>
-                  <CardTitle className="text-3xl text-center mb-6">Plan d'Action 2025-2030</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-3 gap-8">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-amber-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-2xl font-bold text-purple-800">1</span>
-                      </div>
-                      <h3 className="text-xl font-semibold mb-3 text-amber-100">Phase 1 (2025-2026)</h3>
-                      <p className="text-purple-100 text-sm leading-relaxed">
-                        Modernisation des infrastructures, révision des programmes et renforcement des partenariats régionaux.
-                      </p>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-amber-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-2xl font-bold text-purple-800">2</span>
-                      </div>
-                      <h3 className="text-xl font-semibold mb-3 text-amber-100">Phase 2 (2027-2028)</h3>
-                      <p className="text-purple-100 text-sm leading-relaxed">
-                        Développement de la recherche, accréditations internationales et expansion des programmes de formation continue.
-                      </p>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-amber-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-2xl font-bold text-purple-800">3</span>
-                      </div>
-                      <h3 className="text-xl font-semibold mb-3 text-amber-100">Phase 3 (2029-2030)</h3>
-                      <p className="text-purple-100 text-sm leading-relaxed">
-                        Consolidation de la position de leader régional et évaluation des objectifs stratégiques atteints.
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+
+                </div>
+              </main>
+            </div>
+
 
           </div>
         </div>
       </main>
-    </div>
+    </div> 
+    
   )
 }
-
