@@ -22,14 +22,16 @@ accent: #010302
   --secondary: #e6b20b;
   --secondary-foreground: #262626;
   --accent: #010302;
-  --accent-foreground: #ffffff;
+  --accent-foreground: #faf5ff;
   --muted: #f1f5f9;
   --muted-foreground: #524751;
   --destructive: #c91a4f;
   --destructive-foreground: #f0e0f0;
   --border: #780376;
   --ring: #780376;
-  --focus: #780376;
+  --focus: #9b0799;
+  --hover: #b102af;
+  --hover-2: #cf02cc;
   --chart-1: #e6b307;
   --chart-2: #3bb3e6;
   --chart-3: #4a6be6;
