@@ -4,16 +4,20 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Link } from "react-router-dom";
-import math from "/public/departement.png";
+// import math from "/public/departement.png";
+import type { JSX } from "react";
 export default function MentionCard({
   dept,
   index,
 }: {
   dept: {
+    id: string;
     name: string;
     image: string;
-    students: string;
     color: string;
+    icon: JSX.Element;
+    description: string;
+    responsable: string;
   };
   index: number;
 }) {
@@ -28,7 +32,7 @@ export default function MentionCard({
         <CardHeader className="p-0">
           <div className="relative w-full h-48 mb-4">
             <img
-              src={math}
+              src={dept.image}
               alt={`Département ${dept.name}`}
               className="w-full h-full object-cover"
             />
@@ -43,7 +47,7 @@ export default function MentionCard({
         <CardContent className="pt-0">
           <div className="flex items-center justify-between">
             <Badge variant="secondary" className="bg-primary/10 text-primary">
-              {dept.students} étudiants
+              600+ étudiants
             </Badge>
             <Link to={"detail?" + index}>
               <Button

@@ -179,7 +179,7 @@ export default function Navigation() {
               className="absolute right-0 top-0 w-80 h-full bg-card backdrop-blur-xl shadow-2xl border-l border-border overflow-y-auto max-h-screen"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-8 space-y-8">
+              <div className="p-5 space-y-8 h-screen overflow-auto">
                 {/* Header */}
                  <div className="flex items-center justify-between pb-6 border-b border-purple-200/50">
                   <Link to="/" className="flex items-center space-x-3">
@@ -247,10 +247,27 @@ export default function Navigation() {
                 {/* Direct Links */}
                 <div className="space-y-3 pt-6 border-t border-border">
                   {[
-                    { name: "Formation", path: "/formation", base: "/formation" },
-                    { name: "Actualités", path: "/actualites", base: "/actualites" },
-                    { name: "Résultats", path: "/resultats", base: "/resultats" },
-                    { name: "Contact", path: "/contact", base: "/contact", special: true },
+                    {
+                      name: "Formation",
+                      path: "/formation",
+                      base: "/formation",
+                    },
+                    {
+                      name: "Actualités",
+                      path: "/actualites",
+                      base: "/actualites",
+                    },
+                    {
+                      name: "Résultats",
+                      path: "/resultats",
+                      base: "/resultats",
+                    },
+                    {
+                      name: "Contact",
+                      path: "/contact",
+                      base: "/contact",
+                      special: true,
+                    },
                   ].map((link) => (
                     <a
                       key={link.name}

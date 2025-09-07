@@ -25,9 +25,9 @@ import VisionPage from "./pages/presentation/vision/page";
 // import PublicationsPage from "./recherche/publications/page";
 import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 // import AllMention from "./formation/allMention";
-import FormationItems from "./pages/formation/formationItems";
+import FormationItems from "./pages/formation/components/FormationItems";
 import ResultatsPage from "./pages/resultats/page";
-import ParcourDetail from "./pages/formation/ParcourDetail";
+import ParcourDetail from "./pages/formation/components/ParcourDetail";
 // import MathInfoPage from "./formation/mathematiques-informatique/page";
 export default function App() {
   return (
