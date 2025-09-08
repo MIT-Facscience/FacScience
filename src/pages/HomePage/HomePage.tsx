@@ -118,7 +118,7 @@ export default function HomePage() {
                       <CardContent className="p-6">
                         <div className="flex items-start space-x-3 mb-4">
                           <div
-                            className={`p-2 rounded-lg ${
+                            className={`p-2 rounded-none ${
                               news.type === "event"
                                 ? "bg-primary/10 text-primary"
                                 : news.type === "inscription"
@@ -288,7 +288,7 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.3 }}
           >
-            <Card className="border-0 shadow-xl bg-gradient-to-br from-primary/10 to-primary/20 overflow-hidden">
+            <Card className="border-0 shadow-xl bg-gradient-to-br rounded-none from-primary/10 to-primary/20 overflow-hidden">
               <CardContent className="p-12 text-center">
                 <h2 className="text-4xl font-bold mb-6 text-primary">
                   Rejoignez-nous
@@ -301,7 +301,7 @@ export default function HomePage() {
                   <Button
                     asChild
                     size="lg"
-                    className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold"
+                    className="bg-secondary hover:bg-secondary/90 border-none text-secondary-foreground font-semibold"
                   >
                     <Link to="/formation">
                       Découvrir nos formations
@@ -312,7 +312,7 @@ export default function HomePage() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-2 border-secondary text-secondary-foreground hover:bg-secondary/10 bg-transparent hover:text-secondary-foreground/90"
+                    className="border-2 border-secondary rounded-none text-secondary-foreground hover:bg-secondary/10 bg-transparent hover:text-secondary-foreground/90"
                   >
                     <Link to="/contact">Nous contacter</Link>
                   </Button>
