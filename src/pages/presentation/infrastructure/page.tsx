@@ -1,8 +1,15 @@
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Building, Microscope, Computer, BookOpen, Wifi, Car } from "lucide-react"
+import { Footer } from "@/components/footer";
+import Navigation from "@/components/navigation";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  BookOpen,
+  Building,
+  Car,
+  Computer,
+  Microscope,
+  Wifi,
+} from "lucide-react";
 // import Image from "next/image"
 
 export default function InfrastructurePage() {
@@ -14,7 +21,9 @@ export default function InfrastructurePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold mb-4">Infrastructure et Équipements</h1>
+              <h1 className="text-4xl font-bold mb-4">
+                Infrastructure et Équipements
+              </h1>
               <p className="text-xl text-muted-foreground">
                 Découvrez nos installations modernes et équipements de pointe
               </p>
@@ -32,7 +41,9 @@ export default function InfrastructurePage() {
             <div className="space-y-8">
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Notre Campus en imgs</CardTitle>
+                  <CardTitle className="text-2xl">
+                    Notre Campus en imgs
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -46,7 +57,8 @@ export default function InfrastructurePage() {
                       />
                       <h3 className="font-semibold">Façade Principale</h3>
                       <p className="text-sm text-muted-foreground">
-                        Entrée principale de la Faculté des Sciences avec son architecture caractéristique
+                        Entrée principale de la Faculté des Sciences avec son
+                        architecture caractéristique
                       </p>
                     </div>
 
@@ -60,7 +72,8 @@ export default function InfrastructurePage() {
                       />
                       <h3 className="font-semibold">Bâtiments Départements</h3>
                       <p className="text-sm text-muted-foreground">
-                        Complexe des départements avec salles de cours et laboratoires
+                        Complexe des départements avec salles de cours et
+                        laboratoires
                       </p>
                     </div>
 
@@ -88,7 +101,8 @@ export default function InfrastructurePage() {
                       />
                       <h3 className="font-semibold">Monument Emblématique</h3>
                       <p className="text-sm text-muted-foreground">
-                        Monument en pierre avec l'emblème de la Faculté des Sciences
+                        Monument en pierre avec l'emblème de la Faculté des
+                        Sciences
                       </p>
                     </div>
 
@@ -102,7 +116,8 @@ export default function InfrastructurePage() {
                       />
                       <h3 className="font-semibold">Art et Culture</h3>
                       <p className="text-sm text-muted-foreground">
-                        Fresque murale représentant un dinosaure, témoignage de notre patrimoine paléontologique
+                        Fresque murale représentant un dinosaure, témoignage de
+                        notre patrimoine paléontologique
                       </p>
                     </div>
 
@@ -116,7 +131,8 @@ export default function InfrastructurePage() {
                       />
                       <h3 className="font-semibold">Cour Centrale</h3>
                       <p className="text-sm text-muted-foreground">
-                        Grande place centrale du campus, lieu de rassemblement des étudiants
+                        Grande place centrale du campus, lieu de rassemblement
+                        des étudiants
                       </p>
                     </div>
                   </div>
@@ -137,9 +153,12 @@ export default function InfrastructurePage() {
                       <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
                         <Building className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Bâtiment Principal</h3>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Bâtiment Principal
+                      </h3>
                       <p className="text-sm text-muted-foreground mb-3">
-                        Administration, salles de cours magistraux et bureaux des enseignants
+                        Administration, salles de cours magistraux et bureaux
+                        des enseignants
                       </p>
                       <div className="space-y-1 text-xs">
                         <div className="flex justify-between">
@@ -161,7 +180,9 @@ export default function InfrastructurePage() {
                       <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
                         <Microscope className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Complexe Laboratoires</h3>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Complexe Laboratoires
+                      </h3>
                       <p className="text-sm text-muted-foreground mb-3">
                         Laboratoires de recherche et d'enseignement équipés
                       </p>
@@ -185,7 +206,9 @@ export default function InfrastructurePage() {
                       <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
                         <BookOpen className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Bibliothèque Scientifique</h3>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Bibliothèque Scientifique
+                      </h3>
                       <p className="text-sm text-muted-foreground mb-3">
                         Centre de documentation et d'information scientifique
                       </p>
@@ -209,8 +232,12 @@ export default function InfrastructurePage() {
                       <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
                         <Computer className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Centre Informatique</h3>
-                      <p className="text-sm text-muted-foreground mb-3">Salles informatiques et serveurs</p>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Centre Informatique
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Salles informatiques et serveurs
+                      </p>
                       <div className="space-y-1 text-xs">
                         <div className="flex justify-between">
                           <span>Postes:</span>
@@ -231,8 +258,12 @@ export default function InfrastructurePage() {
                       <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
                         <Wifi className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Amphithéâtres</h3>
-                      <p className="text-sm text-muted-foreground mb-3">Espaces pour conférences et cours magistraux</p>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Amphithéâtres
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Espaces pour conférences et cours magistraux
+                      </p>
                       <div className="space-y-1 text-xs">
                         <div className="flex justify-between">
                           <span>Nombre:</span>
@@ -253,8 +284,12 @@ export default function InfrastructurePage() {
                       <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
                         <Car className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Services Annexes</h3>
-                      <p className="text-sm text-muted-foreground mb-3">Cafétéria, parking et espaces verts</p>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Services Annexes
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Cafétéria, parking et espaces verts
+                      </p>
                       <div className="space-y-1 text-xs">
                         <div className="flex justify-between">
                           <span>Parking:</span>
@@ -277,14 +312,18 @@ export default function InfrastructurePage() {
               {/* Équipements par département */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Équipements Spécialisés par Département</CardTitle>
+                  <CardTitle className="text-2xl">
+                    Équipements Spécialisés par Département
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
                     <div className="border rounded-lg p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Physique</Badge>
-                        <h3 className="text-lg font-semibold">Laboratoire de Physique</h3>
+                        <h3 className="text-lg font-semibold">
+                          Laboratoire de Physique
+                        </h3>
                       </div>
                       <div className="grid md:grid-cols-2 gap-4 text-sm">
                         <ul className="space-y-2">
@@ -305,7 +344,9 @@ export default function InfrastructurePage() {
                     <div className="border rounded-lg p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Chimie</Badge>
-                        <h3 className="text-lg font-semibold">Laboratoire de Chimie</h3>
+                        <h3 className="text-lg font-semibold">
+                          Laboratoire de Chimie
+                        </h3>
                       </div>
                       <div className="grid md:grid-cols-2 gap-4 text-sm">
                         <ul className="space-y-2">
@@ -326,7 +367,9 @@ export default function InfrastructurePage() {
                     <div className="border rounded-lg p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Biologie</Badge>
-                        <h3 className="text-lg font-semibold">Laboratoire de Biologie</h3>
+                        <h3 className="text-lg font-semibold">
+                          Laboratoire de Biologie
+                        </h3>
                       </div>
                       <div className="grid md:grid-cols-2 gap-4 text-sm">
                         <ul className="space-y-2">
@@ -347,7 +390,9 @@ export default function InfrastructurePage() {
                     <div className="border rounded-lg p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Informatique</Badge>
-                        <h3 className="text-lg font-semibold">Centre de Calcul</h3>
+                        <h3 className="text-lg font-semibold">
+                          Centre de Calcul
+                        </h3>
                       </div>
                       <div className="grid md:grid-cols-2 gap-4 text-sm">
                         <ul className="space-y-2">
@@ -371,15 +416,20 @@ export default function InfrastructurePage() {
               {/* Projets d'amélioration */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Projets d'Amélioration en Cours</CardTitle>
+                  <CardTitle className="text-2xl">
+                    Projets d'Amélioration en Cours
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div className="p-4 bg-accent/10 rounded-lg">
-                        <h3 className="font-semibold text-accent mb-2">Modernisation des Laboratoires</h3>
+                        <h3 className="font-semibold text-accent mb-2">
+                          Modernisation des Laboratoires
+                        </h3>
                         <p className="text-sm text-muted-foreground">
-                          Renouvellement des équipements scientifiques avec l'appui de nos partenaires internationaux.
+                          Renouvellement des équipements scientifiques avec
+                          l'appui de nos partenaires internationaux.
                         </p>
                         <Badge variant="outline" className="mt-2">
                           En cours
@@ -387,9 +437,12 @@ export default function InfrastructurePage() {
                       </div>
 
                       <div className="p-4 bg-accent/10 rounded-lg">
-                        <h3 className="font-semibold text-accent mb-2">Extension Bibliothèque</h3>
+                        <h3 className="font-semibold text-accent mb-2">
+                          Extension Bibliothèque
+                        </h3>
                         <p className="text-sm text-muted-foreground">
-                          Agrandissement de la bibliothèque et numérisation du fonds documentaire.
+                          Agrandissement de la bibliothèque et numérisation du
+                          fonds documentaire.
                         </p>
                         <Badge variant="outline" className="mt-2">
                           Planifié 2025
@@ -399,9 +452,12 @@ export default function InfrastructurePage() {
 
                     <div className="space-y-4">
                       <div className="p-4 bg-accent/10 rounded-lg">
-                        <h3 className="font-semibold text-accent mb-2">Campus Numérique</h3>
+                        <h3 className="font-semibold text-accent mb-2">
+                          Campus Numérique
+                        </h3>
                         <p className="text-sm text-muted-foreground">
-                          Déploiement du WiFi sur tout le campus et mise en place d'outils numériques.
+                          Déploiement du WiFi sur tout le campus et mise en
+                          place d'outils numériques.
                         </p>
                         <Badge variant="outline" className="mt-2">
                           En cours
@@ -409,9 +465,12 @@ export default function InfrastructurePage() {
                       </div>
 
                       <div className="p-4 bg-accent/10 rounded-lg">
-                        <h3 className="font-semibold text-accent mb-2">Éco-Campus</h3>
+                        <h3 className="font-semibold text-accent mb-2">
+                          Éco-Campus
+                        </h3>
                         <p className="text-sm text-muted-foreground">
-                          Installation de panneaux solaires et mise en place d'un système de gestion des déchets.
+                          Installation de panneaux solaires et mise en place
+                          d'un système de gestion des déchets.
                         </p>
                         <Badge variant="outline" className="mt-2">
                           Étude
@@ -428,5 +487,5 @@ export default function InfrastructurePage() {
 
       <Footer />
     </div>
-  )
+  );
 }
