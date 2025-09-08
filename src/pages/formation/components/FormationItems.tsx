@@ -1,5 +1,5 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { getRespo, getStatsById } from "@/dataTestFormation/mention";
+// import { getRespo, getStatsById } from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
 import { Users, Clock, BookOpen, Award, User } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
@@ -12,11 +12,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export default function FormationItems() {
   const id = useSearchParams()[0].toString().split("=")[0];
   console.log(id);
-  const data = getRespo(id);
-  const stats = getStatsById(id);
+  const data = {
+    name:"Formation",
+    respo:"Rasoa RAKOTOARIMANANA"
+  };
+  type Stat = { label: string; value: string | number }[];
+  const stats: Stat = [
+    { label: "sasa", value: "" },
+  ];
   const icon = [<Users />, <BookOpen />, <Clock />, <Award />];
   const parcours = getParoursById(id);
-  console.log(stats);
+  // console.log(stats);
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
