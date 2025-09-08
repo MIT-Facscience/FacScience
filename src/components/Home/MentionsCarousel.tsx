@@ -10,85 +10,85 @@ function MentionsCarousel() {
   const departments = [
     {
       name: "Mathématiques et Informatique",
-      students: "800+",
+      students: "+10",
       color: "bg-primary",
       image: "/mathematiques.jpg",
     },
     {
       name: "MIT",
-      students: "600+",
+      students: "+5",
       color: "bg-secondary",
       image: "/images/informatique.jpg",
     },
     {
       name: "Physique",
-      students: "400+",
+      students: "+6",
       color: "bg-primary/80",
       image: "/images/physique.jpg",
     },
     {
       name: "Chimie",
-      students: "350+",
+      students: "+7",
       color: "bg-secondary/80",
       image: "/images/chimie.jpg",
     },
     {
       name: "Biologie",
-      students: "500+",
+      students: "+8",
       color: "bg-primary/90",
       image: "/images/biologie.jpg",
     },
     {
       name: "Géologie",
-      students: "300+",
+      students: "+2",
       color: "bg-secondary/90",
       image: "/images/geologie.jpg",
     },
     {
       name: "Astronomie",
-      students: "150+",
+      students: "+7",
       color: "bg-primary/70",
       image: "/images/astronomie.jpg",
     },
     {
       name: "Biotechnologie",
-      students: "250+",
+      students: "+3",
       color: "bg-secondary/70",
       image: "/images/biotechnologie.jpg",
     },
     {
       name: "Sciences de l'Environnement",
-      students: "320+",
+      students: "+2",
       color: "bg-primary/60",
       image: "/images/environnement.jpg",
     },
     {
       name: "Statistiques",
-      students: "280+",
+      students: "+4",
       color: "bg-secondary/60",
       image: "/images/statistiques.jpg",
     },
     {
       name: "Océanographie",
-      students: "180+",
+      students: "+4",
       color: "bg-primary/50",
       image: "/images/oceanographie.jpg",
     },
     {
       name: "Météorologie",
-      students: "200+",
+      students: "+5",
       color: "bg-secondary/50",
       image: "/images/meteorologie.jpg",
     },
     {
       name: "Géophysique",
-      students: "160+",
+      students: "+7",
       color: "bg-primary/40",
       image: "/images/geophysique.jpg",
     },
     {
       name: "Sciences des Matériaux",
-      students: "220+",
+      students: "+3",
       color: "bg-secondary/40",
       image: "/images/materiaux.jpg",
     },
@@ -217,7 +217,7 @@ function MentionsCarousel() {
                                 variant="secondary"
                                 className="bg-primary/10 text-primary"
                               >
-                                {dept.students} étudiants
+                                {dept.students} parcours
                               </Badge>
                               <Button
                                 variant="ghost"

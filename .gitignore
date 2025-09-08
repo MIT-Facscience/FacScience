@@ -8,10 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+dist/*
 dist-ssr
 *.local
-dist/
+
 node_modules/
 # Editor directories and files
 .vscode/*
@@ -23,3 +23,5 @@ node_modules/
 *.njsproj
 *.sln
 *.sw?
+*.lock
+pnpm-lock.yaml
