@@ -1,30 +1,31 @@
-import React, { useState } from "react";
-
-type NodeProps = {
-  title: string;
-  subtitle?: string;
-  children?: React.ReactNode;
-  collapsible?: boolean;
-};
-
-function Node({ title, subtitle, children, collapsible }: NodeProps) {
-  const [open, setOpen] = useState(true);
-  return (
-    <div className="flex flex-col items-center relative">
+{
+  /*
+  type NodeProps = {
+    title: string;
+    subtitle?: string;
+    children?: React.ReactNode;
+    collapsible?: boolean;
+  };
+  function Node({ title, subtitle, children, collapsible }: NodeProps) {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="flex flex-col items-center relative">
       <div
-        className="border rounded-lg shadow-sm px-4 py-2 min-w-[140px] text-center bg-white hover:shadow-md cursor-pointer"
-        onClick={() => collapsible && setOpen((v) => !v)}
+      className="border rounded-lg shadow-sm px-4 py-2 min-w-[140px] text-center bg-white hover:shadow-md cursor-pointer"
+      onClick={() => collapsible && setOpen((v) => !v)}
       >
-        <div className="font-semibold text-sm">{title}</div>
-        {subtitle && <div className="text-xs text-gray-500">{subtitle}</div>}
+      <div className="font-semibold text-sm">{title}</div>
+      {subtitle && <div className="text-xs text-gray-500">{subtitle}</div>}
       </div>
       {collapsible ? (
         <div className="mt-2 w-full">{open ? children : null}</div>
       ) : (
         <div className="mt-2 w-full">{children}</div>
       )}
-    </div>
-  );
+      </div>
+    );
+  }
+  */
 }
 
 export default function Organigramme() {
@@ -35,11 +36,12 @@ export default function Organigramme() {
           <div className="mx-auto">
             <div className="p-6 bg-gray-50 min-h-screen">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-2xl font-bold mb-8 text-center">Organigramme - COFAC / Doyen</h2>
+                <h2 className="text-2xl font-bold mb-8 text-center">
+                  Organigramme - COFAC / Doyen
+                </h2>
 
                 {/* Structure principale */}
                 <div className="flex flex-col items-center space-y-8">
-                  
                   {/* Niveau 1: COFAC */}
                   <div className="flex flex-col items-center">
                     <div className="border-2 rounded-lg px-8 py-3 bg-blue-100 shadow-md font-bold text-lg">
@@ -51,7 +53,6 @@ export default function Organigramme() {
 
                   {/* Niveau 2: Conseil, Doyen, Collège */}
                   <div className="relative">
-
                     {/* Ligne horizontale connectant les trois éléments */}
                     <div className="absolute left-0 right-0 -top-8 h-1 bg-gray-400 transform -translate-y-1/2"></div>
                     {/* Lignes verticales descendantes */}
@@ -78,7 +79,6 @@ export default function Organigramme() {
                   {/* Structure principale sous le Doyen */}
                   <div className="w-full max-w-5xl">
                     <div className="flex justify-between items-start">
-                      
                       {/* Colonne gauche: Mention -> Parcours -> Labo */}
                       <div className="flex flex-col items-center space-y-4">
                         <div className="border rounded-lg px-4 py-2 bg-green-50 shadow-sm min-w-[120px] text-center">
@@ -96,33 +96,48 @@ export default function Organigramme() {
 
                       {/* Section centrale: Vice-Doyens et services */}
                       <div className="flex-1 flex flex-col items-center space-y-8">
-                        
                         {/* Ligne des Vice-Doyens et autres postes */}
                         <div className="relative w-full">
                           <div className="flex justify-center items-center gap-8">
                             <div className="border rounded-lg px-4 py-2 bg-white shadow-sm min-w-[120px] text-center">
-                              <div className="font-semibold text-sm">Secrétaire</div>
+                              <div className="font-semibold text-sm">
+                                Secrétaire
+                              </div>
                             </div>
                             <div className="border rounded-lg px-4 py-2 bg-white shadow-sm min-w-[120px] text-center">
                               <div className="font-semibold text-sm">DICOS</div>
                             </div>
                             <div className="flex flex-col items-center">
                               <div className="border rounded-lg px-4 py-2 bg-purple-50 shadow-sm min-w-[120px] text-center cursor-pointer hover:shadow-md">
-                                <div className="font-semibold text-sm">Vice-Doyen</div>
-                                <div className="text-xs text-gray-500">Formation</div>
+                                <div className="font-semibold text-sm">
+                                  Vice-Doyen
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  Formation
+                                </div>
                               </div>
                               <div className="w-1 h-4 bg-gray-400"></div>
                               <div className="border rounded-lg px-4 py-2 bg-blue-50 shadow-sm">
-                                <div className="text-sm">Association étudiants</div>
+                                <div className="text-sm">
+                                  Association étudiants
+                                </div>
                               </div>
                             </div>
                             <div className="border rounded-lg px-4 py-2 bg-purple-50 shadow-sm min-w-[120px] text-center">
-                              <div className="font-semibold text-sm">Vice-Doyen</div>
-                              <div className="text-xs text-gray-500">Recherche</div>
+                              <div className="font-semibold text-sm">
+                                Vice-Doyen
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                Recherche
+                              </div>
                             </div>
                             <div className="border rounded-lg px-4 py-2 bg-purple-50 shadow-sm min-w-[120px] text-center">
-                              <div className="font-semibold text-sm">Vice-Doyen</div>
-                              <div className="text-xs text-gray-500">Autre Mission</div>
+                              <div className="font-semibold text-sm">
+                                Vice-Doyen
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                Autre Mission
+                              </div>
                             </div>
                           </div>
                           {/* Ligne horizontale connectant tous les éléments */}
@@ -142,19 +157,29 @@ export default function Organigramme() {
                         <div className="relative w-full">
                           <div className="grid grid-cols-5 gap-4">
                             <div className="border rounded-lg px-3 py-2 bg-orange-50 shadow-sm text-center">
-                              <div className="text-sm font-medium">Service solidarité</div>
+                              <div className="text-sm font-medium">
+                                Service solidarité
+                              </div>
                             </div>
                             <div className="border rounded-lg px-3 py-2 bg-orange-50 shadow-sm text-center">
-                              <div className="text-sm font-medium">Service des affaires</div>
+                              <div className="text-sm font-medium">
+                                Service des affaires
+                              </div>
                             </div>
                             <div className="border rounded-lg px-3 py-2 bg-orange-50 shadow-sm text-center">
-                              <div className="text-sm font-medium">Service comptabilité</div>
+                              <div className="text-sm font-medium">
+                                Service comptabilité
+                              </div>
                             </div>
                             <div className="border rounded-lg px-3 py-2 bg-orange-50 shadow-sm text-center">
-                              <div className="text-sm font-medium">Service personnel</div>
+                              <div className="text-sm font-medium">
+                                Service personnel
+                              </div>
                             </div>
                             <div className="border rounded-lg px-3 py-2 bg-orange-50 shadow-sm text-center">
-                              <div className="text-sm font-medium">Service informatique</div>
+                              <div className="text-sm font-medium">
+                                Service informatique
+                              </div>
                             </div>
                           </div>
                           {/* Ligne horizontale connectant les services */}
@@ -183,7 +208,8 @@ export default function Organigramme() {
 
                 <div className="mt-8 text-center">
                   <p className="text-sm text-gray-600">
-                    Cliquez sur les nœuds "Vice-Doyen" pour replier/déplier les contenus quand activé.
+                    Cliquez sur les nœuds "Vice-Doyen" pour replier/déplier les
+                    contenus quand activé.
                   </p>
                 </div>
               </div>

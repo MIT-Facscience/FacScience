@@ -1,31 +1,33 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Globe, Award, Microscope, Calendar } from "lucide-react"
-import { CardContent} from "@/components/ui/card"
-import { Target, Eye, Lightbulb, Users,  BookOpen, Heart, Zap } from "lucide-react"
-import { motion } from "framer-motion"
+import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
+import { Calendar } from "lucide-react";
 
 export default function VisionPage() {
   const latestNews = [
     {
-      title: "Partenariat International: Collaboration avec l'Université etrangeres",
-      description: "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe",
+      title:
+        "Partenariat International: Collaboration avec l'Université etrangeres",
+      description:
+        "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe",
       image: "/coursera.jpg",
       date: "Decouvrir",
     },
     {
       title: "Bourse d'Excellence: 50 nouveaux étudiants bénéficiaires",
-      description: "Programme de bourses pour promouvoir l'excellence académique et l'inclusion sociale",
+      description:
+        "Programme de bourses pour promouvoir l'excellence académique et l'inclusion sociale",
       image: "/coursera.jpg",
       date: "Decouvrir",
     },
     {
-      title: "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
-      description: "Découvrez les motivations de nos nouveaux enseignants-chercheurs",
+      title:
+        "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
+      description:
+        "Découvrez les motivations de nos nouveaux enseignants-chercheurs",
       image: "/coursera.jpg",
       date: "Decouvrir",
     },
-  ]
+  ];
 
   const events = [
     {
@@ -38,25 +40,24 @@ export default function VisionPage() {
       subtitle: "Premier événement",
       date: "A venir",
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <main className="pt-20 sm:pt-24 pb-12 sm:pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto">
-            
             {/* Header avec image de fond */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative mb-12 sm:mb-16 overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="relative mb-12 sm:mb-16 overflow-hidden"
             >
               <div className="absolute inset-0">
-                <img 
-                  src="/modern-university-campus-with-science-buildings-an.png" 
-                  alt="Histoire de la faculté" 
+                <img
+                  src="/modern-university-campus-with-science-buildings-an.png"
+                  alt="Histoire de la faculté"
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-white-900/80 via-gray-800/60"></div>
@@ -66,7 +67,8 @@ export default function VisionPage() {
                   Vision & Objectifs
                 </h1>
                 <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                  Notre vision d'avenir et les objectifs stratégiques qui guident notre développement
+                  Notre vision d'avenir et les objectifs stratégiques qui
+                  guident notre développement
                 </p>
               </div>
             </motion.div>
@@ -78,7 +80,9 @@ export default function VisionPage() {
                   <div className="grid lg:grid-cols-3 gap-8 mb-16">
                     {/* LATEST Column */}
                     <div className="space-y-6 p-16">
-                      <h2 className="text-4xl font-black text-gray-900 mb-8">STRATEGIE</h2>
+                      <h2 className="text-4xl font-black text-gray-900 mb-8">
+                        STRATEGIE
+                      </h2>
 
                       {latestNews.map((news, index) => (
                         <div key={index} className="space-y-4">
@@ -88,8 +92,12 @@ export default function VisionPage() {
                             className="w-full h-32 object-cover"
                           />
                           <div>
-                            <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{news.title}</h3>
-                            <p className="text-sm text-gray-600 mb-2">{news.description}</p>
+                            <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">
+                              {news.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 mb-2">
+                              {news.description}
+                            </p>
                             <Badge variant="outline" className="text-xs">
                               {news.date}
                             </Badge>
@@ -100,11 +108,13 @@ export default function VisionPage() {
 
                     {/* FEATURE Column */}
                     <div className="space-y-6 ">
-                      <h2 className="text-4xl font-black text-gray-900 mb-8 text-center">Vision</h2>
+                      <h2 className="text-4xl font-black text-gray-900 mb-8 text-center">
+                        Vision
+                      </h2>
 
                       <div className="text-center">
                         <h1 className="text-3xl font-serif text-amber-700 mb-8 leading-tight">
-                          Think Global, Act National 
+                          Think Global, Act National
                         </h1>
 
                         <img
@@ -115,19 +125,42 @@ export default function VisionPage() {
 
                         <div className="text-left space-y-4">
                           <p className="text-gray-700 leading-relaxed">
-                            La nouvelle présidence de l’Université d’Antananarivo a choisi le slogan « Think Global, Act National » comme la ligne conductrice qui portera toute la politique et les actions de l’Université. Ainsi, la stratégie communicationnelle, ainsi que sa traduction au niveau opérationnel, tourneront autour de celle-ci.
-
-L’Université d’Antananarivo s’attache à ses valeurs de modernité à la pointe des technologies. Elle se connecte au monde par tous les moyens. Elle fait partie des leaders dans le domaine de la formation et de la recherche. Dans cette optique, elle développe des formations adaptées aux vrais besoins de la société. L’Université d’Antananarivo, étant le regroupement d’intellectuels, reste une voix que l’on écoute dans les débats publics. Elle reste une référence mondiale sur le plan académique grace à ses partenaires et ses alumnis.
+                            La nouvelle présidence de l’Université
+                            d’Antananarivo a choisi le slogan « Think Global,
+                            Act National » comme la ligne conductrice qui
+                            portera toute la politique et les actions de
+                            l’Université. Ainsi, la stratégie
+                            communicationnelle, ainsi que sa traduction au
+                            niveau opérationnel, tourneront autour de celle-ci.
+                            L’Université d’Antananarivo s’attache à ses valeurs
+                            de modernité à la pointe des technologies. Elle se
+                            connecte au monde par tous les moyens. Elle fait
+                            partie des leaders dans le domaine de la formation
+                            et de la recherche. Dans cette optique, elle
+                            développe des formations adaptées aux vrais besoins
+                            de la société. L’Université d’Antananarivo, étant le
+                            regroupement d’intellectuels, reste une voix que
+                            l’on écoute dans les débats publics. Elle reste une
+                            référence mondiale sur le plan académique grace à
+                            ses partenaires et ses alumnis.
                           </p>
 
                           <div className="grid grid-cols-2 gap-4 mt-6">
                             <div className="text-center p-4 bg-purple-50 rounded-lg">
-                              <div className="text-2xl font-bold text-purple-800">95%</div>
-                              <div className="text-xs text-purple-600">Taux d'employabilité</div>
+                              <div className="text-2xl font-bold text-purple-800">
+                                95%
+                              </div>
+                              <div className="text-xs text-purple-600">
+                                Taux d'employabilité
+                              </div>
                             </div>
                             <div className="text-center p-4 bg-amber-50 rounded-lg">
-                              <div className="text-2xl font-bold text-amber-800">50+</div>
-                              <div className="text-xs text-amber-600">Publications/an</div>
+                              <div className="text-2xl font-bold text-amber-800">
+                                50+
+                              </div>
+                              <div className="text-xs text-amber-600">
+                                Publications/an
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -136,7 +169,9 @@ L’Université d’Antananarivo s’attache à ses valeurs de modernité à la 
 
                     {/* EVENTS Column */}
                     <div className="space-y-6 p-16">
-                      <h2 className="text-4xl font-black text-gray-900 mb-8 text-right">STRATEGIE</h2>
+                      <h2 className="text-4xl font-black text-gray-900 mb-8 text-right">
+                        STRATEGIE
+                      </h2>
 
                       <img
                         src="/digital.jpg"
@@ -146,43 +181,51 @@ L’Université d’Antananarivo s’attache à ses valeurs de modernité à la 
 
                       <div className="space-y-6">
                         {events.map((event, index) => (
-                          <div key={index} className="border-b border-gray-200 pb-4">
-                            <h3 className="text-lg font-bold text-gray-900 mb-1">{event.title}</h3>
-                            <p className="text-sm text-gray-600 mb-2">{event.subtitle}</p>
+                          <div
+                            key={index}
+                            className="border-b border-gray-200 pb-4"
+                          >
+                            <h3 className="text-lg font-bold text-gray-900 mb-1">
+                              {event.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 mb-2">
+                              {event.subtitle}
+                            </p>
                             <div className="flex items-center space-x-2">
                               <Calendar className="h-4 w-4 text-gray-400" />
-                              <span className="text-xs text-gray-500">{event.date}</span>
+                              <span className="text-xs text-gray-500">
+                                {event.date}
+                              </span>
                             </div>
                           </div>
                         ))}
 
                         <div className="mt-6">
-                          <a href="#" className="text-sm text-purple-600 hover:text-purple-800 font-medium">
+                          <a
+                            href="#"
+                            className="text-sm text-purple-600 hover:text-purple-800 font-medium"
+                          >
                             Voir plus d'événements
                           </a>
                         </div>
 
                         <div className="mt-4">
-                          <a href="#" className="text-sm text-purple-600 hover:text-purple-800 font-medium">
+                          <a
+                            href="#"
+                            className="text-sm text-purple-600 hover:text-purple-800 font-medium"
+                          >
                             Événements à la Demande
                           </a>
                         </div>
                       </div>
                     </div>
                   </div>
-
-
                 </div>
               </main>
             </div>
-
-
           </div>
         </div>
       </main>
-    </div> 
-    
-  )
+    </div>
+  );
 }
-
-
