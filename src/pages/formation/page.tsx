@@ -1,10 +1,10 @@
 import MentionCard from "@/components/MentionCard";
-// import { getAllDepartments } from "@/dataTestFormation/mention";
+import { getAllDepartments } from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
 
 // import { Link } from "react-router-dom";
 export default function FormationPage() {
-  // const mentions = getAllDepartments();
+  const mentions = getAllDepartments();
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -43,9 +43,9 @@ export default function FormationPage() {
                 Voici la listes des mentions disponibles dans notre faculté
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                {/* {mentions.map((mention, index) => (
+                {mentions.map((mention, index) => (
                   <MentionCard dept={mention} index={index} key={index} />
-                ))} */}
+                ))}
               </div>
             </div>
           </div>

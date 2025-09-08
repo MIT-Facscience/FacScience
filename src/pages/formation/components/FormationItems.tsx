@@ -101,16 +101,16 @@ export default function FormationItems() {
 
             {parcours?.isProfessionnalisantes ? (
               <Tabs defaultValue="normal">
-                <TabsList className="w-full h-10 sm:h-12">
+                <TabsList className="w-full h-10 sm:h-12 mt-5 rounded-none">
                   <TabsTrigger
                     value="normal"
-                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-primary "
+                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
                     <span className="hidden sm:flex">Parcours</span> normale
                   </TabsTrigger>
                   <TabsTrigger
                     value="professionalisante"
-                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-primary"
+                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
                     <span className="hidden sm:flex">Parcours</span>{" "}
                     professionalisante
