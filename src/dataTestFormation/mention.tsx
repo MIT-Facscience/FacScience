@@ -348,8 +348,8 @@ export function getStatsById(id: string) {
   return Stats.find((stat) => stat.id === id)?.stats;
 }
 
-export function getAllDepartments() {
-  // const mentions = await allMentions();
+// export function getAllDepartments() {
+// const mentions = await allMentions();
 export function getAllDepartments() {
   // const mentions = await allMentions();
   return mentions;
