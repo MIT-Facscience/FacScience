@@ -1,22 +1,24 @@
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { getRespo, getStatsById } from "@/dataTestFormation/mention";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  getImageMention,
+  getRespo,
+  getStatsById,
+} from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
 import { Users, Clock, BookOpen, Award, User } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
-import ParcourItems from "./ParcourItems";
 import { Link } from "react-router-dom";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import getParoursById from "@/dataTestFormation/parcours";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import SpecialiteItems from "./SpecialiteItems";
+import Parcours from "./Parcour";
 export default function FormationItems() {
   const id = useSearchParams()[0].toString().split("=")[0];
-  console.log(id);
   const data = getRespo(id);
   const stats = getStatsById(id);
+  const image = getImageMention(id);
   const icon = [<Users />, <BookOpen />, <Clock />, <Award />];
   const parcours = getParoursById(id);
-  console.log(stats);
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -48,6 +50,27 @@ export default function FormationItems() {
                 </div>
               </motion.div>
             </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-5 shadow-lg"
+            >
+              <Card className="border-none rounded-none flex flex-col items-center">
+                <CardHeader className="w-full flex flex-col gap-3 font-bold items-center text-slate-600">
+                  <img src={image} alt="" className="w-40 h-auto" />
+                  <h1 className="text-center">{data.name}</h1>
+                </CardHeader>
+                <CardContent className="flex justify-center text-slate-500 font-medium">
+                  <p className="text-center text-sm w-full lg:w-1/2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Atque nihil iste doloribus aspernatur dolor nesciunt veniam
+                    error ducimus necessitatibus, blanditiis, asperiores tenetur
+                    facere tempore aliquam facilis repellendus culpa sequi unde.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-5">
               {stats &&
                 stats.map((stat, index) => (
@@ -75,6 +98,7 @@ export default function FormationItems() {
                   </motion.div>
                 ))}
             </div>
+
             {parcours?.isProfessionnalisantes ? (
               <Tabs defaultValue="normal">
                 <TabsList className="w-full h-10 sm:h-12">
@@ -93,84 +117,17 @@ export default function FormationItems() {
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="normal">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="bg-slate-100 mt-10 rounded-md py-20"
-                  >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
-                      Nos parcours disponibles
-                    </h2>
-                    <div className="relative h-auto">
-                      <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
-                      <div className="space-y-8">
-                        {parcours &&
-                          parcours.data.map((items, index) => (
-                            <ParcourItems
-                              key={index}
-                              index={index}
-                              parcours={items}
-                            />
-                          ))}
-                      </div>
-                    </div>
-                  </motion.div>
+                  {parcours && <Parcours parcours={parcours.data} />}
                 </TabsContent>
                 <TabsContent value="professionalisante">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="bg-slate-100 mt-10 rounded-md py-20"
-                  >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
-                      Nos parcours disponibles
-                    </h2>
-                    <div className="relative h-auto">
-                      <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
-                      <div className="space-y-8">
-                        {parcours &&
-                          parcours.professionalisante &&
-                          parcours.professionalisante.map((items, index) => (
-                            <ParcourItems
-                              key={index}
-                              index={index}
-                              parcours={items}
-                            />
-                          ))}
-                      </div>
-                    </div>
-                  </motion.div>
+                  {parcours && parcours.professionalisante && (
+                    <Parcours parcours={parcours.professionalisante} />
+                  )}
                 </TabsContent>
               </Tabs>
             ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="bg-slate-100 mt-10 rounded-md py-20"
-              >
-                <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
-                  Nos parcours disponibles
-                </h2>
-                <div className="relative h-auto">
-                  <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
-                  <div className="space-y-8">
-                    {parcours &&
-                      parcours.data.map((items, index) => (
-                        <ParcourItems
-                          key={index}
-                          index={index}
-                          parcours={items}
-                        />
-                      ))}
-                  </div>
-                </div>
-              </motion.div>
+              <>{parcours && <Parcours parcours={parcours.data} />}</>
             )}
-
-            {/* <SpecialiteItems /> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

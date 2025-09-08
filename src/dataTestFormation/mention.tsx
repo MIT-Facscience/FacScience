@@ -1,4 +1,4 @@
-import { allMentions, getParcoursByMention, getRespoByMention } from "@/services/api/formations.api";
+// import { allMentions, getParcoursByMention, getRespoByMention } from "@/services/api/formations.api";
 import {
   Atom,
   Calculator,
@@ -52,7 +52,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr RAZAKARIVONY Andriamarolahy Andrianambinina",
-    image: "/public/Logo/Logo_CHI.jpg",
+    image: "/public/chalet.png",
   },
   {
     id: "5",
@@ -79,7 +79,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr RANDRIANASOLOHARISOA Dimbimalala",
-    image: "/public/Logo/Logo_PAP.jpg",
+    image: "/public/chalet.png",
   },
   {
     id: "8",
@@ -88,7 +88,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mme ANDRIAMAMPIANINA Tianarilalaina Tantely",
-    image: "/public/Logo/Logo_PAPC.jpg",
+    image: "/public/chalet.png",
   },
   {
     id: "9",
@@ -133,7 +133,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mme RAMIANDRISOA Njararivelo Louisa",
-    image: "/public/Logo/Logo_GEODE.jpg",
+    image: "/public/chalet.png",
   },
 ];
 const Stats = [
@@ -182,45 +182,126 @@ const Stats = [
       { label: "Insertion", value: "88" },
     ],
   },
+  {
+    id: "5",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "6",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "7",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "8",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "9",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "10",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "11",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "12",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
+  {
+    id: "13",
+    stats: [
+      { label: "Etudiant", value: "350" },
+      { label: "Enseignant", value: "25" },
+      { label: "Année", value: "3-5" },
+      { label: "Insertion", value: "88" },
+    ],
+  },
 ];
 
-const parcoursList = [
-  {
-    title: "Licence 1",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    color: "bg-primary",
-    niveau: "L1",
-    semestre: ["1", "2"],
-  },
-  {
-    title: "Licence 2",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    color: "bg-amber-600",
-    niveau: "L2",
-    semestre: ["3", "4"],
-  },
-  {
-    title: "Licence 3",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    color: "bg-primary",
-    niveau: "L3",
-    semestre: ["5", "6"],
-  },
-  {
-    title: "Master 1",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    color: "bg-amber-500",
-    niveau: "M1",
-    semestre: ["7", "8"],
-  },
-  {
-    title: "Master 2",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    color: "bg-primary",
-    niveau: "M2",
-    semestre: ["9", "10"],
-  },
-];
+// const parcoursList = [
+//   {
+//     title: "Licence 1",
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+//     color: "bg-primary",
+//     niveau: "L1",
+//     semestre: ["1", "2"],
+//   },
+//   {
+//     title: "Licence 2",
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+//     color: "bg-amber-600",
+//     niveau: "L2",
+//     semestre: ["3", "4"],
+//   },
+//   {
+//     title: "Licence 3",
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+//     color: "bg-primary",
+//     niveau: "L3",
+//     semestre: ["5", "6"],
+//   },
+//   {
+//     title: "Master 1",
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+//     color: "bg-amber-500",
+//     niveau: "M1",
+//     semestre: ["7", "8"],
+//   },
+//   {
+//     title: "Master 2",
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+//     color: "bg-primary",
+//     niveau: "M2",
+//     semestre: ["9", "10"],
+//   },
+// ];
 
 export default function getAllMention() {
   return mentions;
@@ -230,23 +311,25 @@ export function getStatsById(id: string) {
   return Stats.find((stat) => stat.id === id)?.stats;
 }
 
-export async function getAllDepartments() {
-  const mentions = await allMentions();
+export function getAllDepartments() {
+  // const mentions = await allMentions();
   return mentions;
 }
 
-export async function getRespo(id_mention: number) {
+export function getRespo(id: string) {
+  // const respo = await getRespoByMention(id_mention);
 
-  const respo = await getRespoByMention(id_mention);
-
-  return respo;
-  // return {
-  //   respo: mentions.find((m) => m.id == id)?.responsable,
-  //   name: mentions.find((m) => m.id == id)?.name,
-  // };
+  // return respo;
+  return {
+    respo: mentions.find((m) => m.id == id)?.responsable,
+    name: mentions.find((m) => m.id == id)?.name,
+  };
 }
 
-export async function getAllParcours(id_mention : number) {
-  const parcoursList = await getParcoursByMention(id_mention);
-  return parcoursList;
+export function getImageMention(id: string) {
+  return mentions.find((m) => m.id == id)?.image;
 }
+// export async function getAllParcours(id_mention : number) {
+//   const parcoursList = await getParcoursByMention(id_mention);
+//   return parcoursList;
+// }
