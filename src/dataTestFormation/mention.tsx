@@ -1,4 +1,4 @@
-import { allMentions, getParcoursByMention, getRespoByMention } from "@/services/api/formations.api";
+// import { allMentions, getParcoursByMention, getRespoByMention } from "@/services/api/formations.api";
 import {
   Atom,
   Calculator,
@@ -231,13 +231,14 @@ export function getStatsById(id: string) {
 }
 
 export async function getAllDepartments() {
-  const mentions = await allMentions();
+  // const mentions = await allMentions();
   return mentions;
 }
 
 export async function getRespo(id_mention: number) {
 
-  const respo = await getRespoByMention(id_mention);
+  const respo = null; 
+  // const respo = await getRespoByMention(id_mention);
 
   return respo;
   // return {
@@ -247,6 +248,6 @@ export async function getRespo(id_mention: number) {
 }
 
 export async function getAllParcours(id_mention : number) {
-  const parcoursList = await getParcoursByMention(id_mention);
+  // const parcoursList = await getParcoursByMention(id_mention);
   return parcoursList;
 }
