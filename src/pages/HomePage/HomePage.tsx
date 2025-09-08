@@ -24,7 +24,6 @@ interface ResearchCenter {
   logoType: string;
 }
 
-
 export default function HomePage() {
   const stats = [
     {
@@ -91,23 +90,23 @@ export default function HomePage() {
     {
       title: "Informatique et Technologie",
       backgroundColor: "bg-gray-800",
-      logoType: "/Logo/Logo_IT.png"
+      logoType: "/Logo/Logo_IT.png",
     },
     {
       title: "Mathematique et Informatique",
       backgroundColor: "bg-slate-600",
-      logoType: "/Logo/Logo_MI.jpg"
+      logoType: "/Logo/Logo_MI.jpg",
     },
     {
       title: "Physique et Chimie",
       backgroundColor: "bg-green-600",
-      logoType: "/Logo/Logo_ADD.jpg"
+      logoType: "/Logo/Logo_ADD.jpg",
     },
     {
       title: "SVT",
       backgroundColor: "bg-stone-500",
-      logoType: "/Logo/Logo_BFA.jpg"
-    }
+      logoType: "/Logo/Logo_BFA.jpg",
+    },
   ];
 
   return (
@@ -292,35 +291,36 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-26">
+            <div className="grid md:grid-cols-4 gap-3 md:gap-5 xl:gap-7">
               {centers.map((center, index) => (
                 <div
                   key={index}
-                  className="bg-gray-700 text-white overflow-hidden relative cursor-pointer hover:opacity-90 transition-opacity duration-300 hover:-translate-y-5 h-[500px] "
+                  className="bg-white shadow-lg overflow-hidden relative cursor-pointer hover:opacity-90 transition-opacity duration-300 hover:-translate-y-5 h-[500px] "
                 >
                   {/* Ligne décorative en haut */}
                   <div className="h-1 bg-white opacity-30 mx-6 mt-6"></div>
-                  
+
                   {/* Contenu texte */}
                   <div className="p-6">
                     <h3 className="text-3xl font-normal leading-relaxed mb-4">
                       {center.title}
                     </h3>
-                    
+
                     {/* Flèche */}
-                    <div className="text-2xl mb-8">
-                      ›
-                    </div>
+                    <div className="text-2xl mb-8">›</div>
                   </div>
-                  
+
                   {/* Logo en bas */}
                   <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-                    <img src={center.logoType} alt={center.title} className="rounded-full" />
+                    <img
+                      src={center.logoType}
+                      alt={center.title}
+                      className=""
+                    />
                   </div>
                 </div>
               ))}
             </div>
-
           </motion.section>
 
           <MentionsCarousel />
@@ -331,7 +331,6 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="mb-20"
           >
-
             {/* <div className="grid md:grid-cols-4 gap-6">
               {stats.map((stat, index) => (
                 <div
@@ -415,8 +414,6 @@ export default function HomePage() {
               </CardContent>
             </Card>
           </motion.section>
-
-
         </div>
       </main>
     </div>
