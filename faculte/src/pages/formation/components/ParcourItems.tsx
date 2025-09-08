@@ -98,9 +98,10 @@ export default function ParcourItems({
             </div>
             <div>
               <p className="text-gray-600 leading-relaxed space-x-2 font-medium text-xs lg:text-sm">
-                {parcours.parcours.map((items, index) => (
+                {/* {parcours.parcours.map((items, index) => (
                   <span key={index}>{items}</span>
-                ))}
+                ))} */}
+                {parcours.parcours.join(",")}
               </p>
             </div>
 

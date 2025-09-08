@@ -7,6 +7,7 @@ import ParcourItems from "./ParcourItems";
 import { Link } from "react-router-dom";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import getParoursById from "@/dataTestFormation/parcours";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import SpecialiteItems from "./SpecialiteItems";
 export default function FormationItems() {
   const id = useSearchParams()[0].toString().split("=")[0];
@@ -74,29 +75,101 @@ export default function FormationItems() {
                   </motion.div>
                 ))}
             </div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="bg-slate-100 mt-10 rounded-md py-20"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
-                Nos parcours disponibles
-              </h2>
-              <div className="relative h-auto">
-                <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
-                <div className="space-y-8">
-                  {parcours &&
-                    parcours.data.map((items, index) => (
-                      <ParcourItems
-                        key={index}
-                        index={index}
-                        parcours={items}
-                      />
-                    ))}
+            {parcours?.isProfessionnalisantes ? (
+              <Tabs defaultValue="normal">
+                <TabsList className="w-full h-10 sm:h-12">
+                  <TabsTrigger
+                    value="normal"
+                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-primary "
+                  >
+                    <span className="hidden sm:flex">Parcours</span> normale
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="professionalisante"
+                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-primary"
+                  >
+                    <span className="hidden sm:flex">Parcours</span>{" "}
+                    professionalisante
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="normal">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="bg-slate-100 mt-10 rounded-md py-20"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
+                      Nos parcours disponibles
+                    </h2>
+                    <div className="relative h-auto">
+                      <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
+                      <div className="space-y-8">
+                        {parcours &&
+                          parcours.data.map((items, index) => (
+                            <ParcourItems
+                              key={index}
+                              index={index}
+                              parcours={items}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                </TabsContent>
+                <TabsContent value="professionalisante">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="bg-slate-100 mt-10 rounded-md py-20"
+                  >
+                    <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
+                      Nos parcours disponibles
+                    </h2>
+                    <div className="relative h-auto">
+                      <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
+                      <div className="space-y-8">
+                        {parcours &&
+                          parcours.professionalisante &&
+                          parcours.professionalisante.map((items, index) => (
+                            <ParcourItems
+                              key={index}
+                              index={index}
+                              parcours={items}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                </TabsContent>
+              </Tabs>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="bg-slate-100 mt-10 rounded-md py-20"
+              >
+                <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-slate-600">
+                  Nos parcours disponibles
+                </h2>
+                <div className="relative h-auto">
+                  <div className="absolute left-5 lg:left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-600 via-amber-500 to-purple-600 rounded-full"></div>
+                  <div className="space-y-8">
+                    {parcours &&
+                      parcours.data.map((items, index) => (
+                        <ParcourItems
+                          key={index}
+                          index={index}
+                          parcours={items}
+                        />
+                      ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
+
             {/* <SpecialiteItems /> */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}

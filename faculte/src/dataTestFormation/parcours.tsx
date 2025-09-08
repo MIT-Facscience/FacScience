@@ -88,9 +88,9 @@ const parcours = [
       },
     ],
     professionnlisante: [
-      { title: "licence1", parcours: "" },
-      { title: "licence2", parcours: "" },
-      { title: "licence3", parcours: "" },
+      { title: "licence1", parcours: [""] },
+      { title: "licence2", parcours: [""] },
+      { title: "licence3", parcours: [""] },
       { title: "master1", parcours: ["GECOGELL"], specialité: "" },
       { title: "master2", parcours: ["GECOGELL"], specialité: "" },
     ],
@@ -124,7 +124,7 @@ const parcours = [
       },
     ],
     professionalisante: [
-      { title: "licence1", parcours: "" },
+      { title: "licence1", parcours: [""] },
       { title: "licence2", parcours: ["LISTE", "ACP"] },
       { title: "licence3", parcours: ["LISTE", "ACP"] },
       { title: "master1", parcours: ["MISTE", "ACP"], specialité: [""] },
@@ -349,8 +349,8 @@ const parcours = [
       { title: "licence1", parcours: ["Informatiques et technologie"] },
       { title: "licence2", parcours: ["Informatiques et technologie"] },
       { title: "licence3", parcours: ["Informatiques et technologie"] },
-      { title: "master1", parcours: ["MISA"], specialité: [""] },
-      { title: "master2", parcours: ["MISA"], specialité: [""] },
+      { title: "master1", parcours: ["MISA,INT"], specialité: [""] },
+      { title: "master2", parcours: ["MISA,INT"], specialité: [""] },
     ],
   },
   {
