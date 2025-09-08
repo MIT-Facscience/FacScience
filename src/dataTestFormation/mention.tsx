@@ -1,3 +1,4 @@
+import { allMentions, getParcoursByMention, getRespoByMention } from "@/services/api/formations.api";
 import {
   Atom,
   Calculator,
@@ -229,17 +230,23 @@ export function getStatsById(id: string) {
   return Stats.find((stat) => stat.id === id)?.stats;
 }
 
-export function getAllDepartments() {
+export async function getAllDepartments() {
+  const mentions = await allMentions();
   return mentions;
 }
 
-export function getRespo(id: string) {
-  return {
-    respo: mentions.find((m) => m.id == id)?.responsable,
-    name: mentions.find((m) => m.id == id)?.name,
-  };
+export async function getRespo(id_mention: number) {
+
+  const respo = await getRespoByMention(id_mention);
+
+  return respo;
+  // return {
+  //   respo: mentions.find((m) => m.id == id)?.responsable,
+  //   name: mentions.find((m) => m.id == id)?.name,
+  // };
 }
 
-export function getAllParcours() {
+export async function getAllParcours(id_mention : number) {
+  const parcoursList = await getParcoursByMention(id_mention);
   return parcoursList;
 }

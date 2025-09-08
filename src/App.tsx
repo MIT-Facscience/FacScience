@@ -28,6 +28,7 @@ import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 import FormationItems from "./pages/formation/components/FormationItems";
 import ResultatsPage from "./pages/resultats/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
+import AnnuairePage from "./pages/presentation/annuaires/page";
 // import MathInfoPage from "./formation/mathematiques-informatique/page";
 export default function App() {
   return (
@@ -61,6 +62,7 @@ export default function App() {
         <Route path="/presentation/vision" element={<VisionPage />} />
         <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
+        <Route path="/presentation/annuaires/" element={<AnnuairePage/>}/>
         {/* <Route path="" element={<AllMention />} /> */}
       </Routes>
 

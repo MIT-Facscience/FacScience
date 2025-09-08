@@ -7,7 +7,7 @@ const presentationItems = [
   { title: "Histoire et Mission", to: "/presentation/histoire" },
   { title: "Organigramme", to: "/presentation/organigramme" },
   { title: "Vision et Objectifs", to: "/presentation/vision" },
-  { title: "Annuaires", to: "/presentation/annuaire" },
+  { title: "Annuaires", to: "/presentation/annuaires" },
 ];
 
 const rechercheItems = [
