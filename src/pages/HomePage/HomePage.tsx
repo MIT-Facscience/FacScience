@@ -18,6 +18,13 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+interface ResearchCenter {
+  title: string;
+  backgroundColor: string;
+  logoType: string;
+}
+
+
 export default function HomePage() {
   const stats = [
     {
@@ -78,6 +85,29 @@ export default function HomePage() {
       urgent: false,
       icon: <MapPin className="h-4 w-4" />,
     },
+  ];
+
+  const centers: ResearchCenter[] = [
+    {
+      title: "Informatique et Technologie",
+      backgroundColor: "bg-gray-800",
+      logoType: "/Logo/Logo_IT.png"
+    },
+    {
+      title: "Mathematique et Informatique",
+      backgroundColor: "bg-slate-600",
+      logoType: "/Logo/Logo_MI.jpg"
+    },
+    {
+      title: "Physique et Chimie",
+      backgroundColor: "bg-green-600",
+      logoType: "/Logo/Logo_ADD.jpg"
+    },
+    {
+      title: "SVT",
+      backgroundColor: "bg-stone-500",
+      logoType: "/Logo/Logo_BFA.jpg"
+    }
   ];
 
   return (
@@ -186,40 +216,6 @@ export default function HomePage() {
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-20"
-          >
-            <div className="grid md:grid-cols-4 gap-6">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <Card className="text-center border-0 rounded-none shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <CardContent className="pt-6">
-                      <div className="flex justify-center mb-4">
-                        <div className="p-3 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full">
-                          {stat.icon}
-                        </div>
-                      </div>
-                      <div className="text-3xl font-bold text-foreground mb-2">
-                        {stat.number}
-                      </div>
-                      <div className="text-sm text-muted-foreground font-medium">
-                        {stat.label}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
-
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-20"
           >
@@ -281,7 +277,106 @@ export default function HomePage() {
             </div>
           </motion.section>
 
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mb-20"
+          >
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-primary mb-4">
+                Nos Portails
+              </h2>
+              <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
+                Les grandes parcours dans notre faculté
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-26">
+              {centers.map((center, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-700 text-white overflow-hidden relative cursor-pointer hover:opacity-90 transition-opacity duration-300 hover:-translate-y-5 h-[500px] "
+                >
+                  {/* Ligne décorative en haut */}
+                  <div className="h-1 bg-white opacity-30 mx-6 mt-6"></div>
+                  
+                  {/* Contenu texte */}
+                  <div className="p-6">
+                    <h3 className="text-3xl font-normal leading-relaxed mb-4">
+                      {center.title}
+                    </h3>
+                    
+                    {/* Flèche */}
+                    <div className="text-2xl mb-8">
+                      ›
+                    </div>
+                  </div>
+                  
+                  {/* Logo en bas */}
+                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                    <img src={center.logoType} alt={center.title} className="rounded-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </motion.section>
+
           <MentionsCarousel />
+
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-20"
+          >
+
+            {/* <div className="grid md:grid-cols-4 gap-6">
+              {stats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="p-8 min-w-72 max-w-80 border-l-2 border-gray-300 hover:border-gray-400 transition-colors duration-300"
+                >
+                  <div className="text-left">
+                    <div className="text-7xl font-light text-gray-800 mb-4">
+                      {stat.number}
+                    </div>
+                    <div className="text-black-600 text-lg leading-relaxed">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div> */}
+
+            <div className="grid md:grid-cols-4 gap-6">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <Card className="text-center border-0 rounded-none shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <CardContent className="pt-6">
+                      <div className="flex justify-center mb-4">
+                        <div className="p-3 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full">
+                          {stat.icon}
+                        </div>
+                      </div>
+                      <div className="text-3xl font-bold text-foreground mb-2">
+                        {stat.number}
+                      </div>
+                      <div className="text-sm text-muted-foreground font-medium">
+                        {stat.label}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
 
           <motion.section
             initial={{ opacity: 0, y: 20 }}
@@ -320,6 +415,8 @@ export default function HomePage() {
               </CardContent>
             </Card>
           </motion.section>
+
+
         </div>
       </main>
     </div>
