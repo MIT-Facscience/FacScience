@@ -1,4 +1,4 @@
-name: Build Faculty of Science Website
+name: Build and Deploy Faculty of Science Website
 
 on:
   push:
@@ -12,17 +12,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.19.0
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
-
       - name: Build Docker image
         run: |
           docker build -t facscienceinterface:latest .
+
+      - name: Save artifact
+        run: |
+          docker save facscienceinterface:latest | gzip > facscienceinterface_latest.tar.gz
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Server
+        run: |
+          scp facscienceinterface_latest.tar.gz ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/tmp/
+          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
+            "docker load < /tmp/facscienceinterface_latest.tar.gz && \
+             docker rm -f facscienceinterface || true && \
+             docker run -d --name facscienceinterface -p 9090:80 facscienceinterface:latest"
