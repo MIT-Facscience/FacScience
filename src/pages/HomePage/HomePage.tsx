@@ -138,7 +138,7 @@ export default function HomePage() {
                       className="relative border-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card/90 backdrop-blur-sm"
                     >
                       {news.urgent && (
-                        <div className="urgent-clip-path z-40 absolute top-3 -right-1 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground pl-5 pr-3 py-1 text-xs font-semibold">
+                        <div className="bg-[gent-clip-path] z-40 absolute top-3 -right-1 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground pl-5 pr-3 py-1 text-xs font-semibold">
                           URGENT
                           <span className="right-0 top-full z-50 bg-amber-400 absolute w-[400px] h-[400px]" />
                         </div>
@@ -395,7 +395,7 @@ export default function HomePage() {
                   <Button
                     asChild
                     size="lg"
-                    className="bg-secondary hover:bg-secondary/90 border-none text-secondary-foreground font-semibold"
+                    className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold rounded-none"
                   >
                     <Link to="/formation">
                       Découvrir nos formations
