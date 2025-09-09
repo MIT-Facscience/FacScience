@@ -58,7 +58,7 @@ export default function FormationItems() {
             >
               <Card className="border-none rounded-none flex flex-col items-center">
                 <CardHeader className="w-full flex flex-col gap-3 font-bold items-center text-slate-600">
-                  <img src={image} alt="" className="w-40 h-auto" />
+                  <img src={image} alt="" className="w-30 md:w-40 h-auto" />
                   <h1 className="text-center">{data.name}</h1>
                 </CardHeader>
                 <CardContent className="flex justify-center text-slate-500 font-medium">

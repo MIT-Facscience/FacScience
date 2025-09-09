@@ -87,12 +87,21 @@ const parcours = [
         specialité: [""],
       },
     ],
-    professionnlisante: [
-      { title: "licence1", parcours: [""] },
-      { title: "licence2", parcours: [""] },
-      { title: "licence3", parcours: [""] },
-      { title: "master1", parcours: ["GECOGELL"], specialité: "" },
-      { title: "master2", parcours: ["GECOGELL"], specialité: "" },
+    professionalisante: [
+      {
+        title: "licence1",
+        parcours: ["BASSIN SEDIMENTAIRE - EVOLUTION - CONSERVATION"],
+      },
+      {
+        title: "licence2",
+        parcours: ["BASSIN SEDIMENTAIRE - EVOLUTION - CONSERVATION"],
+      },
+      {
+        title: "licence3",
+        parcours: ["BASSIN SEDIMENTAIRE - EVOLUTION - CONSERVATION"],
+      },
+      { title: "master1", parcours: ["GECOGELL"], specialité: [""] },
+      { title: "master2", parcours: ["GECOGELL"], specialité: [""] },
     ],
   },
   {
