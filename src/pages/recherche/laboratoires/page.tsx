@@ -1,10 +1,31 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Building, Users, Mail, Phone, MapPin } from "lucide-react"
-import {Link} from "react-router-dom"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Beaker,
+  Calculator,
+  ChevronDown,
+  ChevronUp,
+  Cpu,
+  Mail,
+  MapPin,
+  Microscope,
+  Mountain,
+  Phone,
+  TestTube,
+  Users,
+} from "lucide-react";
+import { useState } from "react";
 
 export default function LaboratoiresPage() {
+  const [expandedLab, setExpandedLab] = useState(null);
+
   const laboratoires = [
     {
       nom: "Laboratoire de Mathématiques et Applications",
@@ -15,13 +36,23 @@ export default function LaboratoiresPage() {
       localisation: "Bâtiment A, 2ème étage",
       personnel: 12,
       doctorants: 8,
+      icon: Calculator,
+      accentColor: "from-blue-500 to-indigo-600",
+      borderColor: "border-blue-200",
+      bgGradient: "from-blue-50 to-indigo-50",
+      imageUrl:
+        "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop",
       specialites: [
         "Analyse fonctionnelle",
         "Algèbre commutative",
         "Géométrie différentielle",
         "Statistiques appliquées",
       ],
-      equipements: ["Serveurs de calcul", "Logiciels spécialisés", "Bibliothèque mathématique"],
+      equipements: [
+        "Serveurs de calcul",
+        "Logiciels spécialisés",
+        "Bibliothèque mathématique",
+      ],
       projets: [
         "Modélisation mathématique des écosystèmes malgaches",
         "Optimisation des réseaux de transport urbain",
@@ -37,8 +68,24 @@ export default function LaboratoiresPage() {
       localisation: "Bâtiment B, 1er étage",
       personnel: 10,
       doctorants: 6,
-      specialites: ["Nanomatériaux", "Cristallographie", "Optique quantique", "Physique des semi-conducteurs"],
-      equipements: ["Microscope électronique", "Diffractomètre X", "Spectromètre Raman", "Four haute température"],
+      icon: Beaker,
+      accentColor: "from-emerald-500 to-teal-600",
+      borderColor: "border-emerald-200",
+      bgGradient: "from-emerald-50 to-teal-50",
+      imageUrl:
+        "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=400&fit=crop",
+      specialites: [
+        "Nanomatériaux",
+        "Cristallographie",
+        "Optique quantique",
+        "Physique des semi-conducteurs",
+      ],
+      equipements: [
+        "Microscope électronique",
+        "Diffractomètre X",
+        "Spectromètre Raman",
+        "Four haute température",
+      ],
       projets: [
         "Synthèse de nanomatériaux pour l'énergie solaire",
         "Caractérisation de minéraux malgaches",
@@ -54,8 +101,24 @@ export default function LaboratoiresPage() {
       localisation: "Bâtiment C, Rez-de-chaussée",
       personnel: 8,
       doctorants: 5,
-      specialites: ["Synthèse organique", "Produits naturels", "Catalyse", "Chimie médicinale"],
-      equipements: ["RMN 400 MHz", "Chromatographe HPLC", "Spectromètre de masse", "Réacteurs sous pression"],
+      icon: TestTube,
+      accentColor: "from-purple-500 to-violet-600",
+      borderColor: "border-purple-200",
+      bgGradient: "from-purple-50 to-violet-50",
+      imageUrl:
+        "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=400&fit=crop",
+      specialites: [
+        "Synthèse organique",
+        "Produits naturels",
+        "Catalyse",
+        "Chimie médicinale",
+      ],
+      equipements: [
+        "RMN 400 MHz",
+        "Chromatographe HPLC",
+        "Spectromètre de masse",
+        "Réacteurs sous pression",
+      ],
       projets: [
         "Valorisation des plantes médicinales malgaches",
         "Synthèse de nouveaux catalyseurs",
@@ -71,8 +134,24 @@ export default function LaboratoiresPage() {
       localisation: "Bâtiment D, 1er étage",
       personnel: 15,
       doctorants: 10,
-      specialites: ["Génétique moléculaire", "Biotechnologie", "Microbiologie", "Biologie cellulaire"],
-      equipements: ["Séquenceur ADN", "PCR temps réel", "Microscope confocal", "Fermenteurs"],
+      icon: Microscope,
+      accentColor: "from-rose-500 to-pink-600",
+      borderColor: "border-rose-200",
+      bgGradient: "from-rose-50 to-pink-50",
+      imageUrl:
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+      specialites: [
+        "Génétique moléculaire",
+        "Biotechnologie",
+        "Microbiologie",
+        "Biologie cellulaire",
+      ],
+      equipements: [
+        "Séquenceur ADN",
+        "PCR temps réel",
+        "Microscope confocal",
+        "Fermenteurs",
+      ],
       projets: [
         "Génomique de la biodiversité malgache",
         "Biotechnologie microbienne",
@@ -88,8 +167,24 @@ export default function LaboratoiresPage() {
       localisation: "Bâtiment E, Rez-de-chaussée",
       personnel: 9,
       doctorants: 4,
-      specialites: ["Géologie structurale", "Minéralogie", "Paléontologie", "Hydrogéologie"],
-      equipements: ["Microscope pétrographique", "Analyseur XRF", "Sismographe", "Foreuse portable"],
+      icon: Mountain,
+      accentColor: "from-amber-500 to-orange-600",
+      borderColor: "border-amber-200",
+      bgGradient: "from-amber-50 to-orange-50",
+      imageUrl:
+        "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop",
+      specialites: [
+        "Géologie structurale",
+        "Minéralogie",
+        "Paléontologie",
+        "Hydrogéologie",
+      ],
+      equipements: [
+        "Microscope pétrographique",
+        "Analyseur XRF",
+        "Sismographe",
+        "Foreuse portable",
+      ],
       projets: [
         "Cartographie géologique de Madagascar",
         "Ressources minérales et énergétiques",
@@ -105,155 +200,345 @@ export default function LaboratoiresPage() {
       localisation: "Bâtiment F, 2ème étage",
       personnel: 11,
       doctorants: 7,
-      specialites: ["Intelligence artificielle", "Réseaux et sécurité", "Développement logiciel", "Systèmes embarqués"],
-      equipements: ["Cluster de calcul", "Serveurs haute performance", "Équipements réseau", "Cartes de développement"],
+      icon: Cpu,
+      accentColor: "from-cyan-500 to-blue-600",
+      borderColor: "border-cyan-200",
+      bgGradient: "from-cyan-50 to-blue-50",
+      imageUrl:
+        "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=400&fit=crop",
+      specialites: [
+        "Intelligence artificielle",
+        "Réseaux et sécurité",
+        "Développement logiciel",
+        "Systèmes embarqués",
+      ],
+      equipements: [
+        "Cluster de calcul",
+        "Serveurs haute performance",
+        "Équipements réseau",
+        "Cartes de développement",
+      ],
       projets: [
         "IA pour l'agriculture de précision",
         "Systèmes d'information géographique",
         "Cybersécurité des infrastructures critiques",
       ],
     },
-  ]
+  ];
+
+  const totalPersonnel = laboratoires.reduce(
+    (sum, lab) => sum + lab.personnel,
+    0
+  );
+  const totalDoctorants = laboratoires.reduce(
+    (sum, lab) => sum + lab.doctorants,
+    0
+  );
+  const totalProjets = laboratoires.reduce(
+    (sum, lab) => sum + lab.projets.length,
+    0
+  );
+
+  //@ts-ignore
+  const toggleExpand = (index) => {
+    setExpandedLab(expandedLab === index ? null : index);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-800 mb-4">Laboratoires de Recherche</h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Découvrez nos laboratoires de recherche d'excellence, équipés des dernières technologies et dirigés par des
-            chercheurs reconnus internationalement.
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      <div className="container mx-auto px-4 py-12">
+        {/* Hero Section Épuré */}
+        <div className="text-center mb-20">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              Laboratoires d'Excellence
+            </h1>
+            <p className="text-xl text-gray-600 leading-relaxed">
+              Six laboratoires d'innovation scientifique équipés des dernières
+              technologies
+            </p>
+          </div>
         </div>
 
-        {/* Statistiques globales */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Building className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-slate-800">6</div>
-              <div className="text-sm text-slate-600">Laboratoires</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Users className="h-8 w-8 text-green-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-slate-800">65</div>
-              <div className="text-sm text-slate-600">Chercheurs</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Users className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-slate-800">40</div>
-              <div className="text-sm text-slate-600">Doctorants</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <Building className="h-8 w-8 text-red-600 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-slate-800">18</div>
-              <div className="text-sm text-slate-600">Projets actifs</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Liste des laboratoires */}
-        <div className="space-y-8">
-          {laboratoires.map((lab, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-xl text-slate-800">{lab.nom}</CardTitle>
-                    <CardDescription className="text-lg mt-1">Directeur: {lab.directeur}</CardDescription>
-                  </div>
-                  <Badge variant="secondary" className="text-lg px-3 py-1">
-                    {lab.code}
-                  </Badge>
+        {/* Statistiques Modernes */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+          {[
+            {
+              value: laboratoires.length,
+              label: "Laboratoires",
+              color: "from-blue-500 to-indigo-600",
+            },
+            {
+              value: totalPersonnel,
+              label: "Chercheurs",
+              color: "from-emerald-500 to-teal-600",
+            },
+            {
+              value: totalDoctorants,
+              label: "Doctorants",
+              color: "from-purple-500 to-violet-600",
+            },
+            {
+              value: totalProjets,
+              label: "Projets",
+              color: "from-rose-500 to-pink-600",
+            },
+          ].map((stat, index) => (
+            <div key={index} className="relative group">
+              <div
+                className="absolute inset-0 bg-gradient-to-r opacity-10 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300"
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${
+                    stat.color.split(" ")[1]
+                  }, ${stat.color.split(" ")[3]})`,
+                }}
+              ></div>
+              <div className="relative bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center group-hover:shadow-xl transition-all duration-300">
+                <div
+                  className={`text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
+                >
+                  {stat.value}
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Informations de contact */}
-                <div className="grid md:grid-cols-3 gap-4 p-4 bg-slate-50 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-blue-600" />
-                    <span className="text-sm">{lab.email}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-green-600" />
-                    <span className="text-sm">{lab.telephone}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-red-600" />
-                    <span className="text-sm">{lab.localisation}</span>
-                  </div>
-                </div>
-
-                {/* Personnel */}
-                <div className="flex gap-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">{lab.personnel}</div>
-                    <div className="text-sm text-slate-600">Chercheurs</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">{lab.doctorants}</div>
-                    <div className="text-sm text-slate-600">Doctorants</div>
-                  </div>
-                </div>
-
-                {/* Spécialités */}
-                <div>
-                  <h4 className="font-semibold text-slate-800 mb-2">Spécialités de recherche</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {lab.specialites.map((spec, i) => (
-                      <Badge key={i} variant="outline">
-                        {spec}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Équipements */}
-                <div>
-                  <h4 className="font-semibold text-slate-800 mb-2">Équipements principaux</h4>
-                  <ul className="text-sm text-slate-600 space-y-1">
-                    {lab.equipements.map((equip, i) => (
-                      <li key={i}>• {equip}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Projets */}
-                <div>
-                  <h4 className="font-semibold text-slate-800 mb-2">Projets en cours</h4>
-                  <ul className="text-sm text-slate-600 space-y-1">
-                    {lab.projets.map((projet, i) => (
-                      <li key={i}>• {projet}</li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Navigation */}
-        <div className="text-center mt-12">
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild>
-              <Link to="/recherche">Retour à la Recherche</Link>
+        {/* Laboratoires Grid Moderne */}
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          {laboratoires.map((lab, index) => {
+            const IconComponent = lab.icon;
+            const isExpanded = expandedLab === index;
+
+            return (
+              <Card
+                key={index}
+                className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden bg-white border-0 shadow-lg"
+              >
+                {/* Header avec image et overlay */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={lab.imageUrl}
+                    alt={lab.nom}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t ${lab.bgGradient} opacity-90`}
+                  ></div>
+
+                  {/* Code badge */}
+                  <div className="absolute top-4 right-4">
+                    <div
+                      className={`px-4 py-2 rounded-full text-white font-bold text-lg shadow-lg bg-gradient-to-r ${lab.accentColor}`}
+                    >
+                      {lab.code}
+                    </div>
+                  </div>
+
+                  {/* Icon */}
+                  <div className="absolute bottom-4 left-4">
+                    <div
+                      className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-r ${lab.accentColor}`}
+                    >
+                      <IconComponent className="h-7 w-7 text-white" />
+                    </div>
+                  </div>
+                </div>
+
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {lab.nom}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    <span className="font-semibold">{lab.directeur}</span>
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  {/* Contact compact */}
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <Users className="h-4 w-4 text-blue-500" />
+                      <span>{lab.personnel + lab.doctorants}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-green-500" />
+                      <span className="truncate">{lab.localisation}</span>
+                    </div>
+                  </div>
+
+                  {/* Spécialités (aperçu) */}
+                  <div>
+                    <div className="flex flex-wrap gap-2">
+                      {lab.specialites.slice(0, 2).map((spec, i) => (
+                        <Badge
+                          key={i}
+                          variant="outline"
+                          className="text-xs px-2 py-1 border-gray-200 text-gray-700 hover:bg-gray-50"
+                        >
+                          {spec}
+                        </Badge>
+                      ))}
+                      {lab.specialites.length > 2 && (
+                        <Badge
+                          variant="outline"
+                          className="text-xs px-2 py-1 border-gray-200 text-gray-500"
+                        >
+                          +{lab.specialites.length - 2} autres
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Détails étendus */}
+                  {isExpanded && (
+                    <div className="space-y-4 animate-in slide-in-from-top-2 duration-300">
+                      {/* Contact complet */}
+                      <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                        <div className="flex items-center gap-3">
+                          <Mail className="h-4 w-4 text-blue-500" />
+                          <span className="text-sm">{lab.email}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Phone className="h-4 w-4 text-green-500" />
+                          <span className="text-sm">{lab.telephone}</span>
+                        </div>
+                      </div>
+
+                      {/* Personnel détaillé */}
+                      <div className="flex gap-6 justify-center bg-gray-50 p-4 rounded-lg">
+                        <div className="text-center">
+                          <div
+                            className={`text-2xl font-bold bg-gradient-to-r ${lab.accentColor} bg-clip-text text-transparent`}
+                          >
+                            {lab.personnel}
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            Chercheurs
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-primary">
+                            {lab.doctorants}
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            Doctorants
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Toutes les spécialités */}
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                          Expertise complète
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {lab.specialites.map((spec, i) => (
+                            <Badge
+                              key={i}
+                              variant="outline"
+                              className="text-xs px-2 py-1 border-gray-200 text-gray-700 hover:bg-gray-50"
+                            >
+                              {spec}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Équipements */}
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                          Équipements
+                        </h4>
+                        <div className="space-y-1">
+                          {lab.equipements.map((equip, i) => (
+                            <div
+                              key={i}
+                              className="flex items-center gap-3 text-sm text-gray-600"
+                            >
+                              <div
+                                className={`w-2 h-2 rounded-full bg-gradient-to-r ${lab.accentColor}`}
+                              ></div>
+                              <span>{equip}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Projets */}
+                      <div>
+                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                          Projets en cours
+                        </h4>
+                        <div className="space-y-2">
+                          {lab.projets.map((projet, i) => (
+                            <div
+                              key={i}
+                              className="p-2 bg-gray-50 rounded text-sm text-gray-700 border-l-3 border-l-purple-400"
+                            >
+                              {projet}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Bouton voir plus/moins */}
+                  <Button
+                    onClick={() => toggleExpand(index)}
+                    variant="ghost"
+                    className={`w-full mt-4 transition-all duration-300 ${
+                      isExpanded
+                        ? "bg-red-50 hover:bg-red-100 text-red-700"
+                        : "bg-blue-50 hover:bg-blue-100 text-blue-700"
+                    }`}
+                  >
+                    {isExpanded ? (
+                      <>
+                        <ChevronUp className="h-4 w-4 mr-2" />
+                        Voir moins
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown className="h-4 w-4 mr-2" />
+                        Voir plus de détails
+                      </>
+                    )}
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Navigation moderne */}
+        <div className="text-center mt-16">
+          <div className="inline-flex flex-wrap gap-4 p-4 bg-white rounded-2xl shadow-lg border border-gray-100">
+            <Button
+              asChild
+              className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
+            >
+              <a href="/recherche">← Retour à la Recherche</a>
             </Button>
-            <Button variant="outline" asChild>
-              <Link to="/recherche/projets">Voir les Projets</Link>
+            <Button
+              variant="outline"
+              asChild
+              className="px-8 py-3 font-semibold border-2 border-purple-200 text-primary hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-xl transition-all duration-300"
+            >
+              <a href="/recherche/projets">Voir les Projets →</a>
             </Button>
-            <Button variant="outline" asChild>
-              <Link to="/recherche/equipements">Équipements Détaillés</Link>
+            <Button
+              variant="outline"
+              asChild
+              className="px-8 py-3 font-semibold border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-xl transition-all duration-300"
+            >
+              <a href="/recherche/equipements">Équipements</a>
             </Button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

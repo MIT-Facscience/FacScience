@@ -1,12 +1,4 @@
-import {
-  ExternalLink,
-  Facebook,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter,
-} from "lucide-react";
+import { Facebook, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
@@ -74,7 +66,6 @@ export function Footer() {
             </ul>
           </div> */}
 
-
           {/* Contact */}
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-sidebar-foreground border-b border-purple-300/50 pb-2">
@@ -86,7 +77,9 @@ export function Footer() {
                   <MapPin className="h-4 w-4 text-primary group-hover:text-primary" />
                 </div>
                 <div>
-                  <p className="text-base text-sidebar-foreground font-medium">Adresse</p>
+                  <p className="text-base text-sidebar-foreground font-medium">
+                    Adresse
+                  </p>
                   <p className="text-sm text-muted-foreground">
                     Campus universitaire
                     <br />
@@ -100,7 +93,9 @@ export function Footer() {
                   <Phone className="h-4 w-4 text-primary group-hover:text-ring" />
                 </div>
                 <div>
-                  <p className="text-base text-sidebar-foreground font-medium">Téléphone</p>
+                  <p className="text-base text-sidebar-foreground font-medium">
+                    Téléphone
+                  </p>
                   <a
                     href="tel:+261201234567"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -115,7 +110,9 @@ export function Footer() {
                   <Mail className="h-4 w-4 text-primary group-hover:text-primary" />
                 </div>
                 <div>
-                  <p className="text-base text-sidebar-foreground font-medium">Email</p>
+                  <p className="text-base text-sidebar-foreground font-medium">
+                    Email
+                  </p>
                   <a
                     href="mailto:contact@sciences.univ-antananarivo.mg"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"

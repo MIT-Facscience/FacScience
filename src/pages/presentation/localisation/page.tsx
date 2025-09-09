@@ -1,9 +1,9 @@
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { MapPin, NavigationIcon, Bus, Car, Clock, Phone } from "lucide-react"
+import { Footer } from "@/components/footer";
+import Navigation from "@/components/navigation";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Bus, Car, Clock, MapPin, NavigationIcon, Phone } from "lucide-react";
 
 export default function LocalisationPage() {
   return (
@@ -14,8 +14,12 @@ export default function LocalisationPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold mb-4">Localisation et Plan du Campus</h1>
-              <p className="text-xl text-muted-foreground">Trouvez-nous facilement au cœur d'Antananarivo</p>
+              <h1 className="text-4xl font-bold mb-4">
+                Localisation et Plan du Campus
+              </h1>
+              <p className="text-xl text-muted-foreground">
+                Trouvez-nous facilement au cœur d'Antananarivo
+              </p>
             </div>
 
             <div className="space-y-8">
@@ -31,7 +35,9 @@ export default function LocalisationPage() {
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-6">
                       <div className="p-6 bg-accent/10 rounded-lg">
-                        <h3 className="text-lg font-semibold text-accent mb-4">Adresse Postale</h3>
+                        <h3 className="text-lg font-semibold text-accent mb-4">
+                          Adresse Postale
+                        </h3>
                         <div className="space-y-2 text-sm">
                           <p className="font-medium">Faculté des Sciences</p>
                           <p>Université d'Antananarivo</p>
@@ -41,7 +47,9 @@ export default function LocalisationPage() {
                       </div>
 
                       <div className="p-6 bg-accent/10 rounded-lg">
-                        <h3 className="text-lg font-semibold text-accent mb-4">Coordonnées GPS</h3>
+                        <h3 className="text-lg font-semibold text-accent mb-4">
+                          Coordonnées GPS
+                        </h3>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
                             <span>Latitude:</span>
@@ -56,7 +64,10 @@ export default function LocalisationPage() {
                             <span>1,280 m</span>
                           </div>
                         </div>
-                        <Button className="w-full mt-4 bg-transparent" variant="outline">
+                        <Button
+                          className="w-full mt-4 bg-transparent"
+                          variant="outline"
+                        >
                           <NavigationIcon className="h-4 w-4 mr-2" />
                           Ouvrir dans Google Maps
                         </Button>
@@ -65,46 +76,60 @@ export default function LocalisationPage() {
 
                     <div className="space-y-6">
                       <div className="p-6 bg-accent/10 rounded-lg">
-                        <h3 className="text-lg font-semibold text-accent mb-4">Contact</h3>
+                        <h3 className="text-lg font-semibold text-accent mb-4">
+                          Contact
+                        </h3>
                         <div className="space-y-3">
                           <div className="flex items-center space-x-3">
                             <Phone className="h-4 w-4 text-accent" />
                             <div>
                               <p className="text-sm font-medium">Secrétariat</p>
-                              <p className="text-sm text-muted-foreground">+261 20 22 227 13</p>
+                              <p className="text-sm text-muted-foreground">
+                                +261 20 22 227 13
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-3">
                             <Phone className="h-4 w-4 text-accent" />
                             <div>
                               <p className="text-sm font-medium">Décanat</p>
-                              <p className="text-sm text-muted-foreground">+261 20 22 227 14</p>
+                              <p className="text-sm text-muted-foreground">
+                                +261 20 22 227 14
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-3">
                             <Clock className="h-4 w-4 text-accent" />
                             <div>
                               <p className="text-sm font-medium">Horaires</p>
-                              <p className="text-sm text-muted-foreground">Lun-Ven: 7h30-17h00</p>
+                              <p className="text-sm text-muted-foreground">
+                                Lun-Ven: 7h30-17h00
+                              </p>
                             </div>
                           </div>
                         </div>
                       </div>
 
                       <div className="p-6 bg-accent/10 rounded-lg">
-                        <h3 className="text-lg font-semibold text-accent mb-4">Quartier</h3>
+                        <h3 className="text-lg font-semibold text-accent mb-4">
+                          Quartier
+                        </h3>
                         <div className="space-y-2 text-sm">
                           <p>
-                            <span className="font-medium">Quartier:</span> Ankatso
+                            <span className="font-medium">Quartier:</span>{" "}
+                            Ankatso
                           </p>
                           <p>
-                            <span className="font-medium">Arrondissement:</span> 4ème arrondissement
+                            <span className="font-medium">Arrondissement:</span>{" "}
+                            4ème arrondissement
                           </p>
                           <p>
-                            <span className="font-medium">Commune:</span> Antananarivo Renivohitra
+                            <span className="font-medium">Commune:</span>{" "}
+                            Antananarivo Renivohitra
                           </p>
                           <p>
-                            <span className="font-medium">Région:</span> Analamanga
+                            <span className="font-medium">Région:</span>{" "}
+                            Analamanga
                           </p>
                         </div>
                       </div>
@@ -124,9 +149,12 @@ export default function LocalisationPage() {
                       <div className="bg-muted/30 rounded-lg p-8 min-h-[400px] flex items-center justify-center">
                         <div className="text-center">
                           <MapPin className="h-16 w-16 text-accent mx-auto mb-4" />
-                          <p className="text-lg font-semibold mb-2">Plan Interactif du Campus</p>
+                          <p className="text-lg font-semibold mb-2">
+                            Plan Interactif du Campus
+                          </p>
                           <p className="text-muted-foreground">
-                            Plan détaillé avec localisation des bâtiments, laboratoires et services
+                            Plan détaillé avec localisation des bâtiments,
+                            laboratoires et services
                           </p>
                         </div>
                       </div>
@@ -136,33 +164,49 @@ export default function LocalisationPage() {
                       <div className="p-4 border rounded-lg">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-red-500 rounded"></div>
-                          <span className="text-sm font-medium">Bâtiment Principal</span>
+                          <span className="text-sm font-medium">
+                            Bâtiment Principal
+                          </span>
                         </div>
-                        <p className="text-xs text-muted-foreground">Administration, salles de cours</p>
+                        <p className="text-xs text-muted-foreground">
+                          Administration, salles de cours
+                        </p>
                       </div>
 
                       <div className="p-4 border rounded-lg">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                          <span className="text-sm font-medium">Laboratoires</span>
+                          <span className="text-sm font-medium">
+                            Laboratoires
+                          </span>
                         </div>
-                        <p className="text-xs text-muted-foreground">Recherche et travaux pratiques</p>
+                        <p className="text-xs text-muted-foreground">
+                          Recherche et travaux pratiques
+                        </p>
                       </div>
 
                       <div className="p-4 border rounded-lg">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-green-500 rounded"></div>
-                          <span className="text-sm font-medium">Bibliothèque</span>
+                          <span className="text-sm font-medium">
+                            Bibliothèque
+                          </span>
                         </div>
-                        <p className="text-xs text-muted-foreground">Centre de documentation</p>
+                        <p className="text-xs text-muted-foreground">
+                          Centre de documentation
+                        </p>
                       </div>
 
                       <div className="p-4 border rounded-lg">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-                          <span className="text-sm font-medium">Amphithéâtres</span>
+                          <span className="text-sm font-medium">
+                            Amphithéâtres
+                          </span>
                         </div>
-                        <p className="text-xs text-muted-foreground">Cours magistraux, conférences</p>
+                        <p className="text-xs text-muted-foreground">
+                          Cours magistraux, conférences
+                        </p>
                       </div>
 
                       <div className="p-4 border rounded-lg">
@@ -170,7 +214,9 @@ export default function LocalisationPage() {
                           <div className="w-4 h-4 bg-purple-500 rounded"></div>
                           <span className="text-sm font-medium">Services</span>
                         </div>
-                        <p className="text-xs text-muted-foreground">Cafétéria, parking, espaces verts</p>
+                        <p className="text-xs text-muted-foreground">
+                          Cafétéria, parking, espaces verts
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -206,7 +252,9 @@ export default function LocalisationPage() {
                             <span>Taxi-be:</span>
                             <Badge variant="outline">Plusieurs lignes</Badge>
                           </div>
-                          <p className="text-muted-foreground mt-2">Arrêt: "Faculté des Sciences" ou "Université"</p>
+                          <p className="text-muted-foreground mt-2">
+                            Arrêt: "Faculté des Sciences" ou "Université"
+                          </p>
                         </div>
                       </div>
 
@@ -217,15 +265,24 @@ export default function LocalisationPage() {
                         </div>
                         <div className="space-y-2 text-sm">
                           <p>
-                            <span className="font-medium">Depuis le centre-ville:</span> Route d'Ankatso (15 min)
+                            <span className="font-medium">
+                              Depuis le centre-ville:
+                            </span>{" "}
+                            Route d'Ankatso (15 min)
                           </p>
                           <p>
-                            <span className="font-medium">Depuis l'aéroport:</span> RN4 puis Route d'Ankatso (45 min)
+                            <span className="font-medium">
+                              Depuis l'aéroport:
+                            </span>{" "}
+                            RN4 puis Route d'Ankatso (45 min)
                           </p>
                           <p>
-                            <span className="font-medium">Parking:</span> 150 places disponibles
+                            <span className="font-medium">Parking:</span> 150
+                            places disponibles
                           </p>
-                          <p className="text-muted-foreground">Entrée principale par la Route d'Ankatso</p>
+                          <p className="text-muted-foreground">
+                            Entrée principale par la Route d'Ankatso
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -235,22 +292,28 @@ export default function LocalisationPage() {
                         <h3 className="font-semibold mb-3">Points de Repère</h3>
                         <div className="space-y-2 text-sm">
                           <p>
-                            • <span className="font-medium">En face:</span> Lycée Technique d'Ankatso
+                            • <span className="font-medium">En face:</span>{" "}
+                            Lycée Technique d'Ankatso
                           </p>
                           <p>
-                            • <span className="font-medium">À proximité:</span> Marché d'Ankatso
+                            • <span className="font-medium">À proximité:</span>{" "}
+                            Marché d'Ankatso
                           </p>
                           <p>
-                            • <span className="font-medium">500m:</span> Hôpital Universitaire
+                            • <span className="font-medium">500m:</span> Hôpital
+                            Universitaire
                           </p>
                           <p>
-                            • <span className="font-medium">1km:</span> Centre commercial Shoprite
+                            • <span className="font-medium">1km:</span> Centre
+                            commercial Shoprite
                           </p>
                         </div>
                       </div>
 
                       <div className="p-4 border rounded-lg">
-                        <h3 className="font-semibold mb-3">Services à Proximité</h3>
+                        <h3 className="font-semibold mb-3">
+                          Services à Proximité
+                        </h3>
                         <div className="space-y-2 text-sm">
                           <p>• Restaurants et cafés</p>
                           <p>• Pharmacies</p>
@@ -267,12 +330,16 @@ export default function LocalisationPage() {
               {/* Informations pratiques */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">Informations Pratiques</CardTitle>
+                  <CardTitle className="text-2xl">
+                    Informations Pratiques
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="p-4 bg-accent/10 rounded-lg">
-                      <h3 className="font-semibold text-accent mb-3">Horaires d'Ouverture</h3>
+                      <h3 className="font-semibold text-accent mb-3">
+                        Horaires d'Ouverture
+                      </h3>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span>Lundi - Vendredi:</span>
@@ -290,7 +357,9 @@ export default function LocalisationPage() {
                     </div>
 
                     <div className="p-4 bg-accent/10 rounded-lg">
-                      <h3 className="font-semibold text-accent mb-3">Sécurité</h3>
+                      <h3 className="font-semibold text-accent mb-3">
+                        Sécurité
+                      </h3>
                       <div className="space-y-2 text-sm">
                         <p>• Gardiennage 24h/24</p>
                         <p>• Contrôle d'accès</p>
@@ -300,7 +369,9 @@ export default function LocalisationPage() {
                     </div>
 
                     <div className="p-4 bg-accent/10 rounded-lg">
-                      <h3 className="font-semibold text-accent mb-3">Accessibilité</h3>
+                      <h3 className="font-semibold text-accent mb-3">
+                        Accessibilité
+                      </h3>
                       <div className="space-y-2 text-sm">
                         <p>• Rampes d'accès PMR</p>
                         <p>• Ascenseurs</p>
@@ -318,5 +389,5 @@ export default function LocalisationPage() {
 
       <Footer />
     </div>
-  )
+  );
 }
