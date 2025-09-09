@@ -5,7 +5,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr ANDRIAMAROZAKANIAINA Tahiry Zaka Filamatra",
-    image: "/public/Logo_IT.png",
+    image: "/Logo_IT.png",
   },
   {
     id: "1",
@@ -13,7 +13,7 @@ const mentions = [
     color: "bg-purple-500",
     description: "Exploration des lois fondamentales de l'univers",
     responsable: "Mr RAKOTOARINIVO Mijoro",
-    image: "/public/Logo_BEC.jpg",
+    image: "/Logo_BEC.jpg",
   },
   {
     id: "2",
@@ -21,7 +21,7 @@ const mentions = [
     color: "bg-green-500",
     description: "Science de la matière et de ses transformations",
     responsable: "Mr RANDRIAMAMPIANINA Lovarintsoa Judicaël",
-    image: "/public/Logo_BFA.jpg",
+    image: "/Logo_BFA.jpg",
   },
   {
     id: "3",
@@ -29,7 +29,7 @@ const mentions = [
     color: "bg-emerald-500",
     description: "Étude du vivant sous toutes ses formes",
     responsable: "Mr RAKOTONIMANANA Rivoniaina Michel  Jese",
-    image: "/public/Logo_DBEV.jpg",
+    image: "/Logo_DBEV.jpg",
   },
   {
     id: "4",
@@ -37,7 +37,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr RAZAKARIVONY Andriamarolahy Andrianambinina",
-    image: "/public/chalet.png",
+    image: "/chalet.png",
   },
   {
     id: "5",
@@ -45,7 +45,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr RAKOTONIRINA Jean Claude",
-    image: "/public/Logo_ECES.jpg",
+    image: "/Logo_ECES.jpg",
   },
   {
     id: "6",
@@ -53,7 +53,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr LALAHARISON Hanjarivo",
-    image: "/public/Logo_MI.jpg",
+    image: "/Logo_MI.jpg",
   },
   {
     id: "7",
@@ -61,7 +61,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr RANDRIANASOLOHARISOA Dimbimalala",
-    image: "/public/chalet.png",
+    image: "/chalet.png",
   },
   {
     id: "8",
@@ -69,7 +69,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mme ANDRIAMAMPIANINA Tianarilalaina Tantely",
-    image: "/public/chalet.png",
+    image: "/chalet.png",
   },
   {
     id: "9",
@@ -77,7 +77,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr ANDRIAMIADAMANANA Mavintana Dangerfield Christian",
-    image: "/public/Logo_PEI.jpg",
+    image: "/Logo_PEI.jpg",
   },
   {
     id: "10",
@@ -85,7 +85,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mme RAKOTOSAMIZANANY Saholy",
-    image: "/public/Logo_STE.jpg",
+    image: "/Logo_STE.jpg",
   },
   {
     id: "11",
@@ -93,7 +93,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr Madame RATSOAVINA Fanomezana Mihaja",
-    image: "/public/Logo_ZBA.jpg",
+    image: "/Logo_ZBA.jpg",
   },
   {
     id: "12",
@@ -101,7 +101,7 @@ const mentions = [
     color: "bg-blue-500",
     description: "Formation rigoureuse en mathématiques pures et appliquées",
     responsable: "Mme RALISON LAINGOHARIMIADANA Marie Nambinina",
-    image: "/public/Logo_ADD.jpg",
+    image: "/Logo_ADD.jpg",
   },
   {
     id: "13",
@@ -109,7 +109,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mme RAMIANDRISOA Njararivelo Louisa",
-    image: "/public/chalet.png",
+    image: "/chalet.png",
   },
 ];
 const Stats = [
