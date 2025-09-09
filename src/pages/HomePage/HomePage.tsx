@@ -138,9 +138,9 @@ export default function HomePage() {
                       className="relative border-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card/90 backdrop-blur-sm"
                     >
                       {news.urgent && (
-                        <div className="bg-[gent-clip-path] z-40 absolute top-3 -right-1 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground pl-5 pr-3 py-1 text-xs font-semibold">
+                        <div className="bg-[gent-clip-path] z-40 absolute top-3 -right-1.5 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground pl-5 pr-3 py-1 text-xs font-semibold">
                           URGENT
-                          <span className="right-0 top-full z-50 bg-amber-400 absolute w-[400px] h-[400px]" />
+                          <span className="right-0 top-full z-50 bg-red-400 absolute w-1.5 h-1.5 triangle" />
                         </div>
                       )}
 
