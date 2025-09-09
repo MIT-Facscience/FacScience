@@ -1,6 +1,6 @@
 const parcours = [
   {
-    id: "0",
+    id: "12",
     isProfessionnalisantes: false,
     data: [
       {
@@ -343,14 +343,14 @@ const parcours = [
     ],
   },
   {
-    id: "12",
+    id: "0",
     isProfessionnalisantes: false,
     data: [
       { title: "licence1", parcours: ["Informatiques et technologie"] },
       { title: "licence2", parcours: ["Informatiques et technologie"] },
       { title: "licence3", parcours: ["Informatiques et technologie"] },
-      { title: "master1", parcours: ["MISA,INT"], specialité: [""] },
-      { title: "master2", parcours: ["MISA,INT"], specialité: [""] },
+      { title: "master1", parcours: ["MISA", "INT"], specialité: [""] },
+      { title: "master2", parcours: ["MISA", "INT"], specialité: [""] },
     ],
   },
   {
@@ -378,4 +378,19 @@ const parcours = [
 
 export default function getParoursById(id: string) {
   return parcours.find((p) => p.id == id);
+}
+
+export function getParcoursByType(id: string, type: string, niveau: string) {
+  if (type == "normal") {
+    return parcours.find((p) => p.id == id)?.data.find((d) => d.title == niveau)
+      ?.parcours;
+  }
+  if (
+    type == "professionalisante" &&
+    parcours.find((p) => p.id == id)?.professionalisante
+  ) {
+    return parcours
+      .find((p) => p.id == id)
+      ?.professionalisante?.find((d) => d.title == niveau)?.parcours;
+  }
 }

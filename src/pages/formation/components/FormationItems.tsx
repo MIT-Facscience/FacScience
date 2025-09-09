@@ -117,16 +117,34 @@ export default function FormationItems() {
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="normal">
-                  {parcours && <Parcours parcours={parcours.data} />}
+                  {parcours && (
+                    <Parcours
+                      parcours={parcours.data}
+                      type="normal"
+                      idMention={id}
+                    />
+                  )}
                 </TabsContent>
                 <TabsContent value="professionalisante">
                   {parcours && parcours.professionalisante && (
-                    <Parcours parcours={parcours.professionalisante} />
+                    <Parcours
+                      parcours={parcours.professionalisante}
+                      type="professionalisante"
+                      idMention={id}
+                    />
                   )}
                 </TabsContent>
               </Tabs>
             ) : (
-              <>{parcours && <Parcours parcours={parcours.data} />}</>
+              <>
+                {parcours && (
+                  <Parcours
+                    parcours={parcours.data}
+                    type="normal"
+                    idMention={id}
+                  />
+                )}
+              </>
             )}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
