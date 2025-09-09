@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 export default function ParcourItems({
   parcours,
   index,
+  type,
+  idMention,
 }: {
   parcours: {
     title: string;
@@ -15,6 +17,8 @@ export default function ParcourItems({
     specialité?: string[];
   };
   index: number;
+  type: string;
+  idMention: string;
 }) {
   const dataSem = [
     {
@@ -98,14 +102,20 @@ export default function ParcourItems({
             </div>
             <div>
               <p className="text-gray-600 leading-relaxed space-x-2 font-medium text-xs lg:text-sm">
-                {/* {parcours.parcours.map((items, index) => (
-                  <span key={index}>{items}</span>
-                ))} */}
                 {parcours.parcours.join(",")}
               </p>
             </div>
 
-            <Link to={"/formation/detailparcours?" + index}>
+            <Link
+              to={
+                "/formation/detailparcours?" +
+                idMention +
+                "+" +
+                parcours.title +
+                "+" +
+                type
+              }
+            >
               <Button
                 variant="ghost"
                 size="sm"

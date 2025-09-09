@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-// import math from "/public/departement.png";
-import type { JSX } from "react";
 export default function MentionCard({
   dept,
   index,
@@ -15,7 +13,6 @@ export default function MentionCard({
     name: string;
     image: string;
     color: string;
-    icon: JSX.Element;
     description: string;
     responsable: string;
   };

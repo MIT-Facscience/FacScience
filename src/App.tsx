@@ -58,6 +58,10 @@ export default function App() {
         <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
         <Route path="/presentation/annuaires/" element={<AnnuairePage/>}/>
+        
+
+        <Route path="/admission" element={<AnnuairePage/>}/>
+
         {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 
         {/* <Route path="" element={<AllMention />} /> */}

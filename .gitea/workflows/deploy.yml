@@ -1,0 +1,29 @@
+name: Build and Deploy Faculty of Science Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build -t facscienceinterface:latest .
+
+      - name: Stop old container
+        run: |
+          docker stop facscienceinterface || true
+          docker rm facscienceinterface || true
+
+      - name: Run new container
+        run: |
+          docker run -d --name facscienceinterface \
+            -p 9090:80 \
+            --restart always \
+            --network faculty_network facscienceinterface:latest

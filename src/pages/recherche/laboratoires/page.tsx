@@ -21,14 +21,19 @@ export default function LaboratoiresPage() {
       accentColor: "from-purple-500 to-amber-600",
       borderColor: "border-blue-200",
       bgGradient: "from-blue-50 to-indigo-50",
-      imageUrl: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop",
+      imageUrl:
+        "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop",
       specialites: [
         "Analyse fonctionnelle",
-        "Algèbre commutative", 
+        "Algèbre commutative",
         "Géométrie différentielle",
         "Statistiques appliquées",
       ],
-      equipements: ["Serveurs de calcul", "Logiciels spécialisés", "Bibliothèque mathématique"],
+      equipements: [
+        "Serveurs de calcul",
+        "Logiciels spécialisés",
+        "Bibliothèque mathématique",
+      ],
       projets: [
         "Modélisation mathématique des écosystèmes malgaches",
         "Optimisation des réseaux de transport urbain",
@@ -48,9 +53,20 @@ export default function LaboratoiresPage() {
       accentColor: "from-yellow-500 to-amber-600",
       borderColor: "border-emerald-200",
       bgGradient: "from-emerald-50 to-teal-50",
-      imageUrl: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=400&fit=crop",
-      specialites: ["Nanomatériaux", "Cristallographie", "Optique quantique", "Physique des semi-conducteurs"],
-      equipements: ["Microscope électronique", "Diffractomètre X", "Spectromètre Raman", "Four haute température"],
+      imageUrl:
+        "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=400&fit=crop",
+      specialites: [
+        "Nanomatériaux",
+        "Cristallographie",
+        "Optique quantique",
+        "Physique des semi-conducteurs",
+      ],
+      equipements: [
+        "Microscope électronique",
+        "Diffractomètre X",
+        "Spectromètre Raman",
+        "Four haute température",
+      ],
       projets: [
         "Synthèse de nanomatériaux pour l'énergie solaire",
         "Caractérisation de minéraux malgaches",
@@ -70,9 +86,20 @@ export default function LaboratoiresPage() {
       accentColor: "from-purple-500 to-amber-600",
       borderColor: "border-purple-200",
       bgGradient: "from-purple-50 to-violet-50",
-      imageUrl: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=400&fit=crop",
-      specialites: ["Synthèse organique", "Produits naturels", "Catalyse", "Chimie médicinale"],
-      equipements: ["RMN 400 MHz", "Chromatographe HPLC", "Spectromètre de masse", "Réacteurs sous pression"],
+      imageUrl:
+        "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=400&fit=crop",
+      specialites: [
+        "Synthèse organique",
+        "Produits naturels",
+        "Catalyse",
+        "Chimie médicinale",
+      ],
+      equipements: [
+        "RMN 400 MHz",
+        "Chromatographe HPLC",
+        "Spectromètre de masse",
+        "Réacteurs sous pression",
+      ],
       projets: [
         "Valorisation des plantes médicinales malgaches",
         "Synthèse de nouveaux catalyseurs",
@@ -92,9 +119,20 @@ export default function LaboratoiresPage() {
       accentColor: "from-yellow-500 to-amber-600",
       borderColor: "border-rose-200",
       bgGradient: "from-rose-50 to-pink-50",
-      imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
-      specialites: ["Génétique moléculaire", "Biotechnologie", "Microbiologie", "Biologie cellulaire"],
-      equipements: ["Séquenceur ADN", "PCR temps réel", "Microscope confocal", "Fermenteurs"],
+      imageUrl:
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+      specialites: [
+        "Génétique moléculaire",
+        "Biotechnologie",
+        "Microbiologie",
+        "Biologie cellulaire",
+      ],
+      equipements: [
+        "Séquenceur ADN",
+        "PCR temps réel",
+        "Microscope confocal",
+        "Fermenteurs",
+      ],
       projets: [
         "Génomique de la biodiversité malgache",
         "Biotechnologie microbienne",
@@ -145,7 +183,7 @@ export default function LaboratoiresPage() {
         "Cybersécurité des infrastructures critiques",
       ],
     },
-  ]
+  ];
 
   const totalPersonnel = laboratoires.reduce((sum, lab) => sum + lab.personnel, 0)
   const totalDoctorants = laboratoires.reduce((sum, lab) => sum + lab.doctorants, 0)
@@ -172,7 +210,8 @@ export default function LaboratoiresPage() {
               Laboratoires d'Excellence
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Six laboratoires d'innovation scientifique équipés des dernières technologies
+              Six laboratoires d'innovation scientifique équipés des dernières
+              technologies
             </p>
           </div>
         </div>
@@ -180,10 +219,26 @@ export default function LaboratoiresPage() {
         {/* Statistiques Modernes */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {[
-            { value: laboratoires.length, label: "Laboratoires", color: "from-blue-500 to-indigo-600" },
-            { value: totalPersonnel, label: "Chercheurs", color: "from-emerald-500 to-teal-600" },
-            { value: totalDoctorants, label: "Doctorants", color: "from-purple-500 to-violet-600" },
-            { value: totalProjets, label: "Projets", color: "from-rose-500 to-pink-600" },
+            {
+              value: laboratoires.length,
+              label: "Laboratoires",
+              color: "from-blue-500 to-indigo-600",
+            },
+            {
+              value: totalPersonnel,
+              label: "Chercheurs",
+              color: "from-emerald-500 to-teal-600",
+            },
+            {
+              value: totalDoctorants,
+              label: "Doctorants",
+              color: "from-purple-500 to-violet-600",
+            },
+            {
+              value: totalProjets,
+              label: "Projets",
+              color: "from-rose-500 to-pink-600",
+            },
           ].map((stat, index) => (
             <div key={index} className="relative group">
               <div className="absolute inset-0 bg-black opacity-10  transform rotate-6 group-hover:rotate-12 transition-transform duration-300" 
@@ -201,16 +256,16 @@ export default function LaboratoiresPage() {
         {/* Laboratoires Grid Moderne */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
           {laboratoires.map((lab, index) => {
-            const IconComponent = lab.icon
-            const isExpanded = expandedLab === index
+            const IconComponent = lab.icon;
+            const isExpanded = expandedLab === index;
 
             return (
               <Card key={index} className="group hover:shadow-2xl transition-all rounded-none duration-500 transform hover:-translate-y-2 overflow-hidden bg-white border-0 shadow-lg">
                 {/* Header avec image et overlay */}
                 {/* <h1>Salut</h1> */}
                 <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={lab.imageUrl} 
+                  <img
+                    src={lab.imageUrl}
                     alt={lab.nom}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -218,14 +273,18 @@ export default function LaboratoiresPage() {
                   
                   {/* Code badge */}
                   <div className="absolute top-4 right-4">
-                    <div className={`px-4 py-2 rounded-full text-white font-bold text-lg shadow-lg bg-gradient-to-r ${lab.accentColor}`}>
+                    <div
+                      className={`px-4 py-2 rounded-full text-white font-bold text-lg shadow-lg bg-gradient-to-r ${lab.accentColor}`}
+                    >
                       {lab.code}
                     </div>
                   </div>
 
                   {/* Icon */}
                   <div className="absolute bottom-4 left-4">
-                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-r ${lab.accentColor}`}>
+                    <div
+                      className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-r ${lab.accentColor}`}
+                    >
                       <IconComponent className="h-7 w-7 text-white" />
                     </div>
                   </div>
@@ -257,12 +316,19 @@ export default function LaboratoiresPage() {
                   <div>
                     <div className="flex flex-wrap gap-2">
                       {lab.specialites.slice(0, 2).map((spec, i) => (
-                        <Badge key={i} variant="outline" className="text-xs px-2 py-1 border-gray-200 text-gray-700 hover:bg-gray-50">
+                        <Badge
+                          key={i}
+                          variant="outline"
+                          className="text-xs px-2 py-1 border-gray-200 text-gray-700 hover:bg-gray-50"
+                        >
                           {spec}
                         </Badge>
                       ))}
                       {lab.specialites.length > 2 && (
-                        <Badge variant="outline" className="text-xs px-2 py-1 border-gray-200 text-gray-500">
+                        <Badge
+                          variant="outline"
+                          className="text-xs px-2 py-1 border-gray-200 text-gray-500"
+                        >
                           +{lab.specialites.length - 2} autres
                         </Badge>
                       )}
@@ -287,25 +353,37 @@ export default function LaboratoiresPage() {
                       {/* Personnel détaillé */}
                       <div className="flex gap-6 justify-center bg-gray-50 p-4 rounded-lg">
                         <div className="text-center">
-                          <div className={`text-2xl font-bold bg-gradient-to-r ${lab.accentColor} bg-clip-text text-transparent`}>
+                          <div
+                            className={`text-2xl font-bold bg-gradient-to-r ${lab.accentColor} bg-clip-text text-transparent`}
+                          >
                             {lab.personnel}
                           </div>
-                          <div className="text-xs text-gray-600">Chercheurs</div>
+                          <div className="text-xs text-gray-600">
+                            Chercheurs
+                          </div>
                         </div>
                         <div className="text-center">
                           <div className="text-2xl font-bold text-primary">
                             {lab.doctorants}
                           </div>
-                          <div className="text-xs text-gray-600">Doctorants</div>
+                          <div className="text-xs text-gray-600">
+                            Doctorants
+                          </div>
                         </div>
                       </div>
 
                       {/* Toutes les spécialités */}
                       <div>
-                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">Expertise complète</h4>
+                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                          Expertise complète
+                        </h4>
                         <div className="flex flex-wrap gap-2">
                           {lab.specialites.map((spec, i) => (
-                            <Badge key={i} variant="outline" className="text-xs px-2 py-1 border-gray-200 text-gray-700 hover:bg-gray-50">
+                            <Badge
+                              key={i}
+                              variant="outline"
+                              className="text-xs px-2 py-1 border-gray-200 text-gray-700 hover:bg-gray-50"
+                            >
                               {spec}
                             </Badge>
                           ))}
@@ -314,11 +392,18 @@ export default function LaboratoiresPage() {
 
                       {/* Équipements */}
                       <div>
-                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">Équipements</h4>
+                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                          Équipements
+                        </h4>
                         <div className="space-y-1">
                           {lab.equipements.map((equip, i) => (
-                            <div key={i} className="flex items-center gap-3 text-sm text-gray-600">
-                              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${lab.accentColor}`}></div>
+                            <div
+                              key={i}
+                              className="flex items-center gap-3 text-sm text-gray-600"
+                            >
+                              <div
+                                className={`w-2 h-2 rounded-full bg-gradient-to-r ${lab.accentColor}`}
+                              ></div>
                               <span>{equip}</span>
                             </div>
                           ))}
@@ -327,10 +412,15 @@ export default function LaboratoiresPage() {
 
                       {/* Projets */}
                       <div>
-                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">Projets en cours</h4>
+                        <h4 className="font-semibold text-gray-800 mb-2 text-sm">
+                          Projets en cours
+                        </h4>
                         <div className="space-y-2">
                           {lab.projets.map((projet, i) => (
-                            <div key={i} className="p-2 bg-gray-50 rounded text-sm text-gray-700 border-l-3 border-l-purple-400">
+                            <div
+                              key={i}
+                              className="p-2 bg-gray-50 rounded text-sm text-gray-700 border-l-3 border-l-purple-400"
+                            >
                               {projet}
                             </div>
                           ))}
@@ -340,7 +430,7 @@ export default function LaboratoiresPage() {
                   )}
 
                   {/* Bouton voir plus/moins */}
-                  <Button 
+                  <Button
                     onClick={() => toggleExpand(index)}
                     variant="ghost" 
                     className={`w-full mt-4 transition-all rounded-none duration-300 ${isExpanded ? 'bg-amber-50 hover:bg-secondary text-secondary' : 'bg-purple-50 hover:bg-primary text-primary'}`}
@@ -359,29 +449,29 @@ export default function LaboratoiresPage() {
                   </Button>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
 
         {/* Navigation moderne */}
         <div className="text-center mt-16">
           <div className="inline-flex flex-wrap gap-4 p-4 bg-white rounded-2xl shadow-lg border border-gray-100">
-            <Button 
-              asChild 
+            <Button
+              asChild
               className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
             >
               <a href="/recherche">← Retour à la Recherche</a>
             </Button>
-            <Button 
-              variant="outline" 
-              asChild 
+            <Button
+              variant="outline"
+              asChild
               className="px-8 py-3 font-semibold border-2 border-purple-200 text-primary hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-xl transition-all duration-300"
             >
               <a href="/recherche/projets">Voir les Projets →</a>
             </Button>
-            <Button 
-              variant="outline" 
-              asChild 
+            <Button
+              variant="outline"
+              asChild
               className="px-8 py-3 font-semibold border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-xl transition-all duration-300"
             >
               <a href="/recherche/equipements">Équipements</a>
@@ -390,5 +480,5 @@ export default function LaboratoiresPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
