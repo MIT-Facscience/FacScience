@@ -298,7 +298,7 @@ const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
         }
       case "Représentant Etudiant":
         return {
-          hoverBg: "#f59e0b",
+          hoverBg: "#e6b307",
           textColor: "#f59e0b",
         }
       default:
@@ -333,7 +333,7 @@ const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
           <div className="flex items-start justify-between gap-2">
             <h4
               className="font-medium text-sm leading-tight text-balance group-hover:text-white transition-colors duration-300 break-words hyphens-auto"
-              style={{ color: "#000000" }}
+              // style={{ color: "#000000" }}
             >
               {member.nomPrenom}
             </h4>
@@ -665,214 +665,305 @@ export default function Organigramme() {
               </div>
             </motion.div>
 
-      <div className="container mx-auto px-4 py-12 space-y-16">
-        {/* Toggle Hierarchy View */}
-        <div className="text-center">
-          <Button onClick={() => setShowHierarchy(!showHierarchy)} variant="outline" className="gap-2 mb-8">
-            <TreePine className="h-4 w-4" />
-            {showHierarchy ? "Affichage Liste" : "Affichage Hiérarchique"}
-          </Button>
-        </div>
+            <div className="container mx-auto px-4 py-12 space-y-16">
+              {/* Toggle Hierarchy View */}
+              <div className="text-center">
+                <Button onClick={() => setShowHierarchy(!showHierarchy)} variant="outline" className="gap-2 mb-8">
+                  <TreePine className="h-4 w-4" />
+                  {showHierarchy ? "Affichage Liste" : "Affichage Hiérarchique"}
+                </Button>
+              </div> 
 
-        {/* Hierarchical Structure View */}
-        {showHierarchy ? (
-          <section className="overflow-x-auto">
-            <div className="flex flex-col items-center space-y-2 min-w-[1200px] pb-6">
-              {/* COFAC */}
-              <HierarchyNode title="COFAC" level={0}>
-                {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
-                <div className="flex justify-center items-start gap-8">
-                  {/* Conseil Scientifique Branch */}
-                  <div className="flex flex-col items-center space-y-2">
-                    <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
-                      <div className="h-2"></div>
-                      <HierarchyNode title="MENTION" level={2}>
-                        <HierarchyNode title="PARCOURS" level={3}>
-                          <HierarchyNode title="LABO" level={4} />
-                        </HierarchyNode>
-                      </HierarchyNode>
-                    </HierarchyNode>
-                  </div>
-
-                  {/* Doyen Branch */}
-                  <div className="flex flex-col items-center space-y-2">
-                    <HierarchyNode title="DOYEN" level={1} person={doyen}>
-                      <div className="h-2"></div>
-                      <div className="flex justify-center gap-2">
-                        {/* Secrétaire Principale */}
+              {/* Hierarchical Structure View */}
+              {showHierarchy ? (
+                <section className="overflow-x-auto">
+                  <div className="flex flex-col items-center space-y-2 min-w-[1200px] pb-6">
+                    {/* COFAC */}
+                    <HierarchyNode title="COFAC" level={0}>
+                      {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
+                      <div className="flex justify-center items-start gap-8">
+                        {/* Conseil Scientifique Branch */}
                         <div className="flex flex-col items-center space-y-2">
-                          <HierarchyNode title="SECRÉTAIRE PRINCIPALE" level={2} person={secretaire}>
-                            <div className="flex flex-wrap justify-center gap-1">
-                              {serviceInformatique && (
-                                <HierarchyNode title="SERVICE INFORMATIQUE" level={3} person={serviceInformatique} />
+                          <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
+                            <div className="h-2"></div>
+                            <HierarchyNode title="MENTION" level={2}>
+                              <HierarchyNode title="PARCOURS" level={3}>
+                                <HierarchyNode title="LABO" level={4} />
+                              </HierarchyNode>
+                            </HierarchyNode>
+                          </HierarchyNode>
+                        </div>
+
+                        {/* Doyen Branch */}
+                        <div className="flex flex-col items-center space-y-2">
+                          <HierarchyNode title="DOYEN" level={1} person={doyen}>
+                            <div className="h-2"></div>
+                            <div className="flex justify-center gap-2">
+                              {/* Secrétaire Principale */}
+                              <div className="flex flex-col items-center space-y-2">
+                                <HierarchyNode title="SECRÉTAIRE PRINCIPALE" level={2} person={secretaire}>
+                                  <div className="flex flex-wrap justify-center gap-1">
+                                    {serviceInformatique && (
+                                      <HierarchyNode title="SERVICE INFORMATIQUE" level={3} person={serviceInformatique} />
+                                    )}
+                                    {serviceComptabilite && (
+                                      <HierarchyNode title="SERVICE COMPTABILITÉ" level={3} person={serviceComptabilite} />
+                                    )}
+                                    {servicePersonnel && (
+                                      <HierarchyNode title="SERVICE PERSONNEL" level={3} person={servicePersonnel} />
+                                    )}
+                                    {serviceScolarite && (
+                                      <HierarchyNode title="SERVICE SCOLARITÉ" level={3} person={serviceScolarite} />
+                                    )}
+                                    {serviceAffaires && (
+                                      <HierarchyNode
+                                        title="SERVICE DES AFFAIRES ÉTRANGÈRES"
+                                        level={3}
+                                        person={serviceAffaires}
+                                      />
+                                    )}
+                                  </div>
+                                </HierarchyNode>
+                              </div>
+
+                              {/* DICOS */}
+                              <HierarchyNode title="DICOS" level={2} />
+
+                              {/* Vice Doyen Formation with Association des Étudiants */}
+                              {viceDoyenFormation && (
+                                <div className="flex flex-col items-center space-y-2">
+                                  <HierarchyNode title="VICE DOYEN CHARGÉ DE FORMATION" level={2} person={viceDoyenFormation}>
+                                    <HierarchyNode title="ASSOCIATION DES ÉTUDIANTS" level={3} />
+                                  </HierarchyNode>
+                                </div>
                               )}
-                              {serviceComptabilite && (
-                                <HierarchyNode title="SERVICE COMPTABILITÉ" level={3} person={serviceComptabilite} />
-                              )}
-                              {servicePersonnel && (
-                                <HierarchyNode title="SERVICE PERSONNEL" level={3} person={servicePersonnel} />
-                              )}
-                              {serviceScolarite && (
-                                <HierarchyNode title="SERVICE SCOLARITÉ" level={3} person={serviceScolarite} />
-                              )}
-                              {serviceAffaires && (
+
+                              {/* Vice Doyen Réforme Numérique */}
+                              {viceDoyenNumerique && (
                                 <HierarchyNode
-                                  title="SERVICE DES AFFAIRES ÉTRANGÈRES"
-                                  level={3}
-                                  person={serviceAffaires}
+                                  title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
+                                  level={2}
+                                  person={viceDoyenNumerique}
+                                />
+                              )}
+
+                              {/* Vice Doyen Partenariats */}
+                              {viceDoyenRecherche && (
+                                <HierarchyNode
+                                  title="VICE DOYEN CHARGÉ DES PARTENARIATS"
+                                  level={2}
+                                  person={viceDoyenRecherche}
                                 />
                               )}
                             </div>
                           </HierarchyNode>
                         </div>
 
-                        {/* DICOS */}
-                        <HierarchyNode title="DICOS" level={2} />
-
-                        {/* Vice Doyen Formation with Association des Étudiants */}
-                        {viceDoyenFormation && (
-                          <div className="flex flex-col items-center space-y-2">
-                            <HierarchyNode title="VICE DOYEN CHARGÉ DE FORMATION" level={2} person={viceDoyenFormation}>
-                              <HierarchyNode title="ASSOCIATION DES ÉTUDIANTS" level={3} />
-                            </HierarchyNode>
-                          </div>
-                        )}
-
-                        {/* Vice Doyen Réforme Numérique */}
-                        {viceDoyenNumerique && (
-                          <HierarchyNode
-                            title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
-                            level={2}
-                            person={viceDoyenNumerique}
-                          />
-                        )}
-
-                        {/* Vice Doyen Partenariats */}
-                        {viceDoyenRecherche && (
-                          <HierarchyNode
-                            title="VICE DOYEN CHARGÉ DES PARTENARIATS"
-                            level={2}
-                            person={viceDoyenRecherche}
-                          />
-                        )}
+                        {/* Collège des Enseignants Branch */}
+                        <div className="flex flex-col items-center space-y-2">
+                          <HierarchyNode title="COLLÈGE DES ENSEIGNANTS" level={1} />
+                        </div>
                       </div>
                     </HierarchyNode>
                   </div>
-
-                  {/* Collège des Enseignants Branch */}
-                  <div className="flex flex-col items-center space-y-2">
-                    <HierarchyNode title="COLLÈGE DES ENSEIGNANTS" level={1} />
-                  </div>
-                </div>
-              </HierarchyNode>
-            </div>
-          </section>
-        ) : (
-          // Hierarchical List View
-          <section>
-            <h2 className="text-3xl font-bold text-center mb-12 text-slate-800">Structure Hiérarchique</h2>
-
-            <div className="max-w-4xl mx-auto space-y-4">
-              <HierarchicalListItem title="COFAC" level={0}>
-                <HierarchicalListItem title="CONSEIL SCIENTIFIQUE" level={1}>
-                  <HierarchicalListItem title="MENTION" level={2}>
-                    <HierarchicalListItem title="PARCOURS" level={3}>
-                      <HierarchicalListItem title="LABO" level={4} />
-                    </HierarchicalListItem>
-                  </HierarchicalListItem>
-                </HierarchicalListItem>
-
-                <HierarchicalListItem title="DOYEN" level={1} person={doyen}>
-                  <HierarchicalListItem title="SECRÉTAIRE PRINCIPALE" level={2} person={secretaire}>
-                    {serviceInformatique && (
-                      <HierarchicalListItem title="SERVICE INFORMATIQUE" level={3} person={serviceInformatique} />
-                    )}
-                    {serviceComptabilite && (
-                      <HierarchicalListItem title="SERVICE COMPTABILITÉ" level={3} person={serviceComptabilite} />
-                    )}
-                    {servicePersonnel && (
-                      <HierarchicalListItem title="SERVICE PERSONNEL" level={3} person={servicePersonnel} />
-                    )}
-                    {serviceScolarite && (
-                      <HierarchicalListItem title="SERVICE SCOLARITÉ" level={3} person={serviceScolarite} />
-                    )}
-                    {serviceAffaires && (
-                      <HierarchicalListItem
-                        title="SERVICE DES AFFAIRES ÉTRANGÈRES"
-                        level={3}
-                        person={serviceAffaires}
-                      />
-                    )}
-                  </HierarchicalListItem>
-
-                  <HierarchicalListItem title="DICOS" level={2} />
-
-                  {viceDoyenFormation && (
-                    <HierarchicalListItem title="VICE DOYEN CHARGÉ DE FORMATION" level={2} person={viceDoyenFormation}>
-                      <HierarchicalListItem title="ASSOCIATION DES ÉTUDIANTS" level={3} />
-                    </HierarchicalListItem>
-                  )}
-
-                  {viceDoyenNumerique && (
-                    <HierarchicalListItem
-                      title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
-                      level={2}
-                      person={viceDoyenNumerique}
-                    />
-                  )}
-
-                  {viceDoyenRecherche && (
-                    <HierarchicalListItem
-                      title="VICE DOYEN CHARGÉ DES PARTENARIATS"
-                      level={2}
-                      person={viceDoyenRecherche}
-                    />
-                  )}
-                </HierarchicalListItem>
-
-                <HierarchicalListItem title="COLLÈGE DES ENSEIGNANTS" level={1} />
-              </HierarchicalListItem>
-            </div>
-          </section>
-        )}
-
-        {/* Membres COFAC */}
-        <section>
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-4 text-foreground">Membres du COFAC</h2>
-            <Button onClick={() => setShowCofacMembers(!showCofacMembers)} variant="outline" className="gap-2">
-              {showCofacMembers ? (
-                <>
-                  <ChevronUp className="h-4 w-4" />
-                  Masquer les membres
-                </>
+                </section>
               ) : (
-                <>
-                  <ChevronDown className="h-4 w-4" />
-                  Afficher les membres ({membresCofac.length})
-                </>
-              )}
-            </Button>
-          </div>
+                // Hierarchical List View
+                // <section>
+                //   <h2 className="text-3xl font-bold text-center mb-12 text-slate-800">Structure Hiérarchique</h2>
 
-          {showCofacMembers && (
-            <div className="space-y-12">
-              {Object.entries(groupedMembers).map(([appartenance, members]) => (
-                <div key={appartenance}>
-                  <h3 className="text-xl font-semibold mb-6 text-muted-foreground border-b border-border pb-2">
-                    {appartenance} ({members.length})
-                  </h3>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {members.map((member) => (
-                      <CofacMemberCard key={member.num} member={member} />
+                //   <div className="max-w-4xl mx-auto space-y-4">
+                //     <HierarchicalListItem title="COFAC" level={0}>
+                //       <HierarchicalListItem title="CONSEIL SCIENTIFIQUE" level={1}>
+                //         <HierarchicalListItem title="MENTION" level={2}>
+                //           <HierarchicalListItem title="PARCOURS" level={3}>
+                //             <HierarchicalListItem title="LABO" level={4} />
+                //           </HierarchicalListItem>
+                //         </HierarchicalListItem>
+                //       </HierarchicalListItem>
+
+                //       <HierarchicalListItem title="DOYEN" level={1} person={doyen}>
+                //         <HierarchicalListItem title="SECRÉTAIRE PRINCIPALE" level={2} person={secretaire}>
+                //           {serviceInformatique && (
+                //             <HierarchicalListItem title="SERVICE INFORMATIQUE" level={3} person={serviceInformatique} />
+                //           )}
+                //           {serviceComptabilite && (
+                //             <HierarchicalListItem title="SERVICE COMPTABILITÉ" level={3} person={serviceComptabilite} />
+                //           )}
+                //           {servicePersonnel && (
+                //             <HierarchicalListItem title="SERVICE PERSONNEL" level={3} person={servicePersonnel} />
+                //           )}
+                //           {serviceScolarite && (
+                //             <HierarchicalListItem title="SERVICE SCOLARITÉ" level={3} person={serviceScolarite} />
+                //           )}
+                //           {serviceAffaires && (
+                //             <HierarchicalListItem
+                //               title="SERVICE DES AFFAIRES ÉTRANGÈRES"
+                //               level={3}
+                //               person={serviceAffaires}
+                //             />
+                //           )}
+                //         </HierarchicalListItem>
+
+                //         <HierarchicalListItem title="DICOS" level={2} />
+
+                //         {viceDoyenFormation && (
+                //           <HierarchicalListItem title="VICE DOYEN CHARGÉ DE FORMATION" level={2} person={viceDoyenFormation}>
+                //             <HierarchicalListItem title="ASSOCIATION DES ÉTUDIANTS" level={3} />
+                //           </HierarchicalListItem>
+                //         )}
+
+                //         {viceDoyenNumerique && (
+                //           <HierarchicalListItem
+                //             title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
+                //             level={2}
+                //             person={viceDoyenNumerique}
+                //           />
+                //         )}
+
+                //         {viceDoyenRecherche && (
+                //           <HierarchicalListItem
+                //             title="VICE DOYEN CHARGÉ DES PARTENARIATS"
+                //             level={2}
+                //             person={viceDoyenRecherche}
+                //           />
+                //         )}
+                //       </HierarchicalListItem>
+
+                //       <HierarchicalListItem title="COLLÈGE DES ENSEIGNANTS" level={1} />
+                //     </HierarchicalListItem>
+                //   </div>
+                // </section>
+                <section className="overflow-x-auto">
+                  <div className="flex flex-col items-center space-y-2 min-w-[1200px] pb-6">
+                    {/* COFAC */}
+                    <HierarchyNode title="COFAC" level={0}>
+                      {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
+                      <div className="flex justify-center items-start gap-8">
+                        {/* Conseil Scientifique Branch */}
+                        <div className="flex flex-col items-center space-y-2">
+                          <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
+                            <div className="h-2"></div>
+                            <HierarchyNode title="MENTION" level={2}>
+                              <HierarchyNode title="PARCOURS" level={3}>
+                                <HierarchyNode title="LABO" level={4} />
+                              </HierarchyNode>
+                            </HierarchyNode>
+                          </HierarchyNode>
+                        </div>
+
+                        {/* Doyen Branch */}
+                        <div className="flex flex-col items-center space-y-2">
+                          <HierarchyNode title="DOYEN" level={1} person={doyen}>
+                            <div className="h-2"></div>
+                            <div className="flex justify-center gap-2">
+                              {/* Secrétaire Principale */}
+                              <div className="flex flex-col items-center space-y-2">
+                                <HierarchyNode title="SECRÉTAIRE PRINCIPALE" level={2} person={secretaire}>
+                                  <div className="flex flex-wrap justify-center gap-1">
+                                    {serviceInformatique && (
+                                      <HierarchyNode title="SERVICE INFORMATIQUE" level={3} person={serviceInformatique} />
+                                    )}
+                                    {serviceComptabilite && (
+                                      <HierarchyNode title="SERVICE COMPTABILITÉ" level={3} person={serviceComptabilite} />
+                                    )}
+                                    {servicePersonnel && (
+                                      <HierarchyNode title="SERVICE PERSONNEL" level={3} person={servicePersonnel} />
+                                    )}
+                                    {serviceScolarite && (
+                                      <HierarchyNode title="SERVICE SCOLARITÉ" level={3} person={serviceScolarite} />
+                                    )}
+                                    {serviceAffaires && (
+                                      <HierarchyNode
+                                        title="SERVICE DES AFFAIRES ÉTRANGÈRES"
+                                        level={3}
+                                        person={serviceAffaires}
+                                      />
+                                    )}
+                                  </div>
+                                </HierarchyNode>
+                              </div>
+
+                              {/* DICOS */}
+                              <HierarchyNode title="DICOS" level={2} />
+
+                              {/* Vice Doyen Formation with Association des Étudiants */}
+                              {viceDoyenFormation && (
+                                <div className="flex flex-col items-center space-y-2">
+                                  <HierarchyNode title="VICE DOYEN CHARGÉ DE FORMATION" level={2} person={viceDoyenFormation}>
+                                    <HierarchyNode title="ASSOCIATION DES ÉTUDIANTS" level={3} />
+                                  </HierarchyNode>
+                                </div>
+                              )}
+
+                              {/* Vice Doyen Réforme Numérique */}
+                              {viceDoyenNumerique && (
+                                <HierarchyNode
+                                  title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
+                                  level={2}
+                                  person={viceDoyenNumerique}
+                                />
+                              )}
+
+                              {/* Vice Doyen Partenariats */}
+                              {viceDoyenRecherche && (
+                                <HierarchyNode
+                                  title="VICE DOYEN CHARGÉ DES PARTENARIATS"
+                                  level={2}
+                                  person={viceDoyenRecherche}
+                                />
+                              )}
+                            </div>
+                          </HierarchyNode>
+                        </div>
+
+                        {/* Collège des Enseignants Branch */}
+                        <div className="flex flex-col items-center space-y-2">
+                          <HierarchyNode title="COLLÈGE DES ENSEIGNANTS" level={1} />
+                        </div>
+                      </div>
+                    </HierarchyNode>
+                  </div>
+                </section>
+              )}
+
+              {/* Membres COFAC */}
+              <section>
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl font-bold mb-4 text-foreground">Membres du COFAC</h2>
+                  <Button onClick={() => setShowCofacMembers(!showCofacMembers)} variant="outline" className="gap-2">
+                    {showCofacMembers ? (
+                      <>
+                        <ChevronUp className="h-4 w-4" />
+                        Masquer les membres
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown className="h-4 w-4" />
+                        Afficher les membres ({membresCofac.length})
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                {showCofacMembers && (
+                  <div className="space-y-12">
+                    {Object.entries(groupedMembers).map(([appartenance, members]) => (
+                      <div key={appartenance}>
+                        <h3 className="text-xl font-semibold mb-6 text-muted-foreground border-b border-border pb-2">
+                          {appartenance} ({members.length})
+                        </h3>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {members.map((member) => (
+                            <CofacMemberCard key={member.num} member={member} />
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
-                </div>
-              ))}
+                )}
+              </section>
             </div>
-          )}
-        </section>
-      </div>
     </div>
 
           
