@@ -285,7 +285,7 @@ export default function ActualitesPage() {
           <Card className="max-w-2xl mx-auto rounded-none text-center border-0 shadow-2xl bg-white">
             <CardHeader className="pb-6">
               <CardTitle className="text-3xl text-slate-900">
-                Restez informé
+                Restez informés
               </CardTitle>
               <CardDescription className="text-lg text-slate-600 leading-relaxed">
                   Recevez les dernières actualités de la Faculté des Sciences directement dans votre boîte mail.
