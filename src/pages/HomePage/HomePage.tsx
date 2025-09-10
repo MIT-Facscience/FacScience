@@ -253,8 +253,8 @@ export default function HomePage() {
                 <p className="text-muted-foreground leading-relaxed">
                   Depuis plus de 60 ans, la Faculté des Sciences de l'Université
                   d'Antananarivo forme les futurs scientifiques et chercheurs de
-                  Madagascar. Nous offrons des programmes d'excellence dans six
-                  départements spécialisés.
+                  Madagascar. Nous offrons des programmes d'excellence dans 14
+                  mentions spécialisées.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   Notre engagement envers la qualité de l'enseignement et la
@@ -287,7 +287,7 @@ export default function HomePage() {
                 Nos Portails
               </h2>
               <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
-                Les grandes parcours dans notre faculté
+                Les grands parcours dans notre faculté
               </p>
             </div>
 

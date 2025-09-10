@@ -15,15 +15,16 @@ import LaboratoiresPage from "./pages/recherche/laboratoires/page";
 import PublicationsPage from "./pages/recherche/publications/page";
 // import MathInfoPage from "./pages/formation/mathematiques-informatique/page";
 import ActualiteDetail from "./pages/actualites/details/page";
-import AdmissionPage from "./pages/admission/modalite/page";
 import FormationItems from "./pages/formation/components/FormationItems";
-import ParcourDetail from "./pages/formation/components/ParcourDetail";
-import AnnuairePage from "./pages/presentation/annuaires/page";
 import HistoirePage from "./pages/presentation/histoire/page";
 import OrganigrammePage from "./pages/presentation/organigramme/page";
 import VisionPage from "./pages/presentation/vision/page";
 import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 import ResultatsPage from "./pages/resultats/page";
+import ParcourDetail from "./pages/formation/components/ParcourDetail";
+import AnnuairePage from "./pages/presentation/annuaires/page";
+import AdmissionPage from "./pages/admission/modalite/page";
+import Formulaire from "./pages/Preinscription/Formulaire";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 
 // import MathInfoPage from "./formation/mathematiques-informatique/page";
@@ -62,8 +63,8 @@ export default function App() {
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
-        <Route path="/admission/modalite" element={<AdmissionPage />} />
-        <Route path="/admission/preinscription" element={<AnnuairePage />} />
+        <Route path="/admission/modalite" element={<AdmissionPage />}/>
+        <Route path="/admission/preinscription" element={<Formulaire/>}/>
 
         {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 

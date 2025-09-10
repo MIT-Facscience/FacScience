@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 export default function MentionCard({
   dept,
@@ -25,36 +24,39 @@ export default function MentionCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
     >
-      <Card className="relative border-0 pb-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
-        <CardHeader className="p-5 flex flex-col gap-4 items-center mb-20">
-          <div className="relative w-24 h-24 ">
+      <Card className="relative border-0 t-0 p-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
+        <CardHeader className="flex flex-col gap-4 p-0">
+          <div className="relative w-full h-60 overflow-hidden flex items-start">
             <img
-              src={dept.image ?? "/public/chalet.png"}
-              alt={`Département ${dept.name}`}
-              className="w-full h-full object-cover"
+              src={"/public/science.png"}
+              alt={`Mention ${dept.name}`}
+              className="w-full h-auto"
             />
-            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-full" /> */}
+            <div className="absolute z-20 right-5 top-5 bg-white rounded-full overflow-hidden w-20 h-20">
+              <img src={dept.image} className="object-cover h-full w-full" />
+            </div>
+            <div className="absolute z-10 top-0 left-0 w-full h-full inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+            <div className="absolute z-20 bottom-5 left-5">
+              <CardTitle className="text-sm text-white leading-tight text-center">
+                {dept.name}
+              </CardTitle>
+            </div>
           </div>
-          <div className="">
-            <CardTitle className="text-sm text-slate-600 leading-tight text-center">
-              {dept.name}
-            </CardTitle>
-          </div>
-          <p className="text-center text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            blanditiis ad consequatur,
-          </p>
         </CardHeader>
-        <CardContent className="pt-0 bg-primary py-5 absolute bottom-0 w-full">
-          <div className="flex items-center justify-between">
-            <Badge variant="secondary" className="bg-primary/10 text-white">
+        <CardContent className="p-5 pt-0 bottom-0 w-full">
+          <p className="font-medium text-slate-500 text-sm">
+              La mention {dept.name} a pour objectif de former les étudiants, en leur offrant des compétences théoriques et pratiques adaptées aux exigences académiques et professionnelles.
+          </p>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-slate-600 font-medium text-xs flex gap-1">
+              <Users className="w-4 h-4" />
               600+ étudiants
-            </Badge>
+            </span>
             <Link to={"detail?" + index}>
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-white hover:text-slate-600 hover:bg-secondary cursor-pointer"
+                className="text-xs text-slate-500 hover:bg-primary hover:text-white cursor-pointer"
               >
                 En savoir plus
                 <ArrowRight className="ml-1 h-3 w-3" />

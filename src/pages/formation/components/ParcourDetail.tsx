@@ -55,27 +55,27 @@ export default function ParcourDetail() {
   ];
   const matiere = [
     {
-      matiere: "matiere 1",
+      matiere: "matière 1",
       credit: 6,
     },
     {
-      matiere: "matiere 2",
+      matiere: "matière 2",
       credit: 4,
     },
     {
-      matiere: "matiere 3",
+      matiere: "matière 3",
       credit: 3,
     },
     {
-      matiere: "matiere 4",
+      matiere: "matière 4",
       credit: 2,
     },
     {
-      matiere: "matiere 5",
+      matiere: "matière 5",
       credit: 2,
     },
     {
-      matiere: "matiere 6",
+      matiere: "matière 6",
       credit: 2,
     },
   ];
@@ -112,21 +112,21 @@ export default function ParcourDetail() {
                 </div>
                 <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                    Detail{" "}
+                    Détail{" "}
                     {dataSem.find((d) => d.value == params[1])?.title ??
                       "Licence 1"}
                     <span></span>
                   </h1>
                   <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                    Découvrez les details de chaque parcours dans la mention{" "}
+                    Découvrez les détails de chaque parcours dans la mention{" "}
                     {getMentionById(params[0])?.toLowerCase()}
                   </p>
                 </div>
               </motion.div>
             </div>
             <div>
-              <div className="flex items-center justify-between">
-                <div className="w-full">
+              <div className="flex items-center">
+                <div className="w-full flex flex-col gap-5">
                   <div className="flex items-center gap-3 w-full">
                     <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between w-full">
                       <div className="flex gap-3 items-center">
@@ -138,16 +138,26 @@ export default function ParcourDetail() {
                             "Licence 1"}
                         </span>
                       </div>
-                      {parcoursList?.length != 1 && (
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-sm font-medium">
+                      <span className="font-bold">Mentions : </span>
+                      <span className="">
+                        {getMentionById(params[0])?.toLowerCase()}
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium flex items-center">
+                      <span className="font-bold mr-1">Parcours : </span>
+                      {parcoursList?.length != 1 ? (
                         <>
-                          <div className="flex gap-4 text-slate-600 items-center text-sm font-medium">
-                            <span>Selectionnez votre parcours</span>
+                          <div className="flex ml-3 gap-4 text-slate-600 items-center text-sm font-medium">
                             <Select
                               defaultValue={parcoursSelected}
                               onValueChange={(v) => setParcoursSelected(v)}
                             >
                               <SelectTrigger className="border-0 bg-slate-100 rounded-none font-medium">
-                                <SelectValue placeholder="Selectionner le parcours"></SelectValue>
+                                <SelectValue placeholder="Sélectionner le parcours"></SelectValue>
                               </SelectTrigger>
                               <SelectContent className="bg-white shadow-lg border-0">
                                 <SelectGroup>
@@ -167,17 +177,9 @@ export default function ParcourDetail() {
                             </Select>
                           </div>
                         </>
+                      ) : (
+                        parcoursSelected
                       )}
-                    </div>
-                  </div>
-                  <div className="flex flex-col mt-2">
-                    <span className="text-sm font-medium">
-                      <span className="font-bold">Mentions : </span>
-                      {getMentionById(params[0])?.toLowerCase()}
-                    </span>
-                    <span className="text-sm font-medium">
-                      <span className="font-bold">Parcous : </span>
-                      {parcoursSelected}
                     </span>
                   </div>
                 </div>
@@ -195,7 +197,7 @@ export default function ParcourDetail() {
                     </CardTitle>
                     <CardContent className="flex flex-col gap-2">
                       <span className="text-slate-700 text-sm font-medium">
-                        <span className="font-bold">• Serie du Bacc : </span>C
+                        <span className="font-bold">• Série du Bacc : </span>C
                         ou S
                       </span>
                       <span className="text-slate-700 text-sm font-medium">
