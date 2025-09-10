@@ -147,12 +147,12 @@ export default function HomePage() {
                       <CardContent className="p-6">
                         <div className="flex items-start space-x-3 mb-4">
                           <div
-                            className={`p-2 rounded-none ${
+                            className={`p-2 rounded-none aspect-square ${
                               news.type === "event"
                                 ? "bg-primary/10 text-primary"
                                 : news.type === "inscription"
                                 ? "bg-secondary/10 text-secondary-foreground"
-                                : "bg-accent/10 text-accent-foreground"
+                                : "bg-destructive/10 text-foreground"
                             }`}
                           >
                             {news.icon}
@@ -165,7 +165,7 @@ export default function HomePage() {
                                   ? "bg-primary/10 text-primary"
                                   : news.type === "inscription"
                                   ? "bg-secondary/10 text-secondary-foreground"
-                                  : "bg-accent/10 text-accent-foreground"
+                                  : "bg-destructive/10 text-foreground"
                               }`}
                             >
                               {news.type === "event"
