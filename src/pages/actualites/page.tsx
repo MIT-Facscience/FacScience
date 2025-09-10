@@ -196,7 +196,7 @@ export default function ActualitesPage() {
                     <Button
                       variant="default"
                       size="lg"
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-6"
+                      className="bg-primary/90 hover:bg-primary text-white px-6"
                     >
                       Lire la suite
                       <ArrowRight className="h-4 w-4 ml-2" />
@@ -261,7 +261,7 @@ export default function ActualitesPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                        className="text-primary/90 hover:text-primary hover:bg-blue-50"
                       >
                         <IconComponent className="h-4 w-4 mr-2" />
                         Lire
