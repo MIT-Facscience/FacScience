@@ -6,97 +6,50 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-function MentionsCarousel() {
-  const departments = [
-    {
-      name: "Mathématiques et Informatique",
-      students: "+10",
-      color: "bg-primary",
-      image: "/mathematiques.jpg",
-    },
-    {
-      name: "MIT",
-      students: "+5",
-      color: "bg-secondary",
-      image: "/images/informatique.jpg",
-    },
-    {
-      name: "Physique",
-      students: "+6",
-      color: "bg-primary/80",
-      image: "/images/physique.jpg",
-    },
-    {
-      name: "Chimie",
-      students: "+7",
-      color: "bg-secondary/80",
-      image: "/images/chimie.jpg",
-    },
-    {
-      name: "Biologie",
-      students: "+8",
-      color: "bg-primary/90",
-      image: "/images/biologie.jpg",
-    },
-    {
-      name: "Géologie",
-      students: "+2",
-      color: "bg-secondary/90",
-      image: "/images/geologie.jpg",
-    },
-    {
-      name: "Astronomie",
-      students: "+7",
-      color: "bg-primary/70",
-      image: "/images/astronomie.jpg",
-    },
-    {
-      name: "Biotechnologie",
-      students: "+3",
-      color: "bg-secondary/70",
-      image: "/images/biotechnologie.jpg",
-    },
-    {
-      name: "Sciences de l'Environnement",
-      students: "+2",
-      color: "bg-primary/60",
-      image: "/images/environnement.jpg",
-    },
-    {
-      name: "Statistiques",
-      students: "+4",
-      color: "bg-secondary/60",
-      image: "/images/statistiques.jpg",
-    },
-    {
-      name: "Océanographie",
-      students: "+4",
-      color: "bg-primary/50",
-      image: "/images/oceanographie.jpg",
-    },
-    {
-      name: "Météorologie",
-      students: "+5",
-      color: "bg-secondary/50",
-      image: "/images/meteorologie.jpg",
-    },
-    {
-      name: "Géophysique",
-      students: "+7",
-      color: "bg-primary/40",
-      image: "/images/geophysique.jpg",
-    },
-    {
-      name: "Sciences des Matériaux",
-      students: "+3",
-      color: "bg-secondary/40",
-      image: "/images/materiaux.jpg",
-    },
-  ];
+interface Mention {
+  idMention: string;
+  nomMention: string;
+  abbreviation?: string;
+  logoPath?: string;
+  nombreDeParcours: number;
+}
 
-  const [currentSlide, setCurrentSlide] = useState(0);
+function MentionsCarousel() {
+
+  const [ mentions, setMentions ] = useState<Mention[] | null>();
+  const [ currentSlide, setCurrentSlide ] = useState(0);
+  const [ totalSlides, setTotalSlides ] = useState(0);
   const itemsPerSlide = 3;
-  const totalSlides = Math.ceil(departments.length / itemsPerSlide);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5194/api/Mention/liste");
+        if (!response.ok) throw new Error("Erreur réseau");
+        const json = await response.json();
+        if (isMounted) setMentions(json);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError(String(err));
+        }
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -105,6 +58,10 @@ function MentionsCarousel() {
     return () => clearInterval(timer);
   }, [totalSlides]);
 
+  useEffect(() => {
+    setTotalSlides(mentions ? Math.ceil(mentions.length / itemsPerSlide) : 0);
+  }, [mentions]);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   };
@@ -112,6 +69,9 @@ function MentionsCarousel() {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
+
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>Erreur : {error}</p>;
 
   return (
     <motion.section
@@ -153,7 +113,7 @@ function MentionsCarousel() {
             </div>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="flex items-center justify-between">
+            <div className="flex items- // OKcenter justify-between">
               <Badge
                 variant="secondary"
                 className="bg-primary/10 text-primary"
@@ -183,8 +143,8 @@ function MentionsCarousel() {
             {Array.from({ length: totalSlides }).map((_, slideIndex) => (
               <div key={slideIndex} className="w-full flex-shrink-0">
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-                  {departments
-                    .slice(
+                  {mentions
+                    ?.slice(
                       slideIndex * itemsPerSlide,
                       (slideIndex + 1) * itemsPerSlide
                     )
@@ -200,13 +160,13 @@ function MentionsCarousel() {
                             <div className="relative w-full h-auto mb-4">
                               <img
                                 src={math}
-                                alt={`Département ${dept.name}`}
+                                alt={`Département ${dept.nomMention}`}
                                 className="object-cover scale-110"
                               />
                               {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /> */}
                               <div className="absolute bottom-4 left-4 right-4">
                                 <CardTitle className="text-lg text-white leading-tight">
-                                  {dept.name}
+                                  {dept.nomMention}
                                 </CardTitle>
                               </div>
                             </div>
@@ -217,7 +177,7 @@ function MentionsCarousel() {
                                 variant="secondary"
                                 className="bg-primary/10 text-primary"
                               >
-                                {dept.students} parcours
+                                {dept.nombreDeParcours} parcours
                               </Badge>
                               <Button
                                 variant="ghost"
