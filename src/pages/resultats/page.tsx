@@ -178,8 +178,7 @@ export default function ResultatsPage() {
             <div className="text-center mb-12">
               <h1 className="text-4xl font-bold text-slate-800 mb-4">Résultats d'Admission</h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Consultez les résultats des concours d'admission, des sélections de dossier et les statistiques par filière
-                et parcours.
+                Consultez les résultats des concours d’admission, des sélections de dossiers et les statistiques par filière et par parcours.
               </p>
             </div>
 
@@ -251,6 +250,7 @@ export default function ResultatsPage() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="l1">Licence 1</SelectItem>
+                          <SelectItem value="l1">Licence 2</SelectItem>
                           <SelectItem value="l3">Licence 3</SelectItem>
                           <SelectItem value="m1">Master 1</SelectItem>
                           <SelectItem value="m2">Master 2</SelectItem>
@@ -332,7 +332,7 @@ export default function ResultatsPage() {
               {/* Onglet Sélections */}
               <TabsContent value="selections" className="space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Résultats des Sélections de Dossier</h2>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Résultats des Sélections du Dossier</h2>
                   <div className="space-y-4">
                     {selections_dossier.map((selection, index) => (
                       <Card key={index} className="hover:shadow-lg transition-shadow">
@@ -421,7 +421,7 @@ export default function ResultatsPage() {
                             </div>
                             <div className="text-center">
                               <div className="text-xl font-bold text-purple-600">{dept.taux_reussite}%</div>
-                              <div className="text-xs text-slate-600">Taux admission</div>
+                              <div className="text-xs text-slate-600">Taux d'admission</div>
                             </div>
                             <div className="text-center">
                               <div className="text-xl font-bold text-orange-600">{Math.round(dept.etudiants * 0.1)}</div>

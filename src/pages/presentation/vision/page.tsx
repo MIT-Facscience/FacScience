@@ -10,22 +10,16 @@ export default function VisionPage() {
       description:
         "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe",
       image: "/coursera.jpg",
-      date: "Decouvrir",
+      date: "",
     },
-    {
-      title: "Bourse d'Excellence: 50 nouveaux étudiants bénéficiaires",
-      description:
-        "Programme de bourses pour promouvoir l'excellence académique et l'inclusion sociale",
-      image: "/coursera.jpg",
-      date: "Decouvrir",
-    },
+    
     {
       title:
         "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
       description:
         "Découvrez les motivations de nos nouveaux enseignants-chercheurs",
       image: "/coursera.jpg",
-      date: "Decouvrir",
+      date: "",
     },
   ];
 
@@ -202,21 +196,21 @@ export default function VisionPage() {
 
                         <div className="mt-6">
                           <a
-                            href="#"
+                            href="/actualites"
                             className="text-sm text-purple-600 hover:text-purple-800 font-medium"
                           >
                             Voir plus d'événements
                           </a>
                         </div>
 
-                        <div className="mt-4">
+                        {/* <div className="mt-4">
                           <a
                             href="#"
                             className="text-sm text-purple-600 hover:text-purple-800 font-medium"
                           >
                             Événements à la Demande
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

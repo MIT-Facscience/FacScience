@@ -6,24 +6,57 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
+    steps:
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Build Docker image
       - name: Build Docker image
         run: |
           docker build -t facscienceinterface:latest .
 
-      - name: Stop old container
-        run: |
-          docker stop facscienceinterface || true
-          docker rm facscienceinterface || true
+      # Save Docker image as tar
 
-      - name: Run new container
+      - name: Save Docker image to tar
         run: |
-          docker run -d --name facscienceinterface \
-            -p 9090:80 \
-            --restart always \
-            --network faculty_network facscienceinterface:latest
+          mkdir -p /tmp/deploy
+          docker save facscienceinterface:latest -o /tmp/deploy/facscienceinterface.tar
+          ls -lh /tmp/deploy/facscienceinterface.tar
+          if [ ! -s /tmp/deploy/facscienceinterface.tar ]; then
+            echo "Erreur : le fichier tar est vide ou n'a pas été créé"
+            exit 1
+          fi
+
+          # Sauvegarder la clé privée dans un fichier temporaire
+          echo "${{ secrets.PRIVATE_KEY }}" > /tmp/private_key
+          chmod 600 /tmp/private_key
+
+          # Copier l'image vers le serveur
+          scp -o StrictHostKeyChecking=no -i /tmp/private_key /tmp/deploy/facscienceinterface.tar \${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/mit/facscienceinterface
+          scp -o StrictHostKeyChecking=no -i /tmp/private_key docker-compose.yml \${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/mit/facscienceinterface
+
+      # Load Docker image and deploy with docker-compose
+      - name: Load and deploy on server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /home/mit/facscienceinterface
+            # Charger l'image Docker
+            docker load -i facscienceinterface.tar
+            # Arrêter et supprimer l'ancien conteneur si il existe
+            docker compose down || true
+            # Lancer le conteneur avec docker-compose
+            docker compose up -d
+
+            #lancer le 
+
+            # Vérifier l'état des conteneurs
+            docker ps -a

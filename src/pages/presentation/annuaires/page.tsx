@@ -528,7 +528,7 @@ const AnnuairePage = () => {
         <div className="bg-amber-50 p-6 border border-green-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-slate-600 text-sm font-medium">Personnel</p>
+              <p className="text-slate-600 text-sm font-medium">Personnels</p>
               <p className="text-3xl font-bold text-slate-900">
                 {staff.length}
               </p>
@@ -541,7 +541,7 @@ const AnnuairePage = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-yellow-600 text-sm font-medium">
-                Départements
+                Mentions
               </p>
               <p className="text-3xl font-bold text-yellow-900">8</p>
             </div>
@@ -645,7 +645,7 @@ const AnnuairePage = () => {
                 onChange={(e) => setSelectedFilter(e.target.value)}
                 className="px-4 py-3 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               >
-                <option value="all">Tous les départements</option>
+                <option value="all">Tous les mentions</option>
                 <option value="tech">Sciences & Technologies</option>
                 <option value="econ">Sciences Économiques</option>
                 <option value="admin">Administration</option>

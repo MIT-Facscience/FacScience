@@ -60,7 +60,7 @@ export default function ListesAdmisPage() {
             <div className="text-center mb-8">
               <h1 className="text-4xl font-bold mb-4">Listes des Admis</h1>
               <p className="text-xl text-muted-foreground">
-                Résultats des concours d'admission et sélections de dossier - Année académique 2025-2026
+                Résultats des concours d’admission et des sélections de dossiers – Année académique 2025‑2026
               </p>
             </div>
 

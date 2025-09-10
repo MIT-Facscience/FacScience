@@ -29,7 +29,7 @@ export default function MentionCard({
           <div className="relative w-full h-60 overflow-hidden flex items-start">
             <img
               src={"/public/science.png"}
-              alt={`Département ${dept.name}`}
+              alt={`Mention ${dept.name}`}
               className="w-full h-auto"
             />
             <div className="absolute z-20 right-5 top-5 bg-white rounded-full overflow-hidden w-20 h-20">
@@ -45,8 +45,7 @@ export default function MentionCard({
         </CardHeader>
         <CardContent className="p-5 pt-0 bottom-0 w-full">
           <p className="font-medium text-slate-500 text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            blanditiis ad consequatur,
+              La mention {dept.name} a pour objectif de former les étudiants, en leur offrant des compétences théoriques et pratiques adaptées aux exigences académiques et professionnelles.
           </p>
           <div className="flex items-center justify-between mt-2">
             <span className="text-slate-600 font-medium text-xs flex gap-1">
