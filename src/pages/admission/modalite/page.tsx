@@ -147,7 +147,7 @@ export default function AdmissionPage() {
                             >
                               1
                             </Badge>
-                            <span>Dépôt de dossier pour la préinscription</span>
+                            <span>Dépôt du dossier pour la préinscription</span>
                           </li>
                           <li className="flex gap-3">
                             <Badge
