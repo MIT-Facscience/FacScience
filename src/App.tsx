@@ -2,27 +2,28 @@ import { Route, Routes } from "react-router-dom";
 import { Footer } from "./components/footer";
 import Navigation from "./components/navigation";
 import ActualitesPage from "./pages/actualites/page";
+import AdminPage from "./pages/admin/page";
 import ContactPage from "./pages/contact/page";
 import FormationPage from "./pages/formation/page";
 import HomePage from "./pages/HomePage/HomePage";
 import PresentationPage from "./pages/presentation/histoire/page";
 import RecherchePage from "./pages/recherche/page";
-import AdminPage from "./pages/admin/page";
 // import FraisPage from "./pages/formation/frais/page";
 // import InscriptionPage from "./pages/formation/inscription/page";
 import EcoleDoctoralePage from "./pages/recherche/ecole-doctorale/page";
 import LaboratoiresPage from "./pages/recherche/laboratoires/page";
 import PublicationsPage from "./pages/recherche/publications/page";
 // import MathInfoPage from "./pages/formation/mathematiques-informatique/page";
+import ActualiteDetail from "./pages/actualites/details/page";
+import AdmissionPage from "./pages/admission/modalite/page";
+import FormationItems from "./pages/formation/components/FormationItems";
+import ParcourDetail from "./pages/formation/components/ParcourDetail";
+import AnnuairePage from "./pages/presentation/annuaires/page";
 import HistoirePage from "./pages/presentation/histoire/page";
 import OrganigrammePage from "./pages/presentation/organigramme/page";
 import VisionPage from "./pages/presentation/vision/page";
 import ListesAdmisPage from "./pages/resultats/listes-admis/page";
-import FormationItems from "./pages/formation/components/FormationItems";
 import ResultatsPage from "./pages/resultats/page";
-import ParcourDetail from "./pages/formation/components/ParcourDetail";
-import AnnuairePage from "./pages/presentation/annuaires/page";
-import AdmissionPage from "./pages/admission/modalite/page";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 
 // import MathInfoPage from "./formation/mathematiques-informatique/page";
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/recherche/publications" element={<PublicationsPage />} />
         <Route path="/presentation" element={<PresentationPage />} />
         <Route path="/actualites" element={<ActualitesPage />} />
+        <Route path="/actualites/:id" element={<ActualiteDetail />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/formation/detail" element={<FormationItems />} />
         {/* <Route path="/formation/inscription" element={<InscriptionPage />} /> */}
@@ -58,11 +60,10 @@ export default function App() {
         <Route path="/presentation/vision" element={<VisionPage />} />
         <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
-        <Route path="/presentation/annuaires/" element={<AnnuairePage/>}/>
-        
+        <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
-        <Route path="/admission/modalite" element={<AdmissionPage />}/>
-        <Route path="/admission/preinscription" element={<AnnuairePage/>}/>
+        <Route path="/admission/modalite" element={<AdmissionPage />} />
+        <Route path="/admission/preinscription" element={<AnnuairePage />} />
 
         {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 
