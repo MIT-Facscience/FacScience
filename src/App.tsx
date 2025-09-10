@@ -44,7 +44,7 @@ export default function App() {
         <Route path="/recherche/publications" element={<PublicationsPage />} />
         <Route path="/presentation" element={<PresentationPage />} />
         <Route path="/actualites" element={<ActualitesPage />} />
-        <Route path="/actualites/[id]" element={<ActualiteDetail />} />
+        <Route path="/actualites/:id" element={<ActualiteDetail />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/formation/detail" element={<FormationItems />} />
         {/* <Route path="/formation/inscription" element={<InscriptionPage />} /> */}
