@@ -125,8 +125,8 @@ export default function ParcourDetail() {
               </motion.div>
             </div>
             <div>
-              <div className="flex items-center justify-between">
-                <div className="w-full">
+              <div className="flex items-center">
+                <div className="w-full flex flex-col gap-5">
                   <div className="flex items-center gap-3 w-full">
                     <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between w-full">
                       <div className="flex gap-3 items-center">
@@ -138,10 +138,20 @@ export default function ParcourDetail() {
                             "Licence 1"}
                         </span>
                       </div>
-                      {parcoursList?.length != 1 && (
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-sm font-medium">
+                      <span className="font-bold">Mentions : </span>
+                      <span className="">
+                        {getMentionById(params[0])?.toLowerCase()}
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium flex items-center">
+                      <span className="font-bold mr-1">Parcous : </span>
+                      {parcoursList?.length != 1 ? (
                         <>
-                          <div className="flex gap-4 text-slate-600 items-center text-sm font-medium">
-                            <span>Selectionnez votre parcours</span>
+                          <div className="flex ml-3 gap-4 text-slate-600 items-center text-sm font-medium">
                             <Select
                               defaultValue={parcoursSelected}
                               onValueChange={(v) => setParcoursSelected(v)}
@@ -167,17 +177,9 @@ export default function ParcourDetail() {
                             </Select>
                           </div>
                         </>
+                      ) : (
+                        parcoursSelected
                       )}
-                    </div>
-                  </div>
-                  <div className="flex flex-col mt-2">
-                    <span className="text-sm font-medium">
-                      <span className="font-bold">Mentions : </span>
-                      {getMentionById(params[0])?.toLowerCase()}
-                    </span>
-                    <span className="text-sm font-medium">
-                      <span className="font-bold">Parcous : </span>
-                      {parcoursSelected}
                     </span>
                   </div>
                 </div>

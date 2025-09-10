@@ -37,7 +37,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr RAZAKARIVONY Andriamarolahy Andrianambinina",
-    image: "/chalet.png",
+    image: "/fac-science.jpg",
   },
   {
     id: "5",
@@ -61,7 +61,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr RANDRIANASOLOHARISOA Dimbimalala",
-    image: "/chalet.png",
+    image: "/fac-science.jpg",
   },
   {
     id: "8",
@@ -69,7 +69,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mme ANDRIAMAMPIANINA Tianarilalaina Tantely",
-    image: "/chalet.png",
+    image: "/fac-science.jpg",
   },
   {
     id: "9",
@@ -109,7 +109,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mme RAMIANDRISOA Njararivelo Louisa",
-    image: "/chalet.png",
+    image: "/fac-science.jpg",
   },
 ];
 const Stats = [
