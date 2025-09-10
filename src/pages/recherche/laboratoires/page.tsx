@@ -1,11 +1,30 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Building, Users, Mail, Phone, MapPin, Beaker, Microscope, Calculator, Cpu, Mountain, TestTube, ChevronDown, ChevronUp } from "lucide-react"
-import { useCallback, useState } from "react"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Beaker,
+  Calculator,
+  ChevronDown,
+  ChevronUp,
+  Cpu,
+  Mail,
+  MapPin,
+  Microscope,
+  Mountain,
+  Phone,
+  TestTube,
+  Users,
+} from "lucide-react";
+import { useCallback, useState } from "react";
 
 export default function LaboratoiresPage() {
-  const [expandedLab, setExpandedLab] = useState<number | null>(null)
+  const [expandedLab, setExpandedLab] = useState<number | null>(null);
 
   const laboratoires = [
     {
@@ -152,9 +171,20 @@ export default function LaboratoiresPage() {
       accentColor: "from-purple-500 to-amber-600",
       borderColor: "border-amber-200",
       bgGradient: "from-cyan-50 to-blue-50",
-      imageUrl: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop",
-      specialites: ["Géologie structurale", "Minéralogie", "Paléontologie", "Hydrogéologie"],
-      equipements: ["Microscope pétrographique", "Analyseur XRF", "Sismographe", "Foreuse portable"],
+      imageUrl:
+        "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop",
+      specialites: [
+        "Géologie structurale",
+        "Minéralogie",
+        "Paléontologie",
+        "Hydrogéologie",
+      ],
+      equipements: [
+        "Microscope pétrographique",
+        "Analyseur XRF",
+        "Sismographe",
+        "Foreuse portable",
+      ],
       projets: [
         "Cartographie géologique de Madagascar",
         "Ressources minérales et énergétiques",
@@ -174,9 +204,20 @@ export default function LaboratoiresPage() {
       accentColor: "from-yellow-100 to-amber-400",
       borderColor: "border-cyan-200",
       bgGradient: "from-cyan-50 to-blue-50",
-      imageUrl: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
-      specialites: ["Intelligence artificielle", "Réseaux et sécurité", "Développement logiciel", "Systèmes embarqués"],
-      equipements: ["Cluster de calcul", "Serveurs haute performance", "Équipements réseau", "Cartes de développement"],
+      imageUrl:
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+      specialites: [
+        "Intelligence artificielle",
+        "Réseaux et sécurité",
+        "Développement logiciel",
+        "Systèmes embarqués",
+      ],
+      equipements: [
+        "Cluster de calcul",
+        "Serveurs haute performance",
+        "Équipements réseau",
+        "Cartes de développement",
+      ],
       projets: [
         "IA pour l'agriculture de précision",
         "Systèmes d'information géographique",
@@ -185,20 +226,29 @@ export default function LaboratoiresPage() {
     },
   ];
 
-  const totalPersonnel = laboratoires.reduce((sum, lab) => sum + lab.personnel, 0)
-  const totalDoctorants = laboratoires.reduce((sum, lab) => sum + lab.doctorants, 0)
-  const totalProjets = laboratoires.reduce((sum, lab) => sum + lab.projets.length, 0)
+  const totalPersonnel = laboratoires.reduce(
+    (sum, lab) => sum + lab.personnel,
+    0
+  );
+  const totalDoctorants = laboratoires.reduce(
+    (sum, lab) => sum + lab.doctorants,
+    0
+  );
+  const totalProjets = laboratoires.reduce(
+    (sum, lab) => sum + lab.projets.length,
+    0
+  );
 
- const toggleExpand = useCallback((index: number) => {
-  setExpandedLab(prevExpanded => {
-    // Si on clique sur la même carte déjà étendue, on la ferme
-    if (prevExpanded === index) {
-      return null
-    }
-    // Sinon, on ouvre cette carte et ferme automatiquement les autres
-    return index
-  })
-}, [])
+  const toggleExpand = useCallback((index: number) => {
+    setExpandedLab((prevExpanded) => {
+      // Si on clique sur la même carte déjà étendue, on la ferme
+      if (prevExpanded === index) {
+        return null;
+      }
+      // Sinon, on ouvre cette carte et ferme automatiquement les autres
+      return index;
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -241,10 +291,18 @@ export default function LaboratoiresPage() {
             },
           ].map((stat, index) => (
             <div key={index} className="relative group">
-              <div className="absolute inset-0 bg-black opacity-10  transform rotate-6 group-hover:rotate-12 transition-transform duration-300" 
-                   style={{ backgroundImage: `linear-gradient(to right, ${stat.color.split(' ')[1]}, ${stat.color.split(' ')[3]})` }}></div>
+              <div
+                className="absolute inset-0 bg-black opacity-10  transform rotate-6 group-hover:rotate-12 transition-transform duration-300"
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${
+                    stat.color.split(" ")[1]
+                  }, ${stat.color.split(" ")[3]})`,
+                }}
+              ></div>
               <div className="relative bg-white p-8  shadow-lg border border-gray-100 text-center group-hover:shadow-xl transition-all duration-300">
-                <div className={`text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                <div
+                  className={`text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
+                >
                   {stat.value}
                 </div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
@@ -260,7 +318,10 @@ export default function LaboratoiresPage() {
             const isExpanded = expandedLab === index;
 
             return (
-              <Card key={index} className="group hover:shadow-2xl transition-all rounded-none duration-500 transform hover:-translate-y-2 overflow-hidden bg-white border-0 shadow-lg">
+              <Card
+                key={index}
+                className="group hover:shadow-2xl transition-all rounded-none duration-500 transform hover:-translate-y-2 overflow-hidden bg-white border-0 shadow-lg"
+              >
                 {/* Header avec image et overlay */}
                 {/* <h1>Salut</h1> */}
                 <div className="relative h-48 overflow-hidden">
@@ -269,8 +330,10 @@ export default function LaboratoiresPage() {
                     alt={lab.nom}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${lab.bgGradient} opacity-50`}></div>
-                  
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t ${lab.bgGradient} opacity-50`}
+                  ></div>
+
                   {/* Code badge */}
                   <div className="absolute top-4 right-4">
                     <div
@@ -432,8 +495,12 @@ export default function LaboratoiresPage() {
                   {/* Bouton voir plus/moins */}
                   <Button
                     onClick={() => toggleExpand(index)}
-                    variant="ghost" 
-                    className={`w-full mt-4 transition-all rounded-none duration-300 ${isExpanded ? 'bg-amber-50 hover:bg-secondary text-secondary' : 'bg-purple-50 hover:bg-primary text-primary'}`}
+                    variant="ghost"
+                    className={`w-full mt-4 transition-all rounded-none duration-300 ${
+                      isExpanded
+                        ? "bg-amber-50 hover:bg-secondary text-secondary"
+                        : "bg-purple-50 hover:bg-primary text-primary"
+                    }`}
                   >
                     {isExpanded ? (
                       <>
