@@ -1,3 +1,5 @@
+import ErrorComp from "@/components/Home/error";
+import Loader from "@/components/Home/loading";
 import MentionCard from "@/pages/formation/components/MentionCard";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -22,7 +24,7 @@ export default function FormationPage() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5194/api/Mention/liste");
+        const response = await fetch("http://localhos:5194/api/Mention/liste");
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         if (isMounted) setMentions(json);
@@ -44,8 +46,8 @@ export default function FormationPage() {
     };
   }, []);
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>Erreur : {error}</p>;
+  if (loading) return <Loader/>;
+  if (error) return <ErrorComp>{error}</ErrorComp>;
 
   return (
     <>

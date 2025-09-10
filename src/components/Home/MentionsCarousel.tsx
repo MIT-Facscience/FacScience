@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import ErrorComp from "./error";
+import Loader from "./loading";
 
 interface Mention {
   idMention: string;
@@ -70,8 +72,8 @@ function MentionsCarousel() {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>Erreur : {error}</p>;
+  if (loading) return <Loader/>;
+    if (error) return <ErrorComp>{error}</ErrorComp>;
 
   return (
     <motion.section
