@@ -103,14 +103,14 @@ export default function FormationItems() {
                     value="normal"
                     className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
-                    <span className="hidden sm:flex">Parcours</span> normale
+                    <span className="hidden sm:flex">Parcours</span> normal
                   </TabsTrigger>
                   <TabsTrigger
                     value="professionalisante"
                     className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
                     <span className="hidden sm:flex">Parcours</span>{" "}
-                    professionalisante
+                    professionalisant
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="normal">
