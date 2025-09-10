@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CandidateInfo, Program } from '../types';
+import type { CandidateInfo, Program } from '../types';
 import { isValidEmail, isValidTel } from '../api/api';
 
 interface StepTwoThreeProps {
@@ -49,7 +49,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
           {programs.map((program) => (
             <label
               key={program.id}
-              className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.id===selectedProgram?.id ? "border-1 border-faculty-purple-600 border-l-4":"hover:border-l-4 hover:border-l-orange-400"}`}
+              className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.id===selectedProgram?.id ? "border-1 border-faculty-purple-600 border-l-4":"border-gray-300 hover:border-l-4 hover:border-l-orange-400"}`}
             >
               <input
                 type="radio"
@@ -74,21 +74,21 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
             placeholder="Référence"
             value={bankReference}
             onChange={(e) => setBankReference(e.target.value)}
-            className="border px-4 py-2"
+            className="border px-4 py-2 border-gray-200"
           />
           <input
             type="text"
             placeholder="Agence"
             value={bankAgence}
             onChange={(e) => setBankAgence(e.target.value)}
-            className="border px-4 py-2"
+            className="border px-4 py-2 border-gray-200"
           />
           <input
             type="date"
             placeholder="Date"
             value={bankDate?.toISOString().split("T")[0]}
             onChange={(e) => setBankDate(new Date(e.target.value))}
-            className="border px-4 py-2"
+            className="border px-4 py-2 border-gray-200"
           />
         </div>
       </div>
@@ -102,14 +102,14 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
             placeholder="Adresse e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border px-4 py-2"
+            className="border px-4 py-2 border-gray-200"
           />
           <input
             type="tel"
             placeholder="Téléphone"
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
-            className="border px-4 py-2"
+            className="border px-4 py-2 border-gray-200"
           />
         </div>
       </div>

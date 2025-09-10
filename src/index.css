@@ -122,6 +122,30 @@ accent: #010302
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+  --color-faculty-purple-50: #faf5ff;
+  --color-faculty-purple-100: #f3e8ff;
+  --color-faculty-purple-200: #e9d5ff;
+  --color-faculty-purple-300: #d8b4fe;
+  --color-faculty-purple-400: #c084fc;
+  --color-faculty-purple-500: #a855f7;
+  --color-faculty-purple-600: #9333ea;
+  --color-faculty-purple-700: #7c3aed;
+  --color-faculty-purple-800: #6b21a8;
+  --color-faculty-purple-900: #581c87;
+
+  --color-faculty-gold-50: #fffbeb;
+  --color-faculty-gold-100: #fef3c7;
+  --color-faculty-gold-200: #fde68a;
+  --color-faculty-gold-300: #fcd34d;
+  --color-faculty-gold-400: #fbbf24;
+  --color-faculty-gold-500: #f59e0b;
+  --color-faculty-gold-600: #d97706;
+  --color-faculty-gold-700: #b45309;
+  --color-faculty-gold-800: #92400e;
+  --color-faculty-gold-900: #78350f;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

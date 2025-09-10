@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircle, Download, Mail, Phone, Loader2, AlertCircle, Ticket, MapPin, HandCoins } from 'lucide-react';
-import { ApplicationData } from '../types';
+import type { ApplicationData } from '../types';
 import { submitApplication as submitPreinscription } from '../api/api';
 
 interface StepFourProps {

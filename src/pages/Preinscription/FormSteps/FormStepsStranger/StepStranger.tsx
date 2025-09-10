@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
-import { ForeignPersonalInfo, ForeignDocuments, ForeignBankInfo, Program } from '../../types';
+import type { ForeignPersonalInfo, ForeignDocuments, ForeignBankInfo, Program } from '../../types';
 import StepThree from './StepThree';
 
 export default function StepStranger({setstrangerStep}: {setstrangerStep: (i: number) => void}) {

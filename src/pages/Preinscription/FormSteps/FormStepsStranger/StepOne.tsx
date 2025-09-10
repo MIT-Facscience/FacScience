@@ -1,5 +1,5 @@
 import { User, Mail, Phone, Globe, Flag, ChevronRight, Ticket, MapPin, HandCoins } from 'lucide-react';
-import { ForeignBankInfo, ForeignPersonalInfo } from '../../types';
+import type { ForeignBankInfo, ForeignPersonalInfo } from '../../types';
 
 interface StepOneProps {
   personalInfo: ForeignPersonalInfo;
@@ -122,7 +122,7 @@ export default function StepOne({ personalInfo, bankInfo, errors, setPersonalInf
       </div>
 
       <div className="flex justify-end pt-6">
-        <button onClick={handleNext} className="px-6 py-3 bg-purple-600 text-white rounded-sm flex items-center">
+        <button onClick={handleNext} className="px-6 py-3 bg-faculty-purple-600 text-white rounded-sm flex items-center">
           Continuer <ChevronRight className="w-5 h-5 ml-2"/>
         </button>
       </div>

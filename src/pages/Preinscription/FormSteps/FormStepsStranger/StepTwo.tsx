@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FileText, ChevronRight } from 'lucide-react';
-import { ForeignDocuments, Program } from '../../types'
+import type { ForeignDocuments, Program } from '../../types'
 import { getProgram } from '../../api/programs';
 
 interface StepTwoProps {
@@ -71,7 +71,7 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
 
       <div className="flex justify-between pt-6">
         <button onClick={onBack} className="px-6 py-3 border rounded">Précédent</button>
-        <button onClick={handleNext} className="px-6 py-3 bg-purple-600 text-white rounded-lg flex items-center" disabled={!documents.diploma || !localProgram}>
+        <button onClick={handleNext} className="px-6 py-3 bg-faculty-purple-600 text-white rounded-lg flex items-center" disabled={!documents.diploma || !localProgram}>
           Continuer <ChevronRight className="ml-2 w-5 h-5"/>
         </button>
       </div>

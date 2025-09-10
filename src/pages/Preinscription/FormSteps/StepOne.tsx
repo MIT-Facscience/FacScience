@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Loader2, Search, AlertCircle } from 'lucide-react';
-import { CandidateInfo } from '../types';
-import { ResData } from '../types/models';
 import {fetchCandidateInfo as fetchCand} from "../api/api"
+import type { CandidateInfo } from '../types';
+import type { ResData } from '../types/models';
 
 interface StepOneProps {
   onNext: (candidateInfo: CandidateInfo) => void;
@@ -55,10 +55,8 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
       const resData = await fetchCand(numBacc, anneeBacc);
       return mapResDataToCandidateInfo(resData, numBacc, anneeBacc);
     } catch (error) {
-      throw new Error('Erreur lors de la récupération des données');
-      console.log('====================================');
       console.log(error);
-      console.log('====================================');
+      throw new Error('Erreur lors de la récupération des données');
     }
   };
 

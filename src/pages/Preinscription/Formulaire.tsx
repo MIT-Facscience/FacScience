@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { StepProgress } from './StepProgress';
-import { StepOne } from './StepOne';
-import { StepTwoThree } from './StepTwoThree';
-import { StepFour } from './StepFour';
-import { ApplicationData, CandidateInfo, Program } from '../types';
-import StepStranger from './FormStepsStranger/StepStranger';
-import { AVAILABLE_PROGRAMS, getProgram } from '../api/programs';
+import { StepProgress } from './FormSteps/StepProgress';
+import { StepOne } from './FormSteps/StepOne';
+import { StepTwoThree } from './FormSteps/StepTwoThree';
+import { StepFour } from './FormSteps/StepFour';
+import type { ApplicationData, CandidateInfo, Program } from './types/index';
+import StepStranger from './FormSteps/FormStepsStranger/StepStranger';
+import { AVAILABLE_PROGRAMS, getProgram } from './api/programs';
 
 interface PersonalInfo {
   email: string;

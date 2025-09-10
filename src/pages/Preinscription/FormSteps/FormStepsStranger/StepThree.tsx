@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCircle, Ticket, MapPin, HandCoins, Loader2, AlertCircle, Download } from 'lucide-react';
-import { ForeignPersonalInfo, ForeignBankInfo, ForeignDocuments, Program } from '../../types';
+import type { ForeignPersonalInfo, ForeignBankInfo, ForeignDocuments, Program } from '../../types';
 
 interface StepThreeProps {
   personalInfo: ForeignPersonalInfo;
@@ -82,7 +82,7 @@ const StepThree: React.FC<StepThreeProps> = ({
           <button
             onClick={onSubmit}
             disabled={isSubmitting || !documents.diploma}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg flex items-center space-x-2"
+            className="px-6 py-3 bg-faculty-purple-600 text-white rounded-lg flex items-center space-x-2"
           >
             {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin"/> : <span>Soumettre</span>}
           </button>

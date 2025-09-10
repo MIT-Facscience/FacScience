@@ -1,4 +1,4 @@
-import { ApplicationData } from '../types';
+import type { ApplicationData } from '../types';
 // import { Preinscription, ResData } from '../types/models';
 
 // Simulate API delay
