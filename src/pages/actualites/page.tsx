@@ -288,8 +288,7 @@ export default function ActualitesPage() {
                 Restez informé
               </CardTitle>
               <CardDescription className="text-lg text-slate-600 leading-relaxed">
-                Recevez les dernières actualités de la Faculté des Sciences
-                directement dans votre boîte mail.
+                  Recevez les dernières actualités de la Faculté des Sciences directement dans votre boîte mail.
               </CardDescription>
             </CardHeader>
             <CardContent>
