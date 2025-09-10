@@ -44,7 +44,7 @@ export default function FormationItems() {
                     {data?.name}
                   </h1>
                   <p className="text-sm sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                    Découvrez les parcours d'excellences dans le mention{" "}
+                    Découvrez les parcours d’excellence dans la mention{" "}
                     {data?.name?.toLowerCase()}
                   </p>
                 </div>
