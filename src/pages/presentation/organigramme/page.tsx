@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ChevronDown, ChevronUp, Mail, TreePine } from "lucide-react"
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 // Types pour les données
 interface PersonData {
@@ -441,7 +441,19 @@ const HierarchyNode: React.FC<{
 
 export default function Organigramme() {
   const [showCofacMembers, setShowCofacMembers] = useState(false)
-  const [showHierarchy, setShowHierarchy] = useState(true)
+  const [windowWidth, setWindowWidth] = useState(0)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+    
+    // Set initial width
+    handleResize()
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Grouper les membres COFAC par appartenance
   const groupedMembers = membresCofac.reduce(
@@ -491,7 +503,7 @@ export default function Organigramme() {
   const serviceAffaires = chefsService.find((p) => p.responsabilite.includes("Affaires"))
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-x-auto">
 
 
       <main className="pt-4 sm:pt-8 lg:pt-12 pb-4 sm:pb-8 lg:pb-12">
@@ -522,8 +534,15 @@ export default function Organigramme() {
 
             <div>
 
-              <section className="overflow-x-auto">
-                  <div className="flex flex-col items-center pb-6 min-w-[1400px]">
+              <section className="overflow-y-visible" 
+                style={{
+                  overflowX: windowWidth >= 1468 ? 'visible' : 'auto'
+                }}>
+                  <div className="flex flex-col items-center pb-6" 
+                    style={{
+                      minWidth: windowWidth >= 1468 ? '1200px' : '1400px'
+                    }}>
+                  
                     {/* COFAC */}
                     <HierarchyNode title="COFAC" level={0}>
 
@@ -533,7 +552,7 @@ export default function Organigramme() {
                       {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
                       {/* Ligne horizontale centrée */}
                       <div className="flex justify-center items-start relative w-324 gap-2">
-                        <div className="absolute top-0 left-0 right-0 h-px bg-gray-400" />
+                        <div className="absolute top-0 left-2 right-3 h-px bg-gray-400" />
                          
                         {/* Conseil Scientifique Branch */}
                         <div className="flex flex-col items-center">
@@ -561,8 +580,8 @@ export default function Organigramme() {
                             <div className="w-px h-6 bg-gray-400"></div>
 
                             {/* ===== Ligne horizontale depuis DOYEN ===== */}
-                            <div className="relative w-full flex justify-center items-start gap-2">
-                                <div className="absolute top-0 left-79 right-15 h-px bg-gray-400"></div>
+                            <div className="relative w-full flex justify-center items-start gap-1">
+                                <div className="absolute top-0 left-80 right-15 h-px bg-gray-400"></div>
 
                                 {/* Secrétaire + Services */}
                                 <div className="flex flex-col items-center">
@@ -607,7 +626,7 @@ export default function Organigramme() {
                                     </div>
                                 </div>
 
-                                {/* DICOS */}
+                                {/* DICOS - rapproché de la Secrétaire */}
                                 <div className="flex flex-col items-center">
                                 <div className="w-px h-6 bg-gray-400"></div>
                                 <HierarchyNode title="DICOS" level={2} />
