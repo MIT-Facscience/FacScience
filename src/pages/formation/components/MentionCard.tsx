@@ -4,16 +4,14 @@ import { ArrowRight, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 export default function MentionCard({
-  dept,
+  mention,
   index,
 }: {
-  dept: {
-    id: string;
-    name: string;
-    image: string;
-    color: string;
-    description: string;
-    responsable: string;
+  mention: {
+    idMention: string;
+    nomMention: string;
+    abbreviation?: string;
+    logoPath?: string;
   };
   index: number;
 }) {
@@ -29,23 +27,28 @@ export default function MentionCard({
           <div className="relative w-full h-60 overflow-hidden flex items-start">
             <img
               src={"/public/science.png"}
-              alt={`Mention ${dept.name}`}
+              alt={`Mention ${mention.nomMention}`}
               className="w-full h-auto"
             />
             <div className="absolute z-20 right-5 top-5 bg-white rounded-full overflow-hidden w-20 h-20">
-              <img src={dept.image} className="object-cover h-full w-full" />
+              <img src={mention.logoPath ? `/${mention.logoPath}` : `/Logo_${mention.abbreviation}.jpg`} 
+                className="object-cover h-full w-full" 
+                onError={(e) => {
+                  e.currentTarget.src = '/fac-science.jpg';
+                }}
+              />
             </div>
             <div className="absolute z-10 top-0 left-0 w-full h-full inset-0 bg-gradient-to-t from-black/80 to-transparent" />
             <div className="absolute z-20 bottom-5 left-5">
               <CardTitle className="text-sm text-white leading-tight text-center">
-                {dept.name}
+                {mention.nomMention}
               </CardTitle>
             </div>
           </div>
         </CardHeader>
         <CardContent className="p-5 pt-0 bottom-0 w-full">
           <p className="font-medium text-slate-500 text-sm">
-              La mention {dept.name} a pour objectif de former les étudiants, en leur offrant des compétences théoriques et pratiques adaptées aux exigences académiques et professionnelles.
+              La mention {mention.nomMention} a pour objectif de former les étudiants, en leur offrant des compétences théoriques et pratiques adaptées aux exigences académiques et professionnelles.
           </p>
           <div className="flex items-center justify-between mt-2">
             <span className="text-slate-600 font-medium text-xs flex gap-1">

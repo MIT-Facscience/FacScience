@@ -89,7 +89,7 @@ function MentionsCarousel() {
       </div>
 
       {/* <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {departments.map((dept, index) => (
+    {departments.map((mention, index) => (
       <motion.div
         key={index}
         initial={{ opacity: 0, y: 20 }}
@@ -100,14 +100,14 @@ function MentionsCarousel() {
           <CardHeader className="p-0">
             <div className="relative w-full h-48 mb-4">
               <img
-                src={dept.image || "/placeholder.svg"}
-                alt={`Département ${dept.name}`}
+                src={mention.image || "/placeholder.svg"}
+                alt={`Département ${mention.name}`}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
                 <CardTitle className="text-lg text-white leading-tight">
-                  {dept.name}
+                  {mention.name}
                 </CardTitle>
               </div>
             </div>
@@ -118,7 +118,7 @@ function MentionsCarousel() {
                 variant="secondary"
                 className="bg-primary/10 text-primary"
               >
-                {dept.students} étudiants
+                {mention.students} étudiants
               </Badge>
               <Button
                 variant="ghost"
@@ -148,7 +148,7 @@ function MentionsCarousel() {
                       slideIndex * itemsPerSlide,
                       (slideIndex + 1) * itemsPerSlide
                     )
-                    .map((dept, index) => (
+                    .map((mention, index) => (
                       <motion.div
                         key={slideIndex * itemsPerSlide + index}
                         initial={{ opacity: 0, y: 20 }}
@@ -160,13 +160,13 @@ function MentionsCarousel() {
                             <div className="relative w-full h-auto mb-4">
                               <img
                                 src={math}
-                                alt={`Département ${dept.nomMention}`}
+                                alt={`Département ${mention.nomMention}`}
                                 className="object-cover scale-110"
                               />
                               {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /> */}
                               <div className="absolute bottom-4 left-4 right-4">
                                 <CardTitle className="text-lg text-white leading-tight">
-                                  {dept.nomMention}
+                                  {mention.nomMention}
                                 </CardTitle>
                               </div>
                             </div>
@@ -177,7 +177,7 @@ function MentionsCarousel() {
                                 variant="secondary"
                                 className="bg-primary/10 text-primary"
                               >
-                                {dept.nombreDeParcours} parcours
+                                {mention.nombreDeParcours} parcours
                               </Badge>
                               <Button
                                 variant="ghost"
