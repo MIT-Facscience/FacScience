@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { ChevronRight, BookOpen } from 'lucide-react';
-import { CandidateInfo, Program } from '../types';
-import { AVAILABLE_PROGRAMS, getProgram } from '../api/programs';
+import { BookOpen, ChevronRight } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { AVAILABLE_PROGRAMS, getProgram } from "../api/programs";
+import type { CandidateInfo, Program } from "../types";
 
 interface StepTwoProps {
   candidateInfo: CandidateInfo;
@@ -9,20 +9,26 @@ interface StepTwoProps {
   onBack: () => void;
 }
 
-export const StepTwo: React.FC<StepTwoProps> = ({ candidateInfo, onNext, onBack }) => {
+export const StepTwo: React.FC<StepTwoProps> = ({
+  candidateInfo,
+  onNext,
+  onBack,
+}) => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
-  const [eligiblePrograms, seteligiblePrograms] = useState<Program[]>([])
-  
+  const [eligiblePrograms, seteligiblePrograms] = useState<Program[]>([]);
+
   useEffect(() => {
     const fetchProg = async () => {
-      const data = await getProgram() || AVAILABLE_PROGRAMS.filter(program => 
-        program.eligibleSeries.includes(candidateInfo.series)
-      );
-      seteligiblePrograms(data)
-    }
-    
+      const data =
+        (await getProgram()) ||
+        AVAILABLE_PROGRAMS.filter((program) =>
+          program.eligibleSeries.includes(candidateInfo.series)
+        );
+      seteligiblePrograms(data);
+    };
+
     fetchProg();
-  })
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,8 +44,8 @@ export const StepTwo: React.FC<StepTwoProps> = ({ candidateInfo, onNext, onBack 
           Choisissez votre programme
         </h2>
         <p className="text-gray-600">
-          Bonjour {candidateInfo.firstName} {candidateInfo.lastName}, 
-          voici les programmes disponibles pour la série {candidateInfo.series}
+          Bonjour {candidateInfo.firstName} {candidateInfo.lastName}, voici les
+          programmes disponibles pour la série {candidateInfo.series}
         </p>
       </div>
 
@@ -50,8 +56,8 @@ export const StepTwo: React.FC<StepTwoProps> = ({ candidateInfo, onNext, onBack 
               key={program.id}
               className={`relative flex items-start space-x-4 p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${
                 selectedProgram?.id === program.id
-                  ? 'border-faculty-purple-500 bg-faculty-purple-50'
-                  : 'border-gray-200 hover:border-faculty-purple-300 hover:bg-gray-50'
+                  ? "border-faculty-purple-500 bg-faculty-purple-50"
+                  : "border-gray-200 border hover:border-faculty-purple-300 hover:bg-gray-50"
               }`}
             >
               <input
@@ -63,13 +69,19 @@ export const StepTwo: React.FC<StepTwoProps> = ({ candidateInfo, onNext, onBack 
                 className="sr-only"
               />
               <div className="flex-shrink-0">
-                <BookOpen className={`w-6 h-6 ${
-                  selectedProgram?.id === program.id ? 'text-faculty-purple-600' : 'text-gray-400'
-                }`} />
+                <BookOpen
+                  className={`w-6 h-6 ${
+                    selectedProgram?.id === program.id
+                      ? "text-faculty-purple-600"
+                      : "text-gray-400"
+                  }`}
+                />
               </div>
               <div className="flex-1">
                 <div className="flex items-center space-x-2">
-                  <h3 className="font-semibold text-gray-900">{program.name}</h3>
+                  <h3 className="font-semibold text-gray-900">
+                    {program.name}
+                  </h3>
                 </div>
               </div>
               {selectedProgram?.id === program.id && (

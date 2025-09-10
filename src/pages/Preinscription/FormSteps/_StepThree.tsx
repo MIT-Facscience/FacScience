@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, User, Mail, Phone, Ticket, MapPin, HandCoins } from 'lucide-react';
-import { ApplicationData, CandidateInfo } from '../types';
+import type { ApplicationData, CandidateInfo } from '../types';
 
 interface PersonalInfo {
   firstName: string;
