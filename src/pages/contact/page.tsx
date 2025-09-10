@@ -163,7 +163,7 @@ export default function ContactPage() {
             Contactez-nous
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
-            Nous sommes là pour vous accompagner dans votre parcours scientifique. 
+            Nous sommes là pour vous accompagner tout au long de votre parcours scientifique. 
             <span className="text-gray-600 font-semibold"> Une équipe passionnée</span> à votre service.
           </p>
           
@@ -317,7 +317,7 @@ export default function ContactPage() {
                     Envoyez-nous un Message
                   </span>
                 </div>
-                <p className="text-slate-600 mb-6">Nous vous répondrons dans les <strong>24h</strong> !</p>
+                <p className="text-slate-600 mb-6">Nous vous donnerons une réponse dans les <strong>24 heures</strong> !</p>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
@@ -422,7 +422,7 @@ export default function ContactPage() {
                     <Microscope className="h-5 w-5 text-white" />
                   </div>
                   <span className="bg-primary bg-clip-text text-transparent font-bold">
-                    Départements
+                    Mentions
                   </span>
                 </div>
                 
@@ -449,7 +449,7 @@ export default function ContactPage() {
                     </div>
                   ))}
                   <button className="w-full mt-4 px-4 py-2 border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50  text-purple-700 font-medium transition-all duration-300">
-                    Voir tous les départements
+                    Voir tous les mentions
                   </button>
                 </div>
               </div>
@@ -500,7 +500,7 @@ export default function ContactPage() {
                 <Building className="h-6 w-6 text-white" />
               </div>
               <span className="bg-primary bg-clip-text text-transparent font-bold">
-                Tous nos Départements & Services
+                Tous nos Mentions & Services
               </span>
             </div>
             
@@ -688,7 +688,7 @@ export default function ContactPage() {
             <div className="w-px h-6 bg-slate-300"></div>
             <div className="flex items-center gap-2 text-sm text-slate-600">
               <Users className="h-4 w-4" />
-              5000+ étudiants nous font confiance
+              15000+ étudiants nous font confiance
             </div>
             <div className="w-px h-6 bg-slate-300"></div>
             <div className="flex items-center gap-2 text-sm text-slate-600">

@@ -147,7 +147,7 @@ export default function AdmissionPage() {
                             >
                               1
                             </Badge>
-                            <span>Dépôt de dossier pour préinscription</span>
+                            <span>Dépôt du dossier pour la préinscription</span>
                           </li>
                           <li className="flex gap-3">
                             <Badge
@@ -380,7 +380,7 @@ export default function AdmissionPage() {
                                   (window.location.href = "/preinscription")
                                 }
                               >
-                                S'inscrire - Bac Technique
+                                S'inscrire - Bacc Technique
                               </Button>
                             </div>
                           </AccordionContent>

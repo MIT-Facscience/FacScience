@@ -19,7 +19,7 @@ export default function PublicationsPage() {
       doi: "10.1016/j.marbi.2024.01.015",
       laboratoire: "LBM",
       resume:
-        "Cette étude présente une approche innovante utilisant l'intelligence artificielle pour évaluer la biodiversité des écosystèmes marins malgaches...",
+        "Cette étude propose une approche innovante fondée sur l'Intelligence Artificielle pour évaluer la biodiversité des écosystèmes marins malgaches...",
     },
     {
       titre: "Novel Nanomaterials from Madagascar Minerals for Solar Energy Applications",
@@ -70,7 +70,7 @@ export default function PublicationsPage() {
       citations: 18,
       doi: "10.2113/econgeo.118.5.1234",
       laboratoire: "LGS",
-      resume: "Étude géologique approfondie et évaluation des ressources minérales de l'est de Madagascar...",
+      resume: "Étude géologique approfondie et évaluation des ressources minérales de l'Est de Madagascar...",
     },
     {
       titre: "AI-Driven Precision Agriculture for Tropical Crops",
@@ -83,7 +83,7 @@ export default function PublicationsPage() {
       doi: "10.1016/j.compag.2024.107890",
       laboratoire: "LIS",
       resume:
-        "Application de l'intelligence artificielle pour l'agriculture de précision adaptée aux cultures tropicales...",
+        "Application de l'Intelligence Artificielle pour l'agriculture de précision adaptée aux cultures tropicales...",
     },
     {
       titre: "Microbial Diversity in Madagascar's Unique Ecosystems",

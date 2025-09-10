@@ -15,6 +15,7 @@ import {
   Trophy,
   User,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function ActualitesPage() {
   const actualites = [
@@ -223,51 +224,54 @@ export default function ActualitesPage() {
                   key={actualite.id}
                   className="overflow-hidden rounded-none hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 bg-white"
                 >
-                  <div className="relative h-56">
-                    <img
-                      src={actualite.image || "/placeholder.svg"}
-                      alt={actualite.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div className="absolute top-4 left-4">
-                      <Badge
-                        className={`${getCategoryColor(
-                          actualite.categorie
-                        )} px-3 py-1`}
-                      >
-                        {actualite.categorie}
-                      </Badge>
-                    </div>
-                  </div>
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center space-x-2 text-sm text-slate-600 mb-3 font-medium">
-                      <Calendar className="h-4 w-4" />
-                      <span>{actualite.date}</span>
-                    </div>
-                    <CardTitle className="text-xl line-clamp-2 text-slate-900 leading-tight">
-                      {actualite.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <CardDescription className="line-clamp-3 mb-6 text-slate-600 leading-relaxed">
-                      {actualite.description}
-                    </CardDescription>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center text-sm text-slate-600 font-medium">
-                        <User className="h-4 w-4 mr-2" />
-                        {actualite.auteur}
+                  <Link to={`/actualites/${actualite.id}`}>
+                    <div className="relative h-56">
+                      <img
+                        src={actualite.image || "/placeholder.svg"}
+                        alt={actualite.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                      <div className="absolute top-4 left-4">
+                        <Badge
+                          className={`${getCategoryColor(
+                            actualite.categorie
+                          )} px-3 py-1`}
+                        >
+                          {actualite.categorie}
+                        </Badge>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-primary/90 hover:text-primary hover:bg-blue-50"
-                      >
-                        <IconComponent className="h-4 w-4 mr-2" />
-                        Lire
-                      </Button>
                     </div>
-                  </CardContent>
+
+                    <CardHeader className="pb-4">
+                      <div className="flex items-center space-x-2 text-sm text-slate-600 mb-3 font-medium">
+                        <Calendar className="h-4 w-4" />
+                        <span>{actualite.date}</span>
+                      </div>
+                      <CardTitle className="text-xl line-clamp-2 text-slate-900 leading-tight">
+                        {actualite.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <CardDescription className="line-clamp-3 mb-6 text-slate-600 leading-relaxed">
+                        {actualite.description}
+                      </CardDescription>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center text-sm text-slate-600 font-medium">
+                          <User className="h-4 w-4 mr-2" />
+                          {actualite.auteur}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-primary/90 hover:text-primary hover:bg-blue-50"
+                        >
+                          <IconComponent className="h-4 w-4 mr-2" />
+                          Lire
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Link>
                 </Card>
               );
             })}
@@ -281,11 +285,10 @@ export default function ActualitesPage() {
           <Card className="max-w-2xl mx-auto rounded-none text-center border-0 shadow-2xl bg-white">
             <CardHeader className="pb-6">
               <CardTitle className="text-3xl text-slate-900">
-                Restez informé
+                Restez informés
               </CardTitle>
               <CardDescription className="text-lg text-slate-600 leading-relaxed">
-                Recevez les dernières actualités de la Faculté des Sciences
-                directement dans votre boîte mail.
+                  Recevez les dernières actualités de la Faculté des Sciences directement dans votre boîte mail.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -295,9 +298,9 @@ export default function ActualitesPage() {
                   placeholder="Votre adresse email"
                   className="flex-1 px-6 py-4 border-2 border-slate-200 bg-white text-slate-900 placeholder:text-slate-500 focus:border-border focus:outline-none transition-colors"
                 />
-                <Button className="bg-primary text-primary-foreground px-8 py-4 font-medium m-0 h-full rounded-none">
+                <button className="bg-primary text-primary-foreground px-8 py-4 font-medium m-0 h-full rounded-none border-2 border-primary cursor-pointer">
                   S'abonner
-                </Button>
+                </button>
               </div>
             </CardContent>
           </Card>
