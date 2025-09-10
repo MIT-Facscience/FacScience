@@ -55,27 +55,27 @@ export default function ParcourDetail() {
   ];
   const matiere = [
     {
-      matiere: "matiere 1",
+      matiere: "matière 1",
       credit: 6,
     },
     {
-      matiere: "matiere 2",
+      matiere: "matière 2",
       credit: 4,
     },
     {
-      matiere: "matiere 3",
+      matiere: "matière 3",
       credit: 3,
     },
     {
-      matiere: "matiere 4",
+      matiere: "matière 4",
       credit: 2,
     },
     {
-      matiere: "matiere 5",
+      matiere: "matière 5",
       credit: 2,
     },
     {
-      matiere: "matiere 6",
+      matiere: "matière 6",
       credit: 2,
     },
   ];
@@ -112,13 +112,13 @@ export default function ParcourDetail() {
                 </div>
                 <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                    Detail{" "}
+                    Détail{" "}
                     {dataSem.find((d) => d.value == params[1])?.title ??
                       "Licence 1"}
                     <span></span>
                   </h1>
                   <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                    Découvrez les details de chaque parcours dans la mention{" "}
+                    Découvrez les détails de chaque parcours dans la mention{" "}
                     {getMentionById(params[0])?.toLowerCase()}
                   </p>
                 </div>
