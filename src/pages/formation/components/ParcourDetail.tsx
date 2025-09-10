@@ -148,7 +148,7 @@ export default function ParcourDetail() {
                       </span>
                     </div>
                     <span className="text-sm font-medium flex items-center">
-                      <span className="font-bold mr-1">Parcous : </span>
+                      <span className="font-bold mr-1">Parcours : </span>
                       {parcoursList?.length != 1 ? (
                         <>
                           <div className="flex ml-3 gap-4 text-slate-600 items-center text-sm font-medium">
@@ -157,7 +157,7 @@ export default function ParcourDetail() {
                               onValueChange={(v) => setParcoursSelected(v)}
                             >
                               <SelectTrigger className="border-0 bg-slate-100 rounded-none font-medium">
-                                <SelectValue placeholder="Selectionner le parcours"></SelectValue>
+                                <SelectValue placeholder="Sélectionner le parcours"></SelectValue>
                               </SelectTrigger>
                               <SelectContent className="bg-white shadow-lg border-0">
                                 <SelectGroup>
@@ -197,7 +197,7 @@ export default function ParcourDetail() {
                     </CardTitle>
                     <CardContent className="flex flex-col gap-2">
                       <span className="text-slate-700 text-sm font-medium">
-                        <span className="font-bold">• Serie du Bacc : </span>C
+                        <span className="font-bold">• Série du Bacc : </span>C
                         ou S
                       </span>
                       <span className="text-slate-700 text-sm font-medium">
