@@ -251,6 +251,7 @@ export default function ResultatsPage() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="l1">Licence 1</SelectItem>
+                          <SelectItem value="l1">Licence 2</SelectItem>
                           <SelectItem value="l3">Licence 3</SelectItem>
                           <SelectItem value="m1">Master 1</SelectItem>
                           <SelectItem value="m2">Master 2</SelectItem>
@@ -332,7 +333,7 @@ export default function ResultatsPage() {
               {/* Onglet Sélections */}
               <TabsContent value="selections" className="space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Résultats des Sélections de Dossier</h2>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Résultats des Sélections du Dossier</h2>
                   <div className="space-y-4">
                     {selections_dossier.map((selection, index) => (
                       <Card key={index} className="hover:shadow-lg transition-shadow">
