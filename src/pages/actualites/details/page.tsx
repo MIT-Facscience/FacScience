@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Calendar, User, Share2 } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { ArrowLeft, Calendar, User, Share2, Clock, Eye } from "lucide-react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 // Données des actualités (en production, ceci viendrait d'une base de données)
 const actualites = [
@@ -23,6 +23,8 @@ Cette année, nous avons eu l'honneur de diplômer plus de 300 étudiants issus 
 Les familles étaient nombreuses à assister à cet événement exceptionnel, témoignant de l'importance de ce moment dans la vie académique de nos étudiants. La remise des diplômes s'est déroulée dans une atmosphère solennelle et festive.
 
 Nous félicitons chaleureusement tous nos nouveaux diplômés et leur souhaitons une brillante carrière professionnelle. Ils sont désormais ambassadeurs de notre faculté et nous sommes fiers de leur réussite.`,
+    readTime: 3,
+    views: 120,
   },
   {
     id: 2,
@@ -43,6 +45,8 @@ L'équipe de football, menée par le capitaine Rakoto Jean, a remporté le tourn
 En basketball, notre équipe s'est hissée en finale mais s'est inclinée de justesse face à la Faculté de Droit (78-82). Malgré cette défaite, nos joueurs ont montré un niveau de jeu impressionnant tout au long du tournoi.
 
 Ces résultats témoignent de l'engagement de nos étudiants dans la pratique sportive et de l'excellence de notre programme sport-études.`,
+    readTime: 4,
+    views: 98,
   },
   {
     id: 3,
@@ -63,6 +67,8 @@ Les 500 arbres plantés sont tous des espèces endémiques de Madagascar : tamar
 L'objectif de ce programme est double : contribuer à la lutte contre le changement climatique et sensibiliser notre communauté universitaire aux enjeux environnementaux. Chaque arbre planté représente un engagement pour les générations futures.
 
 Cette initiative s'inscrit dans le cadre du plan de développement durable de l'université et sera suivie d'autres actions écologiques tout au long de l'année académique.`,
+    readTime: 3,
+    views: 75,
   },
   {
     id: 4,
@@ -83,6 +89,8 @@ Au programme : observation des lémuriens indri-indri, étude de la canopée for
 Cette sortie s'inscrit dans le cadre du cours "Écologie tropicale" et permet aux étudiants d'appliquer concrètement les connaissances théoriques acquises en amphithéâtre. L'immersion dans cet environnement naturel exceptionnel renforce leur compréhension des enjeux de conservation.
 
 Les étudiants devront maintenant rédiger un rapport d'observation qui sera évalué dans le cadre de leur cursus. Cette expérience terrain est essentielle pour former les futurs biologistes et écologues malgaches.`,
+    readTime: 4,
+    views: 60,
   },
   {
     id: 5,
@@ -103,6 +111,8 @@ La conférence a abordé plusieurs thématiques cruciales : l'utilisation de l'I
 Le Dr. Rakoto a présenté des cas concrets d'utilisation de l'IA dans l'agriculture malgache, notamment pour l'optimisation des rendements de riz et la prédiction des conditions climatiques. Il a également évoqué les défis éthiques et sociaux liés au déploiement de ces technologies.
 
 Cette conférence s'inscrit dans le cycle "Sciences et Société" organisé par le Département Informatique. Elle a été suivie d'une session de questions-réponses très interactive avec les étudiants et les enseignants-chercheurs.`,
+    readTime: 5,
+    views: 110,
   },
   {
     id: 6,
@@ -123,6 +133,8 @@ Les visiteurs ont pu explorer nos laboratoires de recherche, assister à des dé
 Les étudiants ambassadeurs ont joué un rôle clé en partageant leur expérience et en guidant les visiteurs à travers le campus. Leurs témoignages authentiques ont permis aux futurs étudiants de mieux comprendre la réalité de la vie universitaire.
 
 Cette journée a également été l'occasion de présenter nos partenariats internationaux, nos programmes d'échange et les débouchés professionnels de nos formations. L'objectif est d'attirer les meilleurs talents pour renforcer l'excellence de notre faculté.`,
+    readTime: 3,
+    views: 150,
   },
 ];
 
@@ -143,20 +155,99 @@ const getCategoryColor = (categorie: string) => {
   }
 };
 
+// Correction: la fonction getCategoryStyle n'existe pas, il faut utiliser getCategoryColor
 export default function ActualiteDetail() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const actualite = actualites.find(
     (item) => item.id === Number.parseInt(id ?? "")
   );
 
   if (!actualite) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Actualité introuvable</h2>
+          <Button onClick={() => navigate("/actualites")}>
+            Retour aux actualités
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-background">
+      <section className="relative h-[70vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={actualite.image}
+            alt={actualite.title}
+            className="w-full h-full object-cover transform scale-105 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-purple-800/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-900/60 via-transparent to-amber-900/40"></div>
+        </div>
+
+        <div className="relative z-10 h-full flex items-end">
+          <div className="container mx-auto px-6 pb-16">
+            <Button
+              className="group inline-flex items-center px-6 py-3 mb-8 bg-white/10 backdrop-blur-md rounded-full text-white/90 hover:bg-white/20 transition-all duration-300 border border-white/20"
+              variant="ghost"
+              onClick={() => navigate("/actualites")}
+            >
+              <ArrowLeft className="h-5 w-5 mr-3 group-hover:-translate-x-1 transition-transform duration-300" />
+              <span className="font-medium">Retour aux actualités</span>
+            </Button>
+
+            <div className="max-w-4xl">
+              <div
+                className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold mb-6 ${getCategoryColor(
+                  actualite.categorie
+                )}`}
+              >
+                {actualite.categorie}
+              </div>
+
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                {actualite.title}
+              </h1>
+
+              <p className="text-xl text-white/90 mb-8 max-w-2xl leading-relaxed">
+                {actualite.description}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-8 text-white/80">
+                <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  <span className="text-sm font-medium">{actualite.date}</span>
+                </div>
+                <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                  <User className="h-4 w-4 mr-2" />
+                  <span className="text-sm font-medium">
+                    {actualite.auteur}
+                  </span>
+                </div>
+                <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                  <Clock className="h-4 w-4 mr-2" />
+                  <span className="text-sm font-medium">
+                    {actualite.readTime ? `${actualite.readTime} min` : "3 min"}{" "}
+                    de lecture
+                  </span>
+                </div>
+                <div className="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                  <Eye className="h-4 w-4 mr-2" />
+                  <span className="text-sm font-medium">
+                    {actualite.views ? actualite.views : 0} vues
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Hero Section avec image */}
-      <section className="relative h-96 overflow-hidden">
+      {/* <section className="relative h-96 overflow-hidden">
         <img
           src={actualite.image || "/placeholder.svg"}
           alt={actualite.title}
@@ -196,7 +287,7 @@ export default function ActualiteDetail() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contenu de l'article */}
       <section className="py-16">
