@@ -287,7 +287,7 @@ export default function HomePage() {
                 Nos Portails
               </h2>
               <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
-                Les grandes parcours dans notre faculté
+                Les grands parcours dans notre faculté
               </p>
             </div>
 
