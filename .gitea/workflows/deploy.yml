@@ -17,16 +17,16 @@ jobs:
       # Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t "${{ secrets.DOCKER_IMAGE_NAME }}":latest .
+          docker build -t facscienceinterface:latest .
 
       # Save Docker image as tar
 
       - name: Save Docker image to tar
         run: |
           mkdir -p /tmp/deploy
-          docker save "${{ secrets.DOCKER_IMAGE_NAME }}":latest -o /tmp/deploy/"${{ secrets.DOCKER_IMAGE_NAME }}".tar
-          ls -lh /tmp/deploy/"${{ secrets.DOCKER_IMAGE_NAME }}".tar
-          if [ ! -s /tmp/deploy/"${{ secrets.DOCKER_IMAGE_NAME }}".tar ]; then
+          docker save facscienceinterface:latest -o /tmp/deploy/facscienceinterface.tar
+          ls -lh /tmp/deploy/facscienceinterface.tar
+          if [ ! -s /tmp/deploy/facscienceinterface.tar ]; then
             echo "Erreur : le fichier tar est vide ou n'a pas été créé"
             exit 1
           fi
@@ -36,8 +36,8 @@ jobs:
           chmod 600 /tmp/private_key
 
           # Copier l'image vers le serveur
-          scp -o StrictHostKeyChecking=no -i /tmp/private_key /tmp/deploy/"${{ secrets.DOCKER_IMAGE_NAME }}".tar \${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/mit/"${{ secrets.DOCKER_IMAGE_NAME }}"
-          scp -o StrictHostKeyChecking=no -i /tmp/private_key docker-compose.yml \${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/mit/"${{ secrets.DOCKER_IMAGE_NAME }}"
+          scp -o StrictHostKeyChecking=no -i /tmp/private_key /tmp/deploy/facscienceinterface.tar \${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/mit/facscienceinterface
+          scp -o StrictHostKeyChecking=no -i /tmp/private_key docker-compose.yml \${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/mit/facscienceinterface
 
       # Load Docker image and deploy with docker-compose
       - name: Load and deploy on server
@@ -48,9 +48,9 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            cd /home/mit/"${{ secrets.DOCKER_IMAGE_NAME }}"
+            cd /home/mit/facscienceinterface
             # Charger l'image Docker
-            docker load -i "${{ secrets.DOCKER_IMAGE_NAME }}".tar
+            docker load -i facscienceinterface.tar
             # Arrêter et supprimer l'ancien conteneur si il existe
             docker compose down || true
             # Lancer le conteneur avec docker-compose
