@@ -90,22 +90,22 @@ export default function HomePage() {
     {
       title: "Informatique et Technologie",
       backgroundColor: "bg-gray-800",
-      logoType: "/Logo/Logo_IT.png",
+      logoType: "/Logo_IT.png",
     },
     {
       title: "Mathematique et Informatique",
       backgroundColor: "bg-slate-600",
-      logoType: "/Logo/Logo_MI.jpg",
+      logoType: "/Logo_MI.jpg",
     },
     {
       title: "Physique et Chimie",
       backgroundColor: "bg-green-600",
-      logoType: "/Logo/Logo_ADD.jpg",
+      logoType: "/Logo_ADD.jpg",
     },
     {
       title: "SVT",
       backgroundColor: "bg-stone-500",
-      logoType: "/Logo/Logo_BFA.jpg",
+      logoType: "/Logo_BFA.jpg",
     },
   ];
 

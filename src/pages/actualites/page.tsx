@@ -276,9 +276,9 @@ export default function ActualitesPage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4 md:px-6 xl:px-8">
-          <Card className="max-w-2xl mx-auto text-center border-0 shadow-2xl bg-white">
+          <Card className="max-w-2xl mx-auto rounded-none text-center border-0 shadow-2xl bg-white">
             <CardHeader className="pb-6">
               <CardTitle className="text-3xl text-slate-900">
                 Restez informé
@@ -295,7 +295,7 @@ export default function ActualitesPage() {
                   placeholder="Votre adresse email"
                   className="flex-1 px-6 py-4 border-2 border-slate-200 bg-white text-slate-900 placeholder:text-slate-500 focus:border-border focus:outline-none transition-colors"
                 />
-                <Button className="bg-primary text-primary-foreground px-8 py-4 font-medium h-full rounded-none">
+                <Button className="bg-primary text-primary-foreground px-8 py-4 font-medium m-0 h-full rounded-none">
                   S'abonner
                 </Button>
               </div>
