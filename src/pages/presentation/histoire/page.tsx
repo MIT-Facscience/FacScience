@@ -2,8 +2,34 @@
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Users, Award, BookOpen, Microscope, Globe } from "lucide-react"
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react";
 
 export default function HistoirePage() {
+  const [nbEnseignants, setNbEnseignants] = useState(200);
+  const [nbMentions, setNbMentions] = useState(14);
+
+  useEffect(() => {
+    fetch("http://localhost:5194/api/stat/enseignant")
+      .then((response) => response.json())
+      .then((data) => {
+        setNbEnseignants(data.length);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des mentions :", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5194/api/stat/mention")
+      .then((response) => response.json())
+      .then((data) => {
+        setNbMentions(data.length);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des mentions :", error);
+      });
+  }, []);
+
   const timelineEvents = [
     {
       year: "1961",
@@ -52,8 +78,8 @@ export default function HistoirePage() {
   const stats = [
     { number: "60+", label: "Années d'excellence", icon: <Calendar className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: "5000+", label: "Diplômés", icon: <Users className="h-5 w-5 sm:h-6 sm:w-6" /> },
-    { number: "6", label: "Départements", icon: <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" /> },
-    { number: "50+", label: "Enseignants-chercheurs", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
+    { number: nbMentions, label: "Mentions", icon: <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" /> },
+    { number: nbEnseignants, label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
   ]
 
   return (
