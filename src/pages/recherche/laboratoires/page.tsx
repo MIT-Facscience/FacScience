@@ -21,10 +21,10 @@ import {
   TestTube,
   Users,
 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export default function LaboratoiresPage() {
-  const [expandedLab, setExpandedLab] = useState(null);
+  const [expandedLab, setExpandedLab] = useState<number | null>(null);
 
   const laboratoires = [
     {
@@ -37,7 +37,7 @@ export default function LaboratoiresPage() {
       personnel: 12,
       doctorants: 8,
       icon: Calculator,
-      accentColor: "from-blue-500 to-indigo-600",
+      accentColor: "from-purple-500 to-amber-600",
       borderColor: "border-blue-200",
       bgGradient: "from-blue-50 to-indigo-50",
       imageUrl:
@@ -69,7 +69,7 @@ export default function LaboratoiresPage() {
       personnel: 10,
       doctorants: 6,
       icon: Beaker,
-      accentColor: "from-emerald-500 to-teal-600",
+      accentColor: "from-yellow-500 to-amber-600",
       borderColor: "border-emerald-200",
       bgGradient: "from-emerald-50 to-teal-50",
       imageUrl:
@@ -102,7 +102,7 @@ export default function LaboratoiresPage() {
       personnel: 8,
       doctorants: 5,
       icon: TestTube,
-      accentColor: "from-purple-500 to-violet-600",
+      accentColor: "from-purple-500 to-amber-600",
       borderColor: "border-purple-200",
       bgGradient: "from-purple-50 to-violet-50",
       imageUrl:
@@ -135,7 +135,7 @@ export default function LaboratoiresPage() {
       personnel: 15,
       doctorants: 10,
       icon: Microscope,
-      accentColor: "from-rose-500 to-pink-600",
+      accentColor: "from-yellow-500 to-amber-600",
       borderColor: "border-rose-200",
       bgGradient: "from-rose-50 to-pink-50",
       imageUrl:
@@ -168,9 +168,9 @@ export default function LaboratoiresPage() {
       personnel: 9,
       doctorants: 4,
       icon: Mountain,
-      accentColor: "from-amber-500 to-orange-600",
+      accentColor: "from-purple-500 to-amber-600",
       borderColor: "border-amber-200",
-      bgGradient: "from-amber-50 to-orange-50",
+      bgGradient: "from-cyan-50 to-blue-50",
       imageUrl:
         "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop",
       specialites: [
@@ -201,11 +201,11 @@ export default function LaboratoiresPage() {
       personnel: 11,
       doctorants: 7,
       icon: Cpu,
-      accentColor: "from-cyan-500 to-blue-600",
+      accentColor: "from-yellow-100 to-amber-400",
       borderColor: "border-cyan-200",
       bgGradient: "from-cyan-50 to-blue-50",
       imageUrl:
-        "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=400&fit=crop",
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
       specialites: [
         "Intelligence artificielle",
         "Réseaux et sécurité",
@@ -239,10 +239,16 @@ export default function LaboratoiresPage() {
     0
   );
 
-  //@ts-ignore
-  const toggleExpand = (index) => {
-    setExpandedLab(expandedLab === index ? null : index);
-  };
+  const toggleExpand = useCallback((index: number) => {
+    setExpandedLab((prevExpanded) => {
+      // Si on clique sur la même carte déjà étendue, on la ferme
+      if (prevExpanded === index) {
+        return null;
+      }
+      // Sinon, on ouvre cette carte et ferme automatiquement les autres
+      return index;
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -250,7 +256,7 @@ export default function LaboratoiresPage() {
         {/* Hero Section Épuré */}
         <div className="text-center mb-20">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-6xl font-bold mb-6 bg-primary bg-clip-text text-transparent">
               Laboratoires d'Excellence
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
@@ -286,14 +292,14 @@ export default function LaboratoiresPage() {
           ].map((stat, index) => (
             <div key={index} className="relative group">
               <div
-                className="absolute inset-0 bg-gradient-to-r opacity-10 rounded-2xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300"
+                className="absolute inset-0 bg-black opacity-10  transform rotate-6 group-hover:rotate-12 transition-transform duration-300"
                 style={{
                   backgroundImage: `linear-gradient(to right, ${
                     stat.color.split(" ")[1]
                   }, ${stat.color.split(" ")[3]})`,
                 }}
               ></div>
-              <div className="relative bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center group-hover:shadow-xl transition-all duration-300">
+              <div className="relative bg-white p-8  shadow-lg border border-gray-100 text-center group-hover:shadow-xl transition-all duration-300">
                 <div
                   className={`text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
                 >
@@ -306,7 +312,7 @@ export default function LaboratoiresPage() {
         </div>
 
         {/* Laboratoires Grid Moderne */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
           {laboratoires.map((lab, index) => {
             const IconComponent = lab.icon;
             const isExpanded = expandedLab === index;
@@ -314,9 +320,10 @@ export default function LaboratoiresPage() {
             return (
               <Card
                 key={index}
-                className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden bg-white border-0 shadow-lg"
+                className="group hover:shadow-2xl transition-all rounded-none duration-500 transform hover:-translate-y-2 overflow-hidden bg-white border-0 shadow-lg"
               >
                 {/* Header avec image et overlay */}
+                {/* <h1>Salut</h1> */}
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={lab.imageUrl}
@@ -324,7 +331,7 @@ export default function LaboratoiresPage() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div
-                    className={`absolute inset-0 bg-gradient-to-t ${lab.bgGradient} opacity-90`}
+                    className={`absolute inset-0 bg-gradient-to-t ${lab.bgGradient} opacity-50`}
                   ></div>
 
                   {/* Code badge */}
@@ -347,7 +354,7 @@ export default function LaboratoiresPage() {
                 </div>
 
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <CardTitle className="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors line-clamp-2">
                     {lab.nom}
                   </CardTitle>
                   <CardDescription className="text-gray-600">
@@ -489,10 +496,10 @@ export default function LaboratoiresPage() {
                   <Button
                     onClick={() => toggleExpand(index)}
                     variant="ghost"
-                    className={`w-full mt-4 transition-all duration-300 ${
+                    className={`w-full mt-4 transition-all rounded-none duration-300 ${
                       isExpanded
-                        ? "bg-red-50 hover:bg-red-100 text-red-700"
-                        : "bg-blue-50 hover:bg-blue-100 text-blue-700"
+                        ? "bg-amber-50 hover:bg-secondary text-secondary"
+                        : "bg-purple-50 hover:bg-primary text-primary"
                     }`}
                   >
                     {isExpanded ? (

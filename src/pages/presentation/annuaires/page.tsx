@@ -553,7 +553,7 @@ const AnnuairePage = () => {
   );
 
   return (
-    <div className="min-h-screen  bg-background">
+    <div className="min-h-screen  bg-slate-50">
       <div className="container mx-auto px-4 md:px-6 xl:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

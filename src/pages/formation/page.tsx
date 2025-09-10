@@ -1,4 +1,4 @@
-import MentionCard from "@/components/MentionCard";
+import MentionCard from "@/pages/formation/components/MentionCard";
 import { getAllDepartments } from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
 

@@ -349,7 +349,7 @@ export default function HomePage() {
               ))}
             </div> */}
 
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-4 gap-6 ">
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
@@ -357,7 +357,7 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="text-center border-0 rounded-none shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <Card className="text-center border-0  rounded-none shadow-lg bg-card/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <CardContent className="pt-6">
                       <div className="flex justify-center mb-4">
                         <div className="p-3 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-full">

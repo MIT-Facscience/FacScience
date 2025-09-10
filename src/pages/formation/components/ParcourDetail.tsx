@@ -2,8 +2,57 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { BookOpen, Target } from "lucide-react";
 import SemestreItem from "./SemestreItem";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+} from "@/components/ui/select";
+import { useSearchParams } from "react-router-dom";
+import { getParcoursByType } from "@/dataTestFormation/parcours";
+import { getMentionById } from "@/dataTestFormation/mention";
+import { useState } from "react";
 export default function ParcourDetail() {
-  const name = "Details Licence 1";
+  const params = useSearchParams()[0].toString().split("=")[0].split("+");
+  // const name = "Detail " + params[1];
+  const parcoursList = getParcoursByType(params[0], params[2], params[1]);
+  const dataSem = [
+    {
+      value: "licence1",
+      semestre: [1, 2],
+      niveau: "L1",
+      title: "Licence 1",
+    },
+    {
+      value: "licence2",
+      semestre: [3, 4],
+      niveau: "L2",
+      title: "Licence 2",
+    },
+
+    {
+      value: "licence3",
+      semestre: [5, 6],
+      niveau: "L3",
+      title: "Licence 3",
+    },
+
+    {
+      value: "master1",
+      semestre: [7, 8],
+      niveau: "M1",
+      title: "Master 1",
+    },
+
+    {
+      value: "master2",
+      semestre: [9, 10],
+      niveau: "M2",
+      title: "Master 2",
+    },
+  ];
   const matiere = [
     {
       matiere: "matiere 1",
@@ -38,7 +87,9 @@ export default function ParcourDetail() {
   matiere.forEach(() => {
     nbMatiere += 1;
   });
-
+  const [parcoursSelected, setParcoursSelected] = useState<string>(
+    parcoursList ? parcoursList[0] : ""
+  );
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -61,22 +112,75 @@ export default function ParcourDetail() {
                 </div>
                 <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                    {name}
+                    Detail{" "}
+                    {dataSem.find((d) => d.value == params[1])?.title ??
+                      "Licence 1"}
+                    <span></span>
                   </h1>
                   <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                    Découvrez les parcours d'excellences dans le mention {name}
+                    Découvrez les details de chaque parcours dans la mention{" "}
+                    {getMentionById(params[0])?.toLowerCase()}
                   </p>
                 </div>
               </motion.div>
             </div>
             <div>
-              <div className="flex items-center gap-5">
-                <div className="bg-gradient-to-br from-primary to-primary/80 w-12 h-12 rounded-full text-white flex items-center justify-center">
-                  <BookOpen className="w-5 h-5" />
+              <div className="flex items-center justify-between">
+                <div className="w-full">
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between w-full">
+                      <div className="flex gap-3 items-center">
+                        <div className="bg-gradient-to-br from-primary to-primary/80 w-12 h-12 rounded-full text-white flex items-center justify-center">
+                          <BookOpen className="w-5 h-5" />
+                        </div>
+                        <span className="font-bold text-slate-600 text-2xl">
+                          {dataSem.find((d) => d.value == params[1])?.title ??
+                            "Licence 1"}
+                        </span>
+                      </div>
+                      {parcoursList?.length != 1 && (
+                        <>
+                          <div className="flex gap-4 text-slate-600 items-center text-sm font-medium">
+                            <span>Selectionnez votre parcours</span>
+                            <Select
+                              defaultValue={parcoursSelected}
+                              onValueChange={(v) => setParcoursSelected(v)}
+                            >
+                              <SelectTrigger className="border-0 bg-slate-100 rounded-none font-medium">
+                                <SelectValue placeholder="Selectionner le parcours"></SelectValue>
+                              </SelectTrigger>
+                              <SelectContent className="bg-white shadow-lg border-0">
+                                <SelectGroup>
+                                  {parcoursList?.map((items, index) => (
+                                    // <>
+                                    <SelectItem
+                                      value={items}
+                                      key={index}
+                                      className="focus:bg-primary focus:text-white"
+                                    >
+                                      {items}
+                                    </SelectItem>
+                                    // </>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex flex-col mt-2">
+                    <span className="text-sm font-medium">
+                      <span className="font-bold">Mentions : </span>
+                      {getMentionById(params[0])?.toLowerCase()}
+                    </span>
+                    <span className="text-sm font-medium">
+                      <span className="font-bold">Parcous : </span>
+                      {parcoursSelected}
+                    </span>
+                  </div>
                 </div>
-                <span className="font-bold text-slate-600 text-2xl">
-                  Licence 1
-                </span>
               </div>
               <div>
                 <motion.div
