@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { ChevronDown, ChevronUp, Mail, TreePine } from "lucide-react"
-import type React from "react"
-import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ChevronDown, ChevronUp, Mail } from "lucide-react";
+import type React from "react";
+import { useEffect, useState } from "react";
 
 // Types pour les données
 interface PersonData {
-  id: number
-  nom: string
-  prenom: string
-  responsabilite: string
-  email: string
-  tel: string
+  id: number;
+  nom: string;
+  prenom: string;
+  responsabilite: string;
+  email: string;
+  tel: string;
 }
 
 interface CofacMember {
-  num: number
-  nomPrenom: string
-  appartenance: string
-  email: string
-  telephone?: string
-  photo?: string
+  num: number;
+  nomPrenom: string;
+  appartenance: string;
+  email: string;
+  telephone?: string;
+  photo?: string;
 }
 
 // Données du personnel principal
@@ -47,7 +47,8 @@ const personnelPrincipal: PersonData[] = [
     id: 3,
     nom: "RAKOTONDRAMAVONIRINA",
     prenom: "Joseph",
-    responsabilite: "Vice Doyen chargé de la base de données et de la digitalisation",
+    responsabilite:
+      "Vice Doyen chargé de la base de données et de la digitalisation",
     email: "radosefaniri@yahoo.fr",
     tel: "034 36 255 08",
   },
@@ -99,7 +100,7 @@ const personnelPrincipal: PersonData[] = [
     email: "rakotomavotantelinirina2@gmail.com",
     tel: "034 10 535 82",
   },
-]
+];
 
 // Données des membres COFAC
 const membresCofac: CofacMember[] = [
@@ -259,7 +260,7 @@ const membresCofac: CofacMember[] = [
     email: "herverolinho@gmail.com",
     photo: "/placeholder.svg?key=7qk4z",
   },
-]
+];
 
 // Composant pour les membres COFAC
 const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
@@ -278,9 +279,12 @@ const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
       <div className="bg-white/90 backdrop-blur-sm px-4 py-3 text-center shadow-lg min-w-[200px] max-w-[250px] -mt-8 relative z-10">
         <div className="pt-8">
           <h4 className="font-bold text-gray-800 text-sm md:text-base leading-tight mb-1">
-            {member.nomPrenom.split(" ").slice(-2).join(" ")} {/* Show last two parts of name for brevity */}
+            {member.nomPrenom.split(" ").slice(-2).join(" ")}{" "}
+            {/* Show last two parts of name for brevity */}
           </h4>
-          <p className="text-xs md:text-sm text-gray-600 font-medium">{member.appartenance}</p>
+          <p className="text-xs md:text-sm text-gray-600 font-medium">
+            {member.appartenance}
+          </p>
 
           {/* Contact info - smaller and subtle */}
           {member.email && (
@@ -294,15 +298,15 @@ const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const HierarchyNode: React.FC<{
-  title: string
-  level: number
-  children?: React.ReactNode
-  person?: PersonData
-  isService?: boolean
+  title: string;
+  level: number;
+  children?: React.ReactNode;
+  person?: PersonData;
+  isService?: boolean;
 }> = ({
   title,
   level,
@@ -317,40 +321,41 @@ const HierarchyNode: React.FC<{
           backgroundColor: "#ffffff",
           titleColor: "#780376",
           borderColor: "#d1d5db",
-        }
+        };
       case 1:
         return {
           backgroundColor: "#ffffff",
           titleColor: "#1e293b",
           borderColor: "#d1d5db",
-        }
+        };
       case 2:
         return {
           backgroundColor: "#ffffff",
           titleColor: "#b45309",
           borderColor: "#d1d5db",
-        }
+        };
       case 3:
         return {
           backgroundColor: "#ffffff",
           titleColor: "#3b82f6",
           borderColor: "#d1d5db",
-        }
+        };
       case 4:
         return {
           backgroundColor: "#ffffff",
           titleColor: "#10b981",
           borderColor: "#d1d5db",
-        }
+        };
       default:
         return {
           backgroundColor: "#ffffff",
           titleColor: "#6b7280",
           borderColor: "#d1d5db",
-        }
+        };
     }
-  }
+  };
 
+  /*
   const getConnectorColor = () => {
     switch (level) {
       case 0:
@@ -367,8 +372,8 @@ const HierarchyNode: React.FC<{
         return "#6b7280"
     }
   }
-
-  const nodeStyle = getNodeStyle()
+  */
+  const nodeStyle = getNodeStyle();
 
   return (
     <div className="flex flex-col items-center">
@@ -436,43 +441,46 @@ const HierarchyNode: React.FC<{
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default function Organigramme() {
-  const [showCofacMembers, setShowCofacMembers] = useState(false)
-  const [windowWidth, setWindowWidth] = useState(0)
+  const [showCofacMembers, setShowCofacMembers] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-    
+      setWindowWidth(window.innerWidth);
+    };
+
     // Set initial width
-    handleResize()
-    
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Grouper les membres COFAC par appartenance
-  const groupedMembers = membresCofac.reduce(
-    (acc, member) => {
-      if (!acc[member.appartenance]) {
-        acc[member.appartenance] = []
-      }
-      acc[member.appartenance].push(member)
-      return acc
-    },
-    {} as Record<string, CofacMember[]>,
-  )
+  const groupedMembers = membresCofac.reduce((acc, member) => {
+    if (!acc[member.appartenance]) {
+      acc[member.appartenance] = [];
+    }
+    acc[member.appartenance].push(member);
+    return acc;
+  }, {} as Record<string, CofacMember[]>);
 
   // Séparer les vice-doyens et les chefs de service
-  const viceDoyens = personnelPrincipal.filter((p) => p.responsabilite.includes("Vice Doyen"))
-  const chefsService = personnelPrincipal.filter((p) => p.responsabilite.includes("Chef de service"))
+  const viceDoyens = personnelPrincipal.filter((p) =>
+    p.responsabilite.includes("Vice Doyen")
+  );
+  const chefsService = personnelPrincipal.filter((p) =>
+    p.responsabilite.includes("Chef de service")
+  );
   const autres = personnelPrincipal.filter(
-    (p) => !p.responsabilite.includes("Vice Doyen") && !p.responsabilite.includes("Chef de service"),
-  )
+    (p) =>
+      !p.responsabilite.includes("Vice Doyen") &&
+      !p.responsabilite.includes("Chef de service")
+  );
 
   // Trouver des personnes spécifiques pour la structure hiérarchique
   const doyen = {
@@ -482,7 +490,7 @@ export default function Organigramme() {
     email: "",
     tel: "",
     id: 0,
-  }
+  };
   const secretaire = autres.find((p) => p.responsabilite.includes("Sec")) || {
     nom: "SECRÉTAIRE PRINCIPALE",
     prenom: "",
@@ -490,22 +498,36 @@ export default function Organigramme() {
     email: "",
     tel: "",
     id: 0,
-  }
-  const viceDoyenFormation = viceDoyens.find((p) => p.responsabilite.includes("formation"))
-  const viceDoyenRecherche = viceDoyens.find((p) => p.responsabilite.includes("Recherche"))
-  const viceDoyenNumerique = viceDoyens.find((p) => p.responsabilite.includes("base de données"))
+  };
+  const viceDoyenFormation = viceDoyens.find((p) =>
+    p.responsabilite.includes("formation")
+  );
+  const viceDoyenRecherche = viceDoyens.find((p) =>
+    p.responsabilite.includes("Recherche")
+  );
+  const viceDoyenNumerique = viceDoyens.find((p) =>
+    p.responsabilite.includes("base de données")
+  );
 
   // Services mapping
-  const serviceInformatique = chefsService.find((p) => p.responsabilite.includes("Informatique"))
-  const serviceComptabilite = chefsService.find((p) => p.responsabilite.includes("Comptabilité"))
-  const servicePersonnel = chefsService.find((p) => p.responsabilite.includes("Personnel"))
-  const serviceScolarite = chefsService.find((p) => p.responsabilite.includes("Scolarité"))
-  const serviceAffaires = chefsService.find((p) => p.responsabilite.includes("Affaires"))
+  const serviceInformatique = chefsService.find((p) =>
+    p.responsabilite.includes("Informatique")
+  );
+  const serviceComptabilite = chefsService.find((p) =>
+    p.responsabilite.includes("Comptabilité")
+  );
+  const servicePersonnel = chefsService.find((p) =>
+    p.responsabilite.includes("Personnel")
+  );
+  const serviceScolarite = chefsService.find((p) =>
+    p.responsabilite.includes("Scolarité")
+  );
+  const serviceAffaires = chefsService.find((p) =>
+    p.responsabilite.includes("Affaires")
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-x-auto">
-
-
       <main className="pt-4 sm:pt-8 lg:pt-12 pb-4 sm:pb-8 lg:pb-12">
         <div className="container mx-auto px-2 sm:px-4 lg:px-6">
           <div className="mx-auto">
@@ -533,146 +555,193 @@ export default function Organigramme() {
             </motion.div>
 
             <div>
-
-              <section className="overflow-y-visible" 
+              <section
+                className="overflow-y-visible"
                 style={{
-                  overflowX: windowWidth >= 1468 ? 'visible' : 'auto'
-                }}>
-                  <div className="flex flex-col items-center pb-6" 
-                    style={{
-                      minWidth: windowWidth >= 1468 ? '1200px' : '1400px'
-                    }}>
-                  
-                    {/* COFAC */}
-                    <HierarchyNode title="COFAC" level={0}>
+                  overflowX: windowWidth >= 1468 ? "visible" : "auto",
+                }}
+              >
+                <div
+                  className="flex flex-col items-center pb-6"
+                  style={{
+                    minWidth: windowWidth >= 1468 ? "1200px" : "1400px",
+                  }}
+                >
+                  {/* COFAC */}
+                  <HierarchyNode title="COFAC" level={0}>
+                    {/* ===== Ligne verticale depuis COFAC ===== */}
+                    <div className="w-px h-6 bg-gray-400"></div>
 
-                        {/* ===== Ligne verticale depuis COFAC ===== */}
+                    {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
+                    {/* Ligne horizontale centrée */}
+                    <div className="flex justify-center items-start relative w-324 gap-2">
+                      <div className="absolute top-0 left-2 right-3 h-px bg-gray-400" />
+
+                      {/* Conseil Scientifique Branch */}
+                      <div className="flex flex-col items-center">
                         <div className="w-px h-6 bg-gray-400"></div>
+                        <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
+                          <div className="w-px h-6 bg-gray-400"></div>
 
-                      {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
-                      {/* Ligne horizontale centrée */}
-                      <div className="flex justify-center items-start relative w-324 gap-2">
-                        <div className="absolute top-0 left-2 right-3 h-px bg-gray-400" />
-                         
-                        {/* Conseil Scientifique Branch */}
-                        <div className="flex flex-col items-center">
-                            <div className="w-px h-6 bg-gray-400"></div>
-                          <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
-                            
+                          <HierarchyNode title="MENTION" level={2}>
                             <div className="w-px h-6 bg-gray-400"></div>
 
-                            <HierarchyNode title="MENTION" level={2}>
-                            <div className="w-px h-6 bg-gray-400"></div>
+                            <HierarchyNode title="PARCOURS" level={3}>
+                              <div className="w-px h-6 bg-gray-400"></div>
 
-                              <HierarchyNode title="PARCOURS" level={3}>
-                            <div className="w-px h-6 bg-gray-400"></div>
-
-                                <HierarchyNode title="LABO" level={4} />
-                              </HierarchyNode>
+                              <HierarchyNode title="LABO" level={4} />
                             </HierarchyNode>
                           </HierarchyNode>
-                        </div>
+                        </HierarchyNode>
+                      </div>
 
-                        {/* ===== DOYEN ===== */}
-                        <div className="flex flex-col items-center ">
+                      {/* ===== DOYEN ===== */}
+                      <div className="flex flex-col items-center ">
+                        <div className="w-px h-6 bg-gray-400"></div>
+                        <HierarchyNode title="DOYEN" level={1} person={doyen} />
+                        <div className="w-px h-6 bg-gray-400"></div>
+
+                        {/* ===== Ligne horizontale depuis DOYEN ===== */}
+                        <div className="relative w-full flex justify-center items-start gap-1">
+                          <div className="absolute top-0 left-80 right-15 h-px bg-gray-400"></div>
+
+                          {/* Secrétaire + Services */}
+                          <div className="flex flex-col items-center">
                             <div className="w-px h-6 bg-gray-400"></div>
-                            <HierarchyNode title="DOYEN" level={1} person={doyen} />
-                            <div className="w-px h-6 bg-gray-400"></div>
+                            <HierarchyNode
+                              title="SECRÉTAIRE PRINCIPALE"
+                              level={2}
+                              person={secretaire}
+                            />
+                            <div className="w-px h-10 bg-gray-400"></div>
 
-                            {/* ===== Ligne horizontale depuis DOYEN ===== */}
-                            <div className="relative w-full flex justify-center items-start gap-1">
-                                <div className="absolute top-0 left-80 right-15 h-px bg-gray-400"></div>
+                            {/* ===== Ligne horizontale depuis SECRÉTAIRE ===== */}
+                            <div className="relative w-full flex justify-center items-start gap-2">
+                              <div className="absolute top-0 left-15 right-15 h-px bg-gray-400"></div>
 
-                                {/* Secrétaire + Services */}
+                              {serviceInformatique && (
                                 <div className="flex flex-col items-center">
-                                    <div className="w-px h-6 bg-gray-400"></div>
-                                        <HierarchyNode title="SECRÉTAIRE PRINCIPALE" level={2} person={secretaire} />
-                                            <div className="w-px h-10 bg-gray-400"></div>
-
-                                            {/* ===== Ligne horizontale depuis SECRÉTAIRE ===== */}
-                                            <div className="relative w-full flex justify-center items-start gap-2">
-                                            <div className="absolute top-0 left-15 right-15 h-px bg-gray-400"></div>
-
-                                            {serviceInformatique && (
-                                                <div className="flex flex-col items-center">
-                                                <div className="w-px h-6 bg-gray-400"></div>
-                                                <HierarchyNode title="SERVICE INFORMATIQUE" level={3} person={serviceInformatique} />
-                                                </div>
-                                            )}
-                                            {serviceComptabilite && (
-                                                <div className="flex flex-col items-center">
-                                                <div className="w-px h-6 bg-gray-400"></div>
-                                                <HierarchyNode title="SERVICE COMPTABILITÉ" level={3} person={serviceComptabilite} />
-                                                </div>
-                                            )}
-                                            {servicePersonnel && (
-                                                <div className="flex flex-col items-center">
-                                                <div className="w-px h-6 bg-gray-400"></div>
-                                                <HierarchyNode title="SERVICE PERSONNEL" level={3} person={servicePersonnel} />
-                                                </div>
-                                            )}
-                                            {serviceScolarite && (
-                                                <div className="flex flex-col items-center">
-                                                <div className="w-px h-6 bg-gray-400"></div>
-                                                <HierarchyNode title="SERVICE SCOLARITÉ" level={3} person={serviceScolarite} />
-                                                </div>
-                                            )}
-                                            {serviceAffaires && (
-                                                <div className="flex flex-col items-center">
-                                                <div className="w-px h-6 bg-gray-400"></div>
-                                                <HierarchyNode title="SERVICE DES AFFAIRES ÉTRANGÈRES" level={3} person={serviceAffaires} />
-                                                </div>
-                                        )}
-                                    </div>
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE INFORMATIQUE"
+                                    level={3}
+                                    person={serviceInformatique}
+                                  />
                                 </div>
-
-                                {/* DICOS - rapproché de la Secrétaire */}
+                              )}
+                              {serviceComptabilite && (
                                 <div className="flex flex-col items-center">
-                                <div className="w-px h-6 bg-gray-400"></div>
-                                <HierarchyNode title="DICOS" level={2} />
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE COMPTABILITÉ"
+                                    level={3}
+                                    person={serviceComptabilite}
+                                  />
                                 </div>
-
-                                {/* Vice-Doyens */}
-                                {viceDoyenFormation && (
+                              )}
+                              {servicePersonnel && (
                                 <div className="flex flex-col items-center">
-                                    <div className="w-px h-6 bg-gray-400"></div>
-                                    <HierarchyNode title="VICE DOYEN FORMATION" level={2} person={viceDoyenFormation}>
-                                    <div className="w-px h-10 bg-gray-400"></div>
-                                    <HierarchyNode title="ASSOCIATION DES ÉTUDIANTS" level={3} />
-                                    </HierarchyNode>
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE PERSONNEL"
+                                    level={3}
+                                    person={servicePersonnel}
+                                  />
                                 </div>
-                                )}
-                                {viceDoyenNumerique && (
+                              )}
+                              {serviceScolarite && (
                                 <div className="flex flex-col items-center">
-                                    <div className="w-px h-6 bg-gray-400"></div>
-                                    <HierarchyNode title="VICE DOYEN NUMÉRIQUE" level={2} person={viceDoyenNumerique} />
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE SCOLARITÉ"
+                                    level={3}
+                                    person={serviceScolarite}
+                                  />
                                 </div>
-                                )}
-                                {viceDoyenRecherche && (
+                              )}
+                              {serviceAffaires && (
                                 <div className="flex flex-col items-center">
-                                    <div className="w-px h-6 bg-gray-400"></div>
-                                    <HierarchyNode title="VICE DOYEN RECHERCHE" level={2} person={viceDoyenRecherche} />
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE DES AFFAIRES ÉTRANGÈRES"
+                                    level={3}
+                                    person={serviceAffaires}
+                                  />
                                 </div>
-                                )}
+                              )}
                             </div>
-                        </div>
+                          </div>
 
-                        {/* Collège des Enseignants Branch */}
-                        <div className="flex flex-col items-center">
+                          {/* DICOS - rapproché de la Secrétaire */}
+                          <div className="flex flex-col items-center">
                             <div className="w-px h-6 bg-gray-400"></div>
-                          <HierarchyNode title="COLLÈGE DES ENSEIGNANTS" level={1} />
+                            <HierarchyNode title="DICOS" level={2} />
+                          </div>
+
+                          {/* Vice-Doyens */}
+                          {viceDoyenFormation && (
+                            <div className="flex flex-col items-center">
+                              <div className="w-px h-6 bg-gray-400"></div>
+                              <HierarchyNode
+                                title="VICE DOYEN FORMATION"
+                                level={2}
+                                person={viceDoyenFormation}
+                              >
+                                <div className="w-px h-10 bg-gray-400"></div>
+                                <HierarchyNode
+                                  title="ASSOCIATION DES ÉTUDIANTS"
+                                  level={3}
+                                />
+                              </HierarchyNode>
+                            </div>
+                          )}
+                          {viceDoyenNumerique && (
+                            <div className="flex flex-col items-center">
+                              <div className="w-px h-6 bg-gray-400"></div>
+                              <HierarchyNode
+                                title="VICE DOYEN NUMÉRIQUE"
+                                level={2}
+                                person={viceDoyenNumerique}
+                              />
+                            </div>
+                          )}
+                          {viceDoyenRecherche && (
+                            <div className="flex flex-col items-center">
+                              <div className="w-px h-6 bg-gray-400"></div>
+                              <HierarchyNode
+                                title="VICE DOYEN RECHERCHE"
+                                level={2}
+                                person={viceDoyenRecherche}
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
 
-                    </HierarchyNode>
-                  </div>
-                </section>
+                      {/* Collège des Enseignants Branch */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-px h-6 bg-gray-400"></div>
+                        <HierarchyNode
+                          title="COLLÈGE DES ENSEIGNANTS"
+                          level={1}
+                        />
+                      </div>
+                    </div>
+                  </HierarchyNode>
+                </div>
+              </section>
 
               {/* Membres COFAC */}
               <section className="mt-9">
                 <div className="text-center mb-8">
-                  <h2 className="text-3xl font-bold mb-4 text-foreground">Membres du COFAC</h2>
-                  <Button onClick={() => setShowCofacMembers(!showCofacMembers)} variant="outline" className="gap-2">
+                  <h2 className="text-3xl font-bold mb-4 text-foreground">
+                    Membres du COFAC
+                  </h2>
+                  <Button
+                    onClick={() => setShowCofacMembers(!showCofacMembers)}
+                    variant="outline"
+                    className="gap-2"
+                  >
                     {showCofacMembers ? (
                       <>
                         <ChevronUp className="h-4 w-4" />
@@ -689,37 +758,40 @@ export default function Organigramme() {
 
                 {showCofacMembers && (
                   <div className="space-y-12">
-                    {Object.entries(groupedMembers).map(([appartenance, members]) => (
-                      <div key={appartenance}>
-                        <h3 className="text-xl font-semibold mb-6 text-center text-white bg-primary py-3">
-                          {appartenance} ({members.length})
-                        </h3>
+                    {Object.entries(groupedMembers).map(
+                      ([appartenance, members]) => (
+                        <div key={appartenance}>
+                          <h3 className="text-xl font-semibold mb-6 text-center text-white bg-primary py-3">
+                            {appartenance} ({members.length})
+                          </h3>
 
-                        {/* Blue background container matching reference image */}
-                        <div
-                          className="p-8 md:p-12"
-                        >
-                          {/* Responsive grid that adapts to member count */}
-                          <div
-                            className={`grid gap-8 justify-items-center ${
-                              members.length <= 2
-                                ? "grid-cols-1 md:grid-cols-2"
-                                : members.length <= 3
+                          {/* Blue background container matching reference image */}
+                          <div className="p-8 md:p-12">
+                            {/* Responsive grid that adapts to member count */}
+                            <div
+                              className={`grid gap-8 justify-items-center ${
+                                members.length <= 2
+                                  ? "grid-cols-1 md:grid-cols-2"
+                                  : members.length <= 3
                                   ? "grid-cols-1 md:grid-cols-3"
                                   : members.length <= 4
-                                    ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-                                    : members.length <= 6
-                                      ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                                      : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                            }`}
-                          >
-                            {members.map((member) => (
-                              <CofacMemberCard key={member.num} member={member} />
-                            ))}
+                                  ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+                                  : members.length <= 6
+                                  ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                                  : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                              }`}
+                            >
+                              {members.map((member) => (
+                                <CofacMemberCard
+                                  key={member.num}
+                                  member={member}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 )}
               </section>
@@ -728,5 +800,5 @@ export default function Organigramme() {
         </div>
       </main>
     </div>
-  )
+  );
 }

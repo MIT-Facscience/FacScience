@@ -2,10 +2,8 @@ import type { Professors, Staff, Student } from "@/lib/types";
 import { motion } from "framer-motion";
 import {
   BarChart3,
-  Building2,
   ChevronLeft,
   ChevronRight,
-  Clock,
   Download,
   Edit,
   Eye,
@@ -13,7 +11,6 @@ import {
   Grid,
   List,
   Mail,
-  MapPin,
   Phone,
   Plus,
   Search,
@@ -23,10 +20,8 @@ import {
   Upload,
   User,
   UserCheck,
-  Users,
 } from "lucide-react";
-import { useState,useEffect } from "react";
-
+import { useEffect, useState } from "react";
 
 const AnnuairePage = () => {
   const [activeTab, setActiveTab] = useState("students");
@@ -37,37 +32,36 @@ const AnnuairePage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
-  
+
   const [professors, setProfessor] = useState<Professors[]>([]);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchAllData = async () => {
       try {
         // Lancer les 3 fetch en parallèle
         const [staff, professors] = await Promise.all([
-          fetch('http://localhost:3001/api/users'),
-          fetch('http://localhost:3001/api/products'),
+          fetch("http://localhost:3001/api/users"),
+          fetch("http://localhost:3001/api/products"),
         ]);
 
         // Vérifier si toutes les réponses sont OK
-        if (!staff.ok || !professors.ok ) {
-          throw new Error('Une ou plusieurs requêtes ont échoué');
+        if (!staff.ok || !professors.ok) {
+          throw new Error("Une ou plusieurs requêtes ont échoué");
         }
 
         // Extraire les données JSON
-     
+
         const profData: Professors[] = await professors.json();
         const paffData: Staff[] = await staff.json();
 
         // Mettre à jour les états
         setProfessor(profData);
         setStaff(paffData);
-        
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erreur inconnue');
+        setError(err instanceof Error ? err.message : "Erreur inconnue");
       } finally {
         setLoading(false);
       }
@@ -77,7 +71,7 @@ const AnnuairePage = () => {
   }, []);
 
   if (loading) return <p>Chargement des données...</p>;
-  if (error) return <p style={{ color: 'red' }}>Erreur : {error}</p>;
+  if (error) return <p style={{ color: "red" }}>Erreur : {error}</p>;
 
   function isStudent(person: Student | Professors | Staff): person is Student {
     return "program" in person && "year" in person;
@@ -93,8 +87,6 @@ const AnnuairePage = () => {
     return "office" in person && "hours" in person;
   }
 
-  
-
   // const professors: Professors[] = [
   //   {
   //     idProfesseur: 1,
@@ -109,7 +101,7 @@ const AnnuairePage = () => {
   //     photo:
   //       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
   //   },
-  
+
   // ];
 
   // const staff: Staff[] = [
@@ -125,12 +117,11 @@ const AnnuairePage = () => {
   //     photo:
   //       "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
   //   },
-   
+
   // ];
 
   const getCurrentData = () => {
     switch (activeTab) {
-    
       case "professors":
         return professors;
       case "staff":
@@ -145,7 +136,7 @@ const AnnuairePage = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  const PersonCard = ({ person }: { person: Staff  | Professors }) => {
+  const PersonCard = ({ person }: { person: Staff | Professors }) => {
     if (viewMode === "list") {
       return (
         <div className="group bg-white hover:bg-slate-50 transition-all duration-300 border border-slate-200 hover:border-slate-300 overflow-hidden">
@@ -337,16 +328,12 @@ const AnnuairePage = () => {
                 </span>
               )}
               {isProfessor(person) && (
-                <span className="px-3 py-1 bg-transparent text-slate-700 text-xs font-medium">
-                
-                </span>
+                <span className="px-3 py-1 bg-transparent text-slate-700 text-xs font-medium"></span>
               )}
               {isStaff(person) && (
-                <span className="px-3 py-1 bg-black text-slate-700 text-xs font-medium">
-                
-                </span>
+                <span className="px-3 py-1 bg-black text-slate-700 text-xs font-medium"></span>
               )}
-               {/* <div className="flex  items-end justify-end"> */}
+              {/* <div className="flex  items-end justify-end"> */}
               <Star className="w-5 h-5  text-slate-300 hover:text-yellow-400 cursor-pointer transition-colors" />
               {/* </div> */}
             </div>
@@ -427,9 +414,7 @@ const AnnuairePage = () => {
         <div className="bg-yellow-50 p-6 border border-yellow-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-yellow-600 text-sm font-medium">
-                Mentions
-              </p>
+              <p className="text-yellow-600 text-sm font-medium">Mentions</p>
               <p className="text-3xl font-bold text-yellow-900">8</p>
             </div>
             <BarChart3 className="w-12 h-12 text-yellow-500" />
