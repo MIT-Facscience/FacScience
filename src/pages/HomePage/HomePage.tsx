@@ -90,22 +90,22 @@ export default function HomePage() {
     {
       title: "Informatique et Technologie",
       backgroundColor: "bg-gray-800",
-      logoType: "/Logo/Logo_IT.png",
+      logoType: "/Logo_IT.png",
     },
     {
       title: "Mathematique et Informatique",
       backgroundColor: "bg-slate-600",
-      logoType: "/Logo/Logo_MI.jpg",
+      logoType: "/Logo_MI.jpg",
     },
     {
       title: "Physique et Chimie",
       backgroundColor: "bg-green-600",
-      logoType: "/Logo/Logo_ADD.jpg",
+      logoType: "/Logo_ADD.jpg",
     },
     {
       title: "SVT",
       backgroundColor: "bg-stone-500",
-      logoType: "/Logo/Logo_BFA.jpg",
+      logoType: "/Logo_BFA.jpg",
     },
   ];
 
@@ -147,12 +147,12 @@ export default function HomePage() {
                       <CardContent className="p-6">
                         <div className="flex items-start space-x-3 mb-4">
                           <div
-                            className={`p-2 rounded-none ${
+                            className={`p-2 rounded-none aspect-square ${
                               news.type === "event"
                                 ? "bg-primary/10 text-primary"
                                 : news.type === "inscription"
                                 ? "bg-secondary/10 text-secondary-foreground"
-                                : "bg-accent/10 text-accent-foreground"
+                                : "bg-destructive/10 text-foreground"
                             }`}
                           >
                             {news.icon}
@@ -165,7 +165,7 @@ export default function HomePage() {
                                   ? "bg-primary/10 text-primary"
                                   : news.type === "inscription"
                                   ? "bg-secondary/10 text-secondary-foreground"
-                                  : "bg-accent/10 text-accent-foreground"
+                                  : "bg-destructive/10 text-foreground"
                               }`}
                             >
                               {news.type === "event"
@@ -253,8 +253,8 @@ export default function HomePage() {
                 <p className="text-muted-foreground leading-relaxed">
                   Depuis plus de 60 ans, la Faculté des Sciences de l'Université
                   d'Antananarivo forme les futurs scientifiques et chercheurs de
-                  Madagascar. Nous offrons des programmes d'excellence dans six
-                  départements spécialisés.
+                  Madagascar. Nous offrons des programmes d'excellence dans 14
+                  mentions spécialisées.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   Notre engagement envers la qualité de l'enseignement et la
@@ -287,7 +287,7 @@ export default function HomePage() {
                 Nos Portails
               </h2>
               <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
-                Les grandes parcours dans notre faculté
+                Les grands parcours dans notre faculté
               </p>
             </div>
 

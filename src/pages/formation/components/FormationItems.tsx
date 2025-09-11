@@ -12,6 +12,7 @@ import PrimaryButton from "@/components/ui/PrimaryButton";
 import getParoursById from "@/dataTestFormation/parcours";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Parcours from "./Parcour";
+
 export default function FormationItems() {
   const id = useSearchParams()[0].toString().split("=")[0];
   const data = getRespo(id);
@@ -44,7 +45,7 @@ export default function FormationItems() {
                     {data?.name}
                   </h1>
                   <p className="text-sm sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                    Découvrez les parcours d'excellences dans le mention{" "}
+                    Découvrez les parcours d’excellence dans la mention{" "}
                     {data?.name?.toLowerCase()}
                   </p>
                 </div>
@@ -63,10 +64,7 @@ export default function FormationItems() {
                 </CardHeader>
                 <CardContent className="flex justify-center text-slate-500 font-medium">
                   <p className="text-center text-sm w-full lg:w-1/2">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Atque nihil iste doloribus aspernatur dolor nesciunt veniam
-                    error ducimus necessitatibus, blanditiis, asperiores tenetur
-                    facere tempore aliquam facilis repellendus culpa sequi unde.
+                    La mention {data.name} a pour objectif de former les étudiants, en leur offrant des compétences théoriques et pratiques adaptées aux exigences académiques et professionnelles.
                   </p>
                 </CardContent>
               </Card>
@@ -106,14 +104,14 @@ export default function FormationItems() {
                     value="normal"
                     className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
-                    <span className="hidden sm:flex">Parcours</span> normale
+                    <span className="hidden sm:flex">Parcours</span> normal
                   </TabsTrigger>
                   <TabsTrigger
                     value="professionalisante"
                     className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
                     <span className="hidden sm:flex">Parcours</span>{" "}
-                    professionalisante
+                    professionalisant
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent value="normal">
@@ -156,7 +154,7 @@ export default function FormationItems() {
                   <div className="w-16 h-16 rounded-full flex items-center justify-center bg-primary text-white">
                     <User />
                   </div>
-                  Responsable du mention
+                  Responsable de la mention
                 </CardTitle>
                 <CardContent className="text-sm text-slate-600 font-medium flex flex-col items-center gap-4">
                   <span className="flex flex-col items-center md:flex-row md:gap-1">
@@ -164,9 +162,7 @@ export default function FormationItems() {
                     {data.respo}
                   </span>
                   <p className="w-full lg:w-1/2 text-center font-normal">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla porro enim sit voluptatum dolorem corporis quia amet
-                    dolores
+                    Le chef de mention est responsable de la coordination pédagogique et administrative de la mention, veillant à la qualité de la formation, à l’encadrement des étudiants et à la gestion des activités académiques en lien avec l’équipe enseignante.
                   </p>
                   <Link to="/contact">
                     <PrimaryButton className="cursor-pointer">

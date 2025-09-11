@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+                                                                                                                                    import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Users, Award, BookOpen, Microscope, Globe } from "lucide-react"
 import { motion } from "framer-motion"
@@ -8,7 +8,7 @@ export default function HistoirePage() {
     {
       year: "1961",
       title: "Fondation de la Faculté",
-      description: "Création de la Faculté des Sciences de l'Université d'Antananarivo, première institution d'enseignement supérieur scientifique de Madagascar.",
+      description: "Création de la Faculté des Sciences de l'Université d'Antananarivo, qui se positionne en tant que leader du secteur de l'enseignement supérieur scientifique à Madagascar.",
       icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
       color: "bg-primary"
     },

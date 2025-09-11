@@ -13,7 +13,7 @@ export default function RecherchePage() {
           <h1 className="text-4xl font-bold text-slate-800 mb-4">Recherche Scientifique</h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             La Faculté des Sciences d'Antananarivo est un centre d'excellence en recherche, contribuant au développement
-            scientifique de Madagascar et de la région océan Indien.
+            scientifique de Madagascar et de la région de l'Océan Indien.
           </p>
         </div>
 

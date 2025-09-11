@@ -9,23 +9,17 @@ export default function VisionPage() {
         "Partenariat International: Collaboration avec l'Université etrangeres",
       description:
         "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe",
-      image: "/coursera.jpg",
-      date: "Decouvrir",
+      image: "/partenariat.png",
+      date: "",
     },
-    {
-      title: "Bourse d'Excellence: 50 nouveaux étudiants bénéficiaires",
-      description:
-        "Programme de bourses pour promouvoir l'excellence académique et l'inclusion sociale",
-      image: "/coursera.jpg",
-      date: "Decouvrir",
-    },
+    
     {
       title:
         "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
       description:
         "Découvrez les motivations de nos nouveaux enseignants-chercheurs",
-      image: "/coursera.jpg",
-      date: "Decouvrir",
+      image: "/nouveauprof.jpg",
+      date: "",
     },
   ];
 
@@ -56,7 +50,7 @@ export default function VisionPage() {
             >
               <div className="absolute inset-0">
                 <img
-                  src="/modern-university-campus-with-science-buildings-an.png"
+                  src="/ankatso.jpg"
                   alt="Histoire de la faculté"
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
@@ -174,7 +168,7 @@ export default function VisionPage() {
                       </h2>
 
                       <img
-                        src="/digital.jpg"
+                        src="/media-digitalisation.jpg"
                         alt="Campus Events"
                         className="w-full h-32 object-cover rounded-lg"
                       />
@@ -202,21 +196,21 @@ export default function VisionPage() {
 
                         <div className="mt-6">
                           <a
-                            href="#"
+                            href="/actualites"
                             className="text-sm text-purple-600 hover:text-purple-800 font-medium"
                           >
                             Voir plus d'événements
                           </a>
                         </div>
 
-                        <div className="mt-4">
+                        {/* <div className="mt-4">
                           <a
                             href="#"
                             className="text-sm text-purple-600 hover:text-purple-800 font-medium"
                           >
                             Événements à la Demande
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

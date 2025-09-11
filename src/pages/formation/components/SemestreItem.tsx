@@ -29,17 +29,17 @@ export default function SemestreItem({
             </div>
             <div className="flex flex-col gap-1">
               <div className="flex flex-col text-slate-600 text-xs font-medium">
-                <span>{credit} Crédit</span>
+                <span>{credit} Crédit(s)</span>
                 <span>
-                  <span>{nbMatiere} Matières</span>
+                  <span>{nbMatiere} Matière(s)</span>
                 </span>
               </div>
             </div>
           </CardTitle>
           <CardContent className="px-5">
             <div className="flex text-sm font-medium justify-between border-b-2 border-slate-400 py-2 text-slate-600 mb-2">
-              <span>Matieres</span>
-              <span>Nombre de crédit</span>
+              <span>Matières</span>
+              <span>Nombre de crédits</span>
             </div>
             <div className="space-y-2 text-sm font-medium">
               {matiere.map((item, index) => (
@@ -49,7 +49,7 @@ export default function SemestreItem({
                 >
                   <span>{item.matiere}</span>
                   <span className="font-bold">
-                    <Badge className="bg-amber-400">{item.credit} Crédit</Badge>
+                    <Badge className="bg-amber-400">{item.credit} Crédit(s)</Badge>
                   </span>
                 </div>
               ))}
