@@ -9,7 +9,7 @@ export default function VisionPage() {
         "Partenariat International: Collaboration avec l'Université etrangeres",
       description:
         "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe",
-      image: "/coursera.jpg",
+      image: "/partenariat.png",
       date: "",
     },
     
@@ -18,7 +18,7 @@ export default function VisionPage() {
         "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
       description:
         "Découvrez les motivations de nos nouveaux enseignants-chercheurs",
-      image: "/coursera.jpg",
+      image: "/nouveauprof.jpg",
       date: "",
     },
   ];
@@ -50,7 +50,7 @@ export default function VisionPage() {
             >
               <div className="absolute inset-0">
                 <img
-                  src="/modern-university-campus-with-science-buildings-an.png"
+                  src="/ankatso.jpg"
                   alt="Histoire de la faculté"
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
@@ -168,7 +168,7 @@ export default function VisionPage() {
                       </h2>
 
                       <img
-                        src="/digital.jpg"
+                        src="/media-digitalisation.jpg"
                         alt="Campus Events"
                         className="w-full h-32 object-cover rounded-lg"
                       />

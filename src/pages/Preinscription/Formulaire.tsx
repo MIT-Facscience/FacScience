@@ -7,7 +7,7 @@ import { StepTwoThree } from './FormSteps/StepTwoThree';
 import { StepFour } from './FormSteps/StepFour';
 import type { ApplicationData, CandidateInfo, Program } from './types/index';
 import StepStranger from './FormSteps/FormStepsStranger/StepStranger';
-import { AVAILABLE_PROGRAMS, getProgram } from './api/programs';
+import { getProgram } from './api/programs';
 
 interface PersonalInfo {
   email: string;
@@ -27,7 +27,7 @@ const Formulaire: React.FC = () => {
   const [bactype, setBactype] = useState<"mg" | "etg">("mg");
   const [strangerStep, setstrangerStep] = useState(1);
 
-  const [program, setProgram] = useState<Program[]>([])
+  const [program, setProgram] = useState<Program[] | null>(null);
 
   // Les titres visibles dans la barre
   const stepTitles = ['Informations', 'Confirmation'];
@@ -36,7 +36,7 @@ const Formulaire: React.FC = () => {
   useEffect(() => {
     const fetchGetProg = async () => {
       const prog = await getProgram();
-      setProgram(prog??AVAILABLE_PROGRAMS);
+      setProgram(prog??null);
     }
 
     fetchGetProg();
