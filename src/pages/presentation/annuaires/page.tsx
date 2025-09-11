@@ -1,3 +1,4 @@
+import type { Professors, Staff, Student } from "@/lib/types";
 import { motion } from "framer-motion";
 import {
   BarChart3,
@@ -24,7 +25,8 @@ import {
   UserCheck,
   Users,
 } from "lucide-react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+
 
 const AnnuairePage = () => {
   const [activeTab, setActiveTab] = useState("students");
@@ -35,41 +37,47 @@ const AnnuairePage = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
-  type Staff = {
-    id: number;
-    name: string;
-    email: string;
-    phone: string;
-    position: string;
-    department: string;
-    office: string;
-    hours: string;
-    photo?: string;
-  };
+  
+  const [professors, setProfessor] = useState<Professors[]>([]);
+  const [staff, setStaff] = useState<Staff[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  type Student = {
-    id: number;
-    name: string;
-    email: string;
-    phone: string;
-    program: string;
-    year: string;
-    department: string;
-    photo?: string;
-  };
+   useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        // Lancer les 3 fetch en parallèle
+        const [staff, professors] = await Promise.all([
+          fetch('http://localhost:3001/api/users'),
+          fetch('http://localhost:3001/api/products'),
+        ]);
 
-  type Professors = {
-    id: number;
-    name: string;
-    email: string;
-    phone: string;
-    title: string;
-    department: string;
-    speciality: string;
-    office: string;
-    consultationHours: string;
-    photo?: string;
-  };
+        // Vérifier si toutes les réponses sont OK
+        if (!staff.ok || !professors.ok ) {
+          throw new Error('Une ou plusieurs requêtes ont échoué');
+        }
+
+        // Extraire les données JSON
+     
+        const profData: Professors[] = await professors.json();
+        const paffData: Staff[] = await staff.json();
+
+        // Mettre à jour les états
+        setProfessor(profData);
+        setStaff(paffData);
+        
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Erreur inconnue');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllData();
+  }, []);
+
+  if (loading) return <p>Chargement des données...</p>;
+  if (error) return <p style={{ color: 'red' }}>Erreur : {error}</p>;
 
   function isStudent(person: Student | Professors | Staff): person is Student {
     return "program" in person && "year" in person;
@@ -78,175 +86,51 @@ const AnnuairePage = () => {
   function isProfessor(
     person: Student | Professors | Staff
   ): person is Professors {
-    return "title" in person && "speciality" in person;
+    return "title" in person;
   }
 
   function isStaff(person: Student | Professors | Staff): person is Staff {
     return "office" in person && "hours" in person;
   }
 
-  const students: Student[] = [
-    {
-      id: 1,
-      name: "Marie Dubois",
-      email: "marie.dubois@univ.edu",
-      phone: "+261 34 12 345 67",
-      program: "Master en Informatique",
-      year: "2ème année",
-      department: "Sciences & Technologies",
-      // photo: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
-    },
-    {
-      id: 2,
-      name: "Jean Rakoto",
-      email: "jean.rakoto@univ.edu",
-      phone: "+261 33 98 765 43",
-      program: "Licence en Économie",
-      year: "3ème année",
-      department: "Sciences Économiques",
-      photo:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      id: 3,
-      name: "Sophie Martin",
-      email: "sophie.martin@univ.edu",
-      phone: "+261 32 55 123 89",
-      program: "Doctorat en Biologie",
-      year: "1ère année",
-      department: "Sciences Naturelles",
-      // Pas de photo pour tester l'avatar par défaut
-    },
-    {
-      id: 4,
-      name: "Sophie Martin",
-      email: "sophie.martin@univ.edu",
-      phone: "+261 32 55 123 89",
-      program: "Doctorat en Biologie",
-      year: "1ère année",
-      department: "Sciences Naturelles",
-      // Pas de photo pour tester l'avatar par défaut
-    },
-    {
-      id: 5,
-      name: "Sophie Martin",
-      email: "sophie.martin@univ.edu",
-      phone: "+261 32 55 123 89",
-      program: "Doctorat en Biologie",
-      year: "1ère année",
-      department: "Sciences Naturelles",
-      // Pas de photo pour tester l'avatar par défaut
-    },
-  ];
+  
 
-  const professors: Professors[] = [
-    {
-      id: 1,
-      name: "Dr. Paul Andriamanana",
-      email: "paul.andriamanana@univ.edu",
-      phone: "+261 34 11 22 33",
-      title: "Professeur Titulaire",
-      department: "Sciences & Technologies",
-      speciality: "Intelligence Artificielle",
-      office: "Bât. A - Bureau 205",
-      consultationHours: "Lun-Mer 14h-16h",
-      photo:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      id: 2,
-      name: "Dr. Paul Andriamanana",
-      email: "paul.andriamanana@univ.edu",
-      phone: "+261 34 11 22 33",
-      title: "Professeur Titulaire",
-      department: "Sciences & Technologies",
-      speciality: "Intelligence Artificielle",
-      office: "Bât. A - Bureau 205",
-      consultationHours: "Lun-Mer 14h-16h",
-      photo:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      id: 3,
-      name: "Dr. Christine Ranaivo",
-      email: "christine.ranaivo@univ.edu",
-      phone: "+261 33 44 55 66",
-      title: "Maître de Conférences",
-      department: "Sciences Économiques",
-      speciality: "Économie du Développement",
-      office: "Bât. B - Bureau 112",
-      consultationHours: "Mar-Jeu 10h-12h",
-      // Pas de photo pour tester l'avatar par défaut
-    },
-    {
-      id: 4,
-      name: "Dr. Christine Ranaivo",
-      email: "christine.ranaivo@univ.edu",
-      phone: "+261 33 44 55 66",
-      title: "Maître de Conférences",
-      department: "Sciences Économiques",
-      speciality: "Économie du Développement",
-      office: "Bât. B - Bureau 112",
-      consultationHours: "Mar-Jeu 10h-12h",
-      // Pas de photo pour tester l'avatar par défaut
-    },
-  ];
+  // const professors: Professors[] = [
+  //   {
+  //     idProfesseur: 1,
+  //     Nom: "Dr. Paul Andriamanana",
+  //     Email: "paul.andriamanana@univ.edu",
+  //     Tel: "+261 34 11 22 33",
+  //     titre: "Professeur Titulaire",
+  //     // department: "Sciences & Technologies",
+  //     // speciality: "Intelligence Artificielle",
+  //     // office: "Bât. A - Bureau 205",
+  //     // consultationHours: "Lun-Mer 14h-16h",
+  //     photo:
+  //       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+  //   },
+  
+  // ];
 
-  const staff: Staff[] = [
-    {
-      id: 1,
-      name: "Hery Rasolofo",
-      email: "hery.rasolofo@univ.edu",
-      phone: "+261 34 77 88 99",
-      position: "Responsable Scolarité",
-      department: "Administration",
-      office: "Bât. Admin - Bureau 15",
-      hours: "Lun-Ven 8h-16h",
-      photo:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      id: 2,
-      name: "Sasa solofo",
-      email: "hery.rasolofo@univ.edu",
-      phone: "+261 34 77 88 99",
-      position: "Responsable Scolarité",
-      department: "Administration",
-      office: "Bât. Admin - Bureau 15",
-      hours: "Lun-Ven 8h-16h",
-      photo:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      id: 3,
-      name: "Mpampianatra",
-      email: "hery.rasolofo@univ.edu",
-      phone: "+261 34 77 88 99",
-      position: "Responsable Scolarité",
-      department: "Administration",
-      office: "Bât. Admin - Bureau 15",
-      hours: "Lun-Ven 8h-16h",
-      photo:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
-    },
-    {
-      id: 4,
-      name: "Mpampianatra",
-      email: "hery.rasolofo@univ.edu",
-      phone: "+261 34 77 88 99",
-      position: "Responsable Scolarité",
-      department: "Administration",
-      office: "Bât. Admin - Bureau 15",
-      hours: "Lun-Ven 8h-16h",
-      photo:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
-    },
-  ];
+  // const staff: Staff[] = [
+  //   {
+  //     id: 1,
+  //     name: "Hery Rasolofo",
+  //     email: "hery.rasolofo@univ.edu",
+  //     phone: "+261 34 77 88 99",
+  //     position: "Responsable Scolarité",
+  //     // department: "Administration",
+  //     // office: "Bât. Admin - Bureau 15",
+  //     // hours: "Lun-Ven 8h-16h",
+  //     photo:
+  //       "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
+  //   },
+   
+  // ];
 
   const getCurrentData = () => {
     switch (activeTab) {
-      case "students":
-        return students;
+    
       case "professors":
         return professors;
       case "staff":
@@ -261,7 +145,7 @@ const AnnuairePage = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  const PersonCard = ({ person }: { person: Staff | Student | Professors }) => {
+  const PersonCard = ({ person }: { person: Staff  | Professors }) => {
     if (viewMode === "list") {
       return (
         <div className="group bg-white hover:bg-slate-50 transition-all duration-300 border border-slate-200 hover:border-slate-300 overflow-hidden">
@@ -271,7 +155,7 @@ const AnnuairePage = () => {
                 {person.photo ? (
                   <img
                     src={person.photo}
-                    alt={person.name}
+                    alt={person.nom}
                     className="w-24 h-24 object-cover"
                   />
                 ) : (
@@ -286,22 +170,23 @@ const AnnuairePage = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold text-slate-900 mb-1">
-                      {person.name}
+                      {person.nom}
                     </h3>
                     <p className="text-primary font-medium mb-3">
-                      {"program" in person
+                      {/* {"program" in person
                         ? person.program
                         : isProfessor(person)
                         ? person.title
-                        : person.position}
+                    //    : person.fonction
+                        } */}
                     </p>
 
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-3">
-                        <div className="flex items-center text-slate-600">
+                        {/* <div className="flex items-center text-slate-600">
                           <Building2 className="w-4 h-4 mr-3 text-slate-400" />
                           <span className="text-sm">{person.department}</span>
-                        </div>
+                        </div> */}
                         <div className="flex items-center text-slate-600">
                           <Mail className="w-4 h-4 mr-3 text-slate-400" />
                           <span className="text-sm">{person.email}</span>
@@ -311,15 +196,15 @@ const AnnuairePage = () => {
                       <div className="space-y-3">
                         <div className="flex items-center text-slate-600">
                           <Phone className="w-4 h-4 mr-3 text-slate-400" />
-                          <span className="text-sm">{person.phone}</span>
+                          <span className="text-sm">{person.tel}</span>
                         </div>
 
-                        {isProfessor(person) && (
+                        {/* {isProfessor(person) && (
                           <div className="flex items-center text-slate-600">
                             <MapPin className="w-4 h-4 mr-3 text-slate-400" />
                             <span className="text-sm">{person.office}</span>
                           </div>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </div>
@@ -330,16 +215,16 @@ const AnnuairePage = () => {
                         {person.year}
                       </span>
                     )}
-                    {isProfessor(person) && (
+                    {/* {isProfessor(person) && (
                       <span className="px-3 py-1 bg-amber-100 text-slate-700 text-xs font-medium">
                         {person.speciality}
                       </span>
-                    )}
-                    {isStaff(person) && (
+                    )} */}
+                    {/* {isStaff(person) && (
                       <span className="px-3 py-1 bg-amber-100 text-slate-700 text-xs font-medium">
                         {person.hours}
                       </span>
-                    )}
+                    )} */}
 
                     <Star className="w-5 h-5 text-slate-300 hover:text-yellow-400 cursor-pointer transition-colors" />
 
@@ -374,7 +259,7 @@ const AnnuairePage = () => {
               {person.photo ? (
                 <img
                   src={person.photo}
-                  alt={person.name}
+                  alt={person.nom}
                   className="w-24 h-36 object-cover border-2 border-slate-200"
                 />
               ) : (
@@ -387,40 +272,41 @@ const AnnuairePage = () => {
 
             <div className="flex-1 min-w-0">
               <h3 className="text-lg font-semibold text-slate-900 mb-1">
-                {person.name}
+                {person.nom}
               </h3>
               <p className="text-primary font-medium text-sm mb-3">
-                {"program" in person
+                {/* {"program" in person
                   ? person.program
                   : isProfessor(person)
-                  ? person.title
-                  : person.position}
+                  ? person.titre
+                  : person.fonction
+                } */}
               </p>
 
               <div className="space-y-2">
-                <div className="flex items-center text-slate-600 text-sm">
+                {/* <div className="flex items-center text-slate-600 text-sm">
                   <Building2 className="w-4 h-4 mr-2 text-slate-400" />
                   {person.department}
-                </div>
+                </div> */}
                 <div className="flex items-center text-slate-600 text-sm">
                   <Mail className="w-4 h-4 mr-2 text-slate-400" />
                   {person.email}
                 </div>
                 <div className="flex items-center text-slate-600 text-sm">
                   <Phone className="w-4 h-4 mr-2 text-slate-400" />
-                  {person.phone}
+                  {person.tel}
                 </div>
 
                 {isProfessor(person) && (
                   <>
-                    <div className="flex items-center text-slate-600 text-sm">
+                    {/* <div className="flex items-center text-slate-600 text-sm">
                       <MapPin className="w-4 h-4 mr-2 text-slate-400" />
                       {person.office}
-                    </div>
-                    <div className="flex items-center text-slate-600 text-sm">
+                    </div> */}
+                    {/* <div className="flex items-center text-slate-600 text-sm">
                       <Clock className="w-4 h-4 mr-2 text-slate-400" />
                       {person.consultationHours}
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>
@@ -451,17 +337,18 @@ const AnnuairePage = () => {
                 </span>
               )}
               {isProfessor(person) && (
-                <span className="px-3 py-1 bg-amber-100 text-slate-700 text-xs font-medium">
-                  {person.speciality}
+                <span className="px-3 py-1 bg-transparent text-slate-700 text-xs font-medium">
+                
                 </span>
               )}
               {isStaff(person) && (
-                <span className="px-3 py-1 bg-amber-100 text-slate-700 text-xs font-medium">
-                  {person.hours}
+                <span className="px-3 py-1 bg-black text-slate-700 text-xs font-medium">
+                
                 </span>
               )}
-
-              <Star className="w-5 h-5 text-slate-300 hover:text-yellow-400 cursor-pointer transition-colors" />
+               {/* <div className="flex  items-end justify-end"> */}
+              <Star className="w-5 h-5  text-slate-300 hover:text-yellow-400 cursor-pointer transition-colors" />
+              {/* </div> */}
             </div>
           </div>
         </div>
@@ -501,7 +388,7 @@ const AnnuairePage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-blue-50 p-6 border border-blue-200">
+        {/* <div className="bg-blue-50 p-6 border border-blue-200">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-slate-600 text-sm font-medium">Étudiants</p>
@@ -511,7 +398,7 @@ const AnnuairePage = () => {
             </div>
             <Users className="w-12 h-12 text-slate-500" />
           </div>
-        </div>
+      </div> */}
 
         <div className="bg-purple-50 p-6 border border-purple-200">
           <div className="flex items-center justify-between">
@@ -585,12 +472,12 @@ const AnnuairePage = () => {
         <div className="bg-white shadow-sm border border-slate-200 p-2  mt-8 mb-8">
           <div className="flex space-x-2">
             {[
-              {
-                id: "students",
-                label: "Étudiants",
-                icon: Users,
-                count: students.length,
-              },
+              // {
+              //   id: "students",
+              //   label: "Étudiants",
+              //   icon: Users,
+              //   count: students.length,
+              // },
               {
                 id: "professors",
                 label: "Professeurs",
@@ -699,7 +586,7 @@ const AnnuairePage = () => {
           }`}
         >
           {currentItems.map((person) => (
-            <PersonCard key={person.id} person={person} />
+            <PersonCard key={person.idProfesseur} person={person} />
           ))}
         </div>
 

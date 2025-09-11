@@ -460,21 +460,21 @@ export default function LaboratoiresPage() {
               asChild
               className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
             >
-              <a href="/recherche">← Retour à la Recherche</a>
+              <a href="/recherche">← Précedent</a>
             </Button>
             <Button
               variant="outline"
               asChild
               className="px-8 py-3 font-semibold border-2 border-purple-200 text-primary hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-xl transition-all duration-300"
             >
-              <a href="/recherche/projets">Voir les Projets →</a>
+              <a href="/recherche/"> 1</a>
             </Button>
             <Button
               variant="outline"
               asChild
               className="px-8 py-3 font-semibold border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-xl transition-all duration-300"
             >
-              <a href="/recherche/equipements">Équipements</a>
+              <a href="/recherche/">Suivant →</a>
             </Button>
           </div>
         </div>
