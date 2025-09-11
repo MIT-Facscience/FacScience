@@ -4,7 +4,7 @@ import { isValidEmail, isValidTel } from '../api/api';
 
 interface StepTwoThreeProps {
   candidateInfo: CandidateInfo;
-  programs: Program[];
+  programs: Program[] | null;
   onNext: (data: {
     program: Program;
     personalInfo: { email: string; telephone: string };
@@ -46,20 +46,23 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
       <div>
         <h3 className="text-lg font-semibold mb-2">Choisissez votre programme</h3>
         <div className="space-y-2">
-          {programs.map((program) => (
+          {programs && programs.map((program) => (
             <label
-              key={program.id}
-              className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.id===selectedProgram?.id ? "border-1 border-faculty-purple-600 border-l-4":"border-gray-300 hover:border-l-4 hover:border-l-orange-400"}`}
+              key={program.idMention}
+              className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.idMention===selectedProgram?.idMention ? "border-1 border-faculty-purple-600 border-l-4":"hover:border-l-4 hover:border-l-orange-400"}`}
             >
               <input
                 type="radio"
                 name="program"
-                value={program.id}
-                checked={selectedProgram?.id === program.id}
+                value={program.idMention}
+                checked={selectedProgram?.idMention === program.idMention}
                 onChange={() => setSelectedProgram(program)}
                 className={`h-4 w-4 text-faculty-purple-600 }`}
               />
-              <span className="text-gray-800">{program.name}</span>
+              <span className="text-gray-800">{program.nomMention.charAt(0).toUpperCase()+ program.nomMention.slice(1).toLowerCase()}</span>
+              <span className='p-1 rounded border border-gray-300 text-sm text-gray-400'>{program.abbreviation}</span>
+              
+              <p className='text-gray-600 text-sm'>{program.descriptionMention}</p>
             </label>
           ))}
         </div>

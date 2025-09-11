@@ -9,9 +9,11 @@ export interface CandidateInfo {
 }
 
 export interface Program {
-  id: string;
-  name: string;
-  eligibleSeries: string[];
+  idMention: string;
+  nomMention: string;
+  abbreviation?: string;
+  descriptionMention?: string;
+  logoPath?: string;
 }
 
 export interface ApplicationData {
