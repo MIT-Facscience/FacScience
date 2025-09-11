@@ -24,7 +24,7 @@ export default function FormationPage() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhos:5194/api/Mention/liste");
+        const response = await fetch("http://localhost:5194/api/Mention/liste");
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         if (isMounted) setMentions(json);

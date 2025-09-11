@@ -55,7 +55,7 @@ export default function MentionCard({
               <Users className="w-4 h-4" />
               600+ étudiants
             </span>
-            <Link to={"detail?" + index}>
+            <Link to={"detail?" + mention.idMention}>
               <Button
                 variant="ghost"
                 size="sm"
