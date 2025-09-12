@@ -53,16 +53,16 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
         <h3 className="text-2xl font-bold mb-2">Choisissez votre programme</h3>
         <div className="grid gap-4">
           {programs.map(program => (
-            <label key={program.id} className={`flex items-center space-x-4 p-4 border rounded-lg cursor-pointer ${localProgram?.id === program.id ? 'border-purple-500 bg-purple-50' : 'border-gray-200'}`}>
+            <label key={program.idMention} className={`flex items-center space-x-4 p-4 border rounded-lg cursor-pointer ${localProgram?.idMention === program.idMention ? 'border-purple-500 bg-purple-50' : 'border-gray-200'}`}>
               <input 
                 type="radio" 
                 name="program" 
                 className="h-4 w-4 text-faculty-purple-600"
-                checked={localProgram?.id === program.id} 
+                checked={localProgram?.idMention === program.idMention} 
                 onChange={() => handleSelectProgram(program)} 
               />
               <div className="flex items-center">
-                <span>{program.name}</span>
+                <span>{program.nomMention}</span>
               </div>
             </label>
           ))}

@@ -16,6 +16,7 @@ import {
   Microscope,
   Users,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 interface ResearchCenter {
@@ -25,6 +26,43 @@ interface ResearchCenter {
 }
 
 export default function HomePage() {
+  const [nbEnseignants, setNbEnseignants] = useState(200);
+  const [nbMentions, setNbMentions] = useState(14);
+  const [nbLabo, setNbLabo] = useState(30);
+
+  useEffect(() => {
+    fetch("http://localhost:5194/api/stat/enseignant")
+      .then((response) => response.json())
+      .then((data) => {
+        setNbEnseignants(data.length);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des mentions :", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5194/api/stat/mention")
+      .then((response) => response.json())
+      .then((data) => {
+        setNbMentions(data.length);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des mentions :", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5194/api/stat/labo")
+      .then((response) => response.json())
+      .then((data) => {
+        setNbLabo(data.length);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des mentions :", error);
+      });
+  }, []);
+
   const stats = [
     {
       number: "5000+",
@@ -32,17 +70,17 @@ export default function HomePage() {
       icon: <Users className="h-6 w-6" />,
     },
     {
-      number: "50+",
-      label: "Enseignants-chercheurs",
+      number: nbEnseignants,
+      label: "Enseignants",
       icon: <Award className="h-6 w-6" />,
     },
     {
-      number: "14",
-      label: "Départements",
+      number: nbMentions,
+      label: "Mentions",
       icon: <BookOpen className="h-6 w-6" />,
     },
     {
-      number: "20+",
+      number: nbLabo,
       label: "Laboratoires",
       icon: <Microscope className="h-6 w-6" />,
     },
@@ -253,7 +291,7 @@ export default function HomePage() {
                 <p className="text-muted-foreground leading-relaxed">
                   Depuis plus de 60 ans, la Faculté des Sciences de l'Université
                   d'Antananarivo forme les futurs scientifiques et chercheurs de
-                  Madagascar. Nous offrons des programmes d'excellence dans 14
+                  Madagascar. Nous offrons des programmes d'excellence dans {nbMentions + " "}
                   mentions spécialisées.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
@@ -307,7 +345,7 @@ export default function HomePage() {
                     </h3>
 
                     {/* Flèche */}
-                    <div className="text-2xl mb-8">›</div>
+                    {/* <div className="text-2xl mb-8">›</div> */}
                   </div>
 
                   {/* Logo en bas */}

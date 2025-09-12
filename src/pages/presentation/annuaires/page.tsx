@@ -570,9 +570,13 @@ const AnnuairePage = () => {
               : ""
           }`}
         >
-          {currentItems.map((person) => (
-            <PersonCard key={person.idProfesseur} person={person} />
-          ))}
+          {currentItems.map((person) => {
+            const key = 'idProfesseur' in person
+            ? `prof-${person.idProfesseur}`
+            : `pat-${person.idPat}`;
+
+              return <PersonCard key={key} person={person} />;
+          })}
         </div>
 
         {currentItems.length === 0 && (
