@@ -12,6 +12,7 @@ import PrimaryButton from "@/components/ui/PrimaryButton";
 import getParoursById from "@/dataTestFormation/parcours";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Parcours from "./Parcour";
+
 export default function FormationItems() {
   const id = useSearchParams()[0].toString().split("=")[0];
   const data = getRespo(id);
