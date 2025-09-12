@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { ChevronDown, ChevronUp, Mail } from "lucide-react";
-import type React from "react";
-import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
+import { ChevronDown, ChevronUp, Mail } from "lucide-react"
+import type React from "react"
+import { useState, useEffect } from "react"
 
 // Types pour les données
 interface PersonData {
@@ -355,25 +355,24 @@ const HierarchyNode: React.FC<{
     }
   };
 
-  /*
-  const getConnectorColor = () => {
-    switch (level) {
-      case 0:
-        return "#780376"
-      case 1:
-        return "#1e293b"
-      case 2:
-        return "#b45309"
-      case 3:
-        return "#3b82f6"
-      case 4:
-        return "#10b981"
-      default:
-        return "#6b7280"
-    }
-  }
-  */
-  const nodeStyle = getNodeStyle();
+  // const getConnectorColor = () => {
+  //   switch (level) {
+  //     case 0:
+  //       return "#780376"
+  //     case 1:
+  //       return "#1e293b"
+  //     case 2:
+  //       return "#b45309"
+  //     case 3:
+  //       return "#3b82f6"
+  //     case 4:
+  //       return "#10b981"
+  //     default:
+  //       return "#6b7280"
+  //   }
+  // }
+
+  const nodeStyle = getNodeStyle()
 
   return (
     <div className="flex flex-col items-center">
