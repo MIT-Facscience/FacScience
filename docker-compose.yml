@@ -1,5 +1,5 @@
 services:
-  admin-facscience:
+  facscienceinterface:
     image: facscienceinterface
     container_name: facscience_interface
     ports:
