@@ -5,7 +5,7 @@ const mentions = [
     color: "bg-indigo-500",
     description: "Sciences et technologies de l'information",
     responsable: "Mr ANDRIAMAROZAKANIAINA Tahiry Zaka Filamatra",
-    image: "/Logo_IT.png",
+    image: "/Logo_IT.jpg",
   },
   {
     id: "1",

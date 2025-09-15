@@ -59,12 +59,22 @@ export default function FormationItems() {
             >
               <Card className="border-none rounded-none flex flex-col items-center">
                 <CardHeader className="w-full flex flex-col gap-3 font-bold items-center text-slate-600">
-                  <img src={image} alt="" className="w-30 md:w-40 h-auto" />
+                  <img
+                    src={image}
+                    onError={(e) => {
+                      e.currentTarget.src = "/fac-science.jpg";
+                    }}
+                    alt=""
+                    className="w-30 md:w-40 h-auto"
+                  />
                   <h1 className="text-center">{data.name}</h1>
                 </CardHeader>
                 <CardContent className="flex justify-center text-slate-500 font-medium">
                   <p className="text-center text-sm w-full lg:w-1/2">
-                    La mention {data.name} a pour objectif de former les étudiants, en leur offrant des compétences théoriques et pratiques adaptées aux exigences académiques et professionnelles.
+                    La mention {data.name} a pour objectif de former les
+                    étudiants, en leur offrant des compétences théoriques et
+                    pratiques adaptées aux exigences académiques et
+                    professionnelles.
                   </p>
                 </CardContent>
               </Card>
@@ -162,7 +172,11 @@ export default function FormationItems() {
                     {data.respo}
                   </span>
                   <p className="w-full lg:w-1/2 text-center font-normal">
-                    Le chef de mention est responsable de la coordination pédagogique et administrative de la mention, veillant à la qualité de la formation, à l’encadrement des étudiants et à la gestion des activités académiques en lien avec l’équipe enseignante.
+                    Le chef de mention est responsable de la coordination
+                    pédagogique et administrative de la mention, veillant à la
+                    qualité de la formation, à l’encadrement des étudiants et à
+                    la gestion des activités académiques en lien avec l’équipe
+                    enseignante.
                   </p>
                   <Link to="/contact">
                     <PrimaryButton className="cursor-pointer">
