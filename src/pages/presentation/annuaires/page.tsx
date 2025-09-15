@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import {
+  BarChart3,
   ChevronLeft,
   ChevronRight,
   Download,
@@ -18,31 +19,8 @@ import {
   Upload,
   User,
   UserCheck,
-  Users,
-  X,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-
-// Mock data types
-interface BasePerson {
-  nom: string;
-  email: string;
-  tel: string;
-  photo?: string;
-  sexe?: string;
-}
-
-interface Professors extends BasePerson {
-  idProfesseur: number;
-  prenom?: string;
-  titre: string;
-}
-
-interface Staff extends BasePerson {
-  prenom?: string;
-  idPat: number;
-  fonction: string;
-}
+import { useEffect, useState } from "react";
 
 const AnnuairePage = () => {
   const [activeTab, setActiveTab] = useState("professors");
@@ -51,9 +29,9 @@ const AnnuairePage = () => {
   const [viewMode, setViewMode] = useState("grid");
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  const [professors, setProfessors] = useState<Professors[]>([]);
+  const [professors, setProfessor] = useState<Professors[]>([]);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -61,25 +39,25 @@ const AnnuairePage = () => {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        setLoading(true);
-        // Lancer les 2 fetch en parallèle avec les bonnes URLs
-        const [professorsResponse, staffResponse] = await Promise.all([
-          fetch("http://localhost:5194/api/Personne/professeurs"),
-          fetch("http://localhost:5194/api/Personne/pats"),
+        // Lancer les 3 fetch en parallèle
+        const [staff, professors] = await Promise.all([
+          fetch("http://localhost:3001/api/users"),
+          fetch("http://localhost:3001/api/products"),
         ]);
 
         // Vérifier si toutes les réponses sont OK
-        if (!professorsResponse.ok || !staffResponse.ok) {
+        if (!staff.ok || !professors.ok) {
           throw new Error("Une ou plusieurs requêtes ont échoué");
         }
 
         // Extraire les données JSON
-        const professorsData: Professors[] = await professorsResponse.json();
-        const staffData: Staff[] = await staffResponse.json();
+
+        const profData: Professors[] = await professors.json();
+        const paffData: Staff[] = await staff.json();
 
         // Mettre à jour les états
-        setProfessors(professorsData);
-        setStaff(staffData);
+        setProfessor(profData);
+        setStaff(paffData);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Erreur inconnue");
       } finally {
@@ -90,10 +68,57 @@ const AnnuairePage = () => {
     fetchAllData();
   }, []);
 
-  // Improved search functionality with fuzzy matching
-  const getFilteredData = useMemo(() => {
-    let data: (Professors | Staff)[] = [];
+  if (loading) return <p>Chargement des données...</p>;
+  if (error) return <p style={{ color: "red" }}>Erreur : {error}</p>;
 
+  function isStudent(person: Student | Professors | Staff): person is Student {
+    return "program" in person && "year" in person;
+  }
+
+  function isProfessor(
+    person: Student | Professors | Staff
+  ): person is Professors {
+    return "title" in person;
+  }
+
+  function isStaff(person: Student | Professors | Staff): person is Staff {
+    return "office" in person && "hours" in person;
+  }
+
+  // const professors: Professors[] = [
+  //   {
+  //     idProfesseur: 1,
+  //     Nom: "Dr. Paul Andriamanana",
+  //     Email: "paul.andriamanana@univ.edu",
+  //     Tel: "+261 34 11 22 33",
+  //     titre: "Professeur Titulaire",
+  //     // department: "Sciences & Technologies",
+  //     // speciality: "Intelligence Artificielle",
+  //     // office: "Bât. A - Bureau 205",
+  //     // consultationHours: "Lun-Mer 14h-16h",
+  //     photo:
+  //       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+  //   },
+
+  // ];
+
+  // const staff: Staff[] = [
+  //   {
+  //     id: 1,
+  //     name: "Hery Rasolofo",
+  //     email: "hery.rasolofo@univ.edu",
+  //     phone: "+261 34 77 88 99",
+  //     position: "Responsable Scolarité",
+  //     // department: "Administration",
+  //     // office: "Bât. Admin - Bureau 15",
+  //     // hours: "Lun-Ven 8h-16h",
+  //     photo:
+  //       "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
+  //   },
+
+  // ];
+
+  const getCurrentData = () => {
     switch (activeTab) {
       case "professors":
         data = professors;
@@ -134,91 +159,7 @@ const AnnuairePage = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Reset page when changing tabs or search
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeTab, searchTerm]);
-
-  // Clear search function
-  const clearSearch = () => {
-    setSearchTerm("");
-  };
-
-  // Responsive pagination logic
-  const getPaginationRange = () => {
-    const delta = 2;
-    const range = [];
-    const rangeWithDots = [];
-
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i);
-    }
-
-    if (currentPage - delta > 2) {
-      rangeWithDots.push(1, "...");
-    } else {
-      rangeWithDots.push(1);
-    }
-
-    rangeWithDots.push(...range);
-
-    if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push("...", totalPages);
-    } else if (totalPages > 1) {
-      rangeWithDots.push(totalPages);
-    }
-
-    return rangeWithDots.filter(
-      (item, index, arr) => arr.indexOf(item) === index
-    );
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600 mx-auto mb-4"></div>
-          <p className="text-lg text-slate-600">Chargement des données...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center bg-white p-8 rounded-lg shadow-lg border border-red-200">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-red-600 text-2xl">!</span>
-          </div>
-          <h3 className="text-xl font-semibold text-red-700 mb-2">
-            Erreur de chargement
-          </h3>
-          <p className="text-red-600 mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
-          >
-            Réessayer
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  function isProfessor(person: Professors | Staff): person is Professors {
-    return "titre" in person;
-  }
-
   const PersonCard = ({ person }: { person: Staff | Professors }) => {
-    const displayName = isProfessor(person)
-      ? `${person.prenom || ""} ${person.nom}`.trim()
-      : `${person?.prenom || ""} ${person.nom}`.trim();
-
     if (viewMode === "list") {
       return (
         <motion.div
@@ -367,8 +308,21 @@ const AnnuairePage = () => {
           )}
 
           <div className="mt-4 pt-4 border-t border-slate-100">
-            <div className="flex justify-end">
-              <Star className="w-5 h-5 text-slate-300 hover:text-yellow-400 cursor-pointer transition-colors" />
+            <div className="flex justify-between items-center">
+              {isStudent(person) && (
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-medium">
+                  {person.year}
+                </span>
+              )}
+              {isProfessor(person) && (
+                <span className="px-3 py-1 bg-transparent text-slate-700 text-xs font-medium"></span>
+              )}
+              {isStaff(person) && (
+                <span className="px-3 py-1 bg-black text-slate-700 text-xs font-medium"></span>
+              )}
+              {/* <div className="flex  items-end justify-end"> */}
+              <Star className="w-5 h-5  text-slate-300 hover:text-yellow-400 cursor-pointer transition-colors" />
+              {/* </div> */}
             </div>
           </div>
         </div>
@@ -435,10 +389,8 @@ const AnnuairePage = () => {
         <div className="bg-blue-50 p-6 border border-blue-200 rounded-lg">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-600 text-sm font-medium">Total</p>
-              <p className="text-3xl font-bold text-blue-700">
-                {professors.length + staff.length}
-              </p>
+              <p className="text-yellow-600 text-sm font-medium">Mentions</p>
+              <p className="text-3xl font-bold text-yellow-900">8</p>
             </div>
             <Users className="w-12 h-12 text-blue-500" />
           </div>
@@ -606,12 +558,13 @@ const AnnuairePage = () => {
               : "space-y-4"
           } mb-8`}
         >
-          {currentItems.map((person) => (
-            <PersonCard
-              key={isProfessor(person) ? person.idProfesseur : person.idPat}
-              person={person}
-            />
-          ))}
+          {currentItems.map((person) => {
+            const key = 'idProfesseur' in person
+            ? `prof-${person.idProfesseur}`
+            : `pat-${person.idPat}`;
+
+              return <PersonCard key={key} person={person} />;
+          })}
         </div>
 
         {filteredData.length === 0 && (
