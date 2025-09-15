@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ErrorComp from "./error";
 import Loader from "./loading";
+import { Link } from "react-router-dom";
 
 interface Mention {
   idMention: string;
@@ -181,14 +182,16 @@ function MentionsCarousel() {
                               >
                                 {mention.nombreDeParcours} parcours
                               </Badge>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="text-primary hover:text-primary/80"
-                              >
-                                En savoir plus
-                                <ArrowRight className="ml-1 h-3 w-3" />
-                              </Button>
+                              <Link to={"formation/detail?" + mention.idMention}>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="text-xs text-slate-500 hover:bg-primary hover:text-white cursor-pointer"
+                                >
+                                  En savoir plus
+                                  <ArrowRight className="ml-1 h-3 w-3" />
+                                </Button>
+                              </Link>
                             </div>
                           </CardContent>
                         </Card>
