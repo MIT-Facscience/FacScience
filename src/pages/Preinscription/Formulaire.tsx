@@ -144,13 +144,13 @@ const Formulaire: React.FC = () => {
             {/* Choix type de bac */}
             <div className='flex space-x-6 my-3 w-full justify-around p-3 rounded-lg'>
               <button 
-                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 ${bactype === "mg" ? "font-semibold text-purple-900" : "text-zinc-800"}`} 
+                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${bactype === "mg" ? "font-semibold text-purple-900" : "text-zinc-800"}`} 
                 onClick={() => setBactype("mg")}
               >
                 Bacc Malagasy
               </button>
               <button 
-                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 ${bactype === "etg" ? "font-semibold text-purple-900" : "text-zinc-800"}`} 
+                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${bactype === "etg" ? "font-semibold text-purple-900" : "text-zinc-800"}`} 
                 onClick={() => setBactype("etg")}
               >
                 Bacc Étranger
