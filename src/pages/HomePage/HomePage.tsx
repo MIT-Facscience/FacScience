@@ -19,6 +19,9 @@ import {
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const VITE_API_WEB_SERVICE = import.meta.env.VITE_API_WEB_SERVICE;
+
+
 interface ResearchCenter {
   title: string;
   backgroundColor: string;
@@ -31,18 +34,18 @@ export default function HomePage() {
   const [nbLabo, setNbLabo] = useState(30);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/enseignant")
+    fetch(`${VITE_API_WEB_SERVICE}/api/stat/enseignant`)
       .then((response) => response.json())
       .then((data) => {
         setNbEnseignants(data.length);
       })
       .catch((error) => {
-        console.error("Erreur lors de la récupération des mentions :", error);
+        console.error("Erreur lors de la récupération des enseignants :", error);
       });
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/mention")
+    fetch(`${VITE_API_WEB_SERVICE}/api/stat/mention`)
       .then((response) => response.json())
       .then((data) => {
         setNbMentions(data.length);
@@ -53,13 +56,13 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/labo")
+    fetch(`${VITE_API_WEB_SERVICE}/api/stat/labo`)
       .then((response) => response.json())
       .then((data) => {
         setNbLabo(data.length);
       })
       .catch((error) => {
-        console.error("Erreur lors de la récupération des mentions :", error);
+        console.error("Erreur lors de la récupération des labo :", error);
       });
   }, []);
 
@@ -71,7 +74,7 @@ export default function HomePage() {
     },
     {
       number: nbEnseignants,
-      label: "Enseignants",
+      label: "Enseignants-chercheurs",
       icon: <Award className="h-6 w-6" />,
     },
     {
@@ -141,7 +144,7 @@ export default function HomePage() {
       logoType: "/Logo_ADD.jpg",
     },
     {
-      title: "SVT",
+      title: "Science de la Vie et de la Terre",
       backgroundColor: "bg-stone-500",
       logoType: "/Logo_BFA.jpg",
     },

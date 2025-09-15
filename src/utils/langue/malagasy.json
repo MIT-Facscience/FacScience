@@ -1,0 +1,39 @@
+{
+  "menu": {
+    "presentation": {
+      "nom": "Fampahafantarana",
+      "items": [
+        { "title": "Tantara sy Iraka", "to": "/presentation/histoire" },
+        { "title": "Firafitry ny Sampana", "to": "/presentation/organigramme" },
+        { "title": "Vinany sy Tanjonay", "to": "/presentation/vision" },
+        { "title": "Boky Firaketana", "to": "/presentation/annuaires" }
+      ]
+    },
+    "recherche": {
+      "nom": "Fikarohana",
+      "items": [
+        { "title": "Laboratoara", "to": "/recherche/laboratoires" },
+        { "title": "Fanontana sy Asa Soratra", "to": "/recherche/publications" }
+      ]
+    },
+    "admission": {
+      "nom": "Fidirana",
+      "items": [
+        { "title": "Fepetra sy Fomba", "to": "/admission/modalite" },
+        { "title": "Fisoratana anarana mialoha", "to": "/admission/preinscription" }
+      ]
+    },
+    "formation": {
+      "nom": "Fampiofanana"
+    },
+    "actualite": {
+      "nom": "Vaovao"
+    },
+    "resultats": {
+      "nom": "Vokatra"
+    },
+    "contact": {
+      "nom": "Fifandraisana"
+    }
+  }
+}

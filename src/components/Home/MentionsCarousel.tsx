@@ -8,6 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ErrorComp from "./error";
 import Loader from "./loading";
 
+const VITE_API_WEB_SERVICE = import.meta.env.VITE_API_WEB_SERVICE;
+
 interface Mention {
   idMention: string;
   nomMention: string;
@@ -31,7 +33,7 @@ function MentionsCarousel() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5194/api/Mention/liste");
+        const response = await fetch(`${VITE_API_WEB_SERVICE}/api/Mention/liste`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         if (isMounted) setMentions(json);
@@ -85,7 +87,7 @@ function MentionsCarousel() {
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-primary mb-4">Nos Mentions</h2>
         <p className="text-xl text-foreground max-w-3xl mx-auto">
-          Quatorze mention d'excellence couvrant l'ensemble des disciplines
+          {} mention d'excellence couvrant l'ensemble des disciplines
           scientifiques
         </p>
       </div>

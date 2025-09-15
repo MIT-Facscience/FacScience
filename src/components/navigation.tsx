@@ -2,27 +2,13 @@ import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PrimaryButton from "./ui/PrimaryButton";
-
-const presentationItems = [
-  { title: "Histoire et Mission", to: "/presentation/histoire" },
-  { title: "Organigramme", to: "/presentation/organigramme" },
-  { title: "Vision et Objectifs", to: "/presentation/vision" },
-  { title: "Annuaires", to: "/presentation/annuaires" },
-];
-
-const rechercheItems = [
-  { title: "Laboratoires", to: "/recherche/laboratoires" },
-  { title: "Publications", to: "/recherche/publications" },
-];
-
-const admissionItems = [
-  {title : "Modalites", to: "/admission/modalite"},
-  {title : "Preinscription", to: "/admission/preinscription"},
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { t, lang, setLang } = useLanguage();
+  const menu = t.menu;
 
   const isActive = (path: string) => location.pathname === path;
   const isActiveParent = (base: string) => location.pathname.startsWith(base);
@@ -63,12 +49,12 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    <span>Présentation</span>
+                    <span>{menu.presentation.nom}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                     <div className="p-6 space-y-1">
-                      {presentationItems.map((item, index) => (
+                      {menu.presentation.items.map((item, index) => (
                         <a
                           key={item.to}
                           href={item.to}
@@ -95,12 +81,12 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    <span>Recherche</span>
+                    <span>{menu.recherche.nom}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                     <div className="p-6 space-y-1">
-                      {rechercheItems.map((item, index) => (
+                      {menu.recherche.items.map((item, index) => (
                         <a
                           key={item.to}
                           href={item.to}
@@ -126,12 +112,12 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    <span>Admission</span>
+                    <span>{menu.admission.nom}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                     <div className="p-6 space-y-1">
-                      {admissionItems.map((item, index) => (
+                      {menu.admission.items.map((item, index) => (
                         <a
                           key={item.to}
                           href={item.to}
@@ -158,7 +144,7 @@ export default function Navigation() {
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
                   }`}
                 >
-                  Formation
+                {menu.formation.nom}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
@@ -171,7 +157,7 @@ export default function Navigation() {
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
                   }`}
                 >
-                  Actualités
+                  {menu.actualite.nom}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
@@ -184,14 +170,28 @@ export default function Navigation() {
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
                   }`}
                 >
-                  Résultats
+                  {menu.resultats.nom}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
                 {/* Contact */}
                 <Link to="/contact">
-                  <PrimaryButton>Contact</PrimaryButton>
+                  <PrimaryButton>{menu.contact.nom}</PrimaryButton>
                 </Link>
+
+                {/* Change langue */}
+                <div>
+                  <label htmlFor="lang" className="mr-2">Langue :</label>
+                  <select
+                    id="lang"
+                    value={lang}
+                    onChange={(e) => setLang(e.target.value as any)}
+                    className="border rounded px-2 py-1"
+                  >
+                    <option value="fr">Français</option>
+                    <option value="mg">Malagasy</option>
+                  </select>
+                </div>
               </nav>
 
               {/* Mobile Menu Button */}
@@ -242,17 +242,17 @@ export default function Navigation() {
                 {[
                   {
                     title: "Présentation",
-                    items: presentationItems,
+                    items: menu.presentation.items,
                     base: "/presentation",
                   },
                   {
                     title: "Recherche",
-                    items: rechercheItems,
+                    items: menu.recherche.items,
                     base: "/recherche",
                   },
                   {
                     title: "Admission",
-                    items: admissionItems,
+                    items: menu.admission.items,
                     base: "/admission",
                   },
                 ].map((section) => (

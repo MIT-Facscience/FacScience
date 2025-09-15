@@ -1,0 +1,39 @@
+{
+    "menu":{
+        "presentation":{
+            "nom":"Presentation",
+            "items" : [
+            { "title": "Histoire et Mission", "to": "/presentation/histoire" },
+            {"title": "Organigramme", "to": "/presentation/organigramme" },
+            { "title": "Vision et Objectifs", "to": "/presentation/vision" },
+            { "title": "Annuaires", "to": "/presentation/annuaires" }
+            ]
+        },
+        "recherche":{
+            "nom":"Recherche",
+            "items" : [
+            { "title": "Laboratoires", "to": "/recherche/laboratoires" },
+            { "title": "Publications", "to": "/recherche/publications" }
+            ]
+        },
+        "admission":{
+            "nom":"Admission",
+            "items" : [
+            {"title" : "Modalites", "to": "/admission/modalite"},
+            {"title" : "Preinscription", "to": "/admission/preinscription"}
+            ]
+        },
+        "formation":{
+            "nom":"Formation"
+        },
+        "actualite":{
+            "nom":"actualite"
+        },
+        "resultats":{
+            "nom":"resultats"
+        },
+        "contact":{
+            "nom":"contact"
+        }
+    }
+}

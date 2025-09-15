@@ -1,4 +1,7 @@
+import { useLanguage } from "@/contexts/LanguageContext";
 import baseURL from "..";
+
+const {lang} = useLanguage();
 
 export  async function allMentions() {
   try {
@@ -6,6 +9,7 @@ export  async function allMentions() {
       method: "GET", 
       headers: {
         "Content-Type": "application/json",
+        "X-Language-ID": lang,
       },
     });
 
@@ -28,6 +32,7 @@ export async function getParcoursByMention(id_mention: number) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "X-Language-ID": lang,
       },
     });
 
@@ -49,6 +54,7 @@ export async function getRespoByMention(id_mention: number) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "X-Language-ID": lang,
       },
     });
 

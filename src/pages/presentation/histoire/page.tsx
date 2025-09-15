@@ -4,12 +4,14 @@ import { Calendar, Users, Award, BookOpen, Microscope, Globe } from "lucide-reac
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react";
 
+const VITE_API_WEB_SERVICE = import.meta.env.VITE_API_WEB_SERVICE;
+
 export default function HistoirePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);
   const [nbMentions, setNbMentions] = useState(14);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/enseignant")
+    fetch(`${VITE_API_WEB_SERVICE}/api/stat/enseignant`)
       .then((response) => response.json())
       .then((data) => {
         setNbEnseignants(data.length);
@@ -20,7 +22,7 @@ export default function HistoirePage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/mention")
+    fetch(`${VITE_API_WEB_SERVICE}/api/stat/mention`)
       .then((response) => response.json())
       .then((data) => {
         setNbMentions(data.length);
@@ -79,7 +81,7 @@ export default function HistoirePage() {
     { number: "60+", label: "Années d'excellence", icon: <Calendar className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: "5000+", label: "Diplômés", icon: <Users className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: nbMentions, label: "Mentions", icon: <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" /> },
-    { number: nbEnseignants, label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
+    { number: nbEnseignants, label: "Enseignants-chercheurs", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
   ]
 
   return (
