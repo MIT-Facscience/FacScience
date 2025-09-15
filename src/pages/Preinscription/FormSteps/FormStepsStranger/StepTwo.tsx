@@ -23,7 +23,7 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
       }
   
       fetchGetProg();
-    });
+    }, []);
 
   const handleNext = () => {
     if (!documents.diploma) return;
