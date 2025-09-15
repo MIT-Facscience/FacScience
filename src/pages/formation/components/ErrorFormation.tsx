@@ -1,54 +1,6 @@
-import MentionCard from "@/pages/formation/components/MentionCard";
+import ErrorComp from "@/components/Home/error";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import LoadingFormation from "@/pages/formation/components/LoadingFormation";
-import ErrorFormation from "./components/ErrorFormation";
-
-interface Mention {
-  idMention: string;
-  nomMention: string;
-  abbreviation?: string;
-  logoPath?: string;
-  image: string;
-  descriptionMention: string;
-  responsable: string;
-}
-
-export default function FormationPage() {
-  const [mentions, setMentions] = useState<Mention[] | null>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:5194/api/Mention/liste");
-        if (!response.ok) throw new Error("Erreur réseau");
-        const json = await response.json();
-        if (isMounted) setMentions(json);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError(String(err));
-        }
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  if (loading) return <LoadingFormation />;
-  if (error) return <ErrorFormation error={error} />;
-
+export default function ErrorFormation({ error }: { error: string }) {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -86,11 +38,10 @@ export default function FormationPage() {
               <p className="text-sm md:text-lg text-center mb-10 mt-2">
                 Voici la liste des mentions disponibles dans notre faculté
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                {mentions?.map((mt, index) => (
-                  <MentionCard mention={mt} index={index} key={index} />
-                ))}
-              </div>
+              <ErrorComp>{error}</ErrorComp>
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                
+              </div> */}
             </div>
           </div>
         </main>
