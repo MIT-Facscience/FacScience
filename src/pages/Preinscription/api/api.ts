@@ -144,6 +144,8 @@ export const submitApplication = async (applicationData: ApplicationData) => {
     if (!response.ok) 
       return {success: false};
 
+    console.log(await response.json());
+
   } catch (error) {
     throw new Error("sending data error");
     console.error(error);
