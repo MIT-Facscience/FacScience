@@ -11,16 +11,16 @@ export type Staff = {
     photo?: string;
   };
 
- export type Student = {
-    id: number;
-    name: string;
-    email: string;
-    phone: string;
-    program: string;
-    year: string;
-    department: string;
-    photo?: string;
-  };
+//  export type Student = {
+//     id: number;
+//     name: string;
+//     email: string;
+//     phone: string;
+//     program: string;
+//     year: string;
+//     department: string;
+//     photo?: string;
+//   };
 
 export type Professors = {
     idProfesseur: number;
