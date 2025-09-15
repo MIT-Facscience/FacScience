@@ -40,7 +40,7 @@ const Formulaire: React.FC = () => {
     }
 
     fetchGetProg();
-  });
+  }, []);
   // Handlers
   const handleStepOneComplete = (info: CandidateInfo) => {
     setCandidateInfo(info);
@@ -66,7 +66,7 @@ const Formulaire: React.FC = () => {
   };
 
   const handleComplete = () => {
-    navigate('/');
+    navigate('/admission/modalite');
   };
 
   // Flow malagasy
