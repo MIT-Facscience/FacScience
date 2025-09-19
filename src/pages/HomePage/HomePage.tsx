@@ -129,7 +129,7 @@ export default function HomePage() {
     {
       title: "Informatique et Technologie",
       backgroundColor: "bg-gray-800",
-      logoType: "/Logo_IT.png",
+      logoType: "/Logo_IT.jpg",
     },
     {
       title: "Mathematique et Informatique",
@@ -319,45 +319,69 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mb-20"
+            className="mb-24 py-12 px-4 sm:px-6 lg:px-8"
           >
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-primary mb-4">
+            <div className="text-center mb-16">
+              <motion.h2 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="text-4xl md:text-5xl font-bold text-primary mb-5"
+              >
                 Nos Portails
-              </h2>
-              <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
-                Les grands parcours dans notre faculté
-              </p>
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed"
+              >
+                Découvrez les grands parcours au sein de notre faculté
+              </motion.p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-3 md:gap-5 xl:gap-7">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {centers.map((center, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="bg-white shadow-lg overflow-hidden relative cursor-pointer hover:opacity-90 transition-opacity duration-300 hover:-translate-y-5 h-[500px] "
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                  className="group bg-white shadow-lg overflow-hidden relative cursor-pointer h-[320px] border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
-                  {/* Ligne décorative en haut */}
-                  <div className="h-1 bg-white opacity-30 mx-6 mt-6"></div>
+                  {/* Ligne décorative en haut avec effet d'animation */}
+                  <div className="h-1 bg-gradient-to-r from-primary to-primary/60 w-0 group-hover:w-full transition-all duration-500 mx-auto mt-6"></div>
 
                   {/* Contenu texte */}
-                  <div className="p-6">
-                    <h3 className="text-3xl font-normal leading-relaxed mb-4">
+                  <div className="p-6 flex flex-col">
+                    <h3 className="text-2xl font-semibold text-gray-800 mb-4 group-hover:text-primary transition-colors duration-300">
                       {center.title}
                     </h3>
-
-                    {/* Flèche */}
-                    {/* <div className="text-2xl mb-8">›</div> */}
                   </div>
 
-                  {/* Logo en bas */}
-                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-                    <img
-                      src={center.logoType}
-                      alt={center.title}
-                      className=""
-                    />
+                  {/* Logo positionné en bas avec espacement réduit */}
+                  <div className="mt-auto p-6 pt-0">
+                    <div className="opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                      <img
+                        src={center.logoType}
+                        alt={center.title}
+                        className="max-h-28 max-w-[80%] mx-auto group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
                   </div>
-                </div>
+                  
+                  {/* Indicateur d'interaction */}
+                  {/* <div className="absolute bottom-6 right-6 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-sm font-medium mr-2">Voir</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div> */}
+                  
+                  {/* Overlay d'arrière-plan subtil au survol */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </motion.div>
               ))}
             </div>
           </motion.section>
