@@ -91,9 +91,9 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
               <h4 className="font-medium text-gray-700 mb-2">Programme choisi</h4>
               <div className="text-sm">
                 <div className="flex items-center space-x-2">
-                  <span className="font-medium">{applicationData.selectedProgram?.name}</span>
+                  <span className="font-medium">{applicationData.selectedProgram?.nomMention}</span>
                   <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
-                    {applicationData.selectedProgram?.name}
+                    {applicationData.selectedProgram?.nomMention}
                   </span>
                 </div>
               </div>
@@ -255,7 +255,7 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
           
           <div className="flex justify-between">
             <span className="text-gray-600">Programme :</span>
-            <span className="font-semibold">{applicationData.selectedProgram?.name}</span>
+            <span className="font-semibold">{applicationData.selectedProgram?.nomMention}</span>
           </div>
           
           <div className="flex justify-between">

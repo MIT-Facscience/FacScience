@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { ChevronDown, ChevronUp, Mail, Phone, TreePine } from "lucide-react";
-import type React from "react";
-import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
+import { ChevronDown, ChevronUp, Mail } from "lucide-react"
+import type React from "react"
+import { useState, useEffect } from "react"
 
 // Types pour les données
 interface PersonData {
@@ -22,6 +22,7 @@ interface CofacMember {
   appartenance: string;
   email: string;
   telephone?: string;
+  photo?: string;
 }
 
 // Données du personnel principal
@@ -108,84 +109,98 @@ const membresCofac: CofacMember[] = [
     nomPrenom: "Mme RALISON LAINGOHARIMIADANA Marie Nambinina",
     appartenance: "Responsable Mention",
     email: "laingoharimiadana@gmail.com",
+    photo: "/professional-woman-portrait.png",
   },
   {
     num: 2,
     nomPrenom: "Mr RAKOTOARINIVO Mijoro",
     appartenance: "Responsable Mention",
     email: "rakotoarinivo@outlook.com",
+    photo: "/professional-man-portrait.png",
   },
   {
     num: 3,
     nomPrenom: "Mr RANDRIAMAMPIANINA Lovarintsoa Judicaël",
     appartenance: "Responsable Mention",
     email: "bouba.lova@gmail.com",
+    photo: "/professional-man-portrait.png",
   },
   {
     num: 4,
     nomPrenom: "Mr RAKOTONIMANANA Rivoniaina Michel Jese",
     appartenance: "Responsable Mention",
     email: "jmrivo@gmail.com",
+    photo: "/professional-man-portrait.png",
   },
   {
     num: 5,
     nomPrenom: "Mr RAZAKARIVONY Andriamarolahy Andrianambinina",
     appartenance: "Responsable Mention",
     email: "andri_razakarivony@yahoo.fr",
+    photo: "/professional-man-portrait.png",
   },
   {
     num: 6,
     nomPrenom: "Mr RAKOTONIRINA Jean Claude",
     appartenance: "Responsable Mention",
     email: "jcrakoto25@gmail.com",
+    photo: "/professional-man-portrait.png",
   },
   {
     num: 7,
     nomPrenom: "Mr LALAHARISON Hanjarivo",
     appartenance: "Responsable Mention",
     email: "lalaharisonh@gmail.com",
+    photo: "/professional-man-portrait.png",
   },
   {
     num: 8,
     nomPrenom: "Mr RANDRIANASOLOHARISOA Dimbimalala",
     appartenance: "Responsable Mention",
-    email: "rdimbi@yahoo.fr",
+    email: "randrianasoloharisoa@gmail.com",
+    photo: "/professional-man-portrait.png",
   },
   {
     num: 9,
     nomPrenom: "Mme ANDRIAMAMPIANINA Tianarilalaina Tantely",
     appartenance: "Responsable Mention",
     email: "tantely_lalaina@yahoo.fr",
+    photo: "/placeholder.svg?key=6jv2p",
   },
   {
     num: 10,
     nomPrenom: "Mr ANDRIAMIADAMANANA Mavintana Dangerfield Christian",
     appartenance: "Responsable Mention",
     email: "chriast@yahoo.fr",
+    photo: "/placeholder.svg?key=9qk4z",
   },
   {
     num: 11,
     nomPrenom: "Mme RAKOTOSAMIZANANY Saholy",
     appartenance: "Responsable Mention",
     email: "rakotosa@yahoo.fr",
+    photo: "/placeholder.svg?key=3jv8p",
   },
   {
     num: 12,
     nomPrenom: "Mr Madame RATSOAVINA Fanomezana Mihaja",
     appartenance: "Responsable Mention",
     email: "fanomezanarts@gmail.com",
+    photo: "/placeholder.svg?key=7qk4z",
   },
   {
     num: 13,
     nomPrenom: "Mr ANDRIAMAROZAKANIAINA Tahiry Zaka Filamatra",
     appartenance: "Responsable Mention",
     email: "filamatra@gmail.com",
+    photo: "/placeholder.svg?key=8qk4z",
   },
   {
     num: 14,
     nomPrenom: "Mme RAMIANDRISOA Njararivelo Louisa",
     appartenance: "Responsable Mention",
     email: "lnjara14@gmail.com",
+    photo: "/placeholder.svg?key=9qk4z",
   },
   {
     num: 15,
@@ -193,12 +208,14 @@ const membresCofac: CofacMember[] = [
     appartenance: "Membre extérieur",
     email: "rijarabeharisoa@gmail.com",
     telephone: "032 05 039 72",
+    photo: "/placeholder.svg?key=0qk4z",
   },
   {
     num: 16,
     nomPrenom: "Mr RASAMOELA Henintsoa",
     appartenance: "Membre extérieur",
     email: "hentsrasamy@gmail.com",
+    photo: "/placeholder.svg?key=1qk4z",
   },
   {
     num: 17,
@@ -206,194 +223,76 @@ const membresCofac: CofacMember[] = [
     appartenance: "Membre extérieur",
     email: "mamyfetra@gmail.com",
     telephone: "034 05 185 08",
+    photo: "/placeholder.svg?key=2qk4z",
   },
   {
     num: 18,
     nomPrenom: "Mr RAKOTONDRAMANGA Maonja Finaritra Sitrakiniavo",
     appartenance: "Représentant Enseignant",
     email: "vivimaonja@yahoo.fr",
+    photo: "/placeholder.svg?key=3qk4z",
   },
   {
     num: 19,
     nomPrenom: "Mme HARIMALALA ANDRIAMBELO Nirina",
     appartenance: "Représentant Enseignant",
     email: "nirina.harimalala@univ-antananarivo.mg",
+    photo: "/placeholder.svg?key=4qk4z",
   },
   {
     num: 20,
     nomPrenom: "Mr FELANA MPANARIVO Michel R.",
     appartenance: "Représentant PAT",
     email: "",
+    photo: "/placeholder.svg?key=5qk4z",
   },
   {
     num: 21,
     nomPrenom: "Mme RANDRIANALISON Onilalaina Ange",
     appartenance: "Représentant PAT",
     email: "",
+    photo: "/placeholder.svg?key=6qk4z",
   },
   {
     num: 22,
     nomPrenom: "ANDRIANOARAMAHERY Hervé",
     appartenance: "Représentant Etudiant",
     email: "herverolinho@gmail.com",
+    photo: "/placeholder.svg?key=7qk4z",
   },
 ];
 
-{
-  /*
-  // Composant pour une carte de personne
-const PersonCard: React.FC<{ person: PersonData; className?: string }> = ({
-  person,
-  className = "",
-}) => (
-  <Card
-    className={`hover:shadow-lg transition-shadow duration-200 ${className}`}
-    style={{ borderRadius: 0 }}
-  >
-    <CardHeader className="pb-3" style={{ borderRadius: 0 }}>
-      <CardTitle
-        className="text-lg font-semibold text-balance"
-        style={{ borderRadius: 0 }}
-      >
-        {person.prenom} {person.nom}
-      </CardTitle>
-      <Badge
-        variant="secondary"
-        className="w-fit text-xs"
-        style={{ borderRadius: 0 }}
-      >
-        {person.responsabilite}
-      </Badge>
-    </CardHeader>
-    <CardContent className="space-y-2" style={{ borderRadius: 0 }}>
-      {person.email && (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Mail className="h-4 w-4" />
-          <a
-            href={`mailto:${person.email}`}
-            className="hover:text-primary transition-colors"
-          >
-            {person.email}
-          </a>
-        </div>
-      )}
-      {person.tel && (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Phone className="h-4 w-4" />
-          <a
-            href={`tel:${person.tel}`}
-            className="hover:text-primary transition-colors"
-          >
-            {person.tel}
-          </a>
-        </div>
-      )}
-    </CardContent>
-  </Card>
-);  
-  */
-}
-
 // Composant pour les membres COFAC
 const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
-  const getCardColor = () => {
-    switch (member.appartenance) {
-      case "Responsable Mention":
-        return {
-          hoverBg: "#780376",
-          textColor: "#780376",
-        };
-      case "Membre extérieur":
-        return {
-          hoverBg: "#b45309",
-          textColor: "#b45309",
-        };
-      case "Représentant Enseignant":
-        return {
-          hoverBg: "#3b82f6",
-          textColor: "#3b82f6",
-        };
-      case "Représentant PAT":
-        return {
-          hoverBg: "#10b981",
-          textColor: "#10b981",
-        };
-      case "Représentant Etudiant":
-        return {
-          hoverBg: "#e6b307",
-          textColor: "#f59e0b",
-        };
-      default:
-        return {
-          hoverBg: "#6b7280",
-          textColor: "#6b7280",
-        };
-    }
-  };
-
-  const cardStyle = getCardColor();
-
   return (
-    <div
-      className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl animate-in fade-in-50 slide-in-from-bottom-4"
-      style={{
-        border: `2px solid #d1d5db`,
-        borderRadius: 0,
-        backgroundColor: "#ffffff",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = cardStyle.hoverBg;
-        e.currentTarget.style.color = "#ffffff";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = "#ffffff";
-        e.currentTarget.style.color = "#000000";
-      }}
-    >
-      <div className="p-4">
-        <div className="space-y-2">
-          <div className="flex items-start justify-between gap-2">
-            <h4
-              className="font-medium text-sm leading-tight text-balance group-hover:text-white transition-colors duration-300 break-words hyphens-auto"
-              // style={{ color: "#000000" }}
-            >
-              {member.nomPrenom}
-            </h4>
-            <div
-              className="text-xs shrink-0 px-2 py-1 group-hover:bg-white group-hover:text-current transition-all duration-300 break-words text-center min-w-0"
-              style={{
-                border: `1px solid ${cardStyle.textColor}`,
-                color: cardStyle.textColor,
-                borderRadius: 0,
-                wordWrap: "break-word",
-                overflowWrap: "break-word",
-                hyphens: "auto",
-                maxWidth: "120px",
-              }}
-            >
-              {member.appartenance}
-            </div>
-          </div>
+    <div className="flex flex-col items-center p-6 relative">
+      {/* Circular Photo */}
+      <div className="relative z-20">
+        <img
+          src={member.photo || "/professional-man.png"}
+          alt={`Photo de ${member.nomPrenom}`}
+          className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full object-cover border-4 border-white shadow-lg"
+        />
+      </div>
+
+      {/* Name and Title Card */}
+      <div className="bg-white/90 backdrop-blur-sm px-4 py-3 text-center shadow-lg min-w-[200px] max-w-[250px] -mt-8 relative z-10">
+        <div className="pt-8">
+          <h4 className="font-bold text-gray-800 text-sm md:text-base leading-tight mb-1">
+            {member.nomPrenom.split(" ").slice(-2).join(" ")}{" "}
+            {/* Show last two parts of name for brevity */}
+          </h4>
+          <p className="text-xs md:text-sm text-gray-600 font-medium">
+            {member.appartenance}
+          </p>
+
+          {/* Contact info - smaller and subtle */}
           {member.email && (
-            <div className="flex items-center gap-2 text-xs text-muted-foreground group-hover:text-white transition-colors duration-300">
-              <Mail className="h-3 w-3" />
-              <a
-                href={`mailto:${member.email}`}
-                className="hover:underline transition-all duration-200 truncate"
-              >
-                {member.email}
-              </a>
-            </div>
-          )}
-          {member.telephone && (
-            <div className="flex items-center gap-2 text-xs text-muted-foreground group-hover:text-white transition-colors duration-300">
-              <Phone className="h-3 w-3" />
-              <a
-                href={`tel:${member.telephone}`}
-                className="hover:underline transition-all duration-200"
-              >
-                {member.telephone}
-              </a>
+            <div className="mt-2 pt-2 border-t border-gray-200">
+              <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
+                <Mail className="h-3 w-3" />
+                <span className="truncate max-w-[180px]">{member.email}</span>
+              </div>
             </div>
           )}
         </div>
@@ -456,24 +355,24 @@ const HierarchyNode: React.FC<{
     }
   };
 
-  const getConnectorColor = () => {
-    switch (level) {
-      case 0:
-        return "#780376";
-      case 1:
-        return "#1e293b";
-      case 2:
-        return "#b45309";
-      case 3:
-        return "#3b82f6";
-      case 4:
-        return "#10b981";
-      default:
-        return "#6b7280";
-    }
-  };
+  // const getConnectorColor = () => {
+  //   switch (level) {
+  //     case 0:
+  //       return "#780376"
+  //     case 1:
+  //       return "#1e293b"
+  //     case 2:
+  //       return "#b45309"
+  //     case 3:
+  //       return "#3b82f6"
+  //     case 4:
+  //       return "#10b981"
+  //     default:
+  //       return "#6b7280"
+  //   }
+  // }
 
-  const nodeStyle = getNodeStyle();
+  const nodeStyle = getNodeStyle()
 
   return (
     <div className="flex flex-col items-center">
@@ -536,113 +435,29 @@ const HierarchyNode: React.FC<{
 
       {children && (
         <>
-          <div
-            className="w-px h-2 border-l-2"
-            style={{ borderColor: getConnectorColor() }}
-          ></div>
-          <div className="flex flex-col items-center space-y-2">{children}</div>
+          {/* <div className="w-px h-2 border-l-2" style={{ borderColor: getConnectorColor() }}></div> */}
+          <div className="flex flex-col items-center ">{children}</div>
         </>
       )}
     </div>
   );
 };
 
-{
-  /*
-  const HierarchicalListItem: React.FC<{
-  title: string;
-  level: number;
-  person?: PersonData;
-  children?: React.ReactNode;
-}> = ({ title, level, person, children }) => {
-  const getIndentClass = () => {
-    switch (level) {
-      case 0:
-        return "ml-0";
-      case 1:
-        return "ml-4";
-      case 2:
-        return "ml-8";
-      case 3:
-        return "ml-12";
-      default:
-        return "ml-16";
-    }
-  };
-
-  const getLevelStyle = () => {
-    switch (level) {
-      case 0:
-        return "text-xl font-bold p-3";
-      case 1:
-        return "text-lg font-semibold p-2";
-      case 2:
-        return "text-base font-medium p-2";
-      case 3:
-        return "text-sm font-medium p-1";
-      default:
-        return "text-sm p-1";
-    }
-  };
-
-  const getLevelTextColor = () => {
-    switch (level) {
-      case 0:
-        return "#780376"; // violet
-      case 1:
-        return "#1e293b"; // gris foncé
-      case 2:
-        return "#b45309"; // dark amber
-      case 3:
-        return "#3b82f6"; // bleu
-      default:
-        return "#6b7280"; // gris
-    }
-  };
-
-  return (
-    <div className={`${getIndentClass()} mb-2`}>
-      <div
-        className={`${getLevelStyle()} bg-white border border-gray-200`}
-        style={{
-          borderRadius: 0,
-        }}
-      >
-        <div className="flex items-center justify-between">
-          <span
-            className="text-balance font-semibold"
-            style={{ color: getLevelTextColor() }}
-          >
-            {title}
-          </span>
-          {person && (
-            <div className="text-xs text-gray-600 ml-2">
-              {person.prenom} {person.nom}
-            </div>
-          )}
-        </div>
-        {person && person.email && (
-          <div className="flex items-center gap-1 text-xs text-gray-600 mt-1">
-            <Mail className="h-3 w-3" />
-            <a
-              href={`mailto:${person.email}`}
-              className="hover:text-primary transition-colors"
-            >
-              {person.email}
-            </a>
-          </div>
-        )}
-      </div>
-      {children && <div className="mt-2">{children}</div>}
-    </div>
-  );
-};  
-  */
-}
-
 export default function Organigramme() {
   const [showCofacMembers, setShowCofacMembers] = useState(false);
-  const [showHierarchy, setShowHierarchy] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Set initial width
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Grouper les membres COFAC par appartenance
   const groupedMembers = membresCofac.reduce((acc, member) => {
@@ -711,7 +526,7 @@ export default function Organigramme() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-x-auto">
       <main className="pt-4 sm:pt-8 lg:pt-12 pb-4 sm:pb-8 lg:pb-12">
         <div className="container mx-auto px-2 sm:px-4 lg:px-6">
           <div className="mx-auto">
@@ -738,334 +553,185 @@ export default function Organigramme() {
               </div>
             </motion.div>
 
-            <div className="container mx-auto px-4 py-12 space-y-16">
-              {/* Toggle Hierarchy View */}
-              <div className="text-center">
-                <Button
-                  onClick={() => setShowHierarchy(!showHierarchy)}
-                  variant="outline"
-                  className="gap-2 mb-8"
+            <div>
+              <section
+                className="overflow-y-visible"
+                style={{
+                  overflowX: windowWidth >= 1468 ? "visible" : "auto",
+                }}
+              >
+                <div
+                  className="flex flex-col items-center pb-6"
+                  style={{
+                    minWidth: windowWidth >= 1468 ? "1200px" : "1400px",
+                  }}
                 >
-                  <TreePine className="h-4 w-4" />
-                  {showHierarchy ? "Affichage Liste" : "Affichage Hiérarchique"}
-                </Button>
-              </div>
+                  {/* COFAC */}
+                  <HierarchyNode title="COFAC" level={0}>
+                    {/* ===== Ligne verticale depuis COFAC ===== */}
+                    <div className="w-px h-6 bg-gray-400"></div>
 
-              {/* Hierarchical Structure View */}
-              {showHierarchy ? (
-                <section className="overflow-x-auto">
-                  <div className="flex flex-col items-center space-y-2 min-w-[1200px] pb-6">
-                    {/* COFAC */}
-                    <HierarchyNode title="COFAC" level={0}>
-                      {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
-                      <div className="flex justify-center items-start gap-8">
-                        {/* Conseil Scientifique Branch */}
-                        <div className="flex flex-col items-center space-y-2">
-                          <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
-                            <div className="h-2"></div>
-                            <HierarchyNode title="MENTION" level={2}>
-                              <HierarchyNode title="PARCOURS" level={3}>
-                                <HierarchyNode title="LABO" level={4} />
-                              </HierarchyNode>
+                    {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
+                    {/* Ligne horizontale centrée */}
+                    <div className="flex justify-center items-start relative w-324 gap-2">
+                      <div className="absolute top-0 left-2 right-3 h-px bg-gray-400" />
+
+                      {/* Conseil Scientifique Branch */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-px h-6 bg-gray-400"></div>
+                        <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
+                          <div className="w-px h-6 bg-gray-400"></div>
+
+                          <HierarchyNode title="MENTION" level={2}>
+                            <div className="w-px h-6 bg-gray-400"></div>
+
+                            <HierarchyNode title="PARCOURS" level={3}>
+                              <div className="w-px h-6 bg-gray-400"></div>
+
+                              <HierarchyNode title="LABO" level={4} />
                             </HierarchyNode>
                           </HierarchyNode>
-                        </div>
+                        </HierarchyNode>
+                      </div>
 
-                        {/* Doyen Branch */}
-                        <div className="flex flex-col items-center space-y-2">
-                          <HierarchyNode title="DOYEN" level={1} person={doyen}>
-                            <div className="h-2"></div>
-                            <div className="flex justify-center gap-2">
-                              {/* Secrétaire Principale */}
-                              <div className="flex flex-col items-center space-y-2">
-                                <HierarchyNode
-                                  title="SECRÉTAIRE PRINCIPALE"
-                                  level={2}
-                                  person={secretaire}
-                                >
-                                  <div className="flex flex-wrap justify-center gap-1">
-                                    {serviceInformatique && (
-                                      <HierarchyNode
-                                        title="SERVICE INFORMATIQUE"
-                                        level={3}
-                                        person={serviceInformatique}
-                                      />
-                                    )}
-                                    {serviceComptabilite && (
-                                      <HierarchyNode
-                                        title="SERVICE COMPTABILITÉ"
-                                        level={3}
-                                        person={serviceComptabilite}
-                                      />
-                                    )}
-                                    {servicePersonnel && (
-                                      <HierarchyNode
-                                        title="SERVICE PERSONNEL"
-                                        level={3}
-                                        person={servicePersonnel}
-                                      />
-                                    )}
-                                    {serviceScolarite && (
-                                      <HierarchyNode
-                                        title="SERVICE SCOLARITÉ"
-                                        level={3}
-                                        person={serviceScolarite}
-                                      />
-                                    )}
-                                    {serviceAffaires && (
-                                      <HierarchyNode
-                                        title="SERVICE DES AFFAIRES ÉTRANGÈRES"
-                                        level={3}
-                                        person={serviceAffaires}
-                                      />
-                                    )}
-                                  </div>
-                                </HierarchyNode>
-                              </div>
+                      {/* ===== DOYEN ===== */}
+                      <div className="flex flex-col items-center ">
+                        <div className="w-px h-6 bg-gray-400"></div>
+                        <HierarchyNode title="DOYEN" level={1} person={doyen} />
+                        <div className="w-px h-6 bg-gray-400"></div>
 
-                              {/* DICOS */}
-                              <HierarchyNode title="DICOS" level={2} />
+                        {/* ===== Ligne horizontale depuis DOYEN ===== */}
+                        <div className="relative w-full flex justify-center items-start gap-1">
+                          <div className="absolute top-0 left-80 right-15 h-px bg-gray-400"></div>
 
-                              {/* Vice Doyen Formation with Association des Étudiants */}
-                              {viceDoyenFormation && (
-                                <div className="flex flex-col items-center space-y-2">
+                          {/* Secrétaire + Services */}
+                          <div className="flex flex-col items-center">
+                            <div className="w-px h-6 bg-gray-400"></div>
+                            <HierarchyNode
+                              title="SECRÉTAIRE PRINCIPALE"
+                              level={2}
+                              person={secretaire}
+                            />
+                            <div className="w-px h-10 bg-gray-400"></div>
+
+                            {/* ===== Ligne horizontale depuis SECRÉTAIRE ===== */}
+                            <div className="relative w-full flex justify-center items-start gap-2">
+                              <div className="absolute top-0 left-15 right-15 h-px bg-gray-400"></div>
+
+                              {serviceInformatique && (
+                                <div className="flex flex-col items-center">
+                                  <div className="w-px h-6 bg-gray-400"></div>
                                   <HierarchyNode
-                                    title="VICE DOYEN CHARGÉ DE FORMATION"
-                                    level={2}
-                                    person={viceDoyenFormation}
-                                  >
-                                    <HierarchyNode
-                                      title="ASSOCIATION DES ÉTUDIANTS"
-                                      level={3}
-                                    />
-                                  </HierarchyNode>
+                                    title="SERVICE INFORMATIQUE"
+                                    level={3}
+                                    person={serviceInformatique}
+                                  />
                                 </div>
                               )}
-
-                              {/* Vice Doyen Réforme Numérique */}
-                              {viceDoyenNumerique && (
-                                <HierarchyNode
-                                  title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
-                                  level={2}
-                                  person={viceDoyenNumerique}
-                                />
+                              {serviceComptabilite && (
+                                <div className="flex flex-col items-center">
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE COMPTABILITÉ"
+                                    level={3}
+                                    person={serviceComptabilite}
+                                  />
+                                </div>
                               )}
-
-                              {/* Vice Doyen Partenariats */}
-                              {viceDoyenRecherche && (
-                                <HierarchyNode
-                                  title="VICE DOYEN CHARGÉ DES PARTENARIATS"
-                                  level={2}
-                                  person={viceDoyenRecherche}
-                                />
+                              {servicePersonnel && (
+                                <div className="flex flex-col items-center">
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE PERSONNEL"
+                                    level={3}
+                                    person={servicePersonnel}
+                                  />
+                                </div>
+                              )}
+                              {serviceScolarite && (
+                                <div className="flex flex-col items-center">
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE SCOLARITÉ"
+                                    level={3}
+                                    person={serviceScolarite}
+                                  />
+                                </div>
+                              )}
+                              {serviceAffaires && (
+                                <div className="flex flex-col items-center">
+                                  <div className="w-px h-6 bg-gray-400"></div>
+                                  <HierarchyNode
+                                    title="SERVICE DES AFFAIRES ÉTRANGÈRES"
+                                    level={3}
+                                    person={serviceAffaires}
+                                  />
+                                </div>
                               )}
                             </div>
-                          </HierarchyNode>
-                        </div>
+                          </div>
 
-                        {/* Collège des Enseignants Branch */}
-                        <div className="flex flex-col items-center space-y-2">
-                          <HierarchyNode
-                            title="COLLÈGE DES ENSEIGNANTS"
-                            level={1}
-                          />
-                        </div>
-                      </div>
-                    </HierarchyNode>
-                  </div>
-                </section>
-              ) : (
-                // Hierarchical List View
-                // <section>
-                //   <h2 className="text-3xl font-bold text-center mb-12 text-slate-800">Structure Hiérarchique</h2>
+                          {/* DICOS - rapproché de la Secrétaire */}
+                          <div className="flex flex-col items-center">
+                            <div className="w-px h-6 bg-gray-400"></div>
+                            <HierarchyNode title="DICOS" level={2} />
+                          </div>
 
-                //   <div className="max-w-4xl mx-auto space-y-4">
-                //     <HierarchicalListItem title="COFAC" level={0}>
-                //       <HierarchicalListItem title="CONSEIL SCIENTIFIQUE" level={1}>
-                //         <HierarchicalListItem title="MENTION" level={2}>
-                //           <HierarchicalListItem title="PARCOURS" level={3}>
-                //             <HierarchicalListItem title="LABO" level={4} />
-                //           </HierarchicalListItem>
-                //         </HierarchicalListItem>
-                //       </HierarchicalListItem>
-
-                //       <HierarchicalListItem title="DOYEN" level={1} person={doyen}>
-                //         <HierarchicalListItem title="SECRÉTAIRE PRINCIPALE" level={2} person={secretaire}>
-                //           {serviceInformatique && (
-                //             <HierarchicalListItem title="SERVICE INFORMATIQUE" level={3} person={serviceInformatique} />
-                //           )}
-                //           {serviceComptabilite && (
-                //             <HierarchicalListItem title="SERVICE COMPTABILITÉ" level={3} person={serviceComptabilite} />
-                //           )}
-                //           {servicePersonnel && (
-                //             <HierarchicalListItem title="SERVICE PERSONNEL" level={3} person={servicePersonnel} />
-                //           )}
-                //           {serviceScolarite && (
-                //             <HierarchicalListItem title="SERVICE SCOLARITÉ" level={3} person={serviceScolarite} />
-                //           )}
-                //           {serviceAffaires && (
-                //             <HierarchicalListItem
-                //               title="SERVICE DES AFFAIRES ÉTRANGÈRES"
-                //               level={3}
-                //               person={serviceAffaires}
-                //             />
-                //           )}
-                //         </HierarchicalListItem>
-
-                //         <HierarchicalListItem title="DICOS" level={2} />
-
-                //         {viceDoyenFormation && (
-                //           <HierarchicalListItem title="VICE DOYEN CHARGÉ DE FORMATION" level={2} person={viceDoyenFormation}>
-                //             <HierarchicalListItem title="ASSOCIATION DES ÉTUDIANTS" level={3} />
-                //           </HierarchicalListItem>
-                //         )}
-
-                //         {viceDoyenNumerique && (
-                //           <HierarchicalListItem
-                //             title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
-                //             level={2}
-                //             person={viceDoyenNumerique}
-                //           />
-                //         )}
-
-                //         {viceDoyenRecherche && (
-                //           <HierarchicalListItem
-                //             title="VICE DOYEN CHARGÉ DES PARTENARIATS"
-                //             level={2}
-                //             person={viceDoyenRecherche}
-                //           />
-                //         )}
-                //       </HierarchicalListItem>
-
-                //       <HierarchicalListItem title="COLLÈGE DES ENSEIGNANTS" level={1} />
-                //     </HierarchicalListItem>
-                //   </div>
-                // </section>
-                <section className="overflow-x-auto">
-                  <div className="flex flex-col items-center space-y-2 min-w-[1200px] pb-6">
-                    {/* COFAC */}
-                    <HierarchyNode title="COFAC" level={0}>
-                      {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
-                      <div className="flex justify-center items-start gap-8">
-                        {/* Conseil Scientifique Branch */}
-                        <div className="flex flex-col items-center space-y-2">
-                          <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
-                            <div className="h-2"></div>
-                            <HierarchyNode title="MENTION" level={2}>
-                              <HierarchyNode title="PARCOURS" level={3}>
-                                <HierarchyNode title="LABO" level={4} />
+                          {/* Vice-Doyens */}
+                          {viceDoyenFormation && (
+                            <div className="flex flex-col items-center">
+                              <div className="w-px h-6 bg-gray-400"></div>
+                              <HierarchyNode
+                                title="VICE DOYEN FORMATION"
+                                level={2}
+                                person={viceDoyenFormation}
+                              >
+                                <div className="w-px h-10 bg-gray-400"></div>
+                                <HierarchyNode
+                                  title="ASSOCIATION DES ÉTUDIANTS"
+                                  level={3}
+                                />
                               </HierarchyNode>
-                            </HierarchyNode>
-                          </HierarchyNode>
-                        </div>
-
-                        {/* Doyen Branch */}
-                        <div className="flex flex-col items-center space-y-2">
-                          <HierarchyNode title="DOYEN" level={1} person={doyen}>
-                            <div className="h-2"></div>
-                            <div className="flex justify-center gap-2">
-                              {/* Secrétaire Principale */}
-                              <div className="flex flex-col items-center space-y-2">
-                                <HierarchyNode
-                                  title="SECRÉTAIRE PRINCIPALE"
-                                  level={2}
-                                  person={secretaire}
-                                >
-                                  <div className="flex flex-wrap justify-center gap-1">
-                                    {serviceInformatique && (
-                                      <HierarchyNode
-                                        title="SERVICE INFORMATIQUE"
-                                        level={3}
-                                        person={serviceInformatique}
-                                      />
-                                    )}
-                                    {serviceComptabilite && (
-                                      <HierarchyNode
-                                        title="SERVICE COMPTABILITÉ"
-                                        level={3}
-                                        person={serviceComptabilite}
-                                      />
-                                    )}
-                                    {servicePersonnel && (
-                                      <HierarchyNode
-                                        title="SERVICE PERSONNEL"
-                                        level={3}
-                                        person={servicePersonnel}
-                                      />
-                                    )}
-                                    {serviceScolarite && (
-                                      <HierarchyNode
-                                        title="SERVICE SCOLARITÉ"
-                                        level={3}
-                                        person={serviceScolarite}
-                                      />
-                                    )}
-                                    {serviceAffaires && (
-                                      <HierarchyNode
-                                        title="SERVICE DES AFFAIRES ÉTRANGÈRES"
-                                        level={3}
-                                        person={serviceAffaires}
-                                      />
-                                    )}
-                                  </div>
-                                </HierarchyNode>
-                              </div>
-
-                              {/* DICOS */}
-                              <HierarchyNode title="DICOS" level={2} />
-
-                              {/* Vice Doyen Formation with Association des Étudiants */}
-                              {viceDoyenFormation && (
-                                <div className="flex flex-col items-center space-y-2">
-                                  <HierarchyNode
-                                    title="VICE DOYEN CHARGÉ DE FORMATION"
-                                    level={2}
-                                    person={viceDoyenFormation}
-                                  >
-                                    <HierarchyNode
-                                      title="ASSOCIATION DES ÉTUDIANTS"
-                                      level={3}
-                                    />
-                                  </HierarchyNode>
-                                </div>
-                              )}
-
-                              {/* Vice Doyen Réforme Numérique */}
-                              {viceDoyenNumerique && (
-                                <HierarchyNode
-                                  title="VICE DOYEN CHARGÉ DE RÉFORME NUMÉRIQUE"
-                                  level={2}
-                                  person={viceDoyenNumerique}
-                                />
-                              )}
-
-                              {/* Vice Doyen Partenariats */}
-                              {viceDoyenRecherche && (
-                                <HierarchyNode
-                                  title="VICE DOYEN CHARGÉ DES PARTENARIATS"
-                                  level={2}
-                                  person={viceDoyenRecherche}
-                                />
-                              )}
                             </div>
-                          </HierarchyNode>
-                        </div>
-
-                        {/* Collège des Enseignants Branch */}
-                        <div className="flex flex-col items-center space-y-2">
-                          <HierarchyNode
-                            title="COLLÈGE DES ENSEIGNANTS"
-                            level={1}
-                          />
+                          )}
+                          {viceDoyenNumerique && (
+                            <div className="flex flex-col items-center">
+                              <div className="w-px h-6 bg-gray-400"></div>
+                              <HierarchyNode
+                                title="VICE DOYEN NUMÉRIQUE"
+                                level={2}
+                                person={viceDoyenNumerique}
+                              />
+                            </div>
+                          )}
+                          {viceDoyenRecherche && (
+                            <div className="flex flex-col items-center">
+                              <div className="w-px h-6 bg-gray-400"></div>
+                              <HierarchyNode
+                                title="VICE DOYEN RECHERCHE"
+                                level={2}
+                                person={viceDoyenRecherche}
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
-                    </HierarchyNode>
-                  </div>
-                </section>
-              )}
+
+                      {/* Collège des Enseignants Branch */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-px h-6 bg-gray-400"></div>
+                        <HierarchyNode
+                          title="COLLÈGE DES ENSEIGNANTS"
+                          level={1}
+                        />
+                      </div>
+                    </div>
+                  </HierarchyNode>
+                </div>
+              </section>
 
               {/* Membres COFAC */}
-              <section>
+              <section className="mt-9">
                 <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold mb-4 text-foreground">
                     Membres du COFAC
@@ -1094,16 +760,33 @@ export default function Organigramme() {
                     {Object.entries(groupedMembers).map(
                       ([appartenance, members]) => (
                         <div key={appartenance}>
-                          <h3 className="text-xl font-semibold mb-6 text-muted-foreground border-b border-border pb-2">
+                          <h3 className="text-xl font-semibold mb-6 text-center text-white bg-primary py-3">
                             {appartenance} ({members.length})
                           </h3>
-                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {members.map((member) => (
-                              <CofacMemberCard
-                                key={member.num}
-                                member={member}
-                              />
-                            ))}
+
+                          {/* Blue background container matching reference image */}
+                          <div className="p-8 md:p-12">
+                            {/* Responsive grid that adapts to member count */}
+                            <div
+                              className={`grid gap-8 justify-items-center ${
+                                members.length <= 2
+                                  ? "grid-cols-1 md:grid-cols-2"
+                                  : members.length <= 3
+                                  ? "grid-cols-1 md:grid-cols-3"
+                                  : members.length <= 4
+                                  ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+                                  : members.length <= 6
+                                  ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                                  : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                              }`}
+                            >
+                              {members.map((member) => (
+                                <CofacMemberCard
+                                  key={member.num}
+                                  member={member}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
                       )

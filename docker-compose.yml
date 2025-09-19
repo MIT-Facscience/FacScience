@@ -1,0 +1,7 @@
+services:
+  facscienceinterface:
+    image: facscienceinterface
+    container_name: facscience_interface
+    ports:
+      - "9090:80"
+    restart: always
