@@ -18,7 +18,7 @@ export interface Program {
 
 export interface ApplicationData {
   candidateInfo: CandidateInfo | null;
-  selectedProgram: Program | null;
+  selectedProgram: Program;
   personalInfo: {
     firstName: string;
     lastName: string;
