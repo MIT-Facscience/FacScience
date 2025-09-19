@@ -14,6 +14,14 @@ interface StepTwoThreeProps {
   onBack: () => void;
 }
 
+const mapProgram: Record<string, string[] > = {
+  CHI: ["C", "S", "D"],
+  MI: ["C", "S"],
+  IT: ["C", "S"],
+  PAP: ["C", "S", "D"],
+  STE: ["C", "S", "D"],
+}
+
 export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   candidateInfo,
   programs,
@@ -26,7 +34,12 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   const [bankReference, setBankReference] = useState('');
   const [bankAgence, setBankAgence] = useState('');
   const [bankDate, setBankDate] = useState(new Date());
+  const [filteredProg, setfilteredProg] = useState<Program[] | undefined>()
 
+  useEffect(() => {
+    setfilteredProg(programs?.filter((p) => mapProgram[p.abbreviation??""].includes(p.abbreviation??"")))
+  }, [programs])
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProgram) return;
@@ -47,7 +60,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
       <div>
         <h3 className="text-lg font-semibold mb-2">Choisissez votre programme</h3>
         <div className="space-y-2">
-          {programs && programs.map((program) => (
+          {filteredProg && filteredProg.map((program) => (
             <label
               key={program.idMention}
               className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.idMention===selectedProgram?.idMention ? "border-1 border-faculty-purple-600 border-l-4":"hover:border-l-4 hover:border-l-orange-400"}`}
