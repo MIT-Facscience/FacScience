@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import { BACKEND_URL } from "@/lib/api";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -29,9 +30,9 @@ export default function HomePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);
   const [nbMentions, setNbMentions] = useState(14);
   const [nbLabo, setNbLabo] = useState(30);
-
+  
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/enseignant")
+    fetch(`${BACKEND_URL}/api/stat/enseignant`)
       .then((response) => response.json())
       .then((data) => {
         setNbEnseignants(data.length);
@@ -42,7 +43,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/mention")
+    fetch(`${BACKEND_URL}/api/stat/mention`)
       .then((response) => response.json())
       .then((data) => {
         setNbMentions(data.length);
@@ -53,7 +54,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/labo")
+    fetch(`${BACKEND_URL}/api/stat/labo`)
       .then((response) => response.json())
       .then((data) => {
         setNbLabo(data.length);
