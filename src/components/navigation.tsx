@@ -2,7 +2,7 @@ import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PrimaryButton from "./ui/PrimaryButton";
-
+// import { useTranslation } from "./lang";
 const presentationItems = [
   { title: "Histoire et Mission", to: "/presentation/histoire" },
   { title: "Organigramme", to: "/presentation/organigramme" },
@@ -23,6 +23,7 @@ const admissionItems = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  //  const { t, lang, setLang } = useTranslation();
 
   const isActive = (path: string) => location.pathname === path;
   const isActiveParent = (base: string) => location.pathname.startsWith(base);
@@ -51,6 +52,10 @@ export default function Navigation() {
                   </h3>
                 </div>
               </Link>
+              {/* <select value={lang} onChange={(e) => setLang(e.target.value as "fr" | "en")}>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="en">🇬🇧 English</option>
+              </select> */}
 
               {/* Desktop Nav */}
               <nav className="hidden lg:flex items-center space-x-1">
@@ -63,7 +68,9 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
+                    {/* <span>{t("about")}</span> */}
                     <span>Présentation</span>
+
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -95,7 +102,9 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
+                    {/* <span>{t("search")}</span> */}
                     <span>Recherche</span>
+
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -126,7 +135,9 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
+                    {/* <span>{t("admission")}</span> */}
                     <span>Admission</span>
+
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">

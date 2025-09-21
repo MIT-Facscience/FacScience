@@ -17,6 +17,7 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 
 interface ResearchCenter {
@@ -65,7 +66,7 @@ export default function HomePage() {
 
   const stats = [
     {
-      number: "5000+",
+      number: "5000",
       label: "Étudiants",
       icon: <Users className="h-6 w-6" />,
     },
@@ -403,7 +404,7 @@ export default function HomePage() {
                         </div>
                       </div>
                       <div className="text-3xl font-bold text-foreground mb-2">
-                        {stat.number}
+                       <CountUp end={parseInt(String(stat.number))} duration={4} delay={1} />
                       </div>
                       <div className="text-sm text-muted-foreground font-medium">
                         {stat.label}

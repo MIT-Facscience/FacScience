@@ -1,5 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+// import { useCountUp } from "./useCountUp";
+import CountUp from "react-countup";
 import {
   Card,
   CardContent,
@@ -25,7 +27,8 @@ import { useCallback, useState } from "react";
 
 export default function LaboratoiresPage() {
   const [expandedLab, setExpandedLab] = useState<number | null>(null);
-
+   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
   const laboratoires = [
     {
       nom: "Laboratoire de Mathématiques et Applications",
@@ -226,6 +229,21 @@ export default function LaboratoiresPage() {
     },
   ];
 
+  // --- Définition pagination ---
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentLabs = laboratoires.slice(indexOfFirstItem, indexOfLastItem);
+
+const totalPages = Math.ceil(laboratoires.length / itemsPerPage);
+
+const handlePrev = () => {
+  if (currentPage > 1) setCurrentPage(currentPage - 1);
+};
+
+const handleNext = () => {
+  if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+};
+
   const totalPersonnel = laboratoires.reduce(
     (sum, lab) => sum + lab.personnel,
     0
@@ -290,6 +308,7 @@ export default function LaboratoiresPage() {
               color: "from-rose-500 to-pink-600",
             },
           ].map((stat, index) => (
+         
             <div key={index} className="relative group">
               <div
                 className="absolute inset-0 bg-black opacity-10  transform rotate-6 group-hover:rotate-12 transition-transform duration-300"
@@ -303,7 +322,8 @@ export default function LaboratoiresPage() {
                 <div
                   className={`text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
                 >
-                  {stat.value}
+
+                <CountUp  end={stat.value} duration={4} delay={1}/>
                 </div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
@@ -313,17 +333,18 @@ export default function LaboratoiresPage() {
 
         {/* Laboratoires Grid Moderne */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
-          {laboratoires.map((lab, index) => {
+          {currentLabs.map((lab, index) => {
+            const realindex = indexOfFirstItem + index;
             const IconComponent = lab.icon;
-            const isExpanded = expandedLab === index;
+            const isExpanded = expandedLab === realindex;
 
             return (
               <Card
-                key={index}
+                key={realindex}
                 className="group hover:shadow-2xl transition-all rounded-none duration-500 transform hover:-translate-y-2 overflow-hidden bg-white border-0 shadow-lg"
               >
                 {/* Header avec image et overlay */}
-                {/* <h1>Salut</h1> */}
+              
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={lab.imageUrl}
@@ -494,7 +515,7 @@ export default function LaboratoiresPage() {
 
                   {/* Bouton voir plus/moins */}
                   <Button
-                    onClick={() => toggleExpand(index)}
+                    onClick={() => toggleExpand(realindex)}
                     variant="ghost"
                     className={`w-full mt-4 transition-all rounded-none duration-300 ${
                       isExpanded
@@ -520,31 +541,42 @@ export default function LaboratoiresPage() {
           })}
         </div>
 
-        {/* Navigation moderne */}
-        <div className="text-center mt-16">
-          <div className="inline-flex flex-wrap gap-4 p-4 bg-white rounded-2xl shadow-lg border border-gray-100">
+       {/* Pagination */}
+      <div className="text-center mt-16">
+        <div className="inline-flex flex-wrap gap-4 p-4 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <Button
+            onClick={handlePrev}
+            disabled={currentPage === 1}
+            className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl disabled:opacity-50"
+          >
+            ← Précédent
+          </Button>
+
+          {[...Array(totalPages)].map((_, i) => (
             <Button
-              asChild
-              className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              variant={currentPage === i + 1 ? "default" : "outline"}
+              className={`px-6 py-3 rounded-xl ${
+                currentPage === i + 1
+                  ? "bg-purple-600 text-white"
+                  : "border-2 border-purple-200 text-primary hover:bg-purple-600 hover:text-white"
+              }`}
             >
-              <a href="/recherche">← Précedent</a>
+              {i + 1}
             </Button>
-            <Button
-              variant="outline"
-              asChild
-              className="px-8 py-3 font-semibold border-2 border-purple-200 text-primary hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-xl transition-all duration-300"
-            >
-              <a href="/recherche/"> 1</a>
-            </Button>
-            <Button
-              variant="outline"
-              asChild
-              className="px-8 py-3 font-semibold border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-xl transition-all duration-300"
-            >
-              <a href="/recherche/">Suivant →</a>
-            </Button>
-          </div>
-        </div>
+          ))}
+
+    <Button
+      onClick={handleNext}
+      disabled={currentPage === totalPages}
+      className="px-8 py-3 font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl disabled:opacity-50"
+    >
+      Suivant →
+    </Button>
+  </div>
+</div>
+
       </div>
     </div>
   );
