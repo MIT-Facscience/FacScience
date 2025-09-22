@@ -37,9 +37,15 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   const [filteredProg, setfilteredProg] = useState<Program[] | undefined>()
 
   useEffect(() => {
-    setfilteredProg(programs?.filter((p) => mapProgram[p.abbreviation??""].includes(p.abbreviation??"")))
-  }, [programs])
-  
+    if (!programs || !candidateInfo?.series) return;
+
+    const filtered = programs.filter((p) => {
+      const types = mapProgram[p.abbreviation ?? ""];
+      return types?.includes(candidateInfo.series);
+    });
+
+    setfilteredProg(filtered);
+  }, [programs, candidateInfo]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProgram) return;
