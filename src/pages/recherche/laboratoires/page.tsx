@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { BACKEND_URL } from "@/lib/api";
+import type { Laboratoires } from "@/lib/types";
 import {
   Beaker,
   Calculator,
@@ -23,13 +25,30 @@ import {
   TestTube,
   Users,
 } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function LaboratoiresPage() {
+  const [isLoading,setLoading]= useState(true);
   const [expandedLab, setExpandedLab] = useState<number | null>(null);
-   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
-  const laboratoires = [
+  const [labos,setLabos]= useState< Laboratoires[]| []>([]);
+  const [pagination, setPagination]= useState(6);
+
+
+   useEffect(() => {
+
+      fetch(`${BACKEND_URL}/api/Laboratoire`)
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log(data);
+          setLabos(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des mentions :", error);
+        });
+    }, []);
+
+  const labo = [
     {
       nom: "Laboratoire de Mathématiques et Applications",
       code: "LMA",
@@ -244,15 +263,21 @@ const handleNext = () => {
   if (currentPage < totalPages) setCurrentPage(currentPage + 1);
 };
 
-  const totalPersonnel = laboratoires.reduce(
+  const previousLabo = ()=> {
+    if(pagination>6) setPagination(pagination-6) 
+  }
+  const nextLabo = ()=> {
+    if(pagination<labos.length) setPagination(pagination+6) 
+  }
+  const totalPersonnel = labo.reduce(
     (sum, lab) => sum + lab.personnel,
     0
   );
-  const totalDoctorants = laboratoires.reduce(
+  const totalDoctorants = labo.reduce(
     (sum, lab) => sum + lab.doctorants,
     0
   );
-  const totalProjets = laboratoires.reduce(
+  const totalProjets = labo.reduce(
     (sum, lab) => sum + lab.projets.length,
     0
   );
@@ -267,6 +292,12 @@ const handleNext = () => {
       return index;
     });
   }, []);
+
+  if(isLoading)
+    return (<>
+    <h1>Loading pour le faculte de science</h1>
+    </>
+  )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -288,7 +319,7 @@ const handleNext = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {[
             {
-              value: laboratoires.length,
+              value: labos.length,
               label: "Laboratoires",
               color: "from-blue-500 to-indigo-600",
             },
@@ -333,10 +364,9 @@ const handleNext = () => {
 
         {/* Laboratoires Grid Moderne */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
-          {currentLabs.map((lab, index) => {
-            const realindex = indexOfFirstItem + index;
+          {laboratoires.map((lab, index) => {
             const IconComponent = lab.icon;
-            const isExpanded = expandedLab === realindex;
+            const isExpanded = expandedLab === index;
 
             return (
               <Card
@@ -347,27 +377,27 @@ const handleNext = () => {
               
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={lab.imageUrl}
-                    alt={lab.nom}
+                    src={labo[0].imageUrl}
+                    alt={lab.nomLabo}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div
-                    className={`absolute inset-0 bg-gradient-to-t ${lab.bgGradient} opacity-50`}
+                    className={`absolute inset-0 bg-gradient-to-t ${labo[0].bgGradient} opacity-50`}
                   ></div>
 
                   {/* Code badge */}
                   <div className="absolute top-4 right-4">
                     <div
-                      className={`px-4 py-2 rounded-full text-white font-bold text-lg shadow-lg bg-gradient-to-r ${lab.accentColor}`}
+                      className={`px-4 py-2 rounded-full text-white font-bold text-lg shadow-lg bg-gradient-to-r ${labo[0].accentColor}`}
                     >
-                      {lab.code}
+                      {lab.abbreviation}
                     </div>
                   </div>
 
                   {/* Icon */}
                   <div className="absolute bottom-4 left-4">
                     <div
-                      className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-r ${lab.accentColor}`}
+                      className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-r ${labo[0].accentColor}`}
                     >
                       <IconComponent className="h-7 w-7 text-white" />
                     </div>
@@ -376,10 +406,10 @@ const handleNext = () => {
 
                 <CardHeader className="pb-4">
                   <CardTitle className="text-lg font-bold text-gray-800 group-hover:text-primary transition-colors line-clamp-2">
-                    {lab.nom}
+                    {lab.nomLabo}
                   </CardTitle>
                   <CardDescription className="text-gray-600">
-                    <span className="font-semibold">{lab.directeur}</span>
+                    <span className="font-semibold">{lab.respoLabo}</span>
                   </CardDescription>
                 </CardHeader>
 
@@ -388,18 +418,18 @@ const handleNext = () => {
                   <div className="flex items-center gap-4 text-sm text-gray-600">
                     <div className="flex items-center gap-2">
                       <Users className="h-4 w-4 text-blue-500" />
-                      <span>{lab.personnel + lab.doctorants}</span>
+                      <span>{labo[0].personnel + labo[0].doctorants}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4 text-green-500" />
-                      <span className="truncate">{lab.localisation}</span>
+                      <span className="truncate">{labo[0].localisation}</span>
                     </div>
                   </div>
 
                   {/* Spécialités (aperçu) */}
                   <div>
                     <div className="flex flex-wrap gap-2">
-                      {lab.specialites.slice(0, 2).map((spec, i) => (
+                      {labo[0].specialites.slice(0, 2).map((spec, i) => (
                         <Badge
                           key={i}
                           variant="outline"
@@ -408,12 +438,12 @@ const handleNext = () => {
                           {spec}
                         </Badge>
                       ))}
-                      {lab.specialites.length > 2 && (
+                      {labo[0].specialites.length > 2 && (
                         <Badge
                           variant="outline"
                           className="text-xs px-2 py-1 border-gray-200 text-gray-500"
                         >
-                          +{lab.specialites.length - 2} autres
+                          +{labo[0].specialites.length - 2} autres
                         </Badge>
                       )}
                     </div>
@@ -426,11 +456,11 @@ const handleNext = () => {
                       <div className="bg-gray-50 p-4 rounded-lg space-y-2">
                         <div className="flex items-center gap-3">
                           <Mail className="h-4 w-4 text-blue-500" />
-                          <span className="text-sm">{lab.email}</span>
+                          <span className="text-sm">{labo[0].email}</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <Phone className="h-4 w-4 text-green-500" />
-                          <span className="text-sm">{lab.telephone}</span>
+                          <span className="text-sm">{labo[0].telephone}</span>
                         </div>
                       </div>
 
@@ -438,9 +468,9 @@ const handleNext = () => {
                       <div className="flex gap-6 justify-center bg-gray-50 p-4 rounded-lg">
                         <div className="text-center">
                           <div
-                            className={`text-2xl font-bold bg-gradient-to-r ${lab.accentColor} bg-clip-text text-transparent`}
+                            className={`text-2xl font-bold bg-gradient-to-r ${labo[0].accentColor} bg-clip-text text-transparent`}
                           >
-                            {lab.personnel}
+                            {labo[0].personnel}
                           </div>
                           <div className="text-xs text-gray-600">
                             Chercheurs
@@ -448,7 +478,7 @@ const handleNext = () => {
                         </div>
                         <div className="text-center">
                           <div className="text-2xl font-bold text-primary">
-                            {lab.doctorants}
+                            {labo[0].doctorants}
                           </div>
                           <div className="text-xs text-gray-600">
                             Doctorants
@@ -462,7 +492,7 @@ const handleNext = () => {
                           Expertise complète
                         </h4>
                         <div className="flex flex-wrap gap-2">
-                          {lab.specialites.map((spec, i) => (
+                          {labo[0].specialites.map((spec, i) => (
                             <Badge
                               key={i}
                               variant="outline"
@@ -480,13 +510,13 @@ const handleNext = () => {
                           Équipements
                         </h4>
                         <div className="space-y-1">
-                          {lab.equipements.map((equip, i) => (
+                          {labo[0].equipements.map((equip, i) => (
                             <div
                               key={i}
                               className="flex items-center gap-3 text-sm text-gray-600"
                             >
                               <div
-                                className={`w-2 h-2 rounded-full bg-gradient-to-r ${lab.accentColor}`}
+                                className={`w-2 h-2 rounded-full bg-gradient-to-r ${labo[0].accentColor}`}
                               ></div>
                               <span>{equip}</span>
                             </div>
@@ -500,7 +530,7 @@ const handleNext = () => {
                           Projets en cours
                         </h4>
                         <div className="space-y-2">
-                          {lab.projets.map((projet, i) => (
+                          {labo[0].projets.map((projet, i) => (
                             <div
                               key={i}
                               className="p-2 bg-gray-50 rounded text-sm text-gray-700 border-l-3 border-l-purple-400"
@@ -541,42 +571,31 @@ const handleNext = () => {
           })}
         </div>
 
-       {/* Pagination */}
-      <div className="text-center mt-16">
-        <div className="inline-flex flex-wrap gap-4 p-4 bg-white rounded-2xl shadow-lg border border-gray-100">
-          <Button
-            onClick={handlePrev}
-            disabled={currentPage === 1}
-            className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl disabled:opacity-50"
-          >
-            ← Précédent
-          </Button>
-
-          {[...Array(totalPages)].map((_, i) => (
+        {/* Navigation moderne */}
+        <div className="text-center mt-16">
+          <div className="inline-flex flex-wrap gap-4 p-4 bg-white rounded-2xl shadow-lg border border-gray-100">
             <Button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              variant={currentPage === i + 1 ? "default" : "outline"}
-              className={`px-6 py-3 rounded-xl ${
-                currentPage === i + 1
-                  ? "bg-purple-600 text-white"
-                  : "border-2 border-purple-200 text-primary hover:bg-purple-600 hover:text-white"
-              }`}
+              asChild
+              className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5"
             >
-              {i + 1}
+              <a href="/recherche">← Précedent</a>
             </Button>
-          ))}
-
-    <Button
-      onClick={handleNext}
-      disabled={currentPage === totalPages}
-      className="px-8 py-3 font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl disabled:opacity-50"
-    >
-      Suivant →
-    </Button>
-  </div>
-</div>
-
+            <Button
+              variant="outline"
+              asChild
+              className="px-8 py-3 font-semibold border-2 border-purple-200 text-primary hover:bg-purple-600 hover:text-white hover:border-purple-600 rounded-xl transition-all duration-300"
+            >
+              <a href="/recherche/"> 1</a>
+            </Button>
+            <Button
+              variant="outline"
+              asChild
+              className="px-8 py-3 font-semibold border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-xl transition-all duration-300"
+            >
+              <a href="/recherche/">Suivant →</a>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

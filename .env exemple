@@ -1,2 +1,1 @@
-VITE_API_URL_PREINSCRIPTION=http://localhost:5211
-VITE_API_WEB_SERVICE=https://localhost:5000
+VITE_API_URL_BACKEND=<protocole>://<ip>:<port>

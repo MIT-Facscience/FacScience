@@ -12,9 +12,18 @@ interface StepTwoProps {
   onBack: () => void;
 }
 
+const mapProgram: Record<string, string[] > = {
+  CHI: ["C", "S", "D"],
+  MI: ["C", "S"],
+  IT: ["C", "S"],
+  PAP: ["C", "S", "D"],
+  STE: ["C", "S", "D"],
+}
+
 export default function StepTwo({ selectedProgram, setSelectedProgram, documents, setDocuments, onNext, onBack }: StepTwoProps) {
   const [localProgram, setLocalProgram] = useState(selectedProgram);
   const [programs, setPrograms] = useState<Program[]>([])
+    const [filteredProg, setfilteredProg] = useState<Program[]>([])
 
     useEffect(() => {
       const fetchGetProg = async () => {
@@ -24,6 +33,9 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
   
       fetchGetProg();
     }, []);
+  useEffect(() => {
+    setfilteredProg(programs?.filter((p) => mapProgram[p.abbreviation??""].includes(p.abbreviation??"")))
+  }, [programs])
 
   const handleNext = () => {
     if (!documents.diploma) return;
@@ -52,7 +64,7 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
       <div>
         <h3 className="text-2xl font-bold mb-2">Choisissez votre programme</h3>
         <div className="grid gap-4">
-          {programs.map(program => (
+          {filteredProg.map(program => (
             <label key={program.idMention} className={`flex items-center space-x-4 p-4 border rounded-lg cursor-pointer ${localProgram?.idMention === program.idMention ? 'border-purple-500 bg-purple-50' : 'border-gray-200'}`}>
               <input 
                 type="radio" 
