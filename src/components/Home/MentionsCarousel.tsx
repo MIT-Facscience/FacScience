@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ErrorComp from "./error";
 import Loader from "./loading";
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "@/lib/api";
 
 interface Mention {
   idMention: string;
@@ -29,10 +30,10 @@ function MentionsCarousel() {
 
   useEffect(() => {
     let isMounted = true;
-
+    
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5194/api/Mention/liste");
+        const response = await fetch(`${BACKEND_URL}/api/Mention/liste`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         if (isMounted) setMentions(json);

@@ -219,6 +219,10 @@ const AnnuairePage = () => {
       ? `${person.prenom || ""} ${person.nom}`.trim()
       : `${person.prenom || ""} ${person.nom}`.trim();
 
+    // Vérifier si email et tel sont valides (non vides et non null)
+    const hasEmail = person.email && person.email.trim() !== "";
+    const hasPhone = person.tel && person.tel.trim() !== "";
+
     if (viewMode === "list") {
       return (
         <motion.div
@@ -254,16 +258,20 @@ const AnnuairePage = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <div className="flex items-center text-slate-600">
-                          <Mail className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
-                          <span className="text-sm truncate">
-                            {person.email}
-                          </span>
-                        </div>
-                        <div className="flex items-center text-slate-600">
-                          <Phone className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
-                          <span className="text-sm">{person.tel}</span>
-                        </div>
+                        {hasEmail && (
+                          <div className="flex items-center text-slate-600">
+                            <Mail className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
+                            <span className="text-sm truncate">
+                              {person.email}
+                            </span>
+                          </div>
+                        )}
+                        {hasPhone && (
+                          <div className="flex items-center text-slate-600">
+                            <Phone className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
+                            <span className="text-sm">{person.tel}</span>
+                          </div>
+                        )}
                       </div>
 
                       <div className="space-y-2">
@@ -334,14 +342,18 @@ const AnnuairePage = () => {
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center text-slate-600 text-sm">
-              <Mail className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
-              <span className="truncate">{person.email}</span>
-            </div>
-            <div className="flex items-center text-slate-600 text-sm">
-              <Phone className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
-              <span>{person.tel}</span>
-            </div>
+            {hasEmail && (
+              <div className="flex items-center text-slate-600 text-sm">
+                <Mail className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
+                <span className="truncate">{person.email}</span>
+              </div>
+            )}
+            {hasPhone && (
+              <div className="flex items-center text-slate-600 text-sm">
+                <Phone className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
+                <span>{person.tel}</span>
+              </div>
+            )}
             {person.sexe && (
               <div className="flex items-center text-slate-600 text-sm">
                 <User className="w-4 h-4 mr-3 text-slate-400 flex-shrink-0" />
@@ -474,7 +486,7 @@ const AnnuairePage = () => {
 
         {/* Navigation Tabs */}
         <div className="bg-white shadow-sm border border-slate-200 rounded-lg p-2 mt-8 mb-8">
-          <div className="flex space-x-2">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
             {[
               {
                 id: "professors",
@@ -492,16 +504,16 @@ const AnnuairePage = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center px-6 py-4 font-medium transition-all duration-300 rounded-lg ${
+                className={`flex items-center justify-center sm:justify-start px-4 sm:px-6 py-3 sm:py-4 font-medium transition-all duration-300 rounded-lg w-full sm:w-auto ${
                   activeTab === tab.id
                     ? "bg-purple-600 text-white shadow-sm"
                     : "text-slate-600 hover:bg-slate-100"
                 }`}
               >
-                <tab.icon className="w-5 h-5 mr-3" />
-                {tab.label}
+                <tab.icon className="w-5 h-5 mr-2 sm:mr-3 flex-shrink-0" />
+                <span className="text-sm sm:text-base">{tab.label}</span>
                 <span
-                  className={`ml-3 px-2 py-1 text-xs rounded-full ${
+                  className={`ml-2 sm:ml-3 px-2 py-1 text-xs rounded-full flex-shrink-0 ${
                     activeTab === tab.id
                       ? "bg-white/20 text-white"
                       : "bg-slate-200 text-slate-700"

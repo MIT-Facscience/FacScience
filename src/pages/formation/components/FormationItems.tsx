@@ -139,7 +139,11 @@ export default function FormationItems() {
             >
               <Card className="border-none rounded-none flex flex-col items-center">
                 <CardHeader className="w-full flex flex-col gap-3 font-bold items-center text-slate-600">
-                  <img src={mention?.imagePath ? mention.imagePath : `fac-science.jpg`} alt="" className="w-30 md:w-40 h-auto" />
+                  <img src={mention?.imagePath}
+                    onError={(e) => {
+                      e.currentTarget.src = "/fac-science.jpg";
+                    }}
+                     alt="" className="w-30 md:w-40 h-auto" />
                   <h1 className="text-center">{mention?.nomMention}</h1>
                 </CardHeader>
                 <CardContent className="flex justify-center text-slate-500 font-medium">
@@ -230,7 +234,11 @@ export default function FormationItems() {
                     {mention?.responsable?.nom + " " + mention?.responsable?.prenom}
                   </span>
                   <p className="w-full lg:w-1/2 text-center font-normal">
-                    Le chef de mention est responsable de la coordination pédagogique et administrative de la mention, veillant à la qualité de la formation, à l’encadrement des étudiants et à la gestion des activités académiques en lien avec l’équipe enseignante.
+                    Le chef de mention est responsable de la coordination
+                    pédagogique et administrative de la mention, veillant à la
+                    qualité de la formation, à l’encadrement des étudiants et à
+                    la gestion des activités académiques en lien avec l’équipe
+                    enseignante.
                   </p>
                   <Link to="/contact">
                     <PrimaryButton className="cursor-pointer">

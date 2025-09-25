@@ -22,6 +22,20 @@ export type Staff = {
 //     photo?: string;
 //   };
 
+export type Laboratoires={
+  nomLabo: string ;
+  idLabo: number;
+  mentionRattachementNavigation: string | null;
+  mentionRattachement: number | null;
+  abbreviation: string | null;
+  laboMedia: string[] | null;
+  respoLabo: string[] | null;
+  ecoleDoctoraleRattachement: string | null;
+  ecoleDoctoraleRattachementNavigation: string | null;
+  description : string | null;
+
+}
+
 export type Professors = {
     idProfesseur: number;
     nom: string;

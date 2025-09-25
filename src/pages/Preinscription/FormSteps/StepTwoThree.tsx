@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type { CandidateInfo, Program } from '../types';
 import { isValidEmail, isValidTel } from '../api/api';
+import { TriangleAlert } from 'lucide-react';
 
 interface StepTwoThreeProps {
   candidateInfo: CandidateInfo;
@@ -11,6 +12,14 @@ interface StepTwoThreeProps {
     bankInfo: { reference: string; agenceRef: string; dateRef: string };
   }) => void;
   onBack: () => void;
+}
+
+const mapProgram: Record<string, string[] > = {
+  CHI: ["C", "S", "D"],
+  MI: ["C", "S"],
+  IT: ["C", "S"],
+  PAP: ["C", "S", "D"],
+  STE: ["C", "S", "D"],
 }
 
 export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
@@ -25,7 +34,18 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   const [bankReference, setBankReference] = useState('');
   const [bankAgence, setBankAgence] = useState('');
   const [bankDate, setBankDate] = useState(new Date());
+  const [filteredProg, setfilteredProg] = useState<Program[] | undefined>()
 
+  useEffect(() => {
+    if (!programs || !candidateInfo?.series) return;
+
+    const filtered = programs.filter((p) => {
+      const types = mapProgram[p.abbreviation ?? ""];
+      return types?.includes(candidateInfo.series);
+    });
+
+    setfilteredProg(filtered);
+  }, [programs, candidateInfo]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProgram) return;
@@ -46,7 +66,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
       <div>
         <h3 className="text-lg font-semibold mb-2">Choisissez votre programme</h3>
         <div className="space-y-2">
-          {programs && programs.map((program) => (
+          {filteredProg && filteredProg.map((program) => (
             <label
               key={program.idMention}
               className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.idMention===selectedProgram?.idMention ? "border-1 border-faculty-purple-600 border-l-4":"hover:border-l-4 hover:border-l-orange-400"}`}
@@ -105,15 +125,43 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
             placeholder="Adresse e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border px-4 py-2 border-gray-200"
+            className={`border px-4 py-2 border-gray-200 ${!isValidEmail(email) && email ? "border-red-500" : ""}`}
           />
-          <input
-            type="tel"
-            placeholder="Téléphone"
-            value={telephone}
-            onChange={(e) => setTelephone(e.target.value)}
-            className="border px-4 py-2 border-gray-200"
-          />
+          <div className="relative">
+            <input
+              type="tel"
+              placeholder=""
+              value={telephone}
+              onChange={(e) => {
+                let val = e.target.value.replace(/[^0-9+\s]/g, ""); // garde seulement + et chiffres
+
+                // + seulement en première position
+                if (val.indexOf("+") > 0) {
+                  val = val.replace(/\+/g, "");
+                }
+
+                // si ça commence par +261 → max 13 caractères
+                if (val.startsWith("+261")) {
+                  val = val.slice(0, 13);
+                }
+                // sinon format national → max 10 caractères
+                else {
+                  val = val.slice(0, 10);
+                }
+
+                setTelephone(val);
+              }}
+              className={`border px-4 py-2 border-gray-200 w-full ${
+                telephone && !isValidTel(telephone) ? "border-red-500" : ""
+              }`}
+            />
+            {telephone && !isValidTel(telephone) && (
+              // <span className="absolute right-2 top-2 text-red-500 text-sm">
+              //   Format invalide
+              // </span>
+              <TriangleAlert className='absolute right-1 top-1.5 text-red-400 bg-red-100 p-1 rounded w-8 h-8'/>
+            )}
+          </div>
         </div>
       </div>
 

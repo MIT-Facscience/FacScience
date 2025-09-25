@@ -1,4 +1,6 @@
+import type { ForeignApplicationData } from './../types/index';
 import type { ApplicationData } from '../types';
+// import type { ResData } from '../types/models';
 // import { Preinscription, ResData } from '../types/models';
 
 // Simulate API delay
@@ -141,6 +143,38 @@ export const submitApplication = async (applicationData: ApplicationData) => {
       body: JSON.stringify(app),
     });
 
+    console.log(await response.json());
+    if (!response.ok) 
+      return {success: false};
+
+  } catch (error) {
+    throw new Error("sending data error");
+    console.error(error);
+    
+    return {
+      success: false,
+      // applicationNumber: null,
+    };
+  }
+  
+  // Simulation d'une réponse réussie
+  return { 
+    success: true, 
+    // applicationNumber: `FS${new Date().getFullYear()}${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}` 
+  };
+};
+
+export const submitForeignPreinscription = async (applicationData: ForeignApplicationData) => {
+  try {
+    const app: ForeignApplicationData= applicationData;
+    const response = await fetch(`${import.meta.env.VITE_API_URL_PREINSCRIPTION}/api/Register/RegisterTry`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(app),
+    });
+
     if (!response.ok) 
       return {success: false};
 
@@ -161,7 +195,7 @@ export const submitApplication = async (applicationData: ApplicationData) => {
     success: true, 
     // applicationNumber: `FS${new Date().getFullYear()}${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}` 
   };
-};
+}
 
 export const isValidEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

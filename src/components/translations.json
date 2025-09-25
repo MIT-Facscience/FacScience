@@ -1,0 +1,21 @@
+{
+  "fr": {
+    "home": "Accueil",
+    "about": "Présentation",
+    "formation": "Formation",
+    "admission":"Admission",
+    "new":"Actualité",
+    "result":"Résultat",
+    "contact": "Contact"
+  },
+  "en": {
+    "home": "Home",
+    "about": "About",
+    "formation": "Education",
+    "admission":"Admission",
+    "new":"News",
+    "search":"Research",
+    "result":"Result",
+    "contact": "Contact"
+  }
+}
