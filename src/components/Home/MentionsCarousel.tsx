@@ -74,7 +74,7 @@ function MentionsCarousel() {
   };
 
   if (loading) return <Loader/>;
-    if (error) return <ErrorComp>{error}</ErrorComp>;
+  if (error) return <ErrorComp>{error}</ErrorComp>;
 
   return (
     <motion.section

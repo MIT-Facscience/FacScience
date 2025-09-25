@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
 import ParcourItems from "./ParcourItems";
+
+interface Parcours {
+  idParcours: number;
+  nomParcours: string;
+  nomParcoursProfessionnalisante?: string;
+  niveaux: string[];
+}
 export default function Parcours({
   parcours,
-  type,
   idMention,
 }: {
-  parcours: {
-    title: string;
-    parcours: string[];
-    specalite?: string[];
-  }[];
-  type: string;
+  parcours: Parcours[];
   idMention: string;
 }) {
   return (
@@ -32,7 +33,6 @@ export default function Parcours({
               index={index}
               idMention={idMention}
               parcours={items}
-              type={type}
             />
           ))}
         </div>
