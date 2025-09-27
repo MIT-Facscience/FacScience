@@ -49,17 +49,19 @@ export default function AdmissionPage() {
               </div>
               <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                  Conditions d'admission, détails et modalités pour l'année
-                  académique 2025
+                  Conditions d'admission
                 </h1>
-                <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed"></p>
+                <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
+                  Détails et modalités pour l'année
+                  académique 2025
+                </p>
               </div>
             </motion.div>
 
             <div className="container mx-auto px-4 py-8">
               {/* Quick Info Cards */}
               <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <Card className="border-l-4 border-l-primary rounded-none">
+                <Card className=" border-0 border-l-4 border-l-primary rounded-none ">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Calendar className="h-5 w-5 text-primary" />
@@ -76,7 +78,7 @@ export default function AdmissionPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-secondary rounded-none">
+                <Card className="border-0 border-l-4 border-l-secondary rounded-none">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <FileText className="h-5 w-5 text-secondary" />
@@ -87,7 +89,7 @@ export default function AdmissionPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-2xl font-bold text-secondary">
-                      40 000 Ar
+                      50 000 Ar
                     </p>
                     <p className="text-sm text-muted-foreground">
                       Compte BNI CA
@@ -95,7 +97,7 @@ export default function AdmissionPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-accent rounded-none">
+                <Card className="border-0 border-l-4 border-l-accent rounded-none">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Users className="h-5 w-5 text-accent" />
@@ -115,7 +117,7 @@ export default function AdmissionPage() {
               <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-8">
                   {/* Généralités */}
-                  <Card className="rounded-none">
+                  <Card className="border-0 rounded-none">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <BookOpen className="h-6 w-6 text-primary" />
@@ -193,7 +195,7 @@ export default function AdmissionPage() {
                   </Card>
 
                   {/* Pièces à fournir */}
-                  <Card className="rounded-none">
+                  <Card className=" border-0 rounded-none">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <FileText className="h-6 w-6 text-primary" />
@@ -210,7 +212,7 @@ export default function AdmissionPage() {
                           "Acte de naissance original ou copie certifiée",
                           "Certificat de résidence",
                           "Enveloppe timbrée à votre adresse",
-                          "Reçu du versement des 40 000 ariary",
+                          "Reçu du versement des 50 000 ariary",
                         ].map((item, index) => (
                           <div
                             key={index}
@@ -225,7 +227,7 @@ export default function AdmissionPage() {
                   </Card>
 
                   {/* Portails et Mentions */}
-                  <Card className="rounded-none">
+                  <Card className="border-0 rounded-none">
                     <CardHeader>
                       <CardTitle>Conditions spécifiques par portail</CardTitle>
                       <CardDescription>
@@ -393,7 +395,7 @@ export default function AdmissionPage() {
                 {/* Sidebar */}
                 <div className="space-y-6 ">
                   {/* Contact Info */}
-                  <Card className="rounded-none">
+                  <Card className="border-0 rounded-none">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <MapPin className="h-5 w-5 text-primary" />
@@ -427,7 +429,7 @@ export default function AdmissionPage() {
                   </Card>
 
                   {/* Important Dates */}
-                  <Card className="rounded-none">
+                  <Card className="border-0 rounded-none">
                     <CardHeader className="rounded-none">
                       <CardTitle className="flex items-center gap-2 ">
                         <Calendar className="h-5 w-5 text-primary" />

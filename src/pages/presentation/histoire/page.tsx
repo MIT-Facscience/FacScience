@@ -1,6 +1,6 @@
                                                                                                                                     import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, Users, Award, BookOpen, Microscope, Globe } from "lucide-react"
+import { Calendar, Users, Award, BookOpen, Microscope, Globe, FlaskConical, Laptop } from "lucide-react"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react";
 
@@ -30,56 +30,88 @@ export default function HistoirePage() {
       });
   }, []);
 
+  // const timelineEvents = [
+  //   {
+  //     year: "1961",
+  //     title: "Fondation de la Faculté",
+  //     description: "Création de la Faculté des Sciences de l'Université d'Antananarivo, qui se positionne en tant que leader du secteur de l'enseignement supérieur scientifique à Madagascar.",
+  //     icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
+  //     color: "bg-primary"
+  //   },
+  //   {
+  //     year: "",
+  //     title: "Expansion des Départements",
+  //     description: "Création des départements de Physique, Chimie et Biologie pour répondre aux besoins croissants du pays en formation scientifique.",
+  //     icon: <Microscope className="h-4 w-4 sm:h-5 sm:w-5" />,
+  //     color: "bg-amber-500"
+  //   },
+  //   {
+  //     year: "",
+  //     title: "Modernisation des Laboratoires",
+  //     description: "Mise en place de laboratoires modernes et acquisition d'équipements de pointe pour la recherche et l'enseignement.",
+  //     icon: <Award className="h-4 w-4 sm:h-5 sm:w-5" />,
+  //     color: "bg-primary"
+  //   },
+  //   {
+  //     year: "",
+  //     title: "Partenariats Internationaux",
+  //     description: "Développement de collaborations avec des universités européennes et africaines, programmes d'échange étudiants et enseignants.",
+  //     icon: <Globe className="h-4 w-4 sm:h-5 sm:w-5" />,
+  //     color: "bg-amber-600"
+  //   },
+  //   {
+  //     year: "",
+  //     title: "Campus Numérique",
+  //     description: "Lancement du projet de digitalisation avec l'introduction de plateformes d'apprentissage en ligne et de laboratoires virtuels.",
+  //     icon: <Users className="h-4 w-4 sm:h-5 sm:w-5" />,
+  //     color: "bg-primary"
+  //   }
+  // ]
+
   const timelineEvents = [
     {
       year: "1961",
       title: "Fondation de la Faculté",
-      description: "Création de la Faculté des Sciences de l'Université d'Antananarivo, qui se positionne en tant que leader du secteur de l'enseignement supérieur scientifique à Madagascar.",
+      description: "Mise en place de la Faculté des Sciences, comme pilier de l’enseignement supérieur scientifique à Madagascar.",
       icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
       color: "bg-primary"
     },
     {
-      year: "1975",
-      title: "Expansion des Départements",
-      description: "Création des départements de Physique, Chimie et Biologie pour répondre aux besoins croissants du pays en formation scientifique.",
+      year: "",
+      title: "Structuration des départements",
+      description: "Organisation de filières en Physique, Chimie, Biologie, Mathématiques et Informatique.",
       icon: <Microscope className="h-4 w-4 sm:h-5 sm:w-5" />,
       color: "bg-amber-500"
     },
     {
-      year: "1990",
-      title: "Modernisation des Laboratoires",
-      description: "Mise en place de laboratoires modernes et acquisition d'équipements de pointe pour la recherche et l'enseignement.",
-      icon: <Award className="h-4 w-4 sm:h-5 sm:w-5" />,
+      year: "",
+      title: "Développement des infrastructures",
+      description: "Création et modernisation de laboratoires et bibliothèques pour soutenir l’enseignement et la recherche.",
+      icon: <FlaskConical className="h-4 w-4 sm:h-5 sm:w-5" />,
       color: "bg-primary"
     },
     {
-      year: "2005",
-      title: "Partenariats Internationaux",
-      description: "Développement de collaborations avec des universités européennes et africaines, programmes d'échange étudiants et enseignants.",
+      title: "Ouverture internationale",
+      description: "Mise en place de collaborations avec des universités étrangères et accueil d’échanges étudiants.",
       icon: <Globe className="h-4 w-4 sm:h-5 sm:w-5" />,
       color: "bg-amber-600"
     },
     {
-      year: "2015",
-      title: "Campus Numérique",
-      description: "Lancement du projet de digitalisation avec l'introduction de plateformes d'apprentissage en ligne et de laboratoires virtuels.",
-      icon: <Users className="h-4 w-4 sm:h-5 sm:w-5" />,
+      year: "",
+      title: "Innovation pédagogique",
+      description: "Introduction de formations numériques, plateformes d’apprentissage en ligne et projets modernes.",
+      icon: <Laptop className="h-4 w-4 sm:h-5 sm:w-5" />,
       color: "bg-primary"
-    },
-    {
-      year: "2023",
-      title: "Excellence Reconnue",
-      description: "Reconnaissance internationale de nos programmes de recherche et obtention de certifications qualité pour nos formations.",
-      icon: <Award className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-amber-500"
     }
-  ]
+  ];
+
 
   const stats = [
     { number: "60+", label: "Années d'excellence", icon: <Calendar className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: "5000+", label: "Diplômés", icon: <Users className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: nbMentions, label: "Mentions", icon: <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" /> },
-    { number: nbEnseignants, label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
+    // { number: nbEnseignants, label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
+    { number: "200+", label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
   ]
 
   return (
@@ -173,6 +205,7 @@ export default function HistoirePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 sm:space-y-4">
+                  <p className="text-gray-700 leading-relaxed text-sm sm:text-base">« La science au service du développement »</p>
                   <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
                     Devenir un centre d'excellence reconnu internationalement pour l'enseignement supérieur et la recherche 
                     scientifique, tout en étant un acteur clé du développement socio-économique de Madagascar.
