@@ -26,7 +26,7 @@ const mapResDataToCandidateInfo = (resData: ResData, numBacc: string, anneeBacc:
   //   'OSE': 'OSE'
   // };
 
-  const series = resData.option as 'S' | 'C' | 'D' | 'A1' | 'A2' | 'L' | 'OSE';
+  const series = resData.option as 'S' | 'C' | 'D' | 'A1' | 'A2' | 'L' | 'OSE' | 'OM' | 'TAMB' | 'CCBTP-PCBTP' | 'TGI' | 'EN' | 'TPFM' | 'TMEL' | 'TFFI' | 'TMA' | 'TA';
   
   // Vérifier l'éligibilité (séries scientifiques uniquement)
   const eligibleSeries = ['S', 'C', 'D'];
@@ -56,7 +56,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
       return mapResDataToCandidateInfo(resData, numBacc, anneeBacc);
     } catch (error) {
       console.log(error);
-      throw new Error('Erreur lors de la récupération des données');
+      throw new Error('Données introuvable');
     }
   };
 
