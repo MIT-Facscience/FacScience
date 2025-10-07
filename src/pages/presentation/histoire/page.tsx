@@ -110,7 +110,7 @@ export default function HistoirePage() {
     { number: "60+", label: "Années d'excellence", icon: <Calendar className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: "5000+", label: "Diplômés", icon: <Users className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: nbMentions, label: "Mentions", icon: <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" /> },
-    // { number: nbEnseignants, label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
+    { number: nbEnseignants, label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> },
     { number: "200+", label: "Enseignants", icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" /> }
   ]
 
