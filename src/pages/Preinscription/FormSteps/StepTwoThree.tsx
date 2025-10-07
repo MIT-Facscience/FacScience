@@ -18,8 +18,8 @@ const mapProgram: Record<string, string[] > = {
   CHI: ["C", "S", "D"],
   MI: ["C", "S"],
   IT: ["C", "S"],
-  PAP: ["C", "S", "D"],
-  STE: ["C", "S", "D"],
+  PAP: ["C", "S", "D",  'OM' , 'TAMB' , 'CCBTP-PCBTP' , 'TGI' , 'EN' , 'TPFM' , 'TMEL' , 'TFFI' , 'TMA'],
+  STE: ["C", "S", "D", "TA"],
 }
 
 export const StepTwoThree: React.FC<StepTwoThreeProps> = ({

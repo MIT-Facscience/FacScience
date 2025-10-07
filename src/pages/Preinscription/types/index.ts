@@ -4,7 +4,7 @@ export interface CandidateInfo {
   lastName: string;
   baccalaureateNumber: string;
   graduationYear: number;
-  series: 'S' | 'C' | 'D' | 'A1' | 'A2' | 'L' | 'OSE';
+  series: 'S' | 'C' | 'D' | 'A1' | 'A2' | 'L' | 'OSE' | 'OM' | 'TAMB' | 'CCBTP-PCBTP' | 'TGI' | 'EN' | 'TPFM' | 'TMEL' | 'TFFI' | 'TMA' | 'TA';
   isEligible: boolean;
 }
 

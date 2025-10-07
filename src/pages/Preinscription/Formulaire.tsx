@@ -84,7 +84,7 @@ const Formulaire: React.FC = () => {
             <>
               <StepOne onNext={handleStepOneComplete} />
 
-              {candidateInfo && (
+              {candidateInfo && candidateInfo !== null && (
                 <StepTwoThree
                   candidateInfo={candidateInfo}
                   programs={program}
