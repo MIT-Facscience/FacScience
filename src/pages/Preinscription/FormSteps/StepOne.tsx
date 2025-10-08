@@ -189,7 +189,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-faculty-purple-700 hover:bg-faculty-purple-800 text-white font-semibold py-3 px-6 transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
+          className="w-full bg-[#bb40b9] hover:bg-primary text-white font-semibold py-3 px-6 transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
         >
           {isLoading ? (
             <>

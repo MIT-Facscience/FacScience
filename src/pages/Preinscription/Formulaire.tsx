@@ -132,11 +132,11 @@ const Formulaire: React.FC = () => {
           {/* Option Académique */}
           <button
             onClick={() => setFormationType("academique")}
-            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-purple-500 group"
+            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-primary group"
           >
             <div className="flex flex-col items-center text-center space-y-6">
-              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-500 transition-colors duration-300">
-                <GraduationCap className="w-10 h-10 text-purple-600 group-hover:text-white transition-colors duration-300" />
+              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-[#bb40b9] transition-colors duration-300">
+                <GraduationCap className="w-10 h-10 text-primary group-hover:text-white transition-colors duration-300" />
               </div>
               
               <div>
@@ -155,7 +155,7 @@ const Formulaire: React.FC = () => {
                 <li>• Poursuite d'études facilitée</li>
               </ul>
 
-              <div className="mt-4 px-6 py-2 bg-purple-500 text-white rounded-full group-hover:bg-purple-600 transition-colors duration-300">
+              <div className="mt-4 px-6 py-2 bg-[#bb40b9] text-white rounded-full group-hover:bg-[#bb40b9] transition-colors duration-300">
                 Choisir Académique
               </div>
             </div>
@@ -164,11 +164,11 @@ const Formulaire: React.FC = () => {
           {/* Option Professionnalisante */}
           <button
             onClick={() => setFormationType("professionnalisante")}
-            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-amber-500 group"
+            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-secondary group"
           >
             <div className="flex flex-col items-center text-center space-y-6">
-              <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center group-hover:bg-amber-500 transition-colors duration-300">
-                <Briefcase className="w-10 h-10 text-amber-600 group-hover:text-white transition-colors duration-300" />
+              <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center group-hover:bg-[#e2c562] transition-colors duration-300">
+                <Briefcase className="w-10 h-10 text-secondary group-hover:text-white transition-colors duration-300" />
               </div>
               
               <div>
@@ -187,7 +187,7 @@ const Formulaire: React.FC = () => {
                 <li>• Insertion rapide sur le marché</li>
               </ul>
 
-              <div className="mt-4 px-6 py-2 bg-amber-500 text-white rounded-full group-hover:bg-amber-600 transition-colors duration-300">
+              <div className="mt-4 px-6 py-2 bg-[#e2c562] text-white rounded-full group-hover:bg-secondary transition-colors duration-300">
                 Choisir Professionnalisante
               </div>
             </div>
@@ -223,14 +223,14 @@ const Formulaire: React.FC = () => {
             }`}>
               <div className="flex items-center space-x-3">
                 {formationType === "academique" ? (
-                  <GraduationCap className="w-6 h-6 text-purple-600" />
+                  <GraduationCap className="w-6 h-6 text-primary" />
                 ) : (
-                  <Briefcase className="w-6 h-6 text-amber-600" />
+                  <Briefcase className="w-6 h-6 text-secondary" />
                 )}
                 <div>
                   <p className="text-sm text-gray-600">Vous vous inscrivez en :</p>
                   <p className={`font-semibold ${
-                    formationType === "academique" ? "text-purple-700" : "text-amber-700"
+                    formationType === "academique" ? "text-primary" : "text-secondary"
                   }`}>
                     Formation {formationType === "academique" ? "Académique" : "Professionnalisante"}
                   </p>
@@ -247,13 +247,13 @@ const Formulaire: React.FC = () => {
             {/* Choix type de bac */}
             <div className='flex space-x-6 my-3 w-full justify-around p-3 rounded-lg'>
               <button 
-                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${bactype === "mg" ? "font-semibold text-purple-900" : "text-zinc-800"}`} 
+                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${bactype === "mg" ? "font-semibold text-primary" : "text-zinc-800"}`} 
                 onClick={() => setBactype("mg")}
               >
                 Bacc Malagasy
               </button>
               <button 
-                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${bactype === "etg" ? "font-semibold text-purple-900" : "text-zinc-800"}`} 
+                className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${bactype === "etg" ? "font-semibold text-primary" : "text-zinc-800"}`} 
                 onClick={() => setBactype("etg")}
               >
                 Bacc Étranger
@@ -270,7 +270,7 @@ const Formulaire: React.FC = () => {
           <div className="text-center text-sm text-gray-500">
             <p>
               Besoin d'aide ? Contactez le service des inscriptions : 
-              <span className="font-medium text-faculty-purple-600 ml-1">
+              <span className="font-medium text-primary ml-1">
                 inscription@sciences.mg
               </span>
             </p>
