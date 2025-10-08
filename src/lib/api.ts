@@ -1,1 +1,4 @@
-export const BACKEND_URL = import.meta.env.VITE_API_URL_BACKEND
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_FACSCIENCES;
+export const BACKEND_PREINSCRIPTION_URL = import.meta.env
+  .VITE_BACKEND_PREINSCRIPTION;
+export const BACKEND_WEBSERVICES_URL = import.meta.env.VITE_BACKEND_WEBSERVICES;

@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { BACKEND_URL } from "@/lib/api";
 
 // Mock data types
 interface BasePerson {
@@ -64,8 +65,8 @@ const AnnuairePage = () => {
         setLoading(true);
         // Lancer les 2 fetch en parallèle avec les bonnes URLs
         const [professorsResponse, staffResponse] = await Promise.all([
-          fetch("http://localhost:5194/api/Personne/professeurs"),
-          fetch("http://localhost:5194/api/Personne/pats"),
+          fetch(`${BACKEND_URL}/api/Personne/professeurs`),
+          fetch(`${BACKEND_URL}/api/Personne/pats`),
         ]);
 
         // Vérifier si toutes les réponses sont OK
