@@ -288,7 +288,7 @@ export default function AdmissionPage() {
                               <Button
                                 className="w-full rounded-none"
                                 onClick={() =>
-                                  (window.location.href = "/preinscription")
+                                  (window.location.href = "/admission/preinscription")
                                 }
                               >
                                 S'inscrire au Portail 1
@@ -341,7 +341,7 @@ export default function AdmissionPage() {
                               <Button
                                 className="w-full rounded-none"
                                 onClick={() =>
-                                  (window.location.href = "/preinscription")
+                                  (window.location.href = "/admission/preinscription")
                                 }
                               >
                                 S'inscrire au Portail 2
@@ -379,7 +379,7 @@ export default function AdmissionPage() {
                               <Button
                                 className="w-full rounded-none"
                                 onClick={() =>
-                                  (window.location.href = "/preinscription")
+                                  (window.location.href = "/admission/preinscription")
                                 }
                               >
                                 S'inscrire - Bacc Technique
@@ -466,7 +466,7 @@ export default function AdmissionPage() {
                         variant="secondary"
                         className="w-full rounded-none"
                         onClick={() =>
-                          (window.location.href = "/preinscription")
+                          (window.location.href = "/admission/preinscription")
                         }
                       >
                         S'inscrire

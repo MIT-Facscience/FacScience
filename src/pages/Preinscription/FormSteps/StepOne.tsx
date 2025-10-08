@@ -143,7 +143,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
           >
             Numéro de baccalauréat <strong>(Ex:3280151) *</strong>
           </label>
-         <input
+          <input
             type="text"
             id="bacNumber"
             value={baccalaureateNumber}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import {  useNavigate } from 'react-router-dom';
+import {  GraduationCap, Briefcase } from 'lucide-react';
 import { StepProgress } from './FormSteps/StepProgress';
 import { StepOne } from './FormSteps/StepOne';
 import { StepTwoThree } from './FormSteps/StepTwoThree';
@@ -17,31 +17,27 @@ interface PersonalInfo {
 const Formulaire: React.FC = () => {
   const navigate = useNavigate();
 
-  // Seulement 2 steps visibles pour l'utilisateur
-  const [currentStep, setCurrentStep] = useState<1 | 2>(1);
+  // Nouveau state pour le choix de formation
+  const [formationType, setFormationType] = useState<"academique" | "professionnalisante" | null>(null);
 
-  // États internes pour StepOne/TwoThree
+  const [currentStep, setCurrentStep] = useState<1 | 2>(1);
   const [candidateInfo, setCandidateInfo] = useState<CandidateInfo | null>(null);
   const [applicationData, setApplicationData] = useState<ApplicationData | null>(null);
-
   const [bactype, setBactype] = useState<"mg" | "etg">("mg");
   const [strangerStep, setstrangerStep] = useState(1);
-
   const [program, setProgram] = useState<Program[] | null>(null);
 
-  // Les titres visibles dans la barre
   const stepTitles = ['Informations', 'Confirmation'];
   const stepStranger = ["Information Personnelle", "Documents et parcours", "Confirmation"];
 
   useEffect(() => {
     const fetchGetProg = async () => {
       const prog = await getProgram();
-      setProgram(prog??null);
+      setProgram(prog ?? null);
     }
-
     fetchGetProg();
   }, []);
-  // Handlers
+
   const handleStepOneComplete = (info: CandidateInfo) => {
     setCandidateInfo(info);
   };
@@ -62,20 +58,19 @@ const Formulaire: React.FC = () => {
       },
       bankInfo: data.bankInfo,
     });
-    setCurrentStep(2); // Passe directement à la confirmation
+    setCurrentStep(2);
   };
 
   const handleComplete = () => {
     navigate('/admission/modalite');
   };
 
-  // Flow malagasy
   const renderMalagasyFlow = () => {
     return (
       <>
         <StepProgress
           currentStep={currentStep}
-          totalSteps={2} // Seulement 2 étapes visibles
+          totalSteps={2}
           stepTitles={stepTitles}
         />
 
@@ -120,27 +115,135 @@ const Formulaire: React.FC = () => {
     );
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 ">
-      <div className="container mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Link
-            to="/preinscription"
-            className="flex items-center space-x-2 text-faculty-purple-600 hover:text-faculty-purple-700 transition-colors duration-200"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Retour</span>
-          </Link>
-          <h1 className="text-2xl font-bold text-gray-900">
-            Formulaire de pré-inscription
+  // Rendu du choix de formation (écran initial)
+  const renderFormationChoice = () => {
+    return (
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Choisissez votre type de formation
           </h1>
-          <div className="w-20"></div>
+          <p className="text-lg text-gray-600">
+            Sélectionnez le parcours qui correspond à votre projet
+          </p>
         </div>
 
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Option Académique */}
+          <button
+            onClick={() => setFormationType("academique")}
+            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-purple-500 group"
+          >
+            <div className="flex flex-col items-center text-center space-y-6">
+              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-500 transition-colors duration-300">
+                <GraduationCap className="w-10 h-10 text-purple-600 group-hover:text-white transition-colors duration-300" />
+              </div>
+              
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                  Formation Académique
+                </h2>
+                <p className="text-gray-600 leading-relaxed">
+                  Parcours orienté vers la recherche et l'approfondissement théorique. 
+                  Idéal pour poursuivre en master et doctorat.
+                </p>
+              </div>
+
+              <ul className="text-sm text-gray-500 space-y-2 text-left w-full">
+                <li>• Cursus théorique approfondi</li>
+                <li>• Préparation à la recherche</li>
+                <li>• Poursuite d'études facilitée</li>
+              </ul>
+
+              <div className="mt-4 px-6 py-2 bg-purple-500 text-white rounded-full group-hover:bg-purple-600 transition-colors duration-300">
+                Choisir Académique
+              </div>
+            </div>
+          </button>
+
+          {/* Option Professionnalisante */}
+          <button
+            onClick={() => setFormationType("professionnalisante")}
+            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-amber-500 group"
+          >
+            <div className="flex flex-col items-center text-center space-y-6">
+              <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center group-hover:bg-amber-500 transition-colors duration-300">
+                <Briefcase className="w-10 h-10 text-amber-600 group-hover:text-white transition-colors duration-300" />
+              </div>
+              
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                  Formation Professionnalisante
+                </h2>
+                <p className="text-gray-600 leading-relaxed">
+                  Parcours orienté vers l'insertion professionnelle rapide. 
+                  Formation pratique et stages en entreprise.
+                </p>
+              </div>
+
+              <ul className="text-sm text-gray-500 space-y-2 text-left w-full">
+                <li>• Compétences professionnelles</li>
+                <li>• Stages en entreprise</li>
+                <li>• Insertion rapide sur le marché</li>
+              </ul>
+
+              <div className="mt-4 px-6 py-2 bg-amber-500 text-white rounded-full group-hover:bg-amber-600 transition-colors duration-300">
+                Choisir Professionnalisante
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  // Si aucun type de formation n'est choisi, afficher l'écran de choix
+  if (!formationType) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+        <div className="container mx-auto px-6 py-8">
+          {renderFormationChoice()}
+        </div>
+      </div>
+    );
+  }
+
+  // Sinon, afficher le formulaire avec un indicateur du type choisi
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+      <div className="container mx-auto px-6 py-8">
         {/* Main Form Container */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-white shadow-xl rounded-sm p-8 md:p-12 space-y-3">
+            {/* Indicateur du type de formation choisi */}
+            <div className={`flex items-center justify-between p-4 rounded-lg mb-6 ${
+              formationType === "academique" 
+                ? "bg-purple-50 border border-purple-200" 
+                : "bg-amber-50 border border-amber-200"
+            }`}>
+              <div className="flex items-center space-x-3">
+                {formationType === "academique" ? (
+                  <GraduationCap className="w-6 h-6 text-purple-600" />
+                ) : (
+                  <Briefcase className="w-6 h-6 text-amber-600" />
+                )}
+                <div>
+                  <p className="text-sm text-gray-600">Vous vous inscrivez en :</p>
+                  <p className={`font-semibold ${
+                    formationType === "academique" ? "text-purple-700" : "text-amber-700"
+                  }`}>
+                    Formation {formationType === "academique" ? "Académique" : "Professionnalisante"}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setFormationType(null)}
+                className="text-sm text-gray-500 hover:text-gray-700 underline"
+              >
+                Modifier
+              </button>
+            </div>
+
             {/* Choix type de bac */}
             <div className='flex space-x-6 my-3 w-full justify-around p-3 rounded-lg'>
               <button 
