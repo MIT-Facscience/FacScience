@@ -1,6 +1,9 @@
 import type { ForeignApplicationData } from './../types/index';
 import type { ApplicationData } from '../types';
 import type { ResData } from '../types/models';
+import { BACKEND_WEBSERVICES_URL } from '@/lib/api';
+import { BACKEND_PREINSCRIPTION_URL } from '@/lib/api';
+
 // import { Preinscription, ResData } from '../types/models';
 
 // Simulate API delay
@@ -12,7 +15,7 @@ export const fetchCandidateInfo = async (
 ) => {
   await delay(1000); // Simulate network delay
 
-  const res = await fetch(`${import.meta.env.VITE_API_WEB_SERVICE}/preinscription`, {
+  const res = await fetch(`${BACKEND_WEBSERVICES_URL}/preinscription`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +44,7 @@ export const submitApplication = async (applicationData: ApplicationData) => {
   // await new Promise(resolve => setTimeout(resolve, 2000));
   try {
     const app: ApplicationData = applicationData;
-    const response = await fetch(`${import.meta.env.VITE_API_URL_PREINSCRIPTION}/api/Register/RegisterTry`, {
+    const response = await fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Register/RegisterTry`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -73,7 +76,7 @@ export const submitApplication = async (applicationData: ApplicationData) => {
 export const submitForeignPreinscription = async (applicationData: ForeignApplicationData) => {
   try {
     const app: ForeignApplicationData= applicationData;
-    const response = await fetch(`${import.meta.env.VITE_API_URL_PREINSCRIPTION}/api/Register/RegisterTry`, {
+    const response = await fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Register/RegisterTry`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

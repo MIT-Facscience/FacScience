@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import LoadingFormation from "@/pages/formation/components/LoadingFormation";
 import ErrorFormation from "./components/ErrorFormation";
+import { BACKEND_URL } from "@/lib/api";
 
 interface Mention {
   idMention: string;
@@ -24,7 +25,7 @@ export default function FormationPage() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5194/api/Mention/liste");
+        const response = await fetch(`${BACKEND_URL}/api/Mention/liste`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         if (isMounted) setMentions(json);

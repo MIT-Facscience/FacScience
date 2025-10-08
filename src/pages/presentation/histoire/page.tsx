@@ -3,13 +3,14 @@ import { Badge } from "@/components/ui/badge"
 import { Calendar, Users, Award, BookOpen, Microscope, Globe, FlaskConical, Laptop } from "lucide-react"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react";
+import { BACKEND_URL } from "@/lib/api";
 
 export default function HistoirePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);
   const [nbMentions, setNbMentions] = useState(14);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/enseignant")
+    fetch(`${BACKEND_URL}/api/stat/enseignant`)
       .then((response) => response.json())
       .then((data) => {
         setNbEnseignants(data.length);
@@ -20,7 +21,7 @@ export default function HistoirePage() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5194/api/stat/mention")
+    fetch(`${BACKEND_URL}/api/stat/mention`)
       .then((response) => response.json())
       .then((data) => {
         setNbMentions(data.length);
