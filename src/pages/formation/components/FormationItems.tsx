@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  getImageMention,
-  getRespo,
+  // getImageMention,
+  // getRespo,
   getStatsById,
 } from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
@@ -9,17 +9,95 @@ import { Users, Clock, BookOpen, Award, User } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PrimaryButton from "@/components/ui/PrimaryButton";
-import getParoursById from "@/dataTestFormation/parcours";
+// import getParoursById from "@/dataTestFormation/parcours";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Parcours from "./Parcour";
+import { useEffect, useState } from "react";
+import Loader from "@/components/Home/loading";
+import ErrorComp from "@/components/Home/error";
+
+interface Mention {
+  nomMention: string;
+  responsable?: {nom: string; prenom: string};
+  imagePath?: string;
+  logoPath?: string;
+}
+
+interface Parcours {
+  idParcours: number;
+  nomParcours: string;
+  niveaux: string[];
+}
+
+interface ParcoursProfessionnalisante {
+  idParcours: number;
+  nomParcours: string;
+  nomParcoursProfessionnalisante: string;
+  niveaux: string[];
+}
 
 export default function FormationItems() {
   const id = useSearchParams()[0].toString().split("=")[0];
-  const data = getRespo(id);
+  // const data = getRespo(id);
   const stats = getStatsById(id);
-  const image = getImageMention(id);
+  // const image = getImageMention(id);
   const icon = [<Users />, <BookOpen />, <Clock />, <Award />];
-  const parcours = getParoursById(id);
+  // const parcours = getParoursById(id);
+
+  const [ mention, setMention ] = useState<Mention | null>();
+  const [ parcours, setParcours ] = useState<Parcours[] | null>();
+  const [ parcoursPro, setParcoursPro ] = useState<ParcoursProfessionnalisante[] | null>();
+  const [ loading, setLoading ] = useState(true);
+  const [ error, setError ] = useState<string | null>(null);
+
+  
+
+  useEffect(() => {
+    const fetchParcours = async () => {
+      try {
+        const response = await fetch(`http://localhost:5194/api/Mention/${id}/parcours`);
+        if (!response.ok) throw new Error("Erreur réseau");
+        const json = await response.json();
+        setParcours(json.pn);
+        setParcoursPro(json.pp);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError(String(err));
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5194/api/Mention/${id}`);
+        if (!response.ok) throw new Error("Erreur réseau");
+        const json = await response.json();
+        setMention(json);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError(String(err));
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const getData = async () => {
+      await fetchData();
+      await fetchParcours();
+    }
+
+    getData()
+  }, [id]);
+
+  if (loading) return <Loader/>;
+  if (error) return <ErrorComp>{error}</ErrorComp>;
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -42,11 +120,13 @@ export default function FormationItems() {
                 </div>
                 <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
                   <h1 className="text-2xl lg:text-4xl font-bold mb-4 sm:mb-6 text-white">
-                    {data?.name}
+                    {mention?.nomMention}
+                    {/* {data?.name} */}
                   </h1>
                   <p className="text-sm sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
                     Découvrez les parcours d’excellence dans la mention{" "}
-                    {data?.name?.toLowerCase()}
+                    {mention?.nomMention.toLowerCase()}
+                    {/* {data?.name?.toLowerCase()} */}
                   </p>
                 </div>
               </motion.div>
@@ -59,22 +139,16 @@ export default function FormationItems() {
             >
               <Card className="border-none rounded-none flex flex-col items-center">
                 <CardHeader className="w-full flex flex-col gap-3 font-bold items-center text-slate-600">
-                  <img
-                    src={image}
+                  <img src={mention?.imagePath}
                     onError={(e) => {
                       e.currentTarget.src = "/fac-science.jpg";
                     }}
-                    alt=""
-                    className="w-30 md:w-40 h-auto"
-                  />
-                  <h1 className="text-center">{data.name}</h1>
+                     alt="" className="w-30 md:w-40 h-auto" />
+                  <h1 className="text-center">{mention?.nomMention}</h1>
                 </CardHeader>
                 <CardContent className="flex justify-center text-slate-500 font-medium">
                   <p className="text-center text-sm w-full lg:w-1/2">
-                    La mention {data.name} a pour objectif de former les
-                    étudiants, en leur offrant des compétences théoriques et
-                    pratiques adaptées aux exigences académiques et
-                    professionnelles.
+                    La mention {mention?.nomMention} a pour objectif de former les étudiants, en leur offrant des compétences théoriques et pratiques adaptées aux exigences académiques et professionnelles.
                   </p>
                 </CardContent>
               </Card>
@@ -107,53 +181,41 @@ export default function FormationItems() {
                 ))}
             </div>
 
-            {parcours?.isProfessionnalisantes ? (
-              <Tabs defaultValue="normal">
-                <TabsList className="w-full h-10 sm:h-12 mt-5 rounded-none">
-                  <TabsTrigger
+            
+            <Tabs defaultValue="normal">
+              <TabsList className="w-full h-10 sm:h-12 mt-5 rounded-none">
+                {parcours && parcours.length > 0 && (<TabsTrigger
                     value="normal"
                     className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
-                    <span className="hidden sm:flex">Parcours</span> normal
+                    <span className="hidden sm:flex">Académique</span>
                   </TabsTrigger>
-                  <TabsTrigger
+                )}
+                {parcoursPro && parcoursPro.length > 0 && (<TabsTrigger
                     value="professionalisante"
                     className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
                   >
-                    <span className="hidden sm:flex">Parcours</span>{" "}
-                    professionalisant
+                    <span className="hidden sm:flex">Professionnalisante</span>
                   </TabsTrigger>
-                </TabsList>
-                <TabsContent value="normal">
-                  {parcours && (
-                    <Parcours
-                      parcours={parcours.data}
-                      type="normal"
-                      idMention={id}
-                    />
-                  )}
-                </TabsContent>
-                <TabsContent value="professionalisante">
-                  {parcours && parcours.professionalisante && (
-                    <Parcours
-                      parcours={parcours.professionalisante}
-                      type="professionalisante"
-                      idMention={id}
-                    />
-                  )}
-                </TabsContent>
-              </Tabs>
-            ) : (
-              <>
+                )}
+              </TabsList>
+              <TabsContent value="normal">
                 {parcours && (
                   <Parcours
-                    parcours={parcours.data}
-                    type="normal"
+                    parcours={parcours}
                     idMention={id}
                   />
                 )}
-              </>
-            )}
+              </TabsContent>
+              <TabsContent value="professionalisante">
+                {parcoursPro && (
+                  <Parcours
+                    parcours={parcoursPro}
+                    idMention={id}
+                  />
+                )}
+              </TabsContent>
+            </Tabs>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -169,7 +231,7 @@ export default function FormationItems() {
                 <CardContent className="text-sm text-slate-600 font-medium flex flex-col items-center gap-4">
                   <span className="flex flex-col items-center md:flex-row md:gap-1">
                     <span className="font-bold">Chef mention : </span>{" "}
-                    {data.respo}
+                    {mention?.responsable?.nom + " " + mention?.responsable?.prenom}
                   </span>
                   <p className="w-full lg:w-1/2 text-center font-normal">
                     Le chef de mention est responsable de la coordination

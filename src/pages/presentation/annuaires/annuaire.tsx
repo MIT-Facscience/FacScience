@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "@/lib/api";
 import type { Professors, Staff } from "@/lib/types";
 import { motion } from "framer-motion";
 import {
@@ -29,7 +30,6 @@ const AnnuairePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState("grid");
 
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
@@ -44,8 +44,8 @@ const AnnuairePage = () => {
         setLoading(true);
         // Lancer les 2 fetch en parallèle avec les bonnes URLs
         const [professorsResponse, staffResponse] = await Promise.all([
-          fetch("http://localhost:5194/api/Personne/professeurs"),
-          fetch("http://localhost:5194/api/Personne/pats"),
+          fetch(`${BACKEND_URL}/api/Personne/professeurs`),
+          fetch(`${BACKEND_URL}/api/Personne/pats`),
         ]);
 
         // Vérifier si toutes les réponses sont OK

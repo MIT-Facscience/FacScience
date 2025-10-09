@@ -1,1 +1,3 @@
-VITE_API_URL_BACKEND=<protocole>://<ip>:<port>
+VITE_BACKEND_PREINSCRIPTION=http://localhost:<port>
+VITE_BACKEND_FACSCIENCES=http://localhost:<port>
+VITE_BACKEND_WEBSERVICES=http://localhost:<port>

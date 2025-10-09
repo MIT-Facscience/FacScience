@@ -18,8 +18,8 @@ const mapProgram: Record<string, string[] > = {
   CHI: ["C", "S", "D"],
   MI: ["C", "S"],
   IT: ["C", "S"],
-  PAP: ["C", "S", "D"],
-  STE: ["C", "S", "D"],
+  PAP: ["C", "S", "D",  'OM' , 'TAMB' , 'CCBTP-PCBTP' , 'TGI' , 'EN' , 'TPFM' , 'TMEL' , 'TFFI' , 'TMA'],
+  STE: ["C", "S", "D", "TA"],
 }
 
 export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
@@ -176,7 +176,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
         </button>
         <button
           type="submit"
-          disabled={!selectedProgram || !email || !telephone || !bankAgence || !bankReference || !bankDate || !isValidEmail(email) || !isValidTel(telephone.replace(" ", ""))}
+          // disabled={!selectedProgram || !email || !telephone || !bankAgence || !bankReference || !bankDate || !isValidEmail(email) || !isValidTel(telephone.replace(" ", ""))}
           className="px-6 py-2 bg-faculty-purple-600 text-white rounded-sm hover:bg-faculty-purple-700 disabled:opacity-50"
         >
           Continuer

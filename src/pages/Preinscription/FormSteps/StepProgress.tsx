@@ -28,14 +28,14 @@ export const StepProgress: React.FC<StepProgressProps> = ({
                     isCompleted
                       ? 'bg-green-500 text-white'
                       : isCurrent
-                      ? 'bg-faculty-purple-700 text-white'
+                      ? 'bg-primary text-white'
                       : 'bg-gray-200 text-gray-500'
                   }`}
                 >
                   {isCompleted ? <Check className="w-5 h-5" /> : stepNumber}
                 </div>
                 <span className={`text-xs mt-2 text-center ${
-                  isCurrent ? 'text-faculty-purple-700 font-medium' : 'text-gray-500'
+                  isCurrent ? 'text-primary font-medium' : 'text-gray-500'
                 }`}>
                   {title}
                 </span>

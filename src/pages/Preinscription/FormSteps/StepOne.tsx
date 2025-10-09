@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
-import { Loader2, Search, AlertCircle } from 'lucide-react';
-import {fetchCandidateInfo as fetchCand} from "../api/api"
-import type { CandidateInfo } from '../types';
-import type { ResData } from '../types/models';
+import React, { useState } from "react";
+import { Loader2, Search, AlertCircle } from "lucide-react";
+import { fetchCandidateInfo as fetchCand } from "../api/api";
+import type { CandidateInfo } from "../types";
+import type { ResData } from "../types/models";
 
 interface StepOneProps {
   onNext: (candidateInfo: CandidateInfo) => void;
 }
 
 // Fonction pour convertir ResData en CandidateInfo
-const mapResDataToCandidateInfo = (resData: ResData, numBacc: string, anneeBacc: number): CandidateInfo => {
+const mapResDataToCandidateInfo = (
+  resData: ResData,
+  numBacc: string,
+  anneeBacc: number
+): CandidateInfo => {
   // Séparer nom et prénom
-  const nameParts = resData.nom_prenom.trim().split(' ');
-  const firstName = nameParts.slice(0, -1).join(' ') || '';
-  const lastName = nameParts[nameParts.length - 1] || '';
+  const nameParts = resData.nom_prenom.trim().split(" ");
+  const firstName = nameParts.slice(0, -1).join(" ") || "";
+  const lastName = nameParts[nameParts.length - 1] || "";
 
   // Mapper l'option/série vers le format attendu
   // const seriesMapping: Record<string, 'S' | 'C' | 'D' | 'A1' | 'A2' | 'L' | 'OSE'> = {
@@ -26,10 +30,27 @@ const mapResDataToCandidateInfo = (resData: ResData, numBacc: string, anneeBacc:
   //   'OSE': 'OSE'
   // };
 
-  const series = resData.option as 'S' | 'C' | 'D' | 'A1' | 'A2' | 'L' | 'OSE';
-  
+  const series = resData.option as
+    | "S"
+    | "C"
+    | "D"
+    | "A1"
+    | "A2"
+    | "L"
+    | "OSE"
+    | "OM"
+    | "TAMB"
+    | "CCBTP-PCBTP"
+    | "TGI"
+    | "EN"
+    | "TPFM"
+    | "TMEL"
+    | "TFFI"
+    | "TMA"
+    | "TA";
+
   // Vérifier l'éligibilité (séries scientifiques uniquement)
-  const eligibleSeries = ['S', 'C', 'D'];
+  const eligibleSeries = ["S", "C", "D"];
   const isEligible = eligibleSeries.includes(series);
 
   return {
@@ -39,60 +60,65 @@ const mapResDataToCandidateInfo = (resData: ResData, numBacc: string, anneeBacc:
     baccalaureateNumber: numBacc,
     graduationYear: anneeBacc,
     series,
-    isEligible
+    isEligible,
   };
 };
 
 export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
-  const [baccalaureateNumber, setBaccalaureateNumber] = useState('');
-  const [graduationYear, setGraduationYear] = useState('');
+  const [baccalaureateNumber, setBaccalaureateNumber] = useState("");
+  const [graduationYear, setGraduationYear] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-  const fetchCandidateInfo = async (numBacc: string, anneeBacc: number): Promise<CandidateInfo | null> => {
+  const fetchCandidateInfo = async (
+    numBacc: string,
+    anneeBacc: number
+  ): Promise<CandidateInfo | null> => {
     try {
       // Votre appel API existant qui retourne ResData
       const resData = await fetchCand(numBacc, anneeBacc);
       return mapResDataToCandidateInfo(resData, numBacc, anneeBacc);
     } catch (error) {
       console.log(error);
-      throw new Error('Erreur lors de la récupération des données');
+      throw new Error("Données introuvable");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    
+    setError("");
+
     if (!baccalaureateNumber.trim() || !graduationYear) {
-      setError('Veuillez remplir tous les champs requis');
+      setError("Veuillez remplir tous les champs requis");
       return;
     }
 
     const year = parseInt(graduationYear);
     if (year < 2020 || year > new Date().getFullYear()) {
-      setError('Année de graduation invalide');
+      setError("Année de graduation invalide");
       return;
     }
 
     setIsLoading(true);
-    
+
     try {
       const candidateInfo = await fetchCandidateInfo(baccalaureateNumber, year);
-      
+
       if (!candidateInfo) {
-        setError('Candidat introuvable avec ces informations');
+        setError("Candidat introuvable avec ces informations");
         return;
       }
 
       if (!candidateInfo.isEligible) {
-        setError('Votre série de baccalauréat ne vous permet pas de postuler aux programmes scientifiques');
+        setError(
+          "Votre série de baccalauréat ne vous permet pas de postuler aux programmes scientifiques"
+        );
         return;
       }
 
       onNext(candidateInfo);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+      setError(err instanceof Error ? err.message : "Une erreur est survenue");
     } finally {
       setIsLoading(false);
     }
@@ -111,23 +137,34 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="bacNumber" className="block text-sm font-medium text-gray-700 mb-2">
-            Numéro de baccalauréat *
+          <label
+            htmlFor="bacNumber"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Numéro de baccalauréat <strong>(Ex:3280151) *</strong>
           </label>
           <input
             type="text"
             id="bacNumber"
             value={baccalaureateNumber}
-            onChange={(e) => setBaccalaureateNumber(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              // Accepter seulement les chiffres (pas de limite de longueur)
+              if (/^\d*$/.test(value)) {
+                setBaccalaureateNumber(value);
+              }
+            }}
             className="w-full px-4 py-3 border border-gray-300 focus:border-gray-400 transition-all duration-200"
-            placeholder="Ex: BAC2024001234"
             disabled={isLoading}
           />
         </div>
 
         <div>
-          <label htmlFor="gradYear" className="block text-sm font-medium text-gray-700 mb-2">
-            Année de graduation *
+          <label
+            htmlFor="gradYear"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Année de graduation <strong>(Ex:2025) * </strong>
           </label>
           <input
             type="number"
@@ -137,7 +174,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
             min="2020"
             max={new Date().getFullYear()}
             className="w-full px-4 py-3 border border-gray-300 focus:border-gray-400 transition-all duration-200"
-            placeholder={new Date().getFullYear().toString()}
+            // placeholder={new Date().getFullYear().toString()}
             disabled={isLoading}
           />
         </div>
@@ -152,7 +189,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-faculty-purple-700 hover:bg-faculty-purple-800 text-white font-semibold py-3 px-6 transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
+          className="w-full bg-[#bb40b9] hover:bg-primary text-white font-semibold py-3 px-6 transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
         >
           {isLoading ? (
             <>
@@ -162,7 +199,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
           ) : (
             <>
               <Search className="w-5 h-5" />
-              <span>Vérifier l'éligibilité</span>
+              <span>Vérifier</span>
             </>
           )}
         </button>

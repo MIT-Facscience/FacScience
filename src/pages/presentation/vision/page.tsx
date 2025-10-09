@@ -26,12 +26,12 @@ export default function VisionPage() {
   const events = [
     {
       title: "Digitalisation",
-      subtitle: "avec les Laboratoires de Recherche le 10 Déc",
+      subtitle: "numérisation des mémoires de fin d'études, thèses et autres publications",
       date: "A venir",
     },
     {
       title: "Conférence Innovation Technologique",
-      subtitle: "Premier événement",
+      subtitle: "entre toutes les parties prenantes: étudiants, professeurs, chercheurs et industriels",
       date: "A venir",
     },
   ];
