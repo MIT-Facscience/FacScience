@@ -6,10 +6,36 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Download, Search, TrendingUp, Trophy, Users } from "lucide-react"
 import {Link} from "react-router-dom"
+import { useEffect } from "react"
+import { BACKEND_URL } from "@/lib/api";
 // import { Navigation } from "@/components/navigation"
 // import { Footer } from "@/components/footer"
 
+import { useState } from "react"
+
+type statGType = {
+  total: number;
+  admis: number;
+  nonAdmis: number;
+  tauxAdmission: number;
+}
+
+
 export default function ResultatsPage() {
+
+  const [statG,setStatG] = useState<statGType>();
+
+  useEffect(() => {
+      fetch(`${BACKEND_URL}/api/stat/enseignant`)
+        .then((response) => response.json())
+        .then((data) => {
+          setStatG(data);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des mentions :", error);
+        });
+    }, []);
+
   const resultats_concours = [
     {
       concours: "Concours d'admission L1 - Mathématiques et Informatique",
@@ -186,25 +212,25 @@ export default function ResultatsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">950</div>
+                  <div className="text-3xl font-bold text-blue-600 mb-2">{statG?.total}</div>
                   <div className="text-sm text-slate-600">Candidatures reçues</div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-green-600 mb-2">255</div>
+                  <div className="text-3xl font-bold text-green-600 mb-2">{statG?.admis}</div>
                   <div className="text-sm text-slate-600">Admis</div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">85</div>
+                  <div className="text-3xl font-bold text-purple-600 mb-2">{statG?.nonAdmis}</div>
                   <div className="text-sm text-slate-600">Liste d'attente</div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">27%</div>
+                  <div className="text-3xl font-bold text-orange-600 mb-2">{statG?.tauxAdmission}%</div>
                   <div className="text-sm text-slate-600">Taux d'admission</div>
                 </CardContent>
               </Card>
