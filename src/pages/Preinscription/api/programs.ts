@@ -30,7 +30,7 @@ import type { Program } from '../types';
 
 export const getProgram = async () => {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL_PREINSCRIPTION}/api/Register/mention`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_PREINSCRIPTION}/api/Register/mention`, {
       method: "GET"
     })
     if (!res.ok) return
