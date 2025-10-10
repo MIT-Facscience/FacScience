@@ -26,7 +26,7 @@ export default function ResultatsPage() {
   const [statG,setStatG] = useState<statGType>();
 
   useEffect(() => {
-      fetch(`${BACKEND_URL}/api/stat/enseignant`)
+      fetch(`${BACKEND_URL}/api/stat/preinscrits`)
         .then((response) => response.json())
         .then((data) => {
           setStatG(data);
