@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FileText, ChevronRight } from 'lucide-react';
 import type { ForeignDocuments, Program } from '../../types'
-import { getProgram } from '../../api/programs';
+import { getPrograms } from '../../api/programs';
 
 interface StepTwoProps {
   documents: ForeignDocuments;
@@ -12,30 +12,19 @@ interface StepTwoProps {
   onBack: () => void;
 }
 
-const mapProgram: Record<string, string[] > = {
-  CHI: ["C", "S", "D"],
-  MI: ["C", "S"],
-  IT: ["C", "S"],
-  PAP: ["C", "S", "D"],
-  STE: ["C", "S", "D"],
-}
 
 export default function StepTwo({ selectedProgram, setSelectedProgram, documents, setDocuments, onNext, onBack }: StepTwoProps) {
   const [localProgram, setLocalProgram] = useState(selectedProgram);
   const [programs, setPrograms] = useState<Program[]>([])
-    const [filteredProg, setfilteredProg] = useState<Program[]>([])
 
     useEffect(() => {
       const fetchGetProg = async () => {
-        const prog = await getProgram();
+        const prog = await getPrograms();
         setPrograms(prog ?? []);
       }
   
       fetchGetProg();
     }, []);
-  useEffect(() => {
-    setfilteredProg(programs?.filter((p) => mapProgram[p.abbreviation??""].includes(p.abbreviation??"")))
-  }, [programs])
 
   const handleNext = () => {
     if (!documents.diploma) return;
@@ -64,17 +53,17 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
       <div>
         <h3 className="text-2xl font-bold mb-2">Choisissez votre programme</h3>
         <div className="grid gap-4">
-          {filteredProg.map(program => (
-            <label key={program.idMention} className={`flex items-center space-x-4 p-4 border rounded-lg cursor-pointer ${localProgram?.idMention === program.idMention ? 'border-purple-500 bg-purple-50' : 'border-gray-200'}`}>
+          {programs.map(program => (
+            <label key={program.idPortail} className={`flex items-center space-x-4 p-4 border rounded-lg cursor-pointer ${localProgram?.idPortail === program.idPortail ? 'border-purple-500 bg-purple-50' : 'border-gray-200'}`}>
               <input 
                 type="radio" 
                 name="program" 
                 className="h-4 w-4 text-faculty-purple-600"
-                checked={localProgram?.idMention === program.idMention} 
+                checked={localProgram?.idPortail === program.idPortail} 
                 onChange={() => handleSelectProgram(program)} 
               />
               <div className="flex items-center">
-                <span>{program.nomMention}</span>
+                <span>{program.nomPortail}</span>
               </div>
             </label>
           ))}

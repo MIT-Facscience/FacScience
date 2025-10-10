@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import type { CandidateInfo, Program } from '../types';
-import { isValidEmail, isValidTel } from '../api/api';
 import { TriangleAlert } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { isValidEmail, isValidTel } from '../api/api';
+import type { CandidateInfo, Program } from '../types';
 
 interface StepTwoThreeProps {
   candidateInfo: CandidateInfo;
@@ -14,13 +14,6 @@ interface StepTwoThreeProps {
   onBack: () => void;
 }
 
-const mapProgram: Record<string, string[] > = {
-  CHI: ["C", "S", "D"],
-  MI: ["C", "S"],
-  IT: ["C", "S"],
-  PAP: ["C", "S", "D",  'OM' , 'TAMB' , 'CCBTP-PCBTP' , 'TGI' , 'EN' , 'TPFM' , 'TMEL' , 'TFFI' , 'TMA'],
-  STE: ["C", "S", "D", "TA"],
-}
 
 export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   candidateInfo,
@@ -34,18 +27,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   const [bankReference, setBankReference] = useState('');
   const [bankAgence, setBankAgence] = useState('');
   const [bankDate, setBankDate] = useState(new Date());
-  const [filteredProg, setfilteredProg] = useState<Program[] | undefined>()
 
-  useEffect(() => {
-    if (!programs || !candidateInfo?.series) return;
-
-    const filtered = programs.filter((p) => {
-      const types = mapProgram[p.abbreviation ?? ""];
-      return types?.includes(candidateInfo.series);
-    });
-
-    setfilteredProg(filtered);
-  }, [programs, candidateInfo]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProgram) return;
@@ -66,23 +48,22 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
       <div>
         <h3 className="text-lg font-semibold mb-2">Choisissez votre programme</h3>
         <div className="space-y-2">
-          {filteredProg && filteredProg.map((program) => (
+          {programs?.map((program) => (
             <label
-              key={program.idMention}
-              className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.idMention===selectedProgram?.idMention ? "border-1 border-faculty-purple-600 border-l-4":"hover:border-l-4 hover:border-l-orange-400"}`}
+              key={program.idPortail}
+              className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${program.idPortail===selectedProgram?.idPortail ? "border-1 border-faculty-purple-600 border-l-4":"hover:border-l-4 hover:border-l-orange-400"}`}
             >
               <input
                 type="radio"
                 name="program"
-                value={program.idMention}
-                checked={selectedProgram?.idMention === program.idMention}
+                value={program.idPortail}
+                checked={selectedProgram?.idPortail === program.idPortail}
                 onChange={() => setSelectedProgram(program)}
                 className={`h-4 w-4 text-faculty-purple-600 }`}
               />
-              <span className="text-gray-800">{program.nomMention.charAt(0).toUpperCase()+ program.nomMention.slice(1).toLowerCase()}</span>
+              <span className="text-gray-800">{program.nomPortail.charAt(0).toUpperCase()+ program.nomPortail.slice(1).toLowerCase()}</span>
               <span className='p-1 rounded border border-gray-300 text-sm text-gray-400'>{program.abbreviation}</span>
               
-              <p className='text-gray-600 text-sm'>{program.descriptionMention}</p>
             </label>
           ))}
         </div>
@@ -130,7 +111,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
           <div className="relative">
             <input
               type="tel"
-              placeholder=""
+              placeholder="033XXXXXXX / +26133XXXXXXX"
               value={telephone}
               onChange={(e) => {
                 let val = e.target.value.replace(/[^0-9+\s]/g, ""); // garde seulement + et chiffres

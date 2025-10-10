@@ -43,7 +43,7 @@ const StepThree: React.FC<StepThreeProps> = ({
         {/* Programme choisi */}
         <div className="bg-gray-50 p-4 rounded-lg">
           <h3 className="font-semibold text-gray-800 mb-2">Programme choisi</h3>
-          <p>{selectedProgram?.nomMention || 'Non sélectionné'}</p>
+          <p>{selectedProgram?.nomPortail || 'Non sélectionné'}</p>
         </div>
 
         {/* Informations bancaires */}

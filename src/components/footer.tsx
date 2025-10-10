@@ -114,10 +114,10 @@ export function Footer() {
                     Email
                   </p>
                   <a
-                    href="mailto:contact@sciences.univ-antananarivo.mg"
+                    href="mailto:sciencesfaculte@univ-antananarivo.mg"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
                   >
-                    contact@sciences.univ-antananarivo.mg
+                    sciencesfaculte@univ-antananarivo.mg
                   </a>
                 </div>
               </div>

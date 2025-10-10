@@ -9,11 +9,9 @@ export interface CandidateInfo {
 }
 
 export interface Program {
-  idMention: string;
-  nomMention: string;
+  idPortail: string;
+  nomPortail: string;
   abbreviation?: string;
-  descriptionMention?: string;
-  logoPath?: string;
 }
 
 export interface ApplicationData {

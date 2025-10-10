@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { ArrowRight, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 export default function MentionCard({
   mention,
@@ -26,7 +26,7 @@ export default function MentionCard({
         <CardHeader className="flex flex-col gap-4 p-0">
           <div className="relative w-full h-60 overflow-hidden flex items-start">
             <img
-              src={"/public/science.png"}
+              src={"/science.png"}
               alt={`Mention ${mention.nomMention}`}
               className="w-full h-auto"
             />

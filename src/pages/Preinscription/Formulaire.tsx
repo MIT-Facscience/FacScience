@@ -40,15 +40,16 @@ const Formulaire: React.FC = () => {
   ];
 
   useEffect(() => {
-    const fetchGetProg = async () => {
-      const prog = await getProgram();
-      setProgram(prog ?? null);
-    };
-    fetchGetProg();
+    
   }, []);
 
   const handleStepOneComplete = (info: CandidateInfo) => {
     setCandidateInfo(info);
+    const fetchGetProg = async () => {
+    const prog = await getProgram(info.series, formationType === "academique");
+      setProgram(prog ?? null);
+    };
+    fetchGetProg();
   };
 
   const handleStepTwoThreeComplete = (data: {
@@ -309,9 +310,9 @@ const Formulaire: React.FC = () => {
           <div className="text-center text-sm text-gray-500">
             <p>
               Besoin d'aide ? Contactez le service des inscriptions :
-              <span className="font-medium text-primary ml-1">
-                inscription@sciences.mg
-              </span>
+              <a className="font-medium text-primary ml-1" href="mailto:sciencesfaculte@univ-antananarivo.mg">
+                sciencesfaculte@univ-antananarivo.mg
+              </a>
             </p>
           </div>
         </div>

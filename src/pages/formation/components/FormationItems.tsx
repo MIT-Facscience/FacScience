@@ -1,20 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import PrimaryButton from "@/components/ui/PrimaryButton";
 import {
   // getImageMention,
   // getRespo,
   getStatsById,
 } from "@/dataTestFormation/mention";
 import { motion } from "framer-motion";
-import { Users, Clock, BookOpen, Award, User } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import PrimaryButton from "@/components/ui/PrimaryButton";
+import { Award, BookOpen, Clock, User, Users } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
 // import getParoursById from "@/dataTestFormation/parcours";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Parcours from "./Parcour";
-import { useEffect, useState } from "react";
-import Loader from "@/components/Home/loading";
 import ErrorComp from "@/components/Home/error";
+import Loader from "@/components/Home/loading";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BACKEND_URL } from "@/lib/api";
+import { useEffect, useState } from "react";
+import Parcours from "./Parcour";
 
 interface Mention {
   nomMention: string;
@@ -55,7 +55,7 @@ export default function FormationItems() {
   useEffect(() => {
     const fetchParcours = async () => {
       try {
-        const response = await fetch(`http://localhost:5194/api/Mention/${id}/parcours`);
+        const response = await fetch(`${BACKEND_URL}api/Mention/${id}/parcours`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         setParcours(json.pn);
@@ -73,7 +73,7 @@ export default function FormationItems() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5194/api/Mention/${id}`);
+        const response = await fetch(`${BACKEND_URL}api/Mention/${id}`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         setMention(json);
