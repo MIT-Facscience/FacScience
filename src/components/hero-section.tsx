@@ -16,19 +16,19 @@ export function HeroSection(): JSX.Element {
 
   const campusImages: CampusImage[] = [
     {
-      src: "/1.jpg",
+      src: "/fs_facade_2.jpg",
       alt: "Campus principal de la Faculté des Sciences",
       title: "Campus Moderne",
       description: "Un environnement d'apprentissage exceptionnel",
     },
     {
-      src: "/2.jpg",
+      src: "/fs_amphi.jpg",
       alt: "Environnement d'apprentissage",
       title: "Environnement d'apprentissage",
       description: "Ressources documentaires complètes",
     },
     {
-      src: "/3.jpg",
+      src: "/fs_facade_3.jpg",
       alt: "Environnement accueillant",
       title: "Environnement accueillant",
       description: "Technologies de pointe pour la recherche",
