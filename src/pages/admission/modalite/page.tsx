@@ -27,22 +27,15 @@ import {
 } from "lucide-react";
 
 export default function AdmissionPage() {
-  
+
   const handleDownloadFiche = async (): Promise<void> => {
     try {
-      const url: string = './Fiche/FicheFS.pdf'; 
+      const url: string = '/Fiche/FicheFS.pdf';
       
       const response: Response = await fetch(url);
-      console.log('Content-Type:', response.headers.get('content-type'));
       
       if (!response.ok) {
-        throw new Error(`Erreur: ${response.status}`);
-      }
-      
-      // Check type (adapte pour image si besoin)
-      const contentType = response.headers.get('content-type');
-      if (!contentType?.includes('application/pdf')) { // Ou .startsWith('image/') pour image
-        throw new Error(`Mauvais type: ${contentType}. Attendu: application/pdf.`);
+        throw new Error(`Erreur ${response.status}: ${response.statusText}`);
       }
       
       const blob: Blob = await response.blob();
@@ -56,9 +49,9 @@ export default function AdmissionPage() {
       URL.revokeObjectURL(blobUrl);
       
     } catch (error: unknown) {
-      const errMsg = error instanceof Error ? error.message : 'Erreur inconnue';
-      console.error('Erreur:', error);
-      alert(`Problème: ${errMsg}. Vérifie le fichier dans /public/.`);
+      console.error('Erreur de téléchargement:', error);
+      // Fallback direct
+      window.open('/Fiche/FicheFS.pdf', '_blank');
     }
   };
 
