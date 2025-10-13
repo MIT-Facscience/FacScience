@@ -438,7 +438,7 @@ export default function AdmissionPage() {
                                 Baccalauréats Techniques
                               </div>
                               <div className="text-sm text-muted-foreground">
-                                Séries E, F, G selon spécialité
+                                Séries selon spécialité
                               </div>
                             </div>
                           </AccordionTrigger>
@@ -452,29 +452,29 @@ export default function AdmissionPage() {
                                 <li className="flex items-start gap-2">
                                   <span className="text-primary">•</span>
                                   <span>
-                                    Informatique (Série F -
+                                    Informatique (
                                     Électronique/Informatique)
                                   </span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                   <span className="text-primary">•</span>
                                   <span>
-                                    Physique-Chimie (Série F - Électronique)
+                                    Physique-Chimie (Électronique)
                                   </span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                   <span className="text-primary">•</span>
                                   <span>
-                                    Sciences Industrielles (Séries E et F)
+                                    Sciences Industrielles 
                                   </span>
                                 </li>
                               </ul>
-                              <div className="bg-amber-50 border border-amber-200 p-3 mt-3">
+                              {/* <div className="bg-amber-50 border border-amber-200 p-3 mt-3">
                                 <p className="text-xs text-amber-900">
                                   <strong>Condition :</strong> Moyenne générale
                                   minimale de 12/20 au baccalauréat
                                 </p>
-                              </div>
+                              </div> */}
                             </div>
                             <div className="pt-3 border-t">
                               <Button
@@ -561,26 +561,26 @@ export default function AdmissionPage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="space-y-2">
-                        <div className="flex justify-between items-center p-3 bg-muted">
+                        {/* <div className="flex justify-between items-center p-3 bg-muted">
                           <span className="text-sm font-medium">
                             Retrait dossiers
                           </span>
                           <Badge variant="outline" className="rounded-none">
                             15 Août
                           </Badge>
-                        </div>
+                        </div> */}
                         <div className="flex justify-between items-center p-3 bg-muted">
                           <span className="text-sm font-medium">
-                            Dépôt dossiers
+                            Fin Dépôt dossiers
                           </span>
                           <Badge variant="default" className="rounded-none">
-                            30 Sept
+                            15 Novembre
                           </Badge>
                         </div>
                         <div className="flex justify-between items-center p-3 bg-muted">
                           <span className="text-sm font-medium">Résultats</span>
                           <Badge variant="outline" className="rounded-none">
-                            Mi-Octobre
+                            Mi-Décembre
                           </Badge>
                         </div>
                       </div>
@@ -589,6 +589,8 @@ export default function AdmissionPage() {
                         <p>
                           • Le cachet de la poste fait foi pour l'envoi postal
                         </p>
+                        <p>• Inscription en ligne</p>
+                        
                       </div>
                     </CardContent>
                   </Card>
