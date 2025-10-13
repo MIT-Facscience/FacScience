@@ -69,7 +69,7 @@ export default function AdmissionPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-2xl font-bold text-primary">
-                      31 Octobre 2025
+                      15 Novembre 2025
                     </p>
                     <p className="text-sm text-muted-foreground">
                       Dépôt des dossiers
@@ -104,10 +104,10 @@ export default function AdmissionPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-lg font-semibold">Nouveaux Bacheliers</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-lg font-semibold">Session 2024-2025</p>
+                    {/* <p className="text-sm text-muted-foreground">
                       Session 2025
-                    </p>
+                    </p> */}
                   </CardContent>
                 </Card>
               </div>
@@ -130,7 +130,7 @@ export default function AdmissionPage() {
                           Modalités d'admission
                         </h4>
                         <p className="text-sm text-muted-foreground">
-                          L'admission à la Faculté des Sciences se fait par voie de concours. 
+                          L'admission à la Faculté des Sciences se fait par voie de la selection de dossier. 
                           Les candidats sont classés selon les notes obtenues au baccalauréat, 
                           en tenant compte de la série et de la mention.
                         </p>
@@ -438,7 +438,7 @@ export default function AdmissionPage() {
                           <p className="text-sm text-muted-foreground">
                             Bâtiment Administration
                             <br />
-                            Rez-de-chaussée
+                           J-331
                             <br />
                             Lundi - Vendredi : 8h00 - 16h00
                           </p>
