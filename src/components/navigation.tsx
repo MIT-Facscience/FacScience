@@ -16,7 +16,7 @@ const rechercheItems = [
 ];
 
 const admissionItems = [
-  {title : "Modalites", to: "#"},
+  {title : "Modalites", to: "/admission/modalite"},
   // {title : "Preinscription", to: "/admission/preinscription"},
 ];
 
