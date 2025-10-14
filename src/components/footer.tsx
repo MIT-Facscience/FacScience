@@ -81,7 +81,7 @@ export function Footer() {
                     Adresse
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Campus universitaire
+                    Campus universitaire Ambohitsaina, BP 906
                     <br />
                     Antananarivo 101, Madagascar
                   </p>
@@ -100,7 +100,14 @@ export function Footer() {
                     href="tel:+261201234567"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    +261 20 12 345 67
+                    +261 34 36 146 61
+                  </a>
+                  <br/>
+                  <a
+                    href="tel:+261201234567"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    +261 32 85 038 15
                   </a>
                 </div>
               </div>

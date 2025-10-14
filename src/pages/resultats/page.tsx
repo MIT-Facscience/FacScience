@@ -20,10 +20,22 @@ type statGType = {
   tauxAdmission: number;
 }
 
+  type statPType = [
+    {
+      nomPortail: string,
+      abbrev: string,
+      total: number,
+      admis: number,
+      nonAdmis : number,
+      tauxAdmission: number
+    }
+  ]
 
 export default function ResultatsPage() {
 
   const [statG,setStatG] = useState<statGType>();
+  const [statP,setStatP] = useState<statPType>();
+
 
   useEffect(() => {
       fetch(`${BACKEND_URL}/api/stat/preinscrits`)
@@ -32,13 +44,24 @@ export default function ResultatsPage() {
           setStatG(data);
         })
         .catch((error) => {
-          console.error("Erreur lors de la récupération des mentions :", error);
+          console.error("Erreur lors de la récupération des statG :", error);
+        });
+    }, []);
+
+    useEffect(() => {
+      fetch(`${BACKEND_URL}/api/stat/preinscrits-par-mention`)
+        .then((response) => response.json())
+        .then((data) => {
+          setStatP(data);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des statP :", error);
         });
     }, []);
 
   const resultats_concours = [
     {
-      concours: "Concours d'admission L1 - Mathématiques et Informatique",
+      concours: "L1 - Mathématiques et Informatique",
       session: "2024-2025",
       date_concours: "2024-09-15",
       date_publication: "2024-10-01",
@@ -49,7 +72,7 @@ export default function ResultatsPage() {
       seuil_admission: 12.5,
     },
     {
-      concours: "Concours d'admission L1 - Physique",
+      concours: "L1 - Physique",
       session: "2024-2025",
       date_concours: "2024-09-16",
       date_publication: "2024-10-02",
@@ -60,7 +83,7 @@ export default function ResultatsPage() {
       seuil_admission: 11.8,
     },
     {
-      concours: "Concours d'admission Master IGCRR",
+      concours: "Master IGCRR",
       session: "2024-2025",
       date_concours: "2024-09-20",
       date_publication: "2024-10-05",
@@ -146,53 +169,52 @@ export default function ResultatsPage() {
   //   },
   // ]
 
-  const statistiques_departements = [
-    {
-      departement: "Mathématiques et Informatique",
-      code: "MI",
-      etudiants: 320,
-      taux_reussite: 85,
-      mentions_tb: 45,
-      mentions_b: 78,
-      mentions_ab: 102,
-    },
-    {
-      departement: "Physique",
-      code: "PHY",
-      etudiants: 180,
-      taux_reussite: 79,
-      mentions_tb: 22,
-      mentions_b: 38,
-      mentions_ab: 62,
-    },
-    {
-      departement: "Chimie",
-      code: "CHI",
-      etudiants: 220,
-      taux_reussite: 76,
-      mentions_tb: 28,
-      mentions_b: 45,
-      mentions_ab: 71,
-    },
-    {
-      departement: "Biologie",
-      code: "BIO",
-      etudiants: 280,
-      taux_reussite: 81,
-      mentions_tb: 38,
-      mentions_b: 62,
-      mentions_ab: 89,
-    },
-    {
-      departement: "Géologie",
-      code: "GEO",
-      etudiants: 150,
-      taux_reussite: 73,
-      mentions_tb: 18,
-      mentions_b: 28,
-      mentions_ab: 45,
-    },
-  ]
+  // const statistiques_departements = [
+  //   {
+  //     departement: "Mathématiques et Informatique",
+  //     code: "MI",
+  //     etudiants: 320,
+  //     taux_reussite: 85,
+  //     mentions_tb: 45,
+  //     mentions_b: 78,
+  //   },
+  //   {
+  //     departement: "Physique",
+  //     code: "PHY",
+  //     etudiants: 180,
+  //     taux_reussite: 79,
+  //     mentions_tb: 22,
+  //     mentions_b: 38,
+  //     mentions_ab: 62,
+  //   },
+  //   {
+  //     departement: "Chimie",
+  //     code: "CHI",
+  //     etudiants: 220,
+  //     taux_reussite: 76,
+  //     mentions_tb: 28,
+  //     mentions_b: 45,
+  //     mentions_ab: 71,
+  //   },
+  //   {
+  //     departement: "Biologie",
+  //     code: "BIO",
+  //     etudiants: 280,
+  //     taux_reussite: 81,
+  //     mentions_tb: 38,
+  //     mentions_b: 62,
+  //     mentions_ab: 89,
+  //   },
+  //   {
+  //     departement: "Géologie",
+  //     code: "GEO",
+  //     etudiants: 150,
+  //     taux_reussite: 73,
+  //     mentions_tb: 18,
+  //     mentions_b: 28,
+  //     mentions_ab: 45,
+  //   },
+  // ]
 
   return (
 
@@ -238,8 +260,8 @@ export default function ResultatsPage() {
 
             <Tabs defaultValue="concours" className="space-y-6">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="concours">Concours</TabsTrigger>
-                <TabsTrigger value="selections">Sélections</TabsTrigger>
+                <TabsTrigger value="concours">Académique</TabsTrigger>
+                <TabsTrigger value="selections">Professionalisante</TabsTrigger>
                 <TabsTrigger value="statistiques">Statistiques</TabsTrigger>
               </TabsList>
 
@@ -250,7 +272,7 @@ export default function ResultatsPage() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Search className="h-5 w-5" />
-                      Rechercher vos résultats de concours
+                      Rechercher vos résultats de séléction
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -292,7 +314,7 @@ export default function ResultatsPage() {
 
                 {/* Résultats des concours */}
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Résultats des Concours d'Admission</h2>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Séléctions d'Admission</h2>
                   <div className="space-y-4">
                     {resultats_concours.map((concours, index) => (
                       <Card key={index} className="hover:shadow-lg transition-shadow">
@@ -425,38 +447,38 @@ export default function ResultatsPage() {
                 <div>
                   <h2 className="text-2xl font-bold text-slate-800 mb-6">Statistiques d'Admission par Filière</h2>
                   <div className="space-y-4">
-                    {statistiques_departements.map((dept, index) => (
+                    {statP?.map((dept, index) => (
                       <Card key={index}>
                         <CardHeader>
                           <div className="flex justify-between items-center">
-                            <CardTitle className="text-lg text-slate-800">{dept.departement}</CardTitle>
-                            <Badge variant="outline">{dept.code}</Badge>
+                            <CardTitle className="text-lg text-slate-800">{dept.nomPortail}</CardTitle>
+                            <Badge variant="outline">{dept.abbrev}</Badge>
                           </div>
                         </CardHeader>
                         <CardContent>
                           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                             <div className="text-center">
-                              <div className="text-xl font-bold text-blue-600">{dept.etudiants}</div>
+                              <div className="text-xl font-bold text-blue-600">{dept.total}</div>
                               <div className="text-xs text-slate-600">Candidats</div>
                             </div>
                             <div className="text-center">
                               <div className="text-xl font-bold text-green-600">
-                                {Math.round((dept.etudiants * dept.taux_reussite) / 100)}
+                                {dept.admis}
                               </div>
                               <div className="text-xs text-slate-600">Admis</div>
                             </div>
                             <div className="text-center">
-                              <div className="text-xl font-bold text-purple-600">{dept.taux_reussite}%</div>
+                              <div className="text-xl font-bold text-purple-600">{dept.tauxAdmission}%</div>
                               <div className="text-xs text-slate-600">Taux d'admission</div>
                             </div>
                             <div className="text-center">
-                              <div className="text-xl font-bold text-orange-600">{Math.round(dept.etudiants * 0.1)}</div>
+                              <div className="text-xl font-bold text-orange-600">{dept.nonAdmis}</div>
                               <div className="text-xs text-slate-600">Liste attente</div>
                             </div>
-                            <div className="text-center">
+                            {/* <div className="text-center">
                               <div className="text-xl font-bold text-red-600">{(dept.mentions_tb / 20).toFixed(1)}/20</div>
                               <div className="text-xs text-slate-600">Seuil moyen</div>
-                            </div>
+                            </div> */}
                           </div>
                         </CardContent>
                       </Card>
@@ -476,15 +498,15 @@ export default function ResultatsPage() {
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-slate-50 rounded-lg">
                         <div className="text-2xl font-bold text-slate-800">2022</div>
-                        <div className="text-lg text-blue-600">198 admis</div>
+                        <div className="text-lg text-blue-600">Non communiqué</div>
                       </div>
                       <div className="text-center p-4 bg-slate-50 rounded-lg">
                         <div className="text-2xl font-bold text-slate-800">2023</div>
-                        <div className="text-lg text-green-600">225 admis</div>
+                        <div className="text-lg text-green-600">Non communiqué</div>
                       </div>
                       <div className="text-center p-4 bg-slate-50 rounded-lg">
                         <div className="text-2xl font-bold text-slate-800">2024</div>
-                        <div className="text-lg text-purple-600">255 admis</div>
+                        <div className="text-lg text-purple-600">Non communiqué</div>
                       </div>
                     </div>
                   </CardContent>

@@ -105,7 +105,7 @@ export default function HomePage() {
       id: 2,
       type: "inscription",
       title: "Inscriptions Année 2025-2026",
-      date: "Jusqu'au 30 Septembre 2025",
+      date: "Jusqu'au 15 Novembre 2025",
       time: "08h00 - 16h00",
       location: "Bureau des Inscriptions",
       description: "Période d'inscription pour la nouvelle année académique",

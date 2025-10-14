@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,6 +21,34 @@ import {
 } from "lucide-react";
 
 export default function AdmissionPage() {
+
+  const handleDownloadFiche = async (): Promise<void> => {
+    try {
+      const url: string = '/Fiche/FicheFS.pdf';
+      
+      const response: Response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+      }
+      
+      const blob: Blob = await response.blob();
+      const blobUrl: string = URL.createObjectURL(blob);
+      const lien: HTMLAnchorElement = document.createElement('a');
+      lien.href = blobUrl;
+      lien.download = 'fiche-renseignements.pdf';
+      document.body.appendChild(lien);
+      lien.click();
+      document.body.removeChild(lien);
+      URL.revokeObjectURL(blobUrl);
+      
+    } catch (error: unknown) {
+      console.error('Erreur de téléchargement:', error);
+      // Fallback direct
+      window.open('/Fiche/FicheFS.pdf', '_blank');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <main className="pt-4 sm:pt-8 lg:pt-12 pb-4 sm:pb-8 lg:pb-12">
@@ -104,10 +126,10 @@ export default function AdmissionPage() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-lg font-semibold">Session 2024-2025</p>
-                    {/* <p className="text-sm text-muted-foreground">
-                      Session 2025
-                    </p> */}
+                    <p className="text-lg font-semibold">Bacheliers</p>
+                    <p className="text-sm text-muted-foreground">
+                      Session 2024 - 2025
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -130,9 +152,10 @@ export default function AdmissionPage() {
                           Modalités d'admission
                         </h4>
                         <p className="text-sm text-muted-foreground">
-                          L'admission à la Faculté des Sciences se fait par voie de la selection de dossier. 
-                          Les candidats sont classés selon les notes obtenues au baccalauréat, 
-                          en tenant compte de la série et de la mention.
+                          L'admission à la Faculté des Sciences se fait par voie
+                          de la selection de dossier. Les candidats sont classés
+                          selon les notes obtenues au baccalauréat, en tenant
+                          compte de la série et de la mention.
                         </p>
                       </div>
 
@@ -148,7 +171,9 @@ export default function AdmissionPage() {
                             >
                               1
                             </Badge>
-                            <span>Constitution et dépôt du dossier de candidature</span>
+                            <span>
+                              Constitution et dépôt du dossier de candidature
+                            </span>
                           </li>
                           <li className="flex gap-3">
                             <Badge
@@ -158,7 +183,8 @@ export default function AdmissionPage() {
                               2
                             </Badge>
                             <span>
-                              Classement des candidats par ordre de mérite selon les notes du bac
+                              Classement des candidats par ordre de mérite selon
+                              les notes du bac
                             </span>
                           </li>
                           <li className="flex gap-3">
@@ -194,8 +220,9 @@ export default function AdmissionPage() {
                               Important
                             </p>
                             <p className="text-sm text-destructive/80">
-                              Les dossiers incomplets ou déposés après la date limite ne seront pas traités. 
-                              Les frais d'inscription ne sont pas remboursables.
+                              Les dossiers incomplets ou déposés après la date
+                              limite ne seront pas traités. Les frais
+                              d'inscription ne sont pas remboursables.
                             </p>
                           </div>
                         </div>
@@ -211,198 +238,66 @@ export default function AdmissionPage() {
                         Pièces à fournir pour le dossier
                       </CardTitle>
                       <CardDescription>
-                        Tous les documents doivent être des copies certifiées conformes
+                        Tous les documents doivent être des copies certifiées
+                        conformes
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
+           
+                          {/* "Fiche de renseignements dûment remplie",
+                          // "Copie certifiée conforme du diplôme du baccalauréat",
+                          // "Copie certifiée conforme du relevé de notes du baccalauréat",
+                          // "Extrait d'acte de naissance (original de moins de 3 mois)",
+                          // "Certificat de résidence (original de moins de 3 mois)",
+                          // "Certificat médical délivré par un médecin agréé",
+                          // "Quatre (4) photos d'identité récentes",
+                          // "Une enveloppe timbrée portant l'adresse du candidat",
+                          "Reçu de versement des frais d'inscription (50 000 Ar)",
+                        */}
+
                       <div className="space-y-3">
                         {[
-                          "Fiche de renseignements dûment remplie",
-                          "Copie certifiée conforme du diplôme du baccalauréat",
-                          "Copie certifiée conforme du relevé de notes du baccalauréat",
-                          "Extrait d'acte de naissance (original de moins de 3 mois)",
-                          "Certificat de résidence (original de moins de 3 mois)",
-                          "Certificat médical délivré par un médecin agréé",
-                          "Quatre (4) photos d'identité récentes",
-                          "Une enveloppe timbrée portant l'adresse du candidat",
-                          "Reçu de versement des frais d'inscription (50 000 Ar)",
+                          {
+                              text: "Fiche de renseignements dûment remplie",
+                              hasDownload: true, // Active le bouton pour cet item
+                          },
+                          {
+                              text: "Reçu de versement des frais d'inscription (50 000 Ar)",
+                              hasDownload: false, // Pas de bouton pour cet item
+                          },
                         ].map((item, index) => (
                           <div
                             key={index}
                             className="flex items-start gap-2 p-3 bg-muted/50 border-l-2 border-primary/30"
                           >
                             <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">{item}</span>
+                            <div className="flex-1"> 
+                              <span className="text-sm block">{item.text}</span> {/* 'block' pour que le bouton passe en dessous */}
+                              {item.hasDownload && (
+                                  <button
+                                      onClick={handleDownloadFiche}
+                                      className="mt-1 text-xs text-primary hover:underline flex items-center gap-1"
+                                    >
+                                      📥 Télécharger la fiche
+                                    </button>
+                              )}
+                            </div>
                           </div>
                         ))}
                       </div>
-                      
-                      <div className="mt-4 p-3 bg-blue-50 border border-blue-200">
+
+                      {/* <div className="mt-4 p-3 bg-blue-50 border border-blue-200">
                         <p className="text-sm text-blue-900">
-                          <strong>Note :</strong> Les photocopies doivent être certifiées conformes 
-                          par les autorités compétentes (Maire, Chef Fokontany, etc.)
+                          <strong>Note :</strong> Les photocopies doivent être
+                          certifiées conformes par les autorités compétentes
+                          (Maire, Chef Fokontany, etc.)
                         </p>
-                      </div>
+                      </div> */}
                     </CardContent>
                   </Card>
 
                   {/* Conditions par série */}
-                  <Card className="border-0 rounded-none">
-                    <CardHeader>
-                      <CardTitle>Conditions d'admission par série de baccalauréat</CardTitle>
-                      <CardDescription>
-                        Les admissions sont organisées selon la série du baccalauréat et la mention obtenue
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="serie-c">
-                          <AccordionTrigger className="text-left">
-                            <div>
-                              <div className="font-semibold">
-                                Baccalauréat Série C
-                              </div>
-                              <div className="text-sm text-muted-foreground">
-                                Mathématiques et Sciences Physiques
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="space-y-4">
-                            <div className="space-y-3">
-                              <div className="border-l-4 border-l-primary pl-4 py-2">
-                                <h5 className="font-medium text-primary">Mention Très Bien</h5>
-                                <p className="text-sm text-muted-foreground">
-                                  Accès direct à toutes les mentions de la Faculté
-                                </p>
-                              </div>
-                              <div className="border-l-4 border-l-secondary pl-4 py-2">
-                                <h5 className="font-medium text-secondary">Mention Bien</h5>
-                                <p className="text-sm text-muted-foreground">
-                                  Accès prioritaire selon le classement
-                                </p>
-                              </div>
-                              <div className="border-l-4 border-l-accent pl-4 py-2">
-                                <h5 className="font-medium text-accent">Mention Assez Bien</h5>
-                                <p className="text-sm text-muted-foreground">
-                                  Admission selon les places disponibles et classement
-                                </p>
-                              </div>
-                              <div className="border-l-4 border-l-gray-400 pl-4 py-2">
-                                <h5 className="font-medium text-gray-700">Mention Passable</h5>
-                                <p className="text-sm text-muted-foreground">
-                                  Admission limitée selon disponibilité et classement
-                                </p>
-                              </div>
-                            </div>
-                            <div className="pt-3 border-t">
-                              <Button
-                                className="w-full rounded-none"
-                                onClick={() =>
-                                  (window.location.href = "/admission/preinscription")
-                                }
-                              >
-                                S'inscrire - Série C
-                              </Button>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-
-                        <AccordionItem value="serie-d">
-                          <AccordionTrigger className="text-left">
-                            <div>
-                              <div className="font-semibold">
-                                Baccalauréat Série D
-                              </div>
-                              <div className="text-sm text-muted-foreground">
-                                Sciences de la Vie et de la Terre
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="space-y-4">
-                            <div className="space-y-3">
-                              <div className="border-l-4 border-l-primary pl-4 py-2">
-                                <h5 className="font-medium text-primary">Mention Très Bien</h5>
-                                <p className="text-sm text-muted-foreground">
-                                  Accès direct aux mentions scientifiques
-                                </p>
-                              </div>
-                              <div className="border-l-4 border-l-secondary pl-4 py-2">
-                                <h5 className="font-medium text-secondary">Mention Bien</h5>
-                                <p className="text-sm text-muted-foreground">
-                                  Accès prioritaire selon le classement
-                                </p>
-                              </div>
-                              <div className="border-l-4 border-l-accent pl-4 py-2">
-                                <h5 className="font-medium text-accent">Mentions Assez Bien et Passable</h5>
-                                <p className="text-sm text-muted-foreground">
-                                  Admission selon les places disponibles et classement
-                                </p>
-                              </div>
-                            </div>
-                            <div className="pt-3 border-t">
-                              <Button
-                                className="w-full rounded-none"
-                                onClick={() =>
-                                  (window.location.href = "/admission/preinscription")
-                                }
-                              >
-                                S'inscrire - Série D
-                              </Button>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-
-                        <AccordionItem value="technique">
-                          <AccordionTrigger className="text-left">
-                            <div>
-                              <div className="font-semibold">
-                                Baccalauréats Techniques
-                              </div>
-                              <div className="text-sm text-muted-foreground">
-                                Séries E, F, G selon spécialité
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="space-y-4">
-                            <div className="space-y-3">
-                              <p className="text-sm">
-                                Les titulaires de baccalauréats techniques peuvent postuler pour certaines mentions :
-                              </p>
-                              <ul className="text-sm space-y-2 ml-4">
-                                <li className="flex items-start gap-2">
-                                  <span className="text-primary">•</span>
-                                  <span>Informatique (Série F - Électronique/Informatique)</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-primary">•</span>
-                                  <span>Physique-Chimie (Série F - Électronique)</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="text-primary">•</span>
-                                  <span>Sciences Industrielles (Séries E et F)</span>
-                                </li>
-                              </ul>
-                              <div className="bg-amber-50 border border-amber-200 p-3 mt-3">
-                                <p className="text-xs text-amber-900">
-                                  <strong>Condition :</strong> Moyenne générale minimale de 12/20 au baccalauréat
-                                </p>
-                              </div>
-                            </div>
-                            <div className="pt-3 border-t">
-                              <Button
-                                className="w-full rounded-none"
-                                onClick={() =>
-                                  (window.location.href = "/admission/preinscription")
-                                }
-                              >
-                                S'inscrire - Bacc Technique
-                              </Button>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    </CardContent>
-                  </Card>
+                  
                 </div>
 
                 {/* Sidebar */}
@@ -438,7 +333,7 @@ export default function AdmissionPage() {
                           <p className="text-sm text-muted-foreground">
                             Bâtiment Administration
                             <br />
-                           J-331
+                            J-331
                             <br />
                             Lundi - Vendredi : 8h00 - 16h00
                           </p>
@@ -449,7 +344,9 @@ export default function AdmissionPage() {
                         <div>
                           <p className="font-medium">Paiement des frais</p>
                           <p className="text-sm text-muted-foreground">
-                            À effectuer à la Banque BOA-Compte N°25979340004,libellé à Monsieur le Doyen de la Faculté
+                            À effectuer à la Banque BOA-Compte
+                            N°25979340004,libellé à Monsieur le Doyen de la
+                            Faculté
                             <br />
                             Montant : 50 000 Ariary
                             <br />
@@ -470,28 +367,36 @@ export default function AdmissionPage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="space-y-2">
-                        <div className="flex justify-between items-center p-3 bg-muted">
-                          <span className="text-sm font-medium">Retrait dossiers</span>
+                        {/* <div className="flex justify-between items-center p-3 bg-muted">
+                          <span className="text-sm font-medium">
+                            Retrait dossiers
+                          </span>
                           <Badge variant="outline" className="rounded-none">
                             15 Août
                           </Badge>
-                        </div>
+                        </div> */}
                         <div className="flex justify-between items-center p-3 bg-muted">
-                          <span className="text-sm font-medium">Dépôt dossiers</span>
+                          <span className="text-sm font-medium">
+                            Fin Dépôt dossiers
+                          </span>
                           <Badge variant="default" className="rounded-none">
-                            30 Sept
+                            15 Novembre
                           </Badge>
                         </div>
                         <div className="flex justify-between items-center p-3 bg-muted">
                           <span className="text-sm font-medium">Résultats</span>
                           <Badge variant="outline" className="rounded-none">
-                            Mi-Octobre
+                            Mi-Décembre
                           </Badge>
                         </div>
                       </div>
                       <div className="text-xs text-muted-foreground pt-2 border-t">
                         <p>• Dépôt sur place ou par courrier recommandé</p>
-                        <p>• Le cachet de la poste fait foi pour l'envoi postal</p>
+                        <p>
+                          • Le cachet de la poste fait foi pour l'envoi postal
+                        </p>
+                        <p>• Inscription en ligne</p>
+                        
                       </div>
                     </CardContent>
                   </Card>
@@ -501,7 +406,8 @@ export default function AdmissionPage() {
                     <CardHeader>
                       <CardTitle>Prêt à postuler ?</CardTitle>
                       <CardDescription className="text-primary-foreground/80">
-                        Assurez-vous d'avoir tous les documents requis avant de soumettre votre dossier.
+                        Assurez-vous d'avoir tous les documents requis avant de
+                        soumettre votre dossier.
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
