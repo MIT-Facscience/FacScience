@@ -112,9 +112,9 @@ export default function VisionPage() {
                         </h1>
 
                         <img
-                          src="/presidentUniv.png"
+                          src="/president.jpg"
                           alt="Vision 2030"
-                          className="w-full h-64 object-cover mb-6"
+                          className="w-full h-auto object-cover mb-6"
                         />
 
                         <div className="text-left space-y-4">

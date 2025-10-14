@@ -1,5 +1,5 @@
 import { Briefcase, GraduationCap } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StepStranger from "./FormSteps/FormStepsStranger/StepStranger";
 import { StepFour } from "./FormSteps/StepFour";
@@ -17,20 +17,20 @@ interface PersonalInfo {
 const Formulaire: React.FC = () => {
   const navigate = useNavigate();
 
-  // Nouveau state pour le choix de formation
+  // États principaux
   const [formationType, setFormationType] = useState<
     "academique" | "professionnalisante" | null
   >(null);
 
   const [currentStep, setCurrentStep] = useState<1 | 2>(1);
-  const [candidateInfo, setCandidateInfo] = useState<CandidateInfo | null>(
-    null
-  );
-  const [applicationData, setApplicationData] =
-    useState<ApplicationData | null>(null);
+  const [candidateInfo, setCandidateInfo] = useState<CandidateInfo | null>(null);
+  const [applicationData, setApplicationData] = useState<ApplicationData | null>(null);
   const [bactype, setBactype] = useState<"mg" | "etg">("mg");
   const [strangerStep, setstrangerStep] = useState(1);
   const [program, setProgram] = useState<Program[] | null>(null);
+
+  // État pour gérer si on affiche le choix de formation
+  const [showFormationChoice, setShowFormationChoice] = useState(false);
 
   const stepTitles = ["Informations", "Confirmation"];
   const stepStranger = [
@@ -39,14 +39,13 @@ const Formulaire: React.FC = () => {
     "Confirmation",
   ];
 
-  useEffect(() => {
-    
-  }, []);
-
   const handleStepOneComplete = (info: CandidateInfo) => {
     setCandidateInfo(info);
     const fetchGetProg = async () => {
-    const prog = await getProgram(info.series, formationType === "academique");
+      const prog = await getProgram(
+        info.series,
+        formationType === "academique"
+      );
       setProgram(prog ?? null);
     };
     fetchGetProg();
@@ -73,6 +72,28 @@ const Formulaire: React.FC = () => {
 
   const handleComplete = () => {
     navigate("/admission/modalite");
+  };
+
+  // Fonction pour modifier le type de formation
+  const handleModifyFormationType = () => {
+    // Réinitialiser complètement le formulaire
+    setCandidateInfo(null);
+    setApplicationData(null);
+    setCurrentStep(1);
+    setProgram(null);
+    setstrangerStep(1);
+    setBactype("mg");
+    setShowFormationChoice(true);
+  };
+
+  // Fonction pour confirmer le changement de formation
+  const handleConfirmFormationChange = (
+    newFormationType: "academique" | "professionnalisante"
+  ) => {
+    setFormationType(newFormationType);
+    setShowFormationChoice(false);
+    // Données déjà réinitialisées par handleModifyFormationType si c'est un changement
+    // Si c'est le même type, on continue normalement
   };
 
   const renderMalagasyFlow = () => {
@@ -125,7 +146,6 @@ const Formulaire: React.FC = () => {
     );
   };
 
-  // Rendu du choix de formation (écran initial)
   const renderFormationChoice = () => {
     return (
       <div className="max-w-5xl mx-auto">
@@ -141,7 +161,7 @@ const Formulaire: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Option Académique */}
           <button
-            onClick={() => setFormationType("academique")}
+            onClick={() => handleConfirmFormationChange("academique")}
             className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-primary group"
           >
             <div className="flex flex-col items-center text-center space-y-6">
@@ -175,7 +195,7 @@ const Formulaire: React.FC = () => {
 
           {/* Option Professionnalisante */}
           <button
-            onClick={() => setFormationType("professionnalisante")}
+            onClick={() => handleConfirmFormationChange("professionnalisante")}
             className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-secondary group"
           >
             <div className="flex flex-col items-center text-center space-y-6">
@@ -218,8 +238,8 @@ const Formulaire: React.FC = () => {
     );
   };
 
-  // Si aucun type de formation n'est choisi, afficher l'écran de choix
-  if (!formationType) {
+  // Si aucun type de formation n'est choisi ou si on affiche le choix
+  if (!formationType || showFormationChoice) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
         <div className="container mx-auto px-6 py-8">
@@ -269,7 +289,7 @@ const Formulaire: React.FC = () => {
                 </div>
               </div>
               <button
-                onClick={() => setFormationType(null)}
+                onClick={handleModifyFormationType}
                 className="text-sm text-gray-500 hover:text-gray-700 underline"
               >
                 Modifier
@@ -310,7 +330,10 @@ const Formulaire: React.FC = () => {
           <div className="text-center text-sm text-gray-500">
             <p>
               Besoin d'aide ? Contactez le service des inscriptions :
-              <a className="font-medium text-primary ml-1" href="mailto:sciencesfaculte@univ-antananarivo.mg">
+              <a
+                className="font-medium text-primary ml-1"
+                href="mailto:sciencesfaculte@univ-antananarivo.mg"
+              >
                 sciencesfaculte@univ-antananarivo.mg
               </a>
             </p>
