@@ -61,7 +61,7 @@ export default function ResultatsPage() {
 
   const resultats_concours = [
     {
-      concours: "Concours d'admission L1 - Mathématiques et Informatique",
+      concours: "L1 - Mathématiques et Informatique",
       session: "2024-2025",
       date_concours: "2024-09-15",
       date_publication: "2024-10-01",
@@ -72,7 +72,7 @@ export default function ResultatsPage() {
       seuil_admission: 12.5,
     },
     {
-      concours: "Concours d'admission L1 - Physique",
+      concours: "L1 - Physique",
       session: "2024-2025",
       date_concours: "2024-09-16",
       date_publication: "2024-10-02",
@@ -83,7 +83,7 @@ export default function ResultatsPage() {
       seuil_admission: 11.8,
     },
     {
-      concours: "Concours d'admission Master IGCRR",
+      concours: "Master IGCRR",
       session: "2024-2025",
       date_concours: "2024-09-20",
       date_publication: "2024-10-05",
@@ -272,7 +272,7 @@ export default function ResultatsPage() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Search className="h-5 w-5" />
-                      Rechercher vos résultats de concours
+                      Rechercher vos résultats de séléction
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -314,7 +314,7 @@ export default function ResultatsPage() {
 
                 {/* Résultats des concours */}
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Résultats des Concours d'Admission</h2>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Séléctions d'Admission</h2>
                   <div className="space-y-4">
                     {resultats_concours.map((concours, index) => (
                       <Card key={index} className="hover:shadow-lg transition-shadow">
@@ -498,15 +498,15 @@ export default function ResultatsPage() {
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-slate-50 rounded-lg">
                         <div className="text-2xl font-bold text-slate-800">2022</div>
-                        <div className="text-lg text-blue-600">198 admis</div>
+                        <div className="text-lg text-blue-600">Non communiqué</div>
                       </div>
                       <div className="text-center p-4 bg-slate-50 rounded-lg">
                         <div className="text-2xl font-bold text-slate-800">2023</div>
-                        <div className="text-lg text-green-600">225 admis</div>
+                        <div className="text-lg text-green-600">Non communiqué</div>
                       </div>
                       <div className="text-center p-4 bg-slate-50 rounded-lg">
                         <div className="text-2xl font-bold text-slate-800">2024</div>
-                        <div className="text-lg text-purple-600">255 admis</div>
+                        <div className="text-lg text-purple-600">Non communiqué</div>
                       </div>
                     </div>
                   </CardContent>
