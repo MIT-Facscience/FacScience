@@ -42,7 +42,6 @@ export default function FormationItems() {
   const stats = getStatsById(id);
   // const image = getImageMention(id);
   const icon = [<Users />, <BookOpen />, <Clock />, <Award />];
-  // const parcours = getParoursById(id);
 
   const [ mention, setMention ] = useState<Mention | null>();
   const [ parcours, setParcours ] = useState<Parcours[] | null>();
@@ -55,9 +54,11 @@ export default function FormationItems() {
   useEffect(() => {
     const fetchParcours = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}api/Mention/${id}/parcours`);
+        const response = await fetch(`${BACKEND_URL}/api/Mention/${id}/parcours`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
+        console.log(json)
+      
         setParcours(json.pn);
         setParcoursPro(json.pp);
       } catch (err) {
@@ -73,9 +74,10 @@ export default function FormationItems() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}api/Mention/${id}`);
+        const response = await fetch(`${BACKEND_URL}/api/Mention/${id}`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
+        console.log(json)
         setMention(json);
       } catch (err) {
         if (err instanceof Error) {
