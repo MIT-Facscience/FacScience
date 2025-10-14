@@ -237,8 +237,8 @@ export default function ContactPage() {
                           <div>
                             <h4 className="font-bold text-secondary mb-2">Téléphone</h4>
                             <p className="text-slate-700">
-                              <span className="block text-lg font-semibold">+261 20 22 123 40</span>
-                              <span className="text-sm text-slate-500">Fax: +261 20 22 123 41</span>
+                              <span className="block text-lg font-semibold">+261 34 36 146 61</span>
+                              <span className="text-sm text-slate-500">Fax: +261 32 85 038 15</span>
                             </p>
                           </div>
                         </div>
