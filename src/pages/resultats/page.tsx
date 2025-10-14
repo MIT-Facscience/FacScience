@@ -238,8 +238,8 @@ export default function ResultatsPage() {
 
             <Tabs defaultValue="concours" className="space-y-6">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="concours">Concours</TabsTrigger>
-                <TabsTrigger value="selections">Sélections</TabsTrigger>
+                <TabsTrigger value="concours">Académique</TabsTrigger>
+                <TabsTrigger value="selections">Professionalisante</TabsTrigger>
                 <TabsTrigger value="statistiques">Statistiques</TabsTrigger>
               </TabsList>
 
@@ -453,10 +453,10 @@ export default function ResultatsPage() {
                               <div className="text-xl font-bold text-orange-600">{Math.round(dept.etudiants * 0.1)}</div>
                               <div className="text-xs text-slate-600">Liste attente</div>
                             </div>
-                            <div className="text-center">
+                            {/* <div className="text-center">
                               <div className="text-xl font-bold text-red-600">{(dept.mentions_tb / 20).toFixed(1)}/20</div>
                               <div className="text-xs text-slate-600">Seuil moyen</div>
-                            </div>
+                            </div> */}
                           </div>
                         </CardContent>
                       </Card>
