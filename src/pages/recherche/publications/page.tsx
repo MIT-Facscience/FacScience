@@ -249,15 +249,15 @@ export default function ScientificPublications() {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case "journal":
-        return <BookOpen className="w-5 h-5" />;
+        return <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />;
       case "conference":
-        return <Users className="w-5 h-5" />;
+        return <Users className="w-4 h-4 sm:w-5 sm:h-5" />;
       case "workshop":
-        return <Zap className="w-5 h-5" />;
+        return <Zap className="w-4 h-4 sm:w-5 sm:h-5" />;
       case "book":
-        return <Award className="w-5 h-5" />;
+        return <Award className="w-4 h-4 sm:w-5 sm:h-5" />;
       default:
-        return <FileText className="w-5 h-5" />;
+        return <FileText className="w-4 h-4 sm:w-5 sm:h-5" />;
     }
   };
 
@@ -287,7 +287,7 @@ export default function ScientificPublications() {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`w-10 h-10 rounded-lg font-medium transition-all duration-200 ${
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
               i === currentPage
                 ? "bg-primary text-white shadow-lg"
                 : "bg-card text-foreground hover:bg-muted border border-border"
@@ -303,7 +303,7 @@ export default function ScientificPublications() {
         <button
           key={1}
           onClick={() => handlePageChange(1)}
-          className={`w-10 h-10 rounded-lg font-medium transition-all duration-200 ${
+          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
             1 === currentPage
               ? "bg-primary text-white shadow-lg"
               : "bg-card text-foreground hover:bg-muted border border-border"
@@ -316,7 +316,7 @@ export default function ScientificPublications() {
       // Add ellipsis if needed
       if (currentPage > 3) {
         buttons.push(
-          <span key="ellipsis1" className="px-2 text-muted-foreground">
+          <span key="ellipsis1" className="px-1 sm:px-2 text-muted-foreground">
             ...
           </span>
         );
@@ -331,7 +331,7 @@ export default function ScientificPublications() {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`w-10 h-10 rounded-lg font-medium transition-all duration-200 ${
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
               i === currentPage
                 ? "bg-primary text-white shadow-lg"
                 : "bg-card text-foreground hover:bg-muted border border-border"
@@ -345,7 +345,7 @@ export default function ScientificPublications() {
       // Add ellipsis if needed
       if (currentPage < totalPages - 2) {
         buttons.push(
-          <span key="ellipsis2" className="px-2 text-muted-foreground">
+          <span key="ellipsis2" className="px-1 sm:px-2 text-muted-foreground">
             ...
           </span>
         );
@@ -357,7 +357,7 @@ export default function ScientificPublications() {
           <button
             key={totalPages}
             onClick={() => handlePageChange(totalPages)}
-            className={`w-10 h-10 rounded-lg font-medium transition-all duration-200 ${
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
               totalPages === currentPage
                 ? "bg-primary text-white shadow-lg"
                 : "bg-card text-foreground hover:bg-muted border border-border"
@@ -375,14 +375,14 @@ export default function ScientificPublications() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#fafafa" }}>
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-10">
-        <div className="container mx-auto h-96 px-4 md:px-6 xl:px-8 pt-8">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-hover to-ring bg-clip-text text-transparent mt-12">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-purple-100 sticky top-0 z-10 mb-16 md:mb-8">
+        <div className="container mx-auto h-64 sm:h-80 md:h-96 px-4 md:px-6 xl:px-8 pt-4 sm:pt-6 md:pt-8">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-hover to-ring bg-clip-text text-transparent mt-4 sm:mt-8 md:mt-12">
               Publications Scientifiques
             </h1>
             <p
-              className="text-lg max-w-2xl mx-auto mt-4"
+              className="text-base sm:text-lg max-w-2xl mx-auto mt-3 sm:mt-4 px-4"
               style={{ color: "#524751" }}
             >
               Découvrez nos dernières recherches et contributions académiques
@@ -391,35 +391,28 @@ export default function ScientificPublications() {
           </div>
 
           {/* Filtres et recherche */}
-          <div className="bg-white/60 backdrop-blur-sm  shadow-lg border border-amber-200  p-6 mt-16">
-            <div className="flex flex-col lg:flex-row gap-4 items-center">
-              <div className="flex-1 relative">
-                <input
-                  type="text"
-                  placeholder="Tous les départements"
-                  className="w-full pl-4 pr-4 py-3 text-slate-800 border border-amber-200  bg-white/80 backdrop-blur-sm focus:ring-2 transition-all duration-200"
-                />
-              </div>
-
+          <div className="bg-white/60 backdrop-blur-sm shadow-lg border border-amber-200 p-4 sm:p-6 mt-8 sm:mt-12 md:mt-16">
+            <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
               {/* Barre de recherche */}
-              <div className="flex-1 relative">
-                {/* <h1>salut</h1> */}
-                <Search className="absolute text-black left-4 top-1/2 transform -translate-y-1/2 w-5 h-5" />
+              <div className="flex-1 relative min-w-0">
+                <Search className="absolute text-black left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5" />
                 <input
                   type="text"
                   placeholder="Rechercher par titre, auteur ou mot-clé..."
-                  className="w-full pl-12 text-slate-800 pr-4 py-3 border border-amber-200  bg-white/80 backdrop-blur-sm focus:ring-2 transition-all duration-200"
+                  className="w-full pl-10 sm:pl-12 text-slate-800 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 transition-all duration-200 rounded-md"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
 
               {/* Filtres */}
-              <div className="flex gap-3">
-                <div className="relative">
-                  <Filter className="absolute  text-slate-800 left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+              {/* <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto"> */}
+              <div className="grid grid-cols-2 md:flex  gap-2 sm:gap-3 w-full sm:w-auto">
+
+                <div className="relative flex-1 sm:flex-none min-w-0">
+                  <Filter className="absolute text-slate-800 left-2.5 sm:left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <select
-                    className="pl-10 pr-8 py-3  border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer "
+                    className="w-full pl-9 sm:pl-10 pr-7 sm:pr-8 py-2.5 sm:py-3 text-sm sm:text-base border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer rounded-md"
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
                   >
@@ -431,10 +424,10 @@ export default function ScientificPublications() {
                   </select>
                 </div>
 
-                <div className="relative">
-                  <Calendar className="absolute text-slate-800 left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" />
+                <div className="relative flex-1 sm:flex-none min-w-0">
+                  <Calendar className="absolute text-slate-800 left-2.5 sm:left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <select
-                    className="pl-10 pr-8 py-3   border  border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer"
+                    className="w-full pl-9 sm:pl-10 pr-7 sm:pr-8 py-2.5 sm:py-3 text-sm sm:text-base border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer rounded-md"
                     value={selectedYear}
                     onChange={(e) => setSelectedYear(e.target.value)}
                   >
@@ -453,19 +446,19 @@ export default function ScientificPublications() {
       </div>
 
       {/* Contenu principal */}
-      <div className="container mx-auto px-4 md:px-6 xl:px-8">
+      <div className="container mx-auto px-4 md:px-6 xl:px-8 pb-8">
         {/* Statistiques */}
-        <div className="mb-8">
-          <div className="bg-white/60 backdrop-blur-sm shadow-lg border border-pink-200 p-6">
-            <div className="flex items-center justify-between">
+        <div className="mb-6 sm:mb-8">
+          <div className="bg-white/60 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
               <div>
-                <p className="text-2xl font-bold" style={{ color: "#111011" }}>
+                <p className="text-xl sm:text-2xl font-bold" style={{ color: "#111011" }}>
                   {filteredPublications.length}
                 </p>
-                <p style={{ color: "#524751" }}>Publications trouvées</p>
+                <p className="text-sm sm:text-base" style={{ color: "#524751" }}>Publications trouvées</p>
               </div>
               <div className="text-right">
-                <p className="text-sm" style={{ color: "#524751" }}>
+                <p className="text-xs sm:text-sm" style={{ color: "#524751" }}>
                   Page {currentPage} sur {totalPages}
                 </p>
               </div>
@@ -474,19 +467,19 @@ export default function ScientificPublications() {
         </div>
 
         {/* Liste des publications */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {paginatedPublications.length > 0 ? (
             paginatedPublications.map((publication) => (
               <div
                 key={publication.id}
-                className="bg-white/70 backdrop-blur-sm  shadow-lg border border-pink-200 p-8 hover:shadow-xl transition-all duration-300 group"
+                className="bg-white/70 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-300 group rounded-lg"
               >
                 {/* En-tête de la publication */}
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-3 sm:mb-4 gap-3 sm:gap-0">
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                       <span
-                        className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium border ${getTypeColor(
+                        className={`inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium border ${getTypeColor(
                           publication.type
                         )}`}
                       >
@@ -498,68 +491,71 @@ export default function ScientificPublications() {
                         }
                       </span>
                       <span
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium border"
+                        className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium border"
                         style={{
                           backgroundColor: "#f1f5f9",
                           color: "#524751",
                           borderColor: "#b40ab1",
                         }}
                       >
-                        <Calendar className="w-4 h-4" />
+                        <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         {publication.year}
                       </span>
                     </div>
                     <h2
-                      className="text-xl font-bold mb-3 transition-colors duration-200"
+                      className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3 transition-colors duration-200 leading-tight"
                       style={{ color: "#111011" }}
                     >
                       {publication.title}
                     </h2>
                   </div>
                   {publication.citations && (
-                    <div className="text-right">
+                    <div className="text-right sm:ml-4">
                       <p
-                        className="text-2xl font-bold"
+                        className="text-lg sm:text-2xl font-bold"
                         style={{ color: "#780376" }}
                       >
                         {publication.citations}
                       </p>
-                      <p className="text-sm" style={{ color: "#524751" }}>
+                      <p className="text-xs sm:text-sm hidden sm:block" style={{ color: "#524751" }}>
                         citations
+                      </p>
+                      <p className="text-xs block sm:hidden" style={{ color: "#524751" }}>
+                        cit.
                       </p>
                     </div>
                   )}
                 </div>
 
                 {/* Auteurs */}
-                <div className="flex items-center gap-2 mb-4">
-                  <Users className="w-4 h-4" style={{ color: "#524751" }} />
-                  <p style={{ color: "#111011" }}>
+                <div className="flex items-start gap-2 mb-3 sm:mb-4">
+                  <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5" style={{ color: "#524751" }} />
+                  <p className="text-sm sm:text-base" style={{ color: "#111011" }}>
                     {publication.authors.join(", ")}
                   </p>
                 </div>
 
                 {/* Venue */}
-                <div className="flex items-center gap-2 mb-4">
-                  <FileText className="w-4 h-4" style={{ color: "#524751" }} />
-                  <p className="font-medium" style={{ color: "#111011" }}>
+                <div className="flex items-start gap-2 mb-3 sm:mb-4">
+                  <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5" style={{ color: "#524751" }} />
+                  <p className="text-sm sm:text-base font-medium" style={{ color: "#111011" }}>
                     {publication.venue}
                   </p>
                 </div>
 
                 {/* Abstract */}
-                <div className="mb-4">
-                  <p className="leading-relaxed" style={{ color: "#524751" }}>
+                <div className="mb-3 sm:mb-4">
+                  <p className="leading-relaxed text-sm sm:text-base" style={{ color: "#524751" }}>
                     {publication.abstract}
                   </p>
                 </div>
 
                 {/* Mots-clés */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                   {publication.keywords.map((keyword, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 text-sm rounded-full border"
+                      className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border"
                       style={{
                         backgroundColor: "#f0e0f0",
                         color: "#780376",
@@ -573,25 +569,25 @@ export default function ScientificPublications() {
 
                 {/* Actions */}
                 <div
-                  className="flex items-center justify-between pt-4 border-t"
+                  className="flex items-center justify-start pt-3 sm:pt-4 border-t"
                   style={{ borderColor: "#b40ab1" }}
                 >
-                  <div className="flex gap-3">
+                  <div className="flex gap-2 sm:gap-3 flex-wrap">
                     {publication.doi && (
                       <button
-                        className="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg transition-colors duration-200"
+                        className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-white rounded-md transition-colors duration-200 flex-shrink-0"
                         style={{ backgroundColor: "#780376" }}
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         DOI
                       </button>
                     )}
                     {publication.url && (
                       <button
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200"
+                        className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-md transition-colors duration-200 flex-shrink-0"
                         style={{ backgroundColor: "#f1f5f9", color: "#524751" }}
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         Lien
                       </button>
                     )}
@@ -600,8 +596,8 @@ export default function ScientificPublications() {
               </div>
             ))
           ) : (
-            <div className="text-center py-12">
-              <p className="text-xl" style={{ color: "#524751" }}>
+            <div className="text-center py-8 sm:py-12">
+              <p className="text-lg sm:text-xl" style={{ color: "#524751" }}>
                 Aucune publication trouvée
               </p>
               <p className="text-sm mt-2" style={{ color: "#524751" }}>
@@ -613,29 +609,29 @@ export default function ScientificPublications() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="mt-12 mb-12">
-            <div className="bg-white/60 backdrop-blur-sm  shadow-lg border border-pink-200 p-6">
-              <div className="flex items-center justify-between">
+          <div className="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div className="bg-white/60 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6 rounded-lg">
+              <div className="flex items-center justify-between gap-2 sm:gap-0 flex-wrap">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-slate-400 bg-white/80 rounded-lg border hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-400 bg-white/80 rounded-md border hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex-shrink-0 order-1"
                 >
-                  <ChevronLeft className="w-4 h-4 hover:text-amber-100" />
+                  <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 hover:text-amber-100" />
                   Précédent
                 </button>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2 flex-1 justify-center order-3 sm:order-2">
                   {renderPaginationButtons()}
                 </div>
 
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-slate-400 bg-white/80 rounded-lg border hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-400 bg-white/80 rounded-md border hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex-shrink-0 order-2 sm:order-3"
                 >
                   Suivant
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
             </div>
