@@ -21,7 +21,9 @@ import ResultatsPage from "./pages/resultats/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
+import INTAdmissionPage from "./pages/admission/int-modalite/page";
 import Formulaire from "./pages/Preinscription/Formulaire";
+import INTFormulaire from "./pages/admission/int-formulaire/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 
 export default function App() {
@@ -60,7 +62,9 @@ export default function App() {
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
         <Route path="/admission/modalite" element={<AdmissionPage />} />
+        <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
         <Route path="/admission/preinscription" element={<Formulaire />} />
+        <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
       </Routes>
 
       {/* Footer caché sur certaines routes */}
