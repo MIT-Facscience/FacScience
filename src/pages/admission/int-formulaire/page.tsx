@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Upload, User, FileText, CheckCircle, GraduationCap } from "lucide-react";
+import { BACKEND_URL } from "@/lib/api";
 
 interface FormData {
   nom: string;
@@ -49,6 +50,30 @@ export default function INTForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    fetch(`${BACKEND_URL}/api/Parcours`, {
+      method: "POST",
+      body: JSON.stringify({
+        Nom : formData.nom,
+        Prenom : formData.prenom,
+        Master : formData.master,
+        ReferencePaiement : formData.referencePaiement,
+        Cv : formData.cv,
+        JustificatifPaiement : formData.justificatifPaiement,
+        Baccalaureat : formData.baccalaureat,
+        Notes : formData.notes,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Une erreur est survenue lors de la soumission de votre dossier.");
+    });
     console.log("Form data:", formData);
     alert("Votre dossier a été soumis avec succès !");
   };
@@ -63,7 +88,7 @@ export default function INTForm() {
         transition={{ duration: 0.6 }}
         className="max-w-3xl mx-auto px-4"
       >
-        <Card className="shadow-lg border border-gray-200">
+        <Card className="shadow-lg border border-gray-200 pt-0 overflow-hidden gap-0">
           <CardHeader className="relative bg-primary text-white py-10 text-center">
             <div className="absolute inset-0 bg-grid-white/10" />
             <div className="relative space-y-3">
@@ -89,7 +114,7 @@ export default function INTForm() {
                   Informations personnelles
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <Label htmlFor="nom">Nom</Label>
                     <Input
                       id="nom"
@@ -100,7 +125,7 @@ export default function INTForm() {
                       required
                     />
                   </div>
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <Label htmlFor="prenom">Prénom</Label>
                     <Input
                       id="prenom"
@@ -113,7 +138,7 @@ export default function INTForm() {
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="master">Choisir Master</Label>
                   <select
                     id="master"
@@ -136,7 +161,7 @@ export default function INTForm() {
                   Dossier académique
                 </h3>
 
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="cv" className="flex items-center gap-2">
                     <FileText className="h-4 w-4 text-primary" /> Curriculum Vitae (PDF)
                   </Label>
@@ -152,7 +177,7 @@ export default function INTForm() {
                   <p className="text-xs text-muted-foreground mt-1">{renderFileName(formData.cv)}</p>
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="baccalaureat" className="flex items-center gap-2">
                     <Upload className="h-4 w-4 text-primary" /> Relevé de notes du Baccalauréat
                   </Label>
@@ -168,7 +193,7 @@ export default function INTForm() {
                   <p className="text-xs text-muted-foreground mt-1">{renderFileName(formData.baccalaureat)}</p>
                 </div>
 
-                <div>
+                <div className="flex flex-col">
                   <Label className="flex items-center gap-2 mb-2">
                     <User className="h-4 w-4 text-primary" /> Relevés de notes (3 dernières années)
                   </Label>
@@ -198,7 +223,7 @@ export default function INTForm() {
                   Frais de dossier
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <Label htmlFor="justificatifPaiement" className="flex items-center gap-2">
                       <Upload className="h-4 w-4 text-primary" /> Justificatif de paiement
                     </Label>
@@ -213,7 +238,7 @@ export default function INTForm() {
                     />
                     <p className="text-xs text-muted-foreground mt-1">{renderFileName(formData.justificatifPaiement)}</p>
                   </div>
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <Label htmlFor="referencePaiement">Référence du paiement</Label>
                     <Input
                       id="referencePaiement"
@@ -231,7 +256,7 @@ export default function INTForm() {
               <div className="pt-6">
                 <Button
                   type="submit"
-                  className="w-full text-lg flex items-center justify-center gap-2"
+                  className="w-full text-lg flex items-center justify-center"
                 >
                   <CheckCircle className="h-5 w-5" /> Soumettre mon dossier
                 </Button>
