@@ -19,7 +19,7 @@ import FormationItems from "./pages/formation/components/FormationItems";
 import HistoirePage from "./pages/presentation/histoire/page";
 import OrganigrammePage from "./pages/presentation/organigramme/page";
 import VisionPage from "./pages/presentation/vision/page";
-import ListesAdmisPage from "./pages/resultats/listes-admis/page";
+// import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 import ResultatsPage from "./pages/resultats/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
@@ -59,7 +59,8 @@ export default function App() {
         />
         {/* <Route path="/math" element={<MathInfoPage />} /> */}
         <Route path="/presentation/vision" element={<VisionPage />} />
-        <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
+        {/* <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} /> */}
+        <Route path="/resultats/listes-admis" element={<NotFound />} />
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
