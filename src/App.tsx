@@ -24,7 +24,7 @@ import ResultatsPage from "./pages/resultats/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
-import Formulaire from "./pages/Preinscription/Formulaire";
+// import Formulaire from "./pages/Preinscription/Formulaire";
 import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 
@@ -66,7 +66,8 @@ export default function App() {
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
         <Route path="/admission/modalite" element={<AdmissionPage />}/>
-        <Route path="/admission/preinscription" element={<Formulaire/>}/>
+        {/* <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
+        <Route path="/admission/preinscription" element={<NotFound/>}/>
 
         {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 
