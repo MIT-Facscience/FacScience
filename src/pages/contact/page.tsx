@@ -17,12 +17,12 @@ import {
   Zap,
   Heart,
   Award,
-  // BookOpen,
+  BookOpen,
   Microscope,
   ChevronDown,
 
-  // MessageCircleMore,
-  // Mailbox,
+  MessageCircleMore,
+  Mailbox,
   BookText
 } from "lucide-react"
 

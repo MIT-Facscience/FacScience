@@ -25,6 +25,7 @@ import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
 import Formulaire from "./pages/Preinscription/Formulaire";
+import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 
 // import MathInfoPage from "./formation/mathematiques-informatique/page";
