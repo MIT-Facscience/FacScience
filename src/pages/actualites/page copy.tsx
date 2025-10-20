@@ -1,0 +1,337 @@
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ArrowRight,
+  Calendar,
+  Camera,
+  TreePine,
+  Trophy,
+  User,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { BACKEND_URL } from "@/lib/api";
+import { useEffect, useState } from "react";
+
+export default function ActualitesPage() {
+    const [data, setData] = useState();
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`${BACKEND_URL}/api/Actualite/GetAll`);
+          if (!response.ok) throw new Error("Erreur réseau");
+          const json = await response.json();
+          
+          setData(json);
+        } catch (err) {
+          if (err instanceof Error) {
+            console.error(err.message);
+          } else {
+            console.error(String(err));
+          }
+        }
+      };
+  
+      fetchData();
+    }, []);
+
+  console.log(data);
+
+  const actualites = [
+    {
+      id: 1,
+      title: "Cérémonie de remise des diplômes 2024",
+      description:
+        "Plus de 300 étudiants ont reçu leur diplôme lors de la cérémonie annuelle de remise des diplômes.",
+      image: "/images/graduation.jpg",
+      date: "15 Décembre 2024",
+      auteur: "Administration",
+      categorie: "Événement",
+      type: "graduation",
+      contenu:
+        "La cérémonie s'est déroulée dans l'amphithéâtre principal en présence des familles et du corps professoral.",
+    },
+    {
+      id: 2,
+      title: "Compétition sportive inter-facultés",
+      description:
+        "La Faculté des Sciences remporte le tournoi de football et se classe deuxième en basketball.",
+      image: "/university-sports-competition-football-students.png",
+      date: "8 Décembre 2024",
+      auteur: "Bureau des Sports",
+      categorie: "Sport",
+      type: "sport",
+      contenu:
+        "Nos équipes ont brillé lors de la compétition annuelle qui s'est tenue sur le campus principal.",
+    },
+    {
+      id: 3,
+      title: "Programme de reboisement du campus",
+      description:
+        "Initiative écologique : plantation de 500 arbres endémiques dans les espaces verts du campus.",
+      image: "/tree-planting-environmental-students-madagascar-ca.png",
+      date: "1 Décembre 2024",
+      auteur: "Club Environnement",
+      categorie: "Environnement",
+      type: "environment",
+      contenu:
+        "Cette action s'inscrit dans notre engagement pour la préservation de l'environnement malgache.",
+    },
+    {
+      id: 4,
+      title: "Sortie pédagogique - Parc National d'Andasibe",
+      description:
+        "Les étudiants en Sciences Naturelles découvrent la biodiversité unique de Madagascar.",
+      image: "/madagascar-national-park-students-field-trip-biodi.png",
+      date: "25 Novembre 2024",
+      auteur: "Département Sciences Naturelles",
+      categorie: "Pédagogie",
+      type: "field-trip",
+      contenu:
+        "Une expérience enrichissante pour comprendre les écosystèmes forestiers malgaches.",
+    },
+    {
+      id: 5,
+      title: "Conférence sur l'Intelligence Artificielle",
+      description:
+        "Intervention du Dr. Rakoto sur les applications de l'IA dans le développement durable.",
+      image: "/artificial-intelligence-conference-university-lect.png",
+      date: "20 Novembre 2024",
+      auteur: "Département Informatique",
+      categorie: "Conférence",
+      type: "conference",
+      contenu:
+        "Une conférence passionnante sur les enjeux de l'IA pour Madagascar.",
+    },
+    {
+      id: 6,
+      title: "Journée Portes Ouvertes 2024",
+      description:
+        "Découverte des formations et des laboratoires pour les futurs étudiants.",
+      image: "/images/campus-courtyard.jpg",
+      date: "15 Novembre 2024",
+      auteur: "Service Communication",
+      categorie: "Événement",
+      type: "open-day",
+      contenu:
+        "Plus de 1000 visiteurs ont découvert notre faculté lors de cette journée spéciale.",
+    },
+  ];
+
+  const getIcon = (type: string) => {
+    switch (type) {
+      case "sport":
+        return Trophy;
+      case "environment":
+        return TreePine;
+      case "graduation":
+      case "field-trip":
+      case "open-day":
+        return Camera;
+      default:
+        return Calendar;
+    }
+  };
+
+  const getCategoryColor = (categorie: string) => {
+    switch (categorie) {
+      case "Sport":
+        return "bg-emerald-500 text-white font-medium";
+      case "Environnement":
+        return "bg-green-600 text-white font-medium";
+      case "Événement":
+        return "bg-blue-600 text-white font-medium";
+      case "Pédagogie":
+        return "bg-purple-600 text-white font-medium";
+      case "Conférence":
+        return "bg-orange-600 text-white font-medium";
+      default:
+        return "bg-slate-600 text-white font-medium";
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative py-24 bg-muted">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="container mx-auto px-4 md:px-6 xl:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-6xl font-bold mb-8 text-balance tracking-tight">
+              Actualités
+            </h1>
+            <p className="text-xl md:text-2xl  mb-12 text-pretty leading-relaxed">
+              Suivez la vie de notre faculté : événements, réussites sportives,
+              initiatives environnementales et sorties pédagogiques.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Article */}
+      <section className="py-20 -mt-12 relative z-20">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-12 text-center">À la une</h2>
+            <Card className="overflow-hidden shadow-2xl border-0 bg-white rounded-none">
+              <div className="md:flex">
+                <div className="md:w-1/2">
+                  <div className="relative h-80 md:h-full">
+                    <img
+                      src={actualites[0].image || "/placeholder.svg"}
+                      alt={actualites[0].title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                  </div>
+                </div>
+                <div className="md:w-1/2 p-8">
+                  <div className="flex items-center space-x-4 mb-6">
+                    <Badge
+                      className={`${getCategoryColor(
+                        actualites[0].categorie
+                      )} px-4 py-2`}
+                    >
+                      {actualites[0].categorie}
+                    </Badge>
+                    <div className="flex items-center text-sm text-slate-600 font-medium">
+                      <Calendar className="h-4 w-4 mr-2" />
+                      {actualites[0].date}
+                    </div>
+                  </div>
+                  <h3 className="text-3xl font-bold mb-6 text-slate-900 leading-tight">
+                    {actualites[0].title}
+                  </h3>
+                  <p className="text-slate-600 mb-6 text-lg leading-relaxed">
+                    {actualites[0].description}
+                  </p>
+                  <p className="text-slate-700 mb-8 leading-relaxed">
+                    {actualites[0].contenu}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center text-sm text-slate-600 font-medium">
+                      <User className="h-4 w-4 mr-2" />
+                      {actualites[0].auteur}
+                    </div>
+                    <Button
+                      variant="default"
+                      size="lg"
+                      className="bg-primary/90 hover:bg-primary text-white px-6"
+                    >
+                      Lire la suite
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* All Articles */}
+      <section className="py-20 bg-slate-50">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
+          <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">
+            Toutes les actualités
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {actualites.slice(1).map((actualite) => {
+              const IconComponent = getIcon(actualite.type);
+              return (
+                <Card
+                  key={actualite.id}
+                  className="overflow-hidden rounded-none hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 bg-white"
+                >
+                  <Link to={`/actualites/${actualite.id}`}>
+                    <div className="relative h-56">
+                      <img
+                        src={actualite.image || "/placeholder.svg"}
+                        alt={actualite.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                      <div className="absolute top-4 left-4">
+                        <Badge
+                          className={`${getCategoryColor(
+                            actualite.categorie
+                          )} px-3 py-1`}
+                        >
+                          {actualite.categorie}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <CardHeader className="pb-4">
+                      <div className="flex items-center space-x-2 text-sm text-slate-600 mb-3 font-medium">
+                        <Calendar className="h-4 w-4" />
+                        <span>{actualite.date}</span>
+                      </div>
+                      <CardTitle className="text-xl line-clamp-2 text-slate-900 leading-tight">
+                        {actualite.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <CardDescription className="line-clamp-3 mb-6 text-slate-600 leading-relaxed">
+                        {actualite.description}
+                      </CardDescription>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center text-sm text-slate-600 font-medium">
+                          <User className="h-4 w-4 mr-2" />
+                          {actualite.auteur}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-primary/90 hover:text-primary hover:bg-blue-50"
+                        >
+                          <IconComponent className="h-4 w-4 mr-2" />
+                          Lire
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Link>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 bg-muted">
+        <div className="container mx-auto px-4 md:px-6 xl:px-8">
+          <Card className="max-w-2xl mx-auto rounded-none text-center border-0 shadow-2xl bg-white">
+            <CardHeader className="pb-6">
+              <CardTitle className="text-3xl text-slate-900">
+                Restez informés
+              </CardTitle>
+              <CardDescription className="text-lg text-slate-600 leading-relaxed">
+                  Recevez les dernières actualités de la Faculté des Sciences directement dans votre boîte mail.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <input
+                  type="email"
+                  placeholder="Votre adresse email"
+                  className="flex-1 px-6 py-4 border-2 border-slate-200 bg-white text-slate-900 placeholder:text-slate-500 focus:border-border focus:outline-none transition-colors"
+                />
+                <button className="bg-primary text-primary-foreground px-8 py-4 font-medium m-0 h-full rounded-none border-2 border-primary cursor-pointer">
+                  S'abonner
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    </div>
+  );
+}
