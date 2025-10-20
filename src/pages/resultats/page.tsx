@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Search, Download, Filter, Users, FileText, Calendar, CheckCircle2, Clock, GraduationCap } from "lucide-react"
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { BACKEND_URL } from "@/lib/api"
 
@@ -27,12 +27,12 @@ type statPType = [
   }
 ]
 
-type StatMentionType = {
-  nomPortail: string;
-  abbrev: string;
-  total: number;
-  inscritsVerifies?: number;
-}
+// type StatMentionType = {
+//   nomPortail: string;
+//   abbrev: string;
+//   total: number;
+//   inscritsVerifies?: number;
+// }
 
 type StatFiliereType = {
   nomFiliere: string;
@@ -82,8 +82,10 @@ export default function CandidatsPreinscrits() {
         console.error("Erreur lors de la récupération des statP professionalisante :", error)
       })
 
+      console.log(loading)
+
     setLoading(false)
-  }, [])
+  }, [loading])
 
   // Données exemple pour les candidats académique
   const candidatsParMentionAcademique = {
@@ -144,9 +146,9 @@ export default function CandidatsPreinscrits() {
   ]
 
   const getCurrentItems = () => activeTab === "academique" ? mentionsAcademique : filieresProfessionalisante
-  const getCurrentCandidats = () => activeTab === "academique" ? candidatsParMentionAcademique : candidatsParFiliereProfessionalisante
-  const getCurrentStat = () => activeTab === "academique" ? statPAcademique : statPProfessionalisante
-  const getCurrentStatKey = () => activeTab === "academique" ? "nomPortail" : "nomFiliere"
+  // const getCurrentCandidats = () => activeTab === "academique" ? candidatsParMentionAcademique : candidatsParFiliereProfessionalisante
+  // const getCurrentStat = () => activeTab === "academique" ? statPAcademique : statPProfessionalisante
+  // const getCurrentStatKey = () => activeTab === "academique" ? "nomPortail" : "nomFiliere"
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
