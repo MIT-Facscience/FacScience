@@ -75,9 +75,16 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
         <div className="grid gap-4 md:grid-cols-3">
           <input
             type="text"
-            placeholder="Référence"
+            placeholder="Ex: YMA7730/COT"
             value={bankReference}
-            onChange={(e) => setBankReference(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              // Limiter à 12 caractères maximum
+              if (value.length <= 12) {
+                setBankReference(value);
+              }
+            }}
+            maxLength={12}
             className="border px-4 py-2 border-gray-200"
           />
           <input

@@ -103,7 +103,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
 
     try {
       const candidateInfo = await fetchCandidateInfo(baccalaureateNumber, year);
-
+      
       if (!candidateInfo) {
         setError("Candidat introuvable avec ces informations");
         return;
@@ -115,8 +115,9 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
         );
         return;
       }
-
       onNext(candidateInfo);
+
+      
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue");
     } finally {
