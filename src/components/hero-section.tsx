@@ -137,8 +137,8 @@ export function HeroSection(): JSX.Element {
               key={index}
               className={`absolute inset-0 transition-all duration-700 ${
                 index === currentSlide 
-                  ? "opacity-100 scale-100" 
-                  : "opacity-0 scale-105"
+                  ? "opacity-100 scale-100 pointer-events-auto" 
+                  : "opacity-0 scale-105 pointer-events-none"
               }`}
             >
               <img
