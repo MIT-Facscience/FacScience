@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState, type JSX } from "react";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 interface CampusImage {
@@ -8,6 +9,12 @@ interface CampusImage {
   alt: string;
   title: string;
   description: string;
+  backgroundColor : string;
+  buttonBorder : string;
+  buttonText : string;
+  buttonLinkForm : string;
+  buttonLinkInfo : string;
+  buttonIcon : JSX.Element | null;
 }
 
 export function HeroSection(): JSX.Element {
@@ -20,18 +27,36 @@ export function HeroSection(): JSX.Element {
       alt: "Campus principal de la Faculté des Sciences",
       title: "Campus Moderne",
       description: "Un environnement d'apprentissage exceptionnel",
+      backgroundColor : "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
+      buttonBorder : "",
+      buttonText : "Découvrir nos formations",
+      buttonLinkForm : "/formation",
+      buttonLinkInfo : "/presentation",
+      buttonIcon : null,
     },
     {
       src: "/fs_amphi.jpg",
       alt: "Environnement d'apprentissage",
       title: "Environnement d'apprentissage",
       description: "Ressources documentaires complètes",
+      backgroundColor : "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
+      buttonBorder : "",
+      buttonText : "Découvrir nos formations",
+      buttonLinkForm : "/formation",
+      buttonLinkInfo : "/presentation",
+      buttonIcon : null,
     },
     {
-      src: "/fs_facade_3.jpg",
-      alt: "Environnement accueillant",
-      title: "Environnement accueillant",
-      description: "Technologies de pointe pour la recherche",
+      src: "/fs_amphi.jpg",
+      alt: "INT",
+      title: "Innovation et Technologies",
+      description: "Inscrivez-vous au parcours INT de la mention Informatique et Technologies",
+      backgroundColor : "from-red-600 to-red-700 hover:from-red-700 hover:to-red-800",
+      buttonBorder : "",
+      buttonText : "Inscription INT",
+      buttonLinkForm : "/admission/int-formulaire",
+      buttonLinkInfo : "/admission/int-modalite",
+      buttonIcon : <ArrowRight/>,
     },
   ];
 
@@ -107,13 +132,13 @@ export function HeroSection(): JSX.Element {
     <>
       <section className="relative h-[700px] overflow-hidden">
         <div className="relative h-full">
-          {campusImages.map((image, index) => (
+          {campusImages.map((image, index) =>  (
             <div
               key={index}
               className={`absolute inset-0 transition-all duration-700 ${
                 index === currentSlide 
-                  ? "opacity-100 scale-100" 
-                  : "opacity-0 scale-105"
+                  ? "opacity-100 scale-100 pointer-events-auto" 
+                  : "opacity-0 scale-105 pointer-events-none"
               }`}
             >
               <img
@@ -135,7 +160,7 @@ export function HeroSection(): JSX.Element {
                       style={{
                         color: 'white'
                       }}>
-                    Faculté des Sciences
+                    {(index == 2) ? "Inscription INT" : "Faculté des Sciences"}
                   </h1>
                   
                   {/* Contenu dynamique qui change avec les slides */}
@@ -165,19 +190,22 @@ export function HeroSection(): JSX.Element {
                     index === currentSlide && !isTransitioning ? 'slide-in-up' : 'opacity-0'
                   }`}>
                     <Button
-                      asChild
-                      size="lg"
-                      className="border-0 shadow-xl rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 transform hover:scale-105 transition-all duration-200"
-                    >
-                      <a href="/formation">Découvrir nos formations</a>
-                    </Button>
+                          asChild
+                          size="lg"
+                          className={`border-0 shadow-xl rounded-lg bg-gradient-to-r ${image.backgroundColor} transform hover:scale-105 transition-all duration-200`}
+                        >
+                          <Link to={image.buttonLinkForm}>
+                            <span>{image.buttonText}</span>
+                            {image.buttonIcon}
+                          </Link>
+                        </Button>
                     <Button
                       variant="secondary"
                       size="lg"
                       asChild
                       className="border-2 border-amber-300 rounded-lg text-amber-100 backdrop-blur-sm bg-white/10 hover:bg-white/20 transform hover:scale-105 transition-all duration-200"
                     >
-                      <a href="/presentation">En savoir plus</a>
+                      <Link to={image.buttonLinkInfo}>En savoir plus</Link>
                     </Button>
                   </div>
                 </div>

@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Upload, User, FileText, CheckCircle, GraduationCap } from "lucide-react";
+import { Upload, User, FileText, CheckCircle, GraduationCap, UserRoundPen } from "lucide-react";
 import { BACKEND_URL } from "@/lib/api";
 
 interface FormData {
@@ -14,6 +14,8 @@ interface FormData {
   prenom: string;
   master: "M1" | "M2" | "";
   referencePaiement: string;
+  parcours : string | null;
+  grade : "L3" | "M1" | "M2" | "";
   cv: File | null;
   justificatifPaiement: File | null;
   baccalaureat: File | null;
@@ -26,6 +28,8 @@ export default function INTForm() {
     prenom: "",
     master: "",
     referencePaiement: "",
+    parcours : "",
+    grade : "",
     cv: null,
     justificatifPaiement: null,
     baccalaureat: null,
@@ -57,6 +61,8 @@ export default function INTForm() {
         Prenom : formData.prenom,
         Master : formData.master,
         ReferencePaiement : formData.referencePaiement,
+        Parcours : formData.parcours,
+        Grade : formData.grade,
         Cv : formData.cv,
         JustificatifPaiement : formData.justificatifPaiement,
         Baccalaureat : formData.baccalaureat,
@@ -108,6 +114,28 @@ export default function INTForm() {
 
           <CardContent className="p-6 sm:p-8 space-y-6">
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Section candidature */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
+                  Information candidature
+                </h3>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="master">Choisir Master</Label>
+                  <select
+                    id="master"
+                    name="master"
+                    value={formData.master}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 w-full rounded-none border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                  >
+                    <option value="">-- Choisir Master --</option>
+                    <option value="M1">Master 1</option>
+                    <option value="M2">Master 2</option>
+                  </select>
+                </div>
+              </div>
+
               {/* Section Identité */}
               <div className="space-y-4">
                 <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
@@ -138,21 +166,6 @@ export default function INTForm() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="master">Choisir Master</Label>
-                  <select
-                    id="master"
-                    name="master"
-                    value={formData.master}
-                    onChange={handleChange}
-                    required
-                    className="mt-1 w-full rounded-none border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                  >
-                    <option value="">-- Choisir Master --</option>
-                    <option value="M1">Master 1</option>
-                    <option value="M2">Master 2</option>
-                  </select>
-                </div>
               </div>
 
               {/* Section Dossier académique */}
@@ -160,6 +173,41 @@ export default function INTForm() {
                 <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
                   Dossier académique
                 </h3>
+
+                <div className="flex flex-col gap-2">
+                    <Label htmlFor="nom">
+                      <UserRoundPen className="h-4 w-4 text-primary" />
+                      Parcours
+                    </Label>
+                    <Input
+                      id="parcours"
+                      name="parcours"
+                      placeholder="Entrez votre parcours"
+                      value={formData.parcours ?? ""}
+                      onChange={handleChange}
+                      required
+                    />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="master">
+                    <GraduationCap className="h-4 w-4 text-primary" />
+                    Niveau & Grade
+                  </Label>
+                  <select
+                    id="grade"
+                    name="grade"
+                    value={formData.grade}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 w-full rounded-none border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                  >
+                    <option value="">-- Sélectionner votre niveau et grade --</option>
+                    <option value="L3">License 3</option>
+                    <option value="M1">Master 1</option>
+                    <option value="M2">Master 2</option>
+                  </select>
+                </div>
 
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="cv" className="flex items-center gap-2">
