@@ -76,8 +76,8 @@ export default function INTAdmissionPage() {
                 {/* Logo + Titre combiné */}
                 <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full flex items-center justify-center font-bold text-white text-xl shadow-md">
-                      IT
+                    <div className="overflow-hidden w-12 h-12 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full flex items-center justify-center font-bold text-white text-xl shadow-md">
+                      <img className="w-full" src="/INT logo.png" alt="INT" />
                     </div>
                     <span className="text-white text-2xl sm:text-3xl font-semibold tracking-wide">
                       Innovation et Technologie
