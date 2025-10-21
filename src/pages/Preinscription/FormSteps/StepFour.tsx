@@ -34,7 +34,7 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
         setError(error || 'Erreur lors de la soumission');
       }
     } catch (err) {
-      console.error('Erreur capturée:', err);
+      console.log(err)
       setError(err instanceof Error ? err.message : 'Une erreur inattendue est survenue');
     } finally {
       setIsSubmitting(false);
