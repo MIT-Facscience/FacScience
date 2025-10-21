@@ -47,7 +47,7 @@ export function HeroSection(): JSX.Element {
       buttonIcon : null,
     },
     {
-      src: "/fs_amphi.jpg",
+      src: "/mit.jpeg",
       alt: "INT",
       title: "Innovation et Technologies",
       description: "Inscrivez-vous au parcours INT de la mention Informatique et Technologies",
