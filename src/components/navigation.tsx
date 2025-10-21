@@ -43,7 +43,7 @@ export default function Navigation() {
                   height={40}
                   className="rounded-full"
                 />
-                <div>
+                <div className="lg:hidden xl:block">
                   <h1 className="text-base sm:text-lg font-semibold text-sidebar-foreground tracking-tight">
                     Faculté des Sciences
                   </h1>

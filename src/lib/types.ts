@@ -11,16 +11,31 @@ export type Staff = {
     photo?: string;
   };
 
-//  export type Student = {
-//     id: number;
-//     name: string;
-//     email: string;
-//     phone: string;
-//     program: string;
-//     year: string;
-//     department: string;
-//     photo?: string;
-//   };
+export interface Media {
+  id: number;
+  url: string;
+  type: "Image" | "vidéo";
+}
+
+export interface Actuality {
+    id: number;
+    title: string;
+    category: string;
+    description: string | "";
+    content: string;
+    isUrgent: boolean | false;
+    media?: Media[];
+    mediaType?: string;
+    location?: string;
+    
+    createdAt: Date;
+    updateAt?: Date;
+    postedAt?: Date;
+    archivedAt?: Date;
+    beginedAt?: Date;
+    finishAt?: Date;
+  };
+
 
 export type Laboratoires={
   nomLabo: string ;

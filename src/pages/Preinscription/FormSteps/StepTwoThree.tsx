@@ -46,7 +46,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Programmes */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Choisissez votre programme</h3>
+        <h3 className="text-lg font-semibold mb-2">Choisissez votre portail</h3>
         <div className="space-y-2">
           {programs?.map((program) => (
             <label
