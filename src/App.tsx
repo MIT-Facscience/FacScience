@@ -78,6 +78,9 @@ export default function App() {
         <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
         <Route path="/admission/preinscription" element={<Formulaire />} />
         <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
+
+        {/* Route "catch-all" */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       {/* Footer caché sur certaines routes */}
