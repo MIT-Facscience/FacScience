@@ -78,8 +78,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
                   className={`h-4 w-4 text-faculty-purple-600 }`}
                 />
                 <span className="text-gray-800">
-                  {program.nomPortail.charAt(0).toUpperCase() +
-                    program.nomPortail.slice(1).toLowerCase()}
+                  {program.nomPortail}
                 </span>
                 <span className="p-1 rounded border border-gray-300 text-sm text-gray-400">
                   {program.abbreviation}
