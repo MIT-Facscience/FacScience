@@ -21,11 +21,11 @@ import ResultatsPage from "./pages/resultats/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
-// import Formulaire from "./pages/Preinscription/Formulaire";
+import Formulaire from "./pages/Preinscription/Formulaire";
 import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 import INTAdmissionPage from "./pages/admission/int-modalite/page";
-import Formulaire from "./pages/Preinscription/Formulaire";
+// import Formulaire from "./pages/Preinscription/Formulaire";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 
