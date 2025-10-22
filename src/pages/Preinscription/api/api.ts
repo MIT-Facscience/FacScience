@@ -46,6 +46,8 @@ export const submitApplication = async (applicationData: ApplicationData) => {
   // await new Promise(resolve => setTimeout(resolve, 2000));
   try {
     const app: ApplicationData = applicationData;
+
+    console.log(app);
     const response = await fetch(
       `${BACKEND_PREINSCRIPTION_URL}/api/Register/RegisterTry`,
       {
@@ -57,15 +59,14 @@ export const submitApplication = async (applicationData: ApplicationData) => {
       }
     );
 
-    console.log(await response.json());
-    if (!response.ok) return { success: false };
+    const value = await response.json();
+
+    if (!response.ok) return { success: false, error: value.detail };
   } catch (error) {
-    throw new Error("sending data error");
     console.error(error);
 
     return {
       success: false,
-      // applicationNumber: null,
     };
   }
 
