@@ -272,9 +272,12 @@ export default function INTForm() {
           >
             <CheckCircle className="h-16 w-16 text-green-500" />
           </motion.div>
-          <h3 className="font-semibold text-2xl text-indigo-800">
+            <h3 className="font-semibold text-2xl text-indigo-800">
             Candidature déposée avec succès !
-          </h3>
+            </h3>
+            <p className="text-base text-gray-700">
+              Un email de confirmation a été envoyé à <span className="font-semibold">{formData.email}</span>.
+            </p>
           <p className="text-gray-600">
             Votre dossier a été soumis avec succès.
           </p>
@@ -395,7 +398,7 @@ export default function INTForm() {
             <div className="flex flex-col gap-2">
               <Label htmlFor="parcours">
                 <UserRoundPen className="h-4 w-4 text-primary" />
-                Parcours
+                Parcours actuel
               </Label>
               <Input
                 id="parcours"
