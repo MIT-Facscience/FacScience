@@ -17,15 +17,15 @@ import HistoirePage from "./pages/presentation/histoire/page";
 import OrganigrammePage from "./pages/presentation/organigramme/page";
 import VisionPage from "./pages/presentation/vision/page";
 // import ListesAdmisPage from "./pages/resultats/listes-admis/page";
-import ResultatsPage from "./pages/resultats/page";
+// import ResultatsPage from "./pages/resultats/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
-// import Formulaire from "./pages/Preinscription/Formulaire";
+import Formulaire from "./pages/Preinscription/Formulaire";
 import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 import INTAdmissionPage from "./pages/admission/int-modalite/page";
-import Formulaire from "./pages/Preinscription/Formulaire";
+// import Formulaire from "./pages/Preinscription/Formulaire";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 
@@ -57,7 +57,8 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/formation/detail" element={<FormationItems />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/resultats" element={<ResultatsPage />} />
+        {/* <Route path="/resultats" element={<ResultatsPage />} /> */}
+        <Route path="/resultats" element={<NotFound />} />
         <Route path="/presentation/histoire" element={<HistoirePage />} />
         <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
         <Route path="/presentation/vision" element={<VisionPage />} />
@@ -67,8 +68,8 @@ export default function App() {
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
         <Route path="/admission/modalite" element={<AdmissionPage />}/>
-        {/* <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
-        <Route path="/admission/preinscription" element={<NotFound/>}/>
+        <Route path="/admission/preinscription" element={<Formulaire/>}/>
+        {/* <Route path="/admission/preinscription" element={<NotFound/>}/> */}
 
         {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 
@@ -77,6 +78,9 @@ export default function App() {
         <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
         <Route path="/admission/preinscription" element={<Formulaire />} />
         <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
+
+        {/* Route "catch-all" */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       {/* Footer caché sur certaines routes */}
