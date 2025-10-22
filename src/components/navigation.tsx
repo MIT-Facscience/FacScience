@@ -17,7 +17,7 @@ const rechercheItems = [
 
 const admissionItems = [
   {title : "Modalites", to: "/admission/modalite"},
-  // {title : "Preinscription", to: "/admission/preinscription"},
+  {title : "Preinscription", to: "/admission/preinscription"},
 ];
 
 export default function Navigation() {
@@ -187,7 +187,7 @@ export default function Navigation() {
                 </a>
 
                 {/* Résultats */}
-                <a
+                {/* <a
                   href="/resultats"
                   className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
                     isActive("/resultats")
@@ -197,7 +197,7 @@ export default function Navigation() {
                 >
                   Résultats
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
-                </a>
+                </a> */}
 
                 {/* Contact */}
                 <Link to="/contact">
