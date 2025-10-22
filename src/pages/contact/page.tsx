@@ -17,17 +17,17 @@ import {
   Zap,
   Heart,
   Award,
-  BookOpen,
+  // BookOpen,
   Microscope,
   ChevronDown,
 
-  MessageCircleMore,
-  Mailbox,
+  // MessageCircleMore,
+  // Mailbox,
   BookText
 } from "lucide-react"
 
 export default function ContactPage() {
-  const [activeTab, setActiveTab] = useState("departements")
+  //const [activeTab, setActiveTab] = useState("departements")
   const [formData, setFormData] = useState({
     nom: "",
     email: "",
@@ -89,44 +89,44 @@ export default function ContactPage() {
     },
   ]
 
-  const services_administratifs = [
-    {
-      service: "Scolarité",
-      responsable: "Mme RAZAFY Hanta",
-      email: "scolarite@sciences.univ-antananarivo.mg",
-      telephone: "+261 20 22 123 50",
-      bureau: "Administration, Rez-de-chaussée",
-      icon: "📚",
-      color: "from-amber-500 to-orange-500"
-    },
-    {
-      service: "Recherche et Coopération",
-      responsable: "Dr. RANDRIA Paul",
-      email: "recherche@sciences.univ-antananarivo.mg",
-      telephone: "+261 20 22 123 51",
-      bureau: "Administration, 1er étage",
-      icon: "🔬",
-      color: "from-purple-500 to-indigo-600"
-    },
-    {
-      service: "Finances",
-      responsable: "M. RAKOTO Hery",
-      email: "finances@sciences.univ-antananarivo.mg",
-      telephone: "+261 20 22 123 52",
-      bureau: "Administration, Rez-de-chaussée",
-      icon: "💰",
-      color: "from-amber-600 to-yellow-600"
-    },
-    {
-      service: "Informatique",
-      responsable: "M. NIVO Tiana",
-      email: "informatique@sciences.univ-antananarivo.mg",
-      telephone: "+261 20 22 123 53",
-      bureau: "Bâtiment F, Sous-sol",
-      icon: "⚡",
-      color: "from-purple-600 to-purple-800"
-    },
-  ]
+  // const services_administratifs = [
+  //   {
+  //     service: "Scolarité",
+  //     responsable: "Mme RAZAFY Hanta",
+  //     email: "scolarite@sciences.univ-antananarivo.mg",
+  //     telephone: "+261 20 22 123 50",
+  //     bureau: "Administration, Rez-de-chaussée",
+  //     icon: "📚",
+  //     color: "from-amber-500 to-orange-500"
+  //   },
+  //   {
+  //     service: "Recherche et Coopération",
+  //     responsable: "Dr. RANDRIA Paul",
+  //     email: "recherche@sciences.univ-antananarivo.mg",
+  //     telephone: "+261 20 22 123 51",
+  //     bureau: "Administration, 1er étage",
+  //     icon: "🔬",
+  //     color: "from-purple-500 to-indigo-600"
+  //   },
+  //   {
+  //     service: "Finances",
+  //     responsable: "M. RAKOTO Hery",
+  //     email: "finances@sciences.univ-antananarivo.mg",
+  //     telephone: "+261 20 22 123 52",
+  //     bureau: "Administration, Rez-de-chaussée",
+  //     icon: "💰",
+  //     color: "from-amber-600 to-yellow-600"
+  //   },
+  //   {
+  //     service: "Informatique",
+  //     responsable: "M. NIVO Tiana",
+  //     email: "informatique@sciences.univ-antananarivo.mg",
+  //     telephone: "+261 20 22 123 53",
+  //     bureau: "Bâtiment F, Sous-sol",
+  //     icon: "⚡",
+  //     color: "from-purple-600 to-purple-800"
+  //   },
+  // ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -493,139 +493,7 @@ export default function ContactPage() {
         </div>
 
         {/* Section départements complète */}
-        <div className="mt-12 bg-white/80 backdrop-blur-sm border-0  overflow-hidden ">
-          <div className="p-6">
-            <div className="flex items-center gap-3 text-2xl mb-6">
-              <div className="w-12 h-12 bg-border rounded-full flex items-center justify-center">
-                <Building className="h-6 w-6 text-white" />
-              </div>
-              <span className="bg-primary bg-clip-text text-transparent font-bold">
-                Tous nos Mentions & Services
-              </span>
-            </div>
-            
-            <div className="w-full">
-              <div className="flex bg-gradient-to-r from-purple-100 to-amber-100 p-1 mb-6">
-                <button 
-                  onClick={() => setActiveTab("departements")}
-                  className={`flex-1 py-3 px-4  font-semibold transition-all duration-300 ${
-                    activeTab === "departements" 
-                      ? "bg-white  shadow-lg" 
-                      : "text-purple-700 hover:bg-white/50"
-                  }`}
-                >
-                   Départements
-                </button>
-                <button 
-                  onClick={() => setActiveTab("services")}
-                  className={`flex-1 py-3 px-4 font-semibold transition-all duration-300 ${
-                    activeTab === "services" 
-                      ? "bg-white shadow-lg" 
-                      : "text-amber-700 hover:bg-white/50"
-                  }`}
-                >
-                   Services Admin
-                </button>
-              </div>
-              
-              {activeTab === "departements" && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {departements_contacts.map((dept, index) => (
-                    <div key={index} className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-1 border-purple-100 hover:border-purple-200 bg-gradient-to-br from-white to-slate-50 overflow-hidden">
-                      <div className="p-6">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className={`min-w-12 h-12 bg-gradient-to-r bg-border rounded-full flex items-center justify-center text-xl`}>
-                            {/* {dept.icon} */}
-                            <BookOpen className="text-gray-100"/>
-                          </div>
-                          <div>
-                            <h3 className="text-lg leading-tight group-hover:text-border transition-colors font-bold">
-                              {dept.nom}
-                            </h3>
-                            <p className="text-sm font-medium text-slate-600">
-                              {dept.responsable}
-                            </p>
-                          </div>
-                        </div>
-                      
-                        <div className="space-y-3 mt-4">
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item cursor-pointer">
-                            <Mail className="h-4 w-4 text-slate-500 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-slate-800 transition-colors truncate">{dept.email}</span>
-                          </div>
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item cursor-pointer">
-                            <Phone className="h-4 w-4 text-slate-500 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-slate-800 transition-colors">{dept.telephone}</span>
-                          </div>
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                            <Building className="h-4 w-4 text-slate-500" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-slate-700 transition-colors">{dept.bureau}</span>
-                          </div>
-                          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors group/item">
-                            <Clock className="h-4 w-4 text-slate-500" />
-                            <span className="text-sm text-slate-600 group-hover/item:text-slate-700 transition-colors">{dept.horaires}</span>
-                          </div>
-                        </div>
-                       <button 
-                          className={`flex w-full items-center justify-center gap-2 mt-4 px-4 py-2 bg-gradient-to-r bg-border hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-white border-0  font-medium`}
-                        >
-                          <h2 className="text-white">Contacter</h2>
-                          <MessageCircleMore className="text-gray-100" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              
-              {activeTab === "services" && (
-                <div className="grid md:grid-cols-2 gap-6">
-                  {services_administratifs.map((service, index) => (
-                    <div key={index} className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border-2 border-amber-100 hover:border-amber-200 bg-gradient-to-br from-white to-amber-50/30 overflow-hidden">
-                      <div className="p-6">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className={`w-12 h-12 bg-gradient-to-r bg-secondary rounded-full flex items-center justify-center text-xl shadow-lg`}>
-                            {/* {service.icon} */}
-                            <Mailbox className="w-6 h-6 text-gray-100 "/>
-                          </div>
-                          <div>
-                            <h3 className="text-lg group-hover:text-secondary transition-colors font-bold">
-                              {service.service}
-                            </h3>
-                            <p className="text-sm font-medium text-slate-600">
-                              {service.responsable}
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 gap-3 mt-4">
-                          <div className="flex items-center gap-3 p-3  bg-gradient-to-r from-slate-50 to-slate-50 hover:from-slate-100 hover:to-slate-100 transition-all group/item cursor-pointer">
-                            <Mail className="h-4 w-4 text-slate-600 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-700 group-hover/item:text-slate-800 transition-colors font-medium truncate">{service.email}</span>
-                          </div>
-                          <div className="flex items-center gap-3 p-3  bg-gradient-to-r from-slate-50 to-slate-50 hover:from-slate-100 hover:to-slate-100 transition-all group/item cursor-pointer">
-                            <Phone className="h-4 w-4 text-slate-600 group-hover/item:scale-110 transition-transform" />
-                            <span className="text-sm text-slate-700 group-hover/item:text-slate-800 transition-colors font-medium">{service.telephone}</span>
-                          </div>
-                          <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 transition-all group/item">
-                            <Building className="h-4 w-4 text-slate-600" />
-                            <span className="text-sm text-slate-700 group-hover/item:text-slate-800 transition-colors font-medium">{service.bureau}</span>
-                          </div>
-                        </div>
-                        <button 
-                          className={`flex w-full items-center justify-center mt-4 px-4 py-2 bg-gradient-to-r bg-secondary hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg text-white border-0  font-medium`}
-                        >
-                         <h2>Contacter le Service </h2> 
-                         <Phone className="ml-2 w-4 h-4"/>
-                        </button>
-                      </div>
-                    </div>
-                  ))} 
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        
 
         {/* Section CTA finale */}
         <div className="mt-16 text-center">

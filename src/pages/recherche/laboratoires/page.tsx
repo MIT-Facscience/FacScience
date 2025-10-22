@@ -64,7 +64,8 @@ export default function LaboratoiresPage() {
       borderColor: "border-blue-200",
       bgGradient: "from-blue-50 to-indigo-50",
       imageUrl:
-        "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop",
+        "/fs_labo_1.jpg",
       specialites: [
         "Analyse fonctionnelle",
         "Algèbre commutative",
@@ -96,7 +97,8 @@ export default function LaboratoiresPage() {
       borderColor: "border-emerald-200",
       bgGradient: "from-emerald-50 to-teal-50",
       imageUrl:
-        "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=400&fit=crop",
+        "/fs_labo_2.jpg",
       specialites: [
         "Nanomatériaux",
         "Cristallographie",
@@ -129,7 +131,8 @@ export default function LaboratoiresPage() {
       borderColor: "border-purple-200",
       bgGradient: "from-purple-50 to-violet-50",
       imageUrl:
-        "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=400&fit=crop",
+        "/fs_labo_1.jpg",
       specialites: [
         "Synthèse organique",
         "Produits naturels",
@@ -162,7 +165,8 @@ export default function LaboratoiresPage() {
       borderColor: "border-rose-200",
       bgGradient: "from-rose-50 to-pink-50",
       imageUrl:
-        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+        "/fs_labo_3.jpg",
       specialites: [
         "Génétique moléculaire",
         "Biotechnologie",
@@ -195,7 +199,8 @@ export default function LaboratoiresPage() {
       borderColor: "border-amber-200",
       bgGradient: "from-cyan-50 to-blue-50",
       imageUrl:
-        "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=400&fit=crop",
+        "/fs_labo_2.jpg",
       specialites: [
         "Géologie structurale",
         "Minéralogie",
@@ -228,7 +233,8 @@ export default function LaboratoiresPage() {
       borderColor: "border-cyan-200",
       bgGradient: "from-cyan-50 to-blue-50",
       imageUrl:
-        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop",
+        "/fs_labo_1.jpg",
       specialites: [
         "Intelligence artificielle",
         "Réseaux et sécurité",

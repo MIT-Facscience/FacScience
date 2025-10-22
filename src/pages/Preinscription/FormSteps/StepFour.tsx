@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
-import { CheckCircle, Download, Mail, Phone, Loader2, AlertCircle, Ticket, MapPin, HandCoins } from 'lucide-react';
-import type { ApplicationData } from '../types';
-import { submitApplication as submitPreinscription } from '../api/api';
+import {
+  AlertCircle,
+  CheckCircle,
+  Download,
+  HandCoins,
+  Loader2,
+  Mail,
+  MapPin,
+  Phone,
+  Ticket,
+} from "lucide-react";
+import React, { useState } from "react";
+import { submitApplication as submitPreinscription } from "../api/api";
+import type { ApplicationData } from "../types";
 
 interface StepFourProps {
   applicationData: ApplicationData;
@@ -9,33 +19,37 @@ interface StepFourProps {
   onComplete: () => void;
 }
 
-export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onComplete }) => {
+export const StepFour: React.FC<StepFourProps> = ({
+  applicationData,
+  onBack,
+  onComplete,
+}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [applicationNumber, setApplicationNumber] = useState('');
-  const [error, setError] = useState('');
+  const [applicationNumber, setApplicationNumber] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    console.log('Début de la soumission');
-    console.log('ApplicationData:', applicationData);
-    
+    console.log("Début de la soumission");
+
     setIsSubmitting(true);
-    setError('');
+    setError("");
 
     try {
-      console.log('Appel de submitPreinscription...');
       const result = await submitPreinscription(applicationData);
-      console.log('Résultat:', result);
-      
+
       if (result.success) {
         setApplicationNumber("");
         setIsSubmitted(true);
       } else {
-        setError(error || 'Erreur lors de la soumission');
+        setError(error || result.error);
       }
     } catch (err) {
-      console.error('Erreur capturée:', err);
-      setError(err instanceof Error ? err.message : 'Une erreur inattendue est survenue');
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Une erreur inattendue est survenue"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -50,7 +64,8 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
             Confirmation de votre demande
           </h2>
           <p className="text-gray-600">
-            Vérifiez vos informations avant de soumettre votre demande de pré-inscription
+            Vérifiez vos informations avant de soumettre votre demande de
+            pré-inscription
           </p>
         </div>
 
@@ -59,39 +74,52 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
           <h3 className="font-semibold text-gray-800 text-lg mb-4">
             Récapitulatif de votre demande :
           </h3>
-          
+
           <div className="grid gap-4">
             {/* Informations du candidat */}
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="font-medium text-gray-700 mb-2">Informations du candidat</h4>
+              <h4 className="font-medium text-gray-700 mb-2">
+                Informations du candidat
+              </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                 <div>
                   <span className="text-gray-600">Nom complet :</span>
                   <span className="font-medium ml-2">
-                    {applicationData.personalInfo.firstName} {applicationData.personalInfo.lastName}
+                    {applicationData.personalInfo.firstName}{" "}
+                    {applicationData.personalInfo.lastName}
                   </span>
                 </div>
                 <div>
                   <span className="text-gray-600">Numéro BAC :</span>
-                  <span className="font-medium ml-2">{applicationData.candidateInfo?.baccalaureateNumber}</span>
+                  <span className="font-medium ml-2">
+                    {applicationData.candidateInfo?.baccalaureateNumber}
+                  </span>
                 </div>
                 <div>
                   <span className="text-gray-600">Année BAC :</span>
-                  <span className="font-medium ml-2">{applicationData.candidateInfo?.graduationYear}</span>
+                  <span className="font-medium ml-2">
+                    {applicationData.candidateInfo?.graduationYear}
+                  </span>
                 </div>
                 <div>
                   <span className="text-gray-600">Série :</span>
-                  <span className="font-medium ml-2">{applicationData.candidateInfo?.series}</span>
+                  <span className="font-medium ml-2">
+                    {applicationData.candidateInfo?.series}
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Programme choisi */}
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="font-medium text-gray-700 mb-2">Programme choisi</h4>
+              <h4 className="font-medium text-gray-700 mb-2">
+                Programme choisi
+              </h4>
               <div className="text-sm">
                 <div className="flex items-center space-x-2">
-                  <span className="font-medium">{applicationData.selectedProgram?.nomPortail}</span>
+                  <span className="font-medium">
+                    {applicationData.selectedProgram?.nomPortail}
+                  </span>
                   <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
                     {applicationData.selectedProgram?.nomPortail}
                   </span>
@@ -101,7 +129,9 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
 
             {/* Contact */}
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="font-medium text-gray-700 mb-2">Informations de contact</h4>
+              <h4 className="font-medium text-gray-700 mb-2">
+                Informations de contact
+              </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                 <div className="flex items-center">
                   <Mail className="w-4 h-4 text-gray-400 mr-2" />
@@ -116,22 +146,31 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
 
             {/** Banque */}
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="font-medium text-gray-700 mb-2">Reférance bancaire</h4>
-              <div className='grid grid-cols-1 md:grid-cols-3 gap-2 text-sm'>
+              <h4 className="font-medium text-gray-700 mb-2">
+                Reférance bancaire
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
                 <div className="flex items-center">
                   <Ticket className="w-4 h-4 text-gray-400 mr-2" />
                   <span>{applicationData.bankInfo.reference}</span>
                 </div>
-                <div  className="flex items-center">
+                <div className="flex items-center">
                   <MapPin className="w-4 h-4 text-gray-400 mr-2" />
                   <span>{applicationData.bankInfo.agenceRef}</span>
                 </div>
-                <div  className="flex items-center">
+                <div className="flex items-center">
                   <HandCoins className="w-4 h-4 text-gray-400 mr-2" />
-                  <span>{(new Date(applicationData.bankInfo.dateRef)).toLocaleDateString("FR", {day: "numeric", month: "long",year: "numeric",})}</span>
+                  <span>
+                    {new Date(
+                      applicationData.bankInfo.dateRef
+                    ).toLocaleDateString("FR", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </span>
                 </div>
               </div>
-              
             </div>
             {/* Documents
             <div className="bg-white p-4 rounded-lg">
@@ -167,7 +206,7 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
             <div className="text-sm">
               <p className="font-medium text-yellow-800 mb-1">Attention :</p>
               <p className="text-yellow-700">
-                Une fois soumise, votre demande ne pourra plus être modifiée. 
+                Une fois soumise, votre demande ne pourra plus être modifiée.
                 Assurez-vous que toutes les informations sont correctes.
               </p>
             </div>
@@ -193,7 +232,7 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
           >
             Retour
           </button>
-          
+
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
@@ -225,15 +264,13 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
 
       {/* Success Message */}
       <div className="space-y-4">
-        <h2 className="text-3xl font-bold text-gray-800">
-          Félicitations !
-        </h2>
+        <h2 className="text-3xl font-bold text-gray-800">Félicitations !</h2>
         <p className="text-lg text-gray-600">
           Votre demande de pré-inscription a été soumise avec succès
         </p>
         <div className="bg-faculty-purple-50 border border-faculty-purple-200 rounded-lg p-4">
           <p className="text-faculty-purple-800">
-            <span className="font-semibold">Numéro de demande :</span> 
+            <span className="font-semibold">Numéro de demande :</span>
             <span className="font-mono text-lg ml-2">{applicationNumber}</span>
           </p>
         </div>
@@ -244,39 +281,49 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
         <h3 className="font-semibold text-gray-800 text-lg mb-4 text-center">
           Récapitulatif final
         </h3>
-        
+
         <div className="grid gap-3 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">Candidat :</span>
             <span className="font-semibold">
-              {applicationData.personalInfo.firstName} {applicationData.personalInfo.lastName}
+              {applicationData.personalInfo.firstName}{" "}
+              {applicationData.personalInfo.lastName}
             </span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-gray-600">Programme :</span>
-            <span className="font-semibold">{applicationData.selectedProgram?.nomPortail}</span>
+            <span className="font-semibold">
+              {applicationData.selectedProgram?.nomPortail}
+            </span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-gray-600">Email :</span>
-            <span className="font-semibold">{applicationData.personalInfo.email}</span>
+            <span className="font-semibold">
+              {applicationData.personalInfo.email}
+            </span>
           </div>
-          
+
           <div className="flex justify-between">
             <span className="text-gray-600">Téléphone :</span>
-            <span className="font-semibold">{applicationData.personalInfo.telephone}</span>
+            <span className="font-semibold">
+              {applicationData.personalInfo.telephone}
+            </span>
           </div>
         </div>
       </div>
 
       {/* Next Steps */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-left">
-        <h4 className="font-semibold text-blue-800 mb-3">Prochaines étapes :</h4>
+        <h4 className="font-semibold text-blue-800 mb-3">
+          Prochaines étapes :
+        </h4>
         <ul className="text-sm text-blue-700 space-y-2">
           <li className="flex items-start">
             <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-            Vous recevrez un email de confirmation à {applicationData.personalInfo.email}
+            Vous recevrez un email de confirmation à{" "}
+            {applicationData.personalInfo.email}
           </li>
           <li className="flex items-start">
             <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
@@ -288,7 +335,8 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
           </li>
           <li className="flex items-start">
             <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-            Conservez votre numéro de demande pour le suivi : {applicationNumber}
+            Conservez votre numéro de demande pour le suivi :{" "}
+            {applicationNumber}
           </li>
         </ul>
       </div>
@@ -317,7 +365,7 @@ export const StepFour: React.FC<StepFourProps> = ({ applicationData, onBack, onC
           <Download className="w-4 h-4 mr-2" />
           Imprimer le récépissé
         </button>
-        
+
         <button
           onClick={onComplete}
           className="px-6 py-3 bg-faculty-purple-600 text-white rounded-lg hover:bg-faculty-purple-700 transition-colors duration-200"

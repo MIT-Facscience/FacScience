@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Search, Download, Filter, Users, FileText, Calendar, CheckCircle2, Clock, GraduationCap } from "lucide-react"
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { BACKEND_URL } from "@/lib/api"
 
@@ -27,12 +27,12 @@ type statPType = [
   }
 ]
 
-type StatMentionType = {
-  nomPortail: string;
-  abbrev: string;
-  total: number;
-  inscritsVerifies?: number;
-}
+// type StatMentionType = {
+//   nomPortail: string;
+//   abbrev: string;
+//   total: number;
+//   inscritsVerifies?: number;
+// }
 
 type StatFiliereType = {
   nomFiliere: string;
@@ -91,8 +91,10 @@ export default function CandidatsPreinscrits() {
         console.error("Erreur lors de la récupération des statP professionalisante :", error)
       })
 
+      console.log(loading)
+
     setLoading(false)
-  }, [])
+  }, [loading])
 
   // Données exemple pour les candidats académique
   const candidatsParMentionAcademique: Record<string, Candidat[]> = {

@@ -64,7 +64,7 @@ export default function FormationPage() {
               >
                 <div className="absolute inset-0">
                   <img
-                    src="/modern-university-campus-with-science-buildings-an.png"
+                    src="/fs_facade_1.jpg"
                     alt="Histoire de la faculté"
                     className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                   />

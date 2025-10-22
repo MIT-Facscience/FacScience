@@ -1,11 +1,5 @@
 "use client";
 
-// import {
-//   Accordion,
-//   AccordionContent,
-//   AccordionItem,
-//   AccordionTrigger,
-// } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,7 +20,7 @@ import {
   Users,
 } from "lucide-react";
 
-export default function AdmissionPage() {
+export default function INTAdmissionPage() {
 
   const handleDownloadFiche = async (): Promise<void> => {
     try {
@@ -61,84 +55,116 @@ export default function AdmissionPage() {
         <div className="container mx-auto px-2 sm:px-4 lg:px-6">
           <div className="mx-auto">
             {/* Header */}
-            <motion.div
+                      <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="relative mb-12 sm:mb-16 overflow-hidden"
             >
+              {/* Image de fond */}
               <div className="absolute inset-0">
                 <img
                   src="/modern-university-campus-with-science-buildings-an.png"
-                  alt="Histoire de la faculté"
+                  alt="Campus universitaire – Master Innovation et Technologie"
                   className="w-full h-64 sm:h-80 lg:h-96 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-white-900/80 via-gray-800/60"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-800/70 to-transparent"></div>
               </div>
-              <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                  Conditions d'admission
-                </h1>
-                <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                  Détails et modalités pour l'année académique 2024-2025
+
+              {/* Contenu principal */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6 space-y-6">
+                {/* Logo + Titre combiné */}
+                <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg">
+                  <div className="flex items-center space-x-3">
+                    <div className="overflow-hidden w-12 h-12 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full flex items-center justify-center font-bold text-white text-xl shadow-md">
+                      <img className="w-full" src="/INT logo.png" alt="INT" />
+                    </div>
+                    <span className="text-white text-2xl sm:text-3xl font-semibold tracking-wide">
+                      Innovation et Technologie
+                    </span>
+                  </div>
+                </div>
+
+                {/* Mention et parcours */}
+                <div className="space-y-2">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-purple-100 drop-shadow-sm">
+                    Admission – Master Innovation et Technologie (INT)
+                  </h2>
+                  <p className="text-sm sm:text-base text-gray-200 italic">
+                    Mention Informatique et Technologie (MIT)
+                  </p>
+                </div>
+
+                {/* Description */}
+                <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-5xl mx-auto leading-relaxed">
+                  Cette page est dédiée aux candidats souhaitant intégrer le parcours 
+                  <strong> Innovation et Technologie (INT)</strong> du Master en 
+                  <strong> Informatique et Technologie (MIT)</strong>. 
+                  Vous y trouverez les conditions d’admission, les modalités de sélection et 
+                  le lien vers le formulaire de dépôt de dossier en ligne.
                 </p>
               </div>
             </motion.div>
 
             <div className="container mx-auto px-4 py-8">
-              {/* Quick Info Cards */}
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <Card className="border-0 border-l-4 border-l-primary rounded-none">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-5 w-5 text-primary" />
-                      <CardTitle className="text-lg">Date Limite</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-2xl font-bold text-primary">
-                      15 Novembre 2025
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Dépôt des dossiers
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 border-l-4 border-l-secondary rounded-none">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center gap-2">
-                      <FileText className="h-5 w-5 text-secondary" />
-                      <CardTitle className="text-lg">
-                        Frais d'inscription
+              <div className="grid md:grid-cols-12 gap-8 mb-12">
+                {/* Colonne gauche — plus étroite : info “Date limite” et “Frais / dépôt” */}
+                <div className="md:col-span-4 space-y-8">
+                  <Card className="rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <CardHeader className="flex items-center gap-3 px-6 py-4">
+                      <Calendar className="h-6 w-6 text-primary" />
+                      <CardTitle className="text-lg font-semibold text-primary">
+                        Date limite
                       </CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-2xl font-bold text-secondary">
-                      50 000 Ar
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Non remboursable
-                    </p>
-                  </CardContent>
-                </Card>
+                    </CardHeader>
+                    <CardContent className="px-6 pb-4">
+                      <p className="text-2xl font-bold text-gray-800">15 Novembre 2025</p>
+                      <p className="text-sm text-gray-500 mt-1">Dépôt des dossiers</p>
+                    </CardContent>
+                  </Card>
 
-                <Card className="border-0 border-l-4 border-l-accent rounded-none">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center gap-2">
-                      <Users className="h-5 w-5 text-accent" />
-                      <CardTitle className="text-lg">Public Concerné</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-lg font-semibold">Bacheliers</p>
-                    <p className="text-sm text-muted-foreground">
-                      Session 2024 - 2025
-                    </p>
-                  </CardContent>
-                </Card>
+                  <Card className="rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                    <CardHeader className="flex items-center gap-3 px-6 py-4">
+                      <FileText className="h-6 w-6 text-secondary" />
+                      <CardTitle className="text-lg font-semibold text-secondary">
+                        Frais de dossier
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="px-6 pb-4">
+                      <p className="text-2xl font-bold text-gray-800">50 000 Ar</p>
+                      <p className="text-sm text-gray-500 mt-1">Non remboursable</p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Colonne droite — plus large : “Public concerné” */}
+                <div className="md:col-span-8">
+                  <Card className="h-full rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col">
+                    <CardHeader className="flex items-center gap-3 px-6 py-4">
+                      <Users className="h-6 w-6 text-accent" />
+                      <CardTitle className="text-lg font-semibold text-accent">
+                        Public concerné
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="px-6 pb-6 pt-2 flex-1 space-y-6">
+                      <div className="bg-neutral-50 p-4 rounded-lg space-y-2">
+                        <p className="font-semibold text-red-700">Master 1</p>
+                        <p className="text-sm text-gray-600">
+                          Étudiants titulaires d’une Licence en mathématiques, informatique ou disciplines voisines et d'un baccalauréat série S ou C.
+                        </p>
+                      </div>
+                      <div className="bg-neutral-50 p-4 rounded-lg space-y-2">
+                        <p className="font-semibold text-red-700">Master 2</p>
+                        <p className="text-sm text-gray-600">
+                          Étudiants titulaires d’un Master 1 en mathématiques ou informatique ou disciplines voisines et d'un baccalauréat série S ou C.
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
+
+
 
               {/* Main Content */}
               <div className="grid lg:grid-cols-3 gap-8">
@@ -152,23 +178,31 @@ export default function AdmissionPage() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="bg-muted p-4">
-                        <h4 className="font-semibold mb-2 flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-primary" />
-                          Modalités d'admission
-                        </h4>
-                        <p className="text-sm text-muted-foreground">
-                          L'admission à la Faculté des Sciences se fait par voie
-                          de la selection de dossier. Les candidats sont classés
-                          selon les notes obtenues au baccalauréat, en tenant
-                          compte de la série et de la mention.
-                        </p>
-                      </div>
+                      <div className="bg-muted p-4 space-y-4">
+                        <div>
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4 text-primary" />
+                            Modalités d'admission
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            L’admission au parcours <strong>Innovation et Technologie (INT)</strong> de la <strong>Mention Informatique et Technologie (MIT)</strong> repose sur une sélection sur dossier et un entretien. 
+                            Les candidats sont évalués à partir des notes des trois dernières années d’études, du baccalauréat et de leur performance à l’entretien.
+                          </p>
+                        </div>
 
+                        <div>
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4 text-primary" />
+                            Dépôt du dossier
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            Le dépôt du dossier de candidature s’effectue exclusivement en ligne via 
+                            le formulaire disponible sur le site.
+                          </p>
+                        </div>
+                      </div>
                       <div>
-                        <h4 className="font-semibold mb-3">
-                          Processus de sélection :
-                        </h4>
+                        <h4 className="font-semibold mb-3">Voici comment se déroule le processus :</h4>
                         <ol className="space-y-2 text-sm">
                           <li className="flex gap-3">
                             <Badge
@@ -177,10 +211,9 @@ export default function AdmissionPage() {
                             >
                               1
                             </Badge>
-                            <span>
-                              Constitution et dépôt du dossier de candidature
-                            </span>
+                            <span>Dépôt du dossier de candidature</span>
                           </li>
+
                           <li className="flex gap-3">
                             <Badge
                               variant="outline"
@@ -189,10 +222,11 @@ export default function AdmissionPage() {
                               2
                             </Badge>
                             <span>
-                              Classement des candidats par ordre de mérite selon
-                              les notes du bac
+                              Pré-sélection sur dossier : classement des candidatures et sélection des
+                              candidats invités à l’entretien
                             </span>
                           </li>
+
                           <li className="flex gap-3">
                             <Badge
                               variant="outline"
@@ -200,10 +234,9 @@ export default function AdmissionPage() {
                             >
                               3
                             </Badge>
-                            <span>
-                              Publication des résultats et liste des admis
-                            </span>
+                            <span>Publication de la liste des candidats retenus pour l’entretien</span>
                           </li>
+
                           <li className="flex gap-3">
                             <Badge
                               variant="outline"
@@ -211,12 +244,31 @@ export default function AdmissionPage() {
                             >
                               4
                             </Badge>
-                            <span>
-                              Inscription définitive pour les candidats retenus
-                            </span>
+                            <span>Entretien des candidats sélectionnés</span>
+                          </li>
+
+                          <li className="flex gap-3">
+                            <Badge
+                              variant="outline"
+                              className="min-w-6 h-6 rounded-full p-0 flex items-center justify-center"
+                            >
+                              5
+                            </Badge>
+                            <span>Publication de la liste définitive des candidats admis</span>
+                          </li>
+
+                          <li className="flex gap-3">
+                            <Badge
+                              variant="outline"
+                              className="min-w-6 h-6 rounded-full p-0 flex items-center justify-center"
+                            >
+                              6
+                            </Badge>
+                            <span>Inscription définitive des candidats retenus</span>
                           </li>
                         </ol>
                       </div>
+
 
                       <div className="bg-destructive/10 border border-destructive/20 p-4">
                         <div className="flex items-start gap-2">
@@ -241,7 +293,7 @@ export default function AdmissionPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <FileText className="h-6 w-6 text-primary" />
-                        Pièces à fournir pour le dossier
+                        Pièces à fournir
                       </CardTitle>
                       <CardDescription>
                         Tous les documents doivent être des copies certifiées
@@ -264,13 +316,21 @@ export default function AdmissionPage() {
                       <div className="space-y-3">
                         {[
                           {
-                              text: "Fiche de renseignements dûment remplie",
-                              hasDownload: true, // Active le bouton pour cet item
+                            text: "Curriculum vitae (CV)",
+                            hasDownload: false,
                           },
                           {
-                              text: "Reçu de versement des frais d'inscription (50 000 Ar)",
-                              hasDownload: false, // Pas de bouton pour cet item
+                            text: "Relevés de notes des trois dernières années d'études (licence ou équivalent)",
+                            hasDownload: false,
                           },
+                          {
+                            text: "Attestation ou relevé de notes du baccalauréat",
+                            hasDownload: false,
+                          },
+                          {
+                            text: "Justificatif de paiement des frais de dossier (50 000 Ar)",
+                            hasDownload: false,
+                          }
                         ].map((item, index) => (
                           <div
                             key={index}
@@ -373,37 +433,35 @@ export default function AdmissionPage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="space-y-2">
-                        {/* <div className="flex justify-between items-center p-3 bg-muted">
-                          <span className="text-sm font-medium">
-                            Retrait dossiers
-                          </span>
-                          <Badge variant="outline" className="rounded-none">
-                            15 Août
-                          </Badge>
-                        </div> */}
                         <div className="flex justify-between items-center p-3 bg-muted">
                           <span className="text-sm font-medium">
-                            Fin Dépôt dossiers
+                            Fin dépôt dossiers
                           </span>
-                          <Badge variant="default" className="rounded-none">
+                          <Badge variant="default" className="rounded-none w-24">
                             15 Novembre
                           </Badge>
                         </div>
                         <div className="flex justify-between items-center p-3 bg-muted">
-                          <span className="text-sm font-medium">Résultats</span>
-                          <Badge variant="outline" className="rounded-none">
+                          <span className="text-sm font-medium">Résultats de pré-sélection</span>
+                          <Badge variant="outline" className="rounded-none w-24">
+                            Décembre
+                          </Badge>
+                        </div>
+                         <div className="flex justify-between items-center p-3 bg-muted">
+                          <span className="text-sm font-medium">Entretiens</span>
+                          <Badge variant="outline" className="rounded-none w-24">
                             Mi-Décembre
                           </Badge>
                         </div>
                       </div>
-                      <div className="text-xs text-muted-foreground pt-2 border-t">
+                      {/* <div className="text-xs text-muted-foreground pt-2 border-t">
                         <p>• Dépôt sur place ou par courrier recommandé</p>
                         <p>
                           • Le cachet de la poste fait foi pour l'envoi postal
                         </p>
                         <p>• Inscription en ligne</p>
                         
-                      </div>
+                      </div> */}
                     </CardContent>
                   </Card>
 
@@ -412,22 +470,22 @@ export default function AdmissionPage() {
                     <CardHeader>
                       <CardTitle>Prêt à postuler ?</CardTitle>
                       <CardDescription className="text-primary-foreground/80">
-                        Assurez-vous d'avoir tous les documents requis avant de
-                        soumettre votre dossier.
-                      </CardDescription>
+                        Accédez au formulaire en ligne pour déposer votre dossier de candidature
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Button
                         variant="secondary"
-                        className="w-full rounded-none"
+                        className="w-full rounded-none cursor-pointer"
                         onClick={() =>
-                          (window.location.href = "/admission/preinscription")
+                          (window.location.href = "/admission/int-formulaire")
                         }
                       >
-                        Commencer l'inscription
+                        Déposer mon dossier
                       </Button>
                     </CardContent>
                   </Card>
+
                 </div>
               </div>
             </div>

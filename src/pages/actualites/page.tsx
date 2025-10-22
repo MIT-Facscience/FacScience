@@ -14,7 +14,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useActuality } from "@/hooks/use-actuality"
-// import { VideoPlayer } from "@/components/video-player";
+import { VideoPlayer } from "@/components/video-player";
+import MediaCarousel from "@/components/media-carousel";
 
 export default function ActualitesPage() {
 
@@ -38,6 +39,14 @@ export default function ActualitesPage() {
     }
   };
 
+  if(actualities.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-xl text-slate-600">Aucune actualité disponible pour le moment.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -57,83 +66,64 @@ export default function ActualitesPage() {
       </section>
 
       {/* Featured Article */}
-      <section className="py-20 -mt-12 relative z-20">
+      <section className="py-20 -mt-12 relative">
          <div className="container mx-auto px-4 md:px-6 xl:px-8">
-          <div className="mb-16">
+          <div className="grid gap-3 mb-16">
             <h2 className="text-3xl font-bold mb-12 text-center">À la une</h2>
-          {actualities.length >= 0 && actualities.map((a) => 
-            <Card className="overflow-hidden shadow-2xl border-0 bg-white rounded-none">
-              
-              <div className="md:flex grid">
-                <div className="md:w-1/2">
-                  <div className={"grid grid-cols-2 z-50"}>
-
-                      { a.media?.map((m)=> m.type=== "Image" ? 
-                        (<img
-                          src={m.url || "/placeholder.svg"}
-                          alt={a.title}
-                          className="w-full h-full object-cover"
-                        />
-                        ) : 
-                        ( 
-                          // <VideoPlayer 
-                          //   src={m.url}
-                          //   poster={m.url}
-                          //   className="w-[50%] h-[50%] relative z-50"
-                          // />
-                          <iframe
-                            src='Kpop.mp4'
-                            title=''
-                            allow="encrypted-media"
-                            className="flex w-full h-[100%] bg-gray-600 p-2"
-                          />
-
-                        ))
-                      }
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                  </div>
-                </div>
-                <div className="md:w-1/2 p-8">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <Badge
-                      className={`${getCategoryColor(
-                        a.category
-                      )} px-4 py-2`}
-                    >
-                      {a.category}
-                    </Badge>
-                    <div className="flex items-center text-sm text-slate-600 font-medium">
-                      <Calendar className="h-4 w-4 mr-2" />
-                      {a.createdAt.toString().split('T')[0]}
+            {actualities.length >= 0 && actualities.map((a) => 
+              <Card className="shadow-2xl border-0 bg-white rounded-none">
+                
+                <div className="md:flex grid">
+                  <div className="md:w-1/2">
+                    <div className={"flex h-full"}>
+                      <MediaCarousel 
+                        media={a.media ?? []} title={a.title} 
+                        // autoPlayInterval={3000} 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                     </div>
                   </div>
-                  <h3 className="text-3xl font-bold mb-6 text-slate-900 leading-tight">
-                    {a.title}
-                  </h3>
-                  <p className="text-slate-600 mb-6 text-lg leading-relaxed">
-                    {a.description}
-                  </p>
-                  <p className="text-slate-700 mb-8 leading-relaxed">
-                    {a.content}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-sm text-slate-600 font-medium">
-                      <User className="h-4 w-4 mr-2" />
-                       {/* {a.auteur}  */}
-                    </div> 
-                    <Button
-                      variant="default"
-                      size="lg"
-                      className="bg-primary/90 hover:bg-primary text-white px-6"
-                    >
-                      Lire la suite
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
+                  <div className="md:w-1/2 p-8">
+                    <div className="flex items-center space-x-4 mb-6">
+                      <Badge
+                        className={`${getCategoryColor(
+                          a.category
+                        )} px-4 py-2`}
+                      >
+                        {a.category}
+                      </Badge>
+                      <div className="flex items-center text-sm text-slate-600 font-medium">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        {a.createdAt.toString().split('T')[0]}
+                      </div>
+                    </div>
+                    <h3 className="text-3xl font-bold mb-6 text-slate-900 leading-tight">
+                      {a.title}
+                    </h3>
+                    <p className="text-slate-600 mb-6 text-lg leading-relaxed">
+                      {a.description}
+                    </p>
+                    <p className="text-slate-700 mb-8 leading-relaxed">
+                      {a.content}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center text-sm text-slate-600 font-medium">
+                        <User className="h-4 w-4 mr-2" />
+                        {/* {a.auteur}  */}
+                      </div> 
+                      <Button
+                        variant="default"
+                        size="lg"
+                        className="bg-primary/90 hover:bg-primary text-white px-6"
+                      >
+                        Lire la suite
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>)}
-          </div>
+              </Card>)}
+            </div>
         </div>
       </section>
 
@@ -168,12 +158,17 @@ export default function ActualitesPage() {
                                 alt={actualite.title}
                                 className="w-full h-full object-cover"
                               /> :   
-                              <iframe
-                                src='Kpop.mp4'
-                                title=''
-                                allow="encrypted-media"
-                                className="flex w-full h-[100%]"
+                              <VideoPlayer 
+                                src={"Kpop.mp4"}
+                                poster={m.url}
+                                className="w-[50%] h-[50%] relative z-50"
                               />
+                              // <iframe
+                              //   src='Kpop.mp4'
+                              //   title=''
+                              //   allow="encrypted-media"
+                              //   className="flex w-full h-[100%]"
+                              // />
                           )}
                           </div>
                       }
