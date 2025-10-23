@@ -110,7 +110,7 @@ export default function AdmissionPage() {
                     <div className="flex items-center gap-2">
                       <FileText className="h-5 w-5 text-secondary" />
                       <CardTitle className="text-lg">
-                        Frais d'inscription
+                        Droit de préinscription
                       </CardTitle>
                     </div>
                   </CardHeader>

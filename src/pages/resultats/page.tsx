@@ -41,6 +41,15 @@ type StatFiliereType = {
   inscritsVerifies?: number;
 }
 
+type Candidat = {
+  numero: string;
+  nom: string;
+  prenom: string;
+  dateInscription: string;
+  statut: string;
+  parcours: string;
+}
+
 export default function CandidatsPreinscrits() {
   const [statG, setStatG] = useState<statGType>()
   const [statPAcademique, setStatPAcademique] = useState<statPType>()
@@ -88,7 +97,7 @@ export default function CandidatsPreinscrits() {
   }, [loading])
 
   // Données exemple pour les candidats académique
-  const candidatsParMentionAcademique = {
+  const candidatsParMentionAcademique: Record<string, Candidat[]> = {
     informatique: [
       { numero: "INF2024001", nom: "RAKOTO Jean", prenom: "Michel", dateInscription: "2024-09-15", statut: "Validé", parcours: "Informatique Générale" },
       { numero: "INF2024002", nom: "RABE Marie", prenom: "Jasmine", dateInscription: "2024-09-16", statut: "Validé", parcours: "Génie Logiciel" },
@@ -109,7 +118,7 @@ export default function CandidatsPreinscrits() {
   }
 
   // Données exemple pour les candidats professionalisante (avec mentions)
-  const candidatsParFiliereProfessionalisante = {
+  const candidatsParFiliereProfessionalisante: Record<string, Candidat[]> = {
     ipss: [
       { numero: "IPSS2024001", nom: "RAMANANTSOA Alex", prenom: "Christian", dateInscription: "2024-09-11", statut: "Validé", parcours: "Informatique Professionnelle" },
       { numero: "IPSS2024002", nom: "RANDRIANA Nina", prenom: "Olivia", dateInscription: "2024-09-12", statut: "En attente", parcours: "Systèmes et Sécurité" },
@@ -146,9 +155,37 @@ export default function CandidatsPreinscrits() {
   ]
 
   const getCurrentItems = () => activeTab === "academique" ? mentionsAcademique : filieresProfessionalisante
-  // const getCurrentCandidats = () => activeTab === "academique" ? candidatsParMentionAcademique : candidatsParFiliereProfessionalisante
-  // const getCurrentStat = () => activeTab === "academique" ? statPAcademique : statPProfessionalisante
-  // const getCurrentStatKey = () => activeTab === "academique" ? "nomPortail" : "nomFiliere"
+
+  const getFilteredCandidats = (): Candidat[] => {
+    let baseCandidats: Candidat[] = []
+    if (activeTab === "academique") {
+      if (selectedMention !== "all") {
+        const key = selectedMention as keyof typeof candidatsParMentionAcademique
+        baseCandidats = candidatsParMentionAcademique[key] || []
+      } else {
+        baseCandidats = Object.values(candidatsParMentionAcademique).flat()
+      }
+    } else {
+      if (selectedMention !== "all") {
+        const key = selectedMention as keyof typeof candidatsParFiliereProfessionalisante
+        baseCandidats = candidatsParFiliereProfessionalisante[key] || []
+      } else {
+        baseCandidats = Object.values(candidatsParFiliereProfessionalisante).flat()
+      }
+    }
+
+    return baseCandidats.filter((candidat) =>
+      candidat.numero.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      `${candidat.nom} ${candidat.prenom}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      candidat.parcours.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  }
+
+  const filteredCandidats = getFilteredCandidats()
+  const isAcademique = activeTab === "academique"
+  const gradientClass = isAcademique ? "from-slate-50 to-blue-50" : "from-slate-50 to-green-50"
+  const hoverClass = isAcademique ? "hover:bg-blue-50" : "hover:bg-green-50"
+  const numeroColor = isAcademique ? "text-blue-600" : "text-green-600"
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -174,7 +211,7 @@ export default function CandidatsPreinscrits() {
 
         {/* Statistiques globales avec design moderne */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-          <Card className="border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
+          <Card className=" rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <FileText className="h-8 w-8 mx-auto mb-3 opacity-80" />
               <div className="text-4xl font-bold mb-2">{statG?.total || 0}</div>
@@ -182,7 +219,7 @@ export default function CandidatsPreinscrits() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
+          <Card className=" rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <CheckCircle2 className="h-8 w-8 mx-auto mb-3 opacity-80" />
               <div className="text-4xl font-bold mb-2">{statG?.admis || 0}</div>
@@ -190,26 +227,51 @@ export default function CandidatsPreinscrits() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
-            <CardContent className="p-6 text-center">
-              <Clock className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{statG?.nonAdmis || 0}</div>
-              <div className="text-sm font-medium opacity-90">En Attente de Vérification</div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
+          <Card className="rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <Users className="h-8 w-8 mx-auto mb-3 opacity-80" />
               <div className="text-4xl font-bold mb-2">{getTotalInscrits()}</div>
-              <div className="text-sm font-medium opacity-90">{activeTab === "academique" ? "Inscrits Académiques" : "Inscrits Pro."}</div>
+              <div className="text-sm font-medium opacity-90">Inscrit Professionalisante</div>
+            </CardContent>
+          </Card>
+
+          <Card className=" border-none rounded-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
+            <CardContent className="p-6 text-center">
+              <Users className="h-8 w-8 mx-auto mb-3 opacity-80" />
+              <div className="text-4xl font-bold mb-2">{getTotalInscrits()}</div>
+              <div className="text-sm font-medium opacity-90">Inscrits Académiques</div>
             </CardContent>
           </Card>
         </div>
 
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className=" rounded-none grid w-full grid-cols-2 bg-white shadow-md p-1">
+            <TabsTrigger 
+              value="academique" 
+              className="rounded-none data-[state=active]:bg-primary data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white"
+            >
+              Académique
+            </TabsTrigger>
+            <TabsTrigger 
+              value="professionalisante" 
+              className=" rounded-none data-[state=active]:bg-secondary data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white"
+            >
+              Professionalisante
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="academique" className="space-y-6">
+            {/* Contenu académique simplifié - liste gérée en bas */}
+          </TabsContent>
+
+          <TabsContent value="professionalisante" className="space-y-6">
+            {/* Contenu professionalisante simplifié - liste gérée en bas */}
+          </TabsContent>
+        </Tabs>
+
         {/* Outils de recherche et filtrage */}
-        <Card className="mb-8 border-none shadow-xl">
-          <CardHeader className="bg-gradient-to-r from-slate-50 to-blue-50">
+        <Card className="rounded-none mb-8 border-none shadow-xl">
+          <CardHeader className="  bg-gradient-to-r from-slate-50 to-blue-50">
             <CardTitle className="flex items-center gap-2 text-slate-800">
               <Filter className="h-5 w-5 text-blue-600" />
               Rechercher un Candidat
@@ -235,387 +297,120 @@ export default function CandidatsPreinscrits() {
                   ))}
                 </SelectContent>
               </Select>
-              <Select>
-                <SelectTrigger className="border-slate-300">
-                  <SelectValue placeholder="Statut du dossier" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tous les statuts</SelectItem>
-                  <SelectItem value="valide">Validé</SelectItem>
-                  <SelectItem value="attente">En attente</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button className="bg-primary hover:from-blue-700 hover:to-indigo-700">
+              <div className="hidden md:block"></div>
+              <Button className="rounded-none bg-primary hover:from-blue-700 hover:to-indigo-700">
                 <Search className="h-4 w-4 mr-2" />
                 Rechercher
               </Button>
+            
             </div>
           </CardContent>
         </Card>
 
-        {/* Tabs principaux: Académique vs Professionalisante */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 bg-white shadow-md p-1 rounded-lg">
-            <TabsTrigger 
-              value="academique" 
-              className="data-[state=active]:bg-primary data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white"
-            >
-              Académique
-            </TabsTrigger>
-            <TabsTrigger 
-              value="professionalisante" 
-              className="data-[state=active]:bg-secondary data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white"
-            >
-              Professionalisante
-            </TabsTrigger>
-          </TabsList>
+        {/* Section résultats de recherche */}
+        <Card className="rounded-none mb-8 border-none shadow-xl">
+          <CardHeader className={`bg-gradient-to-r ${gradientClass}`}>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-2xl text-slate-800 capitalize">
+                Liste des candidats {isAcademique ? "académiques" : "professionalisants"}
+              </CardTitle>
+              <div className="text-sm text-slate-600">
+                {filteredCandidats.length} candidat(s) trouvé(s)
+              </div>
+            </div>
+            <CardDescription>
+              {selectedMention !== "all" ? `Filière/Mention sélectionnée : ${getCurrentItems().find(item => item.key === selectedMention)?.nom || ""}` : "Toutes les filières/mentions"}
+              {searchTerm && ` • Recherche : "${searchTerm}"`}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0">
+            {filteredCandidats.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-slate-100 border-b-2 border-slate-200">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Candidat</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Parcours</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Date d'inscription</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Statut</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    {filteredCandidats.map((candidat, idx) => (
+                      <tr key={idx} className={`transition-colors duration-200 ${hoverClass}`}>
+                        <td className="px-6 py-4">
+                          <span className={`font-mono text-sm font-medium ${numeroColor}`}>{candidat.numero}</span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="font-medium text-slate-800">{candidat.nom} {candidat.prenom}</div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="text-sm text-slate-600">{candidat.parcours}</span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-2 text-sm text-slate-600">
+                            <Calendar className="h-4 w-4" />
+                            {new Date(candidat.dateInscription).toLocaleDateString("fr-FR")}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          {candidat.statut === "Validé" ? (
+                            <Badge className="bg-green-100 text-green-800 border-green-300">
+                              <CheckCircle2 className="h-3 w-3 mr-1" />
+                              Validé
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-300">
+                              <Clock className="h-3 w-3 mr-1" />
+                              En attente
+                            </Badge>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="p-8 text-center">
+                <Users className="h-12 w-12 mx-auto mb-4 text-slate-400" />
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Aucun candidat trouvé</h3>
+                <p className="text-sm text-slate-600">Essayez d'ajuster vos critères de recherche.</p>
+              </div>
+            )}
+          </CardContent>
+          <CardHeader className={`rounded-none bg-gradient-to-r ${gradientClass} mt-4 border-t`}>
+            <Button className={` rounded-none bg-gradient-to-r ${isAcademique ? "from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700" : "from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"}`}>
+              <Download className="h-4 w-4 mr-2 " />
+              Exporter en PDF
+            </Button>
+          </CardHeader>
+        </Card>
 
-          {/* Onglet Académique */}
-          <TabsContent value="academique" className="space-y-6">
-            {/* Sous-Tabs par mention académique */}
-            <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-5 bg-white shadow-md p-1 rounded-lg">
-                <TabsTrigger value="overview" className="data-[state=active]:bg-primary data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white">
-                  Vue d'ensemble
-                </TabsTrigger>
-                {mentionsAcademique.map((mention) => (
-                  <TabsTrigger key={mention.abbrev} value={mention.key} className="data-[state=active]:bg-primary data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white">
-                    {mention.abbrev}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-
-              {/* Sous-Onglet Vue d'ensemble académique */}
-              <TabsContent value="overview" className="space-y-6">
-                <div className="grid gap-6">
-                  {statPAcademique?.map((mention, index) => (
-                    <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                      <div className="h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
-                      <CardHeader className="bg-gradient-to-r from-slate-50 to-blue-50">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <CardTitle className="text-xl text-slate-800 mb-1">{mention.nomPortail}</CardTitle>
-                            <CardDescription className="flex items-center gap-2">
-                              <Badge variant="outline" className="bg-white">{mention.abbrev}</Badge>
-                              <span>Licence 1 - Année 2024-2025</span>
-                            </CardDescription>
-                          </div>
-                          <Button variant="outline" size="sm" className="border-blue-300 text-blue-600 hover:bg-blue-50">
-                            <Download className="h-4 w-4 mr-2" />
-                            Exporter la liste
-                          </Button>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="p-6">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                          <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
-                            <div className="text-3xl font-bold text-blue-600 mb-1">{mention.total}</div>
-                            <div className="text-sm text-slate-600 font-medium">Candidatures</div>
-                          </div>
-                          <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl">
-                            <div className="text-3xl font-bold text-green-600 mb-1">{mention.admis}</div>
-                            <div className="text-sm text-slate-600 font-medium">Validés</div>
-                          </div>
-                          <div className="text-center p-4 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl">
-                            <div className="text-3xl font-bold text-amber-600 mb-1">{mention.nonAdmis}</div>
-                            <div className="text-sm text-slate-600 font-medium">En attente</div>
-                          </div>
-                          <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
-                            <div className="text-3xl font-bold text-purple-600 mb-1">{mention.tauxAdmission}%</div>
-                            <div className="text-sm text-slate-600 font-medium">Taux validation</div>
-                          </div>
-                        </div>
-                        
-                        <div className="mt-6 flex gap-3">
-                          <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
-                            <Users className="h-4 w-4 mr-2" />
-                            Voir la liste complète
-                          </Button>
-                          <Button size="sm" variant="outline" className="border-slate-300">
-                            <FileText className="h-4 w-4 mr-2" />
-                            Détails par parcours
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+        {/* Note importante */}
+        <Card className={`rounded-none border-${isAcademique ? "blue" : "green"}-200 bg-${isAcademique ? "blue" : "green"}-50 mb-10`}>
+          <CardContent className="p-6">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0">
+                <div className={`w-10 h-10 rounded-full bg-${isAcademique ? "blue" : "green"}-600 flex items-center justify-center`}>
+                  {isAcademique ? <FileText className="h-5 w-5 text-white" /> : <GraduationCap className="h-5 w-5 text-white" />}
                 </div>
-              </TabsContent>
-
-              {/* Sous-Onglets pour chaque mention académique */}
-              {mentionsAcademique.map((mention) => {
-                const mentionKey = mention.key
-                const candidats = candidatsParMentionAcademique[mentionKey as keyof typeof candidatsParMentionAcademique] || []
-                return (
-                  <TabsContent key={mentionKey} value={mentionKey} className="space-y-4">
-                    <Card className="border-none shadow-lg">
-                      <CardHeader className="bg-gradient-to-r from-slate-50 to-blue-50">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <CardTitle className="text-2xl text-slate-800 capitalize mb-2">
-                              {mention.nom}
-                            </CardTitle>
-                            <CardDescription className="text-base">
-                              {candidats.length} candidat(s) préinscrit(s) • Licence 1
-                            </CardDescription>
-                          </div>
-                          <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
-                            <Download className="h-4 w-4 mr-2" />
-                            Exporter en PDF
-                          </Button>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="p-0">
-                        <div className="overflow-x-auto">
-                          <table className="w-full">
-                            <thead className="bg-slate-100 border-b-2 border-slate-200">
-                              <tr>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Candidat</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Parcours</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Date d'inscription</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Statut</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-200">
-                              {candidats.map((candidat, idx) => (
-                                <tr key={idx} className="hover:bg-blue-50 transition-colors duration-200">
-                                  <td className="px-6 py-4">
-                                    <span className="font-mono text-sm font-medium text-blue-600">{candidat.numero}</span>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    <div className="font-medium text-slate-800">{candidat.nom} {candidat.prenom}</div>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    <span className="text-sm text-slate-600">{candidat.parcours}</span>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2 text-sm text-slate-600">
-                                      <Calendar className="h-4 w-4" />
-                                      {new Date(candidat.dateInscription).toLocaleDateString("fr-FR")}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    {candidat.statut === "Validé" ? (
-                                      <Badge className="bg-green-100 text-green-800 border-green-300">
-                                        <CheckCircle2 className="h-3 w-3 mr-1" />
-                                        Validé
-                                      </Badge>
-                                    ) : (
-                                      <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-300">
-                                        <Clock className="h-3 w-3 mr-1" />
-                                        En attente
-                                      </Badge>
-                                    )}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Note importante */}
-                    <Card className="border-blue-200 bg-blue-50">
-                      <CardContent className="p-6">
-                        <div className="flex gap-4">
-                          <div className="flex-shrink-0">
-                            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
-                              <FileText className="h-5 w-5 text-white" />
-                            </div>
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-blue-900 mb-2">Information importante</h3>
-                            <p className="text-sm text-blue-800 leading-relaxed">
-                              Cette liste présente tous les candidats ayant effectué leur préinscription. La validation du dossier ne garantit pas l'admission définitive. 
-                              Les résultats finaux de la sélection seront publiés après l'étude approfondie de tous les dossiers.
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                )
-              })}
-            </Tabs>
-          </TabsContent>
-
-          {/* Onglet Professionalisante */}
-          <TabsContent value="professionalisante" className="space-y-6">
-            {/* Sous-Tabs par filière professionalisante */}
-            <Tabs defaultValue="overview-pro" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-4 bg-white shadow-md p-1 rounded-lg">
-                <TabsTrigger value="overview-pro" className="data-[state=active]:bg-secondary data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white">
-                  Vue d'ensemble
-                </TabsTrigger>
-                {filieresProfessionalisante.map((filiere) => (
-                  <TabsTrigger key={filiere.abbrev} value={filiere.key} className="data-[state=active]:bg-secondary data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white">
-                    {filiere.abbrev}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-
-              {/* Sous-Onglet Vue d'ensemble professionalisante */}
-              <TabsContent value="overview-pro" className="space-y-6">
-                <div className="grid gap-6">
-                  {statPProfessionalisante.map((filiere, index) => (
-                    <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                      <div className="h-2 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"></div>
-                      <CardHeader className="bg-gradient-to-r from-slate-50 to-green-50">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <CardTitle className="text-xl text-slate-800 mb-1">{filiere.nomFiliere}</CardTitle>
-                            <CardDescription className="flex items-center gap-2">
-                              <Badge variant="outline" className="bg-white">{filiere.abbrev}</Badge>
-                              <span>Licence 1 Professionnalisante - Année 2024-2025</span>
-                            </CardDescription>
-                          </div>
-                          <Button variant="outline" size="sm" className="border-green-300 text-green-600 hover:bg-green-50">
-                            <Download className="h-4 w-4 mr-2" />
-                            Exporter la liste
-                          </Button>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="p-6">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                          <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl">
-                            <div className="text-3xl font-bold text-green-600 mb-1">{filiere.total}</div>
-                            <div className="text-sm text-slate-600 font-medium">Candidatures</div>
-                          </div>
-                          <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
-                            <div className="text-3xl font-bold text-blue-600 mb-1">{filiere.inscritsVerifies || 0}</div>
-                            <div className="text-sm text-slate-600 font-medium">Validés</div>
-                          </div>
-                          <div className="text-center p-4 bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl">
-                            <div className="text-3xl font-bold text-amber-600 mb-1">{filiere.total - (filiere.inscritsVerifies || 0)}</div>
-                            <div className="text-sm text-slate-600 font-medium">En attente</div>
-                          </div>
-                          <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
-                            <div className="text-3xl font-bold text-purple-600 mb-1">{((filiere.inscritsVerifies || 0) / filiere.total * 100).toFixed(1)}%</div>
-                            <div className="text-sm text-slate-600 font-medium">Taux validation</div>
-                          </div>
-                        </div>
-                        
-                        <div className="mt-6 flex gap-3">
-                          <Button size="sm" className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                            <Users className="h-4 w-4 mr-2" />
-                            Voir la liste complète
-                          </Button>
-                          <Button size="sm" variant="outline" className="border-slate-300">
-                            <FileText className="h-4 w-4 mr-2" />
-                            Détails par parcours
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              {/* Sous-Onglets pour chaque filière professionalisante */}
-              {filieresProfessionalisante.map((filiere) => {
-                const filiereKey = filiere.key
-                const candidats = candidatsParFiliereProfessionalisante[filiereKey as keyof typeof candidatsParFiliereProfessionalisante] || []
-                return (
-                  <TabsContent key={filiereKey} value={filiereKey} className="space-y-4">
-                    <Card className="border-none shadow-lg">
-                      <CardHeader className="bg-gradient-to-r from-slate-50 to-green-50">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <CardTitle className="text-2xl text-slate-800 capitalize mb-2">
-                              {filiere.nom}
-                            </CardTitle>
-                            <CardDescription className="text-base">
-                              {candidats.length} candidat(s) préinscrit(s) • Licence 1 Professionnalisante
-                            </CardDescription>
-                          </div>
-                          <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                            <Download className="h-4 w-4 mr-2" />
-                            Exporter en PDF
-                          </Button>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="p-0">
-                        <div className="overflow-x-auto">
-                          <table className="w-full">
-                            <thead className="bg-slate-100 border-b-2 border-slate-200">
-                              <tr>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Candidat</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Parcours</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Date d'inscription</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Statut</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-200">
-                              {candidats.map((candidat, idx) => (
-                                <tr key={idx} className="hover:bg-green-50 transition-colors duration-200">
-                                  <td className="px-6 py-4">
-                                    <span className="font-mono text-sm font-medium text-green-600">{candidat.numero}</span>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    <div className="font-medium text-slate-800">{candidat.nom} {candidat.prenom}</div>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    <span className="text-sm text-slate-600">{candidat.parcours}</span>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2 text-sm text-slate-600">
-                                      <Calendar className="h-4 w-4" />
-                                      {new Date(candidat.dateInscription).toLocaleDateString("fr-FR")}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4">
-                                    {candidat.statut === "Validé" ? (
-                                      <Badge className="bg-green-100 text-green-800 border-green-300">
-                                        <CheckCircle2 className="h-3 w-3 mr-1" />
-                                        Validé
-                                      </Badge>
-                                    ) : (
-                                      <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-300">
-                                        <Clock className="h-3 w-3 mr-1" />
-                                        En attente
-                                      </Badge>
-                                    )}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Note importante pour pro */}
-                    <Card className="border-green-200 bg-green-50">
-                      <CardContent className="p-6">
-                        <div className="flex gap-4">
-                          <div className="flex-shrink-0">
-                            <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
-                              <GraduationCap className="h-5 w-5 text-white" />
-                            </div>
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-green-900 mb-2">Information importante</h3>
-                            <p className="text-sm text-green-800 leading-relaxed">
-                              Cette liste présente tous les candidats ayant effectué leur préinscription en filière professionalisante. La validation du dossier ne garantit pas l'admission définitive. 
-                              Les résultats finaux de la sélection seront publiés après l'étude approfondie de tous les dossiers.
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-                )
-              })}
-            </Tabs>
-          </TabsContent>
-        </Tabs>
+              </div>
+              <div>
+                <h3 className={`font-semibold ${isAcademique ? "text-blue-900" : "text-green-900"} mb-2`}>Information importante</h3>
+                <p className={`text-sm ${isAcademique ? "text-blue-800" : "text-green-800"} leading-relaxed`}>
+                  Cette liste présente tous les candidats ayant effectué leur préinscription. La validation du dossier ne garantit pas l'admission définitive. 
+                  Les résultats finaux de la sélection seront publiés après l'étude approfondie de tous les dossiers.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Calendrier et informations */}
         <div className="mt-10 grid md:grid-cols-2 gap-6">
-          <Card className="border-none shadow-lg">
+          <Card className=" rounded-none border-none shadow-lg">
             <CardHeader className="bg-gradient-to-r from-slate-50 to-purple-50">
               <CardTitle className="flex items-center gap-2 text-slate-800">
                 <Calendar className="h-5 w-5 text-purple-600" />
@@ -624,7 +419,7 @@ export default function CandidatsPreinscrits() {
             </CardHeader>
             <CardContent className="p-6 space-y-4">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-green-100 flex items-center justify-center flex-shrink-0 rounded-full">
                   <CheckCircle2 className="h-6 w-6 text-green-600" />
                 </div>
                 <div>
@@ -633,8 +428,8 @@ export default function CandidatsPreinscrits() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <Clock className="h-6 w-6 text-blue-600 animate-pulse" />
+                <div className="w-12 h-12  bg-blue-100 flex items-center justify-center flex-shrink-0 rounded-full">
+                  <Clock className="h-6 w-6 text-blue-600 animate-pulse " />
                 </div>
                 <div>
                   <div className="font-semibold text-slate-800">Étude des dossiers</div>
@@ -642,8 +437,8 @@ export default function CandidatsPreinscrits() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
-                  <FileText className="h-6 w-6 text-purple-600" />
+                <div className="w-12 h-12  bg-purple-100 flex items-center justify-center flex-shrink-0 rounded-full">
+                  <FileText className="h-6 w-6 text-purple-600 " />
                 </div>
                 <div>
                   <div className="font-semibold text-slate-800">Publication des résultats</div>
@@ -653,7 +448,7 @@ export default function CandidatsPreinscrits() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg">
+          <Card className="rounded-none border-none shadow-lg">
             <CardHeader className="bg-gradient-to-r from-slate-50 to-indigo-50">
               <CardTitle className="flex items-center gap-2 text-slate-800">
                 <Users className="h-5 w-5 text-indigo-600" />
@@ -678,7 +473,7 @@ export default function CandidatsPreinscrits() {
                   <span className="text-slate-700">+261 34 XX XXX XX</span>
                 </div>
               </div>
-              <Button className="w-full bg-primary  hover:from-indigo-700 hover:to-purple-700 mt-4">
+              <Button className=" rounded-none w-full bg-primary  hover:from-indigo-700 hover:to-purple-700 mt-4">
                 Contacter le service des admissions
               </Button>
             </CardContent>
