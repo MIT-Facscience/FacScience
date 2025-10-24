@@ -23,13 +23,15 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
-  const [bankReference, setBankReference] = useState("");
-  const [bankAgence, setBankAgence] = useState("");
-  const [bankDate, setBankDate] = useState(new Date());
+  const [bankReference, setBankReference] = useState<string | null>(null);
+  const [bankAgence, setBankAgence] = useState<string | null>(null);
+  const [bankDate, setBankDate] = useState<Date | null>(new Date());
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProgram) return;
+
+    if (!bankAgence || !bankReference || !bankDate) return;
 
     onNext({
       program: selectedProgram,
@@ -100,7 +102,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
             <input
               type="text"
               placeholder="Ex: YMA7730/COT"
-              value={bankReference}
+              value={bankReference ?? ""}
               onChange={(e) => {
                 const value = e.target.value;
                 // Limiter à 12 caractères maximum
@@ -119,7 +121,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
             <input
               type="text"
               placeholder="Ex: Ambanidia"
-              value={bankAgence}
+              value={(bankAgence ?? "").trim()}
               onChange={(e) => setBankAgence(e.target.value)}
               className="border px-4 py-2 border-gray-200 w-full"
             />
@@ -211,7 +213,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
         </button>
         <button
           type="submit"
-          // disabled={!selectedProgram || !email || !telephone || !bankAgence || !bankReference || !bankDate || !isValidEmail(email) || !isValidTel(telephone.replace(" ", ""))}
+          disabled={!selectedProgram || !email || !telephone || !bankAgence || !bankReference || !bankDate || !isValidEmail(email) || !isValidTel(telephone.replace(" ", ""))}
           className="px-6 py-2 bg-faculty-purple-600 text-white rounded-sm hover:bg-faculty-purple-700 disabled:opacity-50"
         >
           Continuer
