@@ -80,3 +80,30 @@ export interface ForeignApplicationData {
 export interface StepStrangerProps {
   onChangeStep: (currentStep: number) => void;
 }
+
+// Types pour les réponses du contrôleur C#
+export interface ProblemDetails {
+  type?: string;
+  title?: string;
+  status?: number;
+  detail?: string;
+  instance?: string;
+}
+
+export interface PreinscriptionReturn {
+  email: string;
+  tel: string;
+  refBancaire: string;
+  agence: string;
+  datePaiement: string;
+  idPortail: string;
+  idBac: number;
+  modeInscription: string;
+  idPreinscription?: number; // ID de préinscription ajouté
+}
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: ProblemDetails;
+}

@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { submitApplication as submitPreinscription } from "../api/api";
-import type { ApplicationData } from "../types";
+import type { ApplicationData, PreinscriptionReturn, ProblemDetails } from "../types";
 
 interface StepFourProps {
   applicationData: ApplicationData;
@@ -26,30 +26,32 @@ export const StepFour: React.FC<StepFourProps> = ({
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [applicationNumber, setApplicationNumber] = useState("");
-  const [error, setError] = useState("");
+  const [preinscriptionData, setPreinscriptionData] = useState<PreinscriptionReturn | null>(null);
+  const [error, setError] = useState<ProblemDetails | null>(null);
 
   const handleSubmit = async () => {
     console.log("Début de la soumission");
 
     setIsSubmitting(true);
-    setError("");
+    setError(null);
 
     try {
       const result = await submitPreinscription(applicationData);
 
-      if (result.success) {
-        setApplicationNumber("");
+      if (result.success && result.data) {
+        setPreinscriptionData(result.data);
         setIsSubmitted(true);
       } else {
-        setError(error || result.error);
+        setError(result.error || {
+          title: "Erreur inconnue",
+          detail: "Une erreur inattendue est survenue"
+        });
       }
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Une erreur inattendue est survenue"
-      );
+      setError({
+        title: "Erreur de connexion",
+        detail: err instanceof Error ? err.message : "Une erreur inattendue est survenue"
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -216,9 +218,15 @@ export const StepFour: React.FC<StepFourProps> = ({
         {/* Erreur */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <div className="flex items-center text-red-600">
-              <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
-              <span className="text-sm">{error}</span>
+            <div className="flex items-start text-red-600">
+              <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
+              <div className="text-sm">
+                <p className="font-medium text-red-800 mb-1">{error.title || "Erreur"}</p>
+                <p className="text-red-700">{error.detail || "Une erreur est survenue"}</p>
+                {error.status && (
+                  <p className="text-xs text-red-500 mt-1">Code d'erreur: {error.status}</p>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -270,8 +278,10 @@ export const StepFour: React.FC<StepFourProps> = ({
         </p>
         <div className="bg-faculty-purple-50 border border-faculty-purple-200 rounded-lg p-4">
           <p className="text-faculty-purple-800">
-            <span className="font-semibold">Numéro de demande :</span>
-            <span className="font-mono text-lg ml-2">{applicationNumber}</span>
+            <span className="font-semibold">Numéro de préinscription :</span>
+            <span className="font-mono text-lg ml-2">
+              {preinscriptionData?.idPreinscription || "N/A"}
+            </span>
           </p>
         </div>
       </div>
@@ -335,8 +345,8 @@ export const StepFour: React.FC<StepFourProps> = ({
           </li>
           <li className="flex items-start">
             <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-            Conservez votre numéro de demande pour le suivi :{" "}
-            {applicationNumber}
+            Conservez votre numéro de préinscription pour le suivi :{" "}
+            {preinscriptionData?.idPreinscription || "N/A"}
           </li>
         </ul>
       </div>

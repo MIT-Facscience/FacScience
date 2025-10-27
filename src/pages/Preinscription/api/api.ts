@@ -1,5 +1,5 @@
 import { BACKEND_PREINSCRIPTION_URL, BACKEND_WEBSERVICES_URL } from "@/lib/api";
-import type { ApplicationData } from "../types";
+import type { ApplicationData, PreinscriptionReturn, ProblemDetails, ApiResponse } from "../types";
 import type { ResData } from "../types/models";
 import type { ForeignApplicationData } from "./../types/index";
 
@@ -41,13 +41,11 @@ export const fetchCandidateInfo = async (
   return candidate;
 };
 
-export const submitApplication = async (applicationData: ApplicationData) => {
-  // Simulation d'un délai d'API
-  // await new Promise(resolve => setTimeout(resolve, 2000));
+export const submitApplication = async (applicationData: ApplicationData): Promise<ApiResponse<PreinscriptionReturn>> => {
   try {
     const app: ApplicationData = applicationData;
 
-    console.log(app);
+    console.log("Envoi des données:", app);
     const response = await fetch(
       `${BACKEND_PREINSCRIPTION_URL}/api/Register/RegisterTry`,
       {
@@ -59,27 +57,44 @@ export const submitApplication = async (applicationData: ApplicationData) => {
       }
     );
 
-    const value = await response.json();
+    const responseData = await response.json();
 
-    if (!response.ok) return { success: false, error: value.detail };
-  } catch (error) {
-    console.error(error);
+    if (!response.ok) {
+      // Le serveur retourne un ProblemDetails en cas d'erreur
+      const problemDetails: ProblemDetails = responseData;
+      console.error("Erreur du serveur:", problemDetails);
+      
+      return {
+        success: false,
+        error: problemDetails
+      };
+    }
+
+    // Succès - le serveur retourne un PreinscriptionReturn
+    const preinscriptionData: PreinscriptionReturn = responseData;
+    console.log("Préinscription créée avec succès:", preinscriptionData);
 
     return {
+      success: true,
+      data: preinscriptionData
+    };
+  } catch (error) {
+    console.error("Erreur lors de l'envoi:", error);
+    
+    return {
       success: false,
+      error: {
+        title: "Erreur de connexion",
+        detail: "Impossible de se connecter au serveur. Veuillez réessayer.",
+        status: 500
+      }
     };
   }
-
-  // Simulation d'une réponse réussie
-  return {
-    success: true,
-    // applicationNumber: `FS${new Date().getFullYear()}${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`
-  };
 };
 
 export const submitForeignPreinscription = async (
   applicationData: ForeignApplicationData
-) => {
+): Promise<ApiResponse<PreinscriptionReturn>> => {
   try {
     const app: ForeignApplicationData = applicationData;
     const response = await fetch(
@@ -93,24 +108,39 @@ export const submitForeignPreinscription = async (
       }
     );
 
-    if (!response.ok) return { success: false };
+    const responseData = await response.json();
 
-    console.log(await response.json());
-  } catch (error) {
-    throw new Error("sending data error");
-    console.error(error);
+    if (!response.ok) {
+      // Le serveur retourne un ProblemDetails en cas d'erreur
+      const problemDetails: ProblemDetails = responseData;
+      console.error("Erreur du serveur:", problemDetails);
+      
+      return {
+        success: false,
+        error: problemDetails
+      };
+    }
+
+    // Succès - le serveur retourne un PreinscriptionReturn
+    const preinscriptionData: PreinscriptionReturn = responseData;
+    console.log("Préinscription étrangère créée avec succès:", preinscriptionData);
 
     return {
+      success: true,
+      data: preinscriptionData
+    };
+  } catch (error) {
+    console.error("Erreur lors de l'envoi:", error);
+    
+    return {
       success: false,
-      // applicationNumber: null,
+      error: {
+        title: "Erreur de connexion",
+        detail: "Impossible de se connecter au serveur. Veuillez réessayer.",
+        status: 500
+      }
     };
   }
-
-  // Simulation d'une réponse réussie
-  return {
-    success: true,
-    // applicationNumber: `FS${new Date().getFullYear()}${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`
-  };
 };
 
 export const isValidEmail = (email: string): boolean => {
