@@ -99,7 +99,7 @@ export interface PreinscriptionReturn {
   idPortail: string;
   idBac: number;
   modeInscription: string;
-  idPreinscription?: number; // ID de préinscription ajouté
+  id?: string; // ID de préinscription ajouté
 }
 
 export interface ApiResponse<T = any> {
