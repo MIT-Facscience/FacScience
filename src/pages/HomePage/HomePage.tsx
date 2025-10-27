@@ -92,7 +92,7 @@ export default function HomePage() {
     {
       id: 1,
       type: "event",
-      title: "Salon des Étudiants",
+      title: "Salon des Étudiants 2025",
       date: "11-12 Septembre 2025",
       time: "08h00 - 17h00",
       location: "Amphithéâtre Principal",
