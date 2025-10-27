@@ -280,7 +280,7 @@ export const StepFour: React.FC<StepFourProps> = ({
           <p className="text-faculty-purple-800">
             <span className="font-semibold">Numéro de préinscription :</span>
             <span className="font-mono text-lg ml-2">
-              {preinscriptionData?.idPreinscription || "N/A"}
+              {preinscriptionData?.id || "N/A"}
             </span>
           </p>
         </div>
@@ -346,7 +346,7 @@ export const StepFour: React.FC<StepFourProps> = ({
           <li className="flex items-start">
             <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
             Conservez votre numéro de préinscription pour le suivi :{" "}
-            {preinscriptionData?.idPreinscription || "N/A"}
+            {preinscriptionData?.id || "N/A"}
           </li>
         </ul>
       </div>
