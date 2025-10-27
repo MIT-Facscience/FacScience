@@ -31,10 +31,19 @@ type statGType = {
     }
   ]
 
+  type portType = [
+    {
+      idPortail: number,
+      nomPortail: string,
+      abbrev: string
+    }
+  ]
+
 export default function ResultatsPage() {
 
   const [statG,setStatG] = useState<statGType>();
   const [statP,setStatP] = useState<statPType>();
+  const [portA, setPortA] = useState<portType>();
 
 
   useEffect(() => {
@@ -46,17 +55,24 @@ export default function ResultatsPage() {
         .catch((error) => {
           console.error("Erreur lors de la récupération des statG :", error);
         });
-    }, []);
 
-    useEffect(() => {
-      fetch(`${BACKEND_URL}/api/stat/preinscrits-par-mention`)
-        .then((response) => response.json())
-        .then((data) => {
-          setStatP(data);
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la récupération des statP :", error);
-        });
+        fetch(`${BACKEND_URL}/api/stat/preinscrits-par-mention`)
+          .then((response) => response.json())
+          .then((data) => {
+            setStatP(data);
+          })
+          .catch((error) => {
+            console.error("Erreur lors de la récupération des statP :", error);
+          });
+
+          fetch(`${BACKEND_URL}/api/stat/portails_academiques`)
+          .then((response) => response.json())
+          .then((data) => {
+            setPortA(data);
+          })
+          .catch((error) => {
+            console.error("Erreur lors de la récupération des portails académiques :", error);
+          });
     }, []);
 
   const resultats_concours = [
@@ -224,9 +240,9 @@ export default function ResultatsPage() {
           <div className="container mx-auto px-4 py-8">
             {/* Header */}
             <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-slate-800 mb-4">Résultats d'Admission</h1>
+              <h1 className="text-4xl font-bold text-slate-800 mb-4">Candidatures reçues</h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Consultez les résultats des concours d’admission, des sélections de dossiers et les statistiques par filière et par parcours.
+                Consultez les candidatures reçues des sélections de dossiers et les statistiques par portails.
               </p>
             </div>
 
@@ -234,25 +250,25 @@ export default function ResultatsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">{statG?.total}</div>
+                  <div className="text-3xl font-bold text-blue-600 mb-2">{statG?.total || 0}</div>
                   <div className="text-sm text-slate-600">Candidatures reçues</div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-green-600 mb-2">{statG?.admis}</div>
+                  <div className="text-3xl font-bold text-green-600 mb-2">{statG?.admis || 0}</div>
                   <div className="text-sm text-slate-600">Admis</div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">{statG?.nonAdmis}</div>
+                  <div className="text-3xl font-bold text-purple-600 mb-2">{statG?.nonAdmis || 0}</div>
                   <div className="text-sm text-slate-600">Liste d'attente</div>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">{statG?.tauxAdmission}%</div>
+                  <div className="text-3xl font-bold text-orange-600 mb-2">{statG?.tauxAdmission || 0}%</div>
                   <div className="text-sm text-slate-600">Taux d'admission</div>
                 </CardContent>
               </Card>
@@ -272,7 +288,7 @@ export default function ResultatsPage() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Search className="h-5 w-5" />
-                      Rechercher vos résultats de concours
+                      Rechercher vos dossiers de préinscription
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -280,19 +296,24 @@ export default function ResultatsPage() {
                       <Input placeholder="Numéro de candidat" />
                       <Select>
                         <SelectTrigger>
-                          <SelectValue placeholder="Filière" />
+                          <SelectValue placeholder="Portail" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="mi">Mathématiques-Informatique</SelectItem>
+                          {portA?.map((portail) => (
+                            <SelectItem key={portail.idPortail} value={portail.idPortail.toString()}>
+                              {portail.nomPortail}
+                            </SelectItem>
+                          ))}
+                          {/* <SelectItem value="mi">Mathématiques-Informatique</SelectItem>
                           <SelectItem value="phy">Physique</SelectItem>
                           <SelectItem value="chi">Chimie</SelectItem>
                           <SelectItem value="bio">Biologie</SelectItem>
                           <SelectItem value="geo">Géologie</SelectItem>
                           <SelectItem value="igcrr">IGCRR</SelectItem>
-                          <SelectItem value="ipss">IPSS</SelectItem>
+                          <SelectItem value="ipss">IPSS</SelectItem> */}
                         </SelectContent>
                       </Select>
-                      <Select>
+                      {/* <Select>
                         <SelectTrigger>
                           <SelectValue placeholder="Niveau" />
                         </SelectTrigger>
@@ -303,7 +324,7 @@ export default function ResultatsPage() {
                           <SelectItem value="m1">Master 1</SelectItem>
                           <SelectItem value="m2">Master 2</SelectItem>
                         </SelectContent>
-                      </Select>
+                      </Select> */}
                       <Button>
                         <Search className="h-4 w-4 mr-2" />
                         Rechercher
@@ -314,7 +335,7 @@ export default function ResultatsPage() {
 
                 {/* Résultats des concours */}
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Résultats des Concours d'Admission</h2>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Candidatures pour la préinscription</h2>
                   <div className="space-y-4">
                     {resultats_concours.map((concours, index) => (
                       <Card key={index} className="hover:shadow-lg transition-shadow">
@@ -335,7 +356,7 @@ export default function ResultatsPage() {
                               <div className="text-2xl font-bold text-blue-600">{concours.candidats}</div>
                               <div className="text-sm text-slate-600">Candidats</div>
                             </div>
-                            <div className="text-center">
+                            {/* <div className="text-center">
                               <div className="text-2xl font-bold text-green-600">{concours.admis}</div>
                               <div className="text-sm text-slate-600">Admis</div>
                             </div>
@@ -346,7 +367,7 @@ export default function ResultatsPage() {
                             <div className="text-center">
                               <div className="text-2xl font-bold text-purple-600">{concours.seuil_admission}/20</div>
                               <div className="text-sm text-slate-600">Seuil d'admission</div>
-                            </div>
+                            </div> */}
                             <div className="text-center">
                               <div className="text-sm text-slate-600">Publié le</div>
                               <div className="font-medium">
@@ -445,7 +466,7 @@ export default function ResultatsPage() {
               <TabsContent value="statistiques" className="space-y-6">
                 {/* Statistiques d'admission */}
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Statistiques d'Admission par Filière</h2>
+                  <h2 className="text-2xl font-bold text-slate-800 mb-6">Statistiques de candidature par portail</h2>
                   <div className="space-y-4">
                     {statP?.map((dept, index) => (
                       <Card key={index}>

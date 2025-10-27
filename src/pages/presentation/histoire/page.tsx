@@ -140,12 +140,7 @@ export default function HistoirePage() {
       number: nbEnseignants,
       label: "Enseignants",
       icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" />,
-    },
-    {
-      number: "200+",
-      label: "Enseignants",
-      icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" />,
-    },
+    }
   ];
 
   return (
