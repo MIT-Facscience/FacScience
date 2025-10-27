@@ -17,7 +17,6 @@ import HistoirePage from "./pages/presentation/histoire/page";
 import OrganigrammePage from "./pages/presentation/organigramme/page";
 import VisionPage from "./pages/presentation/vision/page";
 // import ListesAdmisPage from "./pages/resultats/listes-admis/page";
-import ResultatsPage from "./pages/resultats/result/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
