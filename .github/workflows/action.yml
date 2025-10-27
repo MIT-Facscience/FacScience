@@ -85,4 +85,3 @@ jobs:
           script: |
             sudo chown -R www-data:www-data /home/sciadm/test
             sudo chmod -R 755 /home/sciadm/test
-            ls -al /home/sciadm/test
