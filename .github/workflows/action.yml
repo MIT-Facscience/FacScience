@@ -62,7 +62,7 @@ jobs:
           script: |
             mkdir -p /var/www/facscience
 
-      # Déployer via SSH (SCP)
+      # Déployer via SSH (SCP )
       - name: Deploy via SSH
         uses: appleboy/scp-action@v0.1.7
         with:
