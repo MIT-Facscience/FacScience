@@ -3,7 +3,7 @@ name: Build and Deploy Facscience
 on:
   push:
     branches:
-      - wait
+      - main
 
 jobs:
   build:
