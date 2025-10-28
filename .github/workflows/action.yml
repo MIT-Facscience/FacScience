@@ -40,7 +40,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # 7️⃣ Sauvegarder le build comme artefact
+      # 7️⃣ Sauvegarder le build comme artefacts
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
