@@ -23,7 +23,7 @@ jobs:
 
       # Installer les dépendances et builder
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Run tests (optional)
         run: npm test --if-present
