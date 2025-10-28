@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: 22
-          source: ".github/workflows/test.txt"   # crée un petit fichier test.txt ici .
+          source: ".github/workflows/test.txt"   # crée un pett fichier test.txt ici .
           target: "/home/sciadm/test.txt"      # copie le fichier dans le home de l'utilisateur
           strip_components: 0
           debug: true
