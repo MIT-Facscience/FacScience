@@ -46,15 +46,25 @@ jobs:
     needs: build
 
     steps:
-      # 1️⃣ Télécharger le build du job précédent
+      # Télécharger le build du job précédent
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: react-build
           path: build
 
-      # 2️⃣ Copier d'abord dans un dossier temporaire sur le serveur
-      - name: Copy build to temp folder
+      - name: Clean target folder
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          script: |
+            rm -rf /var/www/facscience/*
+
+
+      - name: Copy build to folder
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
