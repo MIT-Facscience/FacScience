@@ -65,7 +65,7 @@ jobs:
           target: "/home/sciadm/facscience-temp"
           strip_components: 1
 
-      # 3️⃣ Déplacer dans /var/www/facscience avec sudo et corriger permissions
+      # 3️⃣ Déplacer dans /var/www/facscience avec sudo et corriger permission
       - name: Move to /var/www/facscience
         uses: appleboy/ssh-action@v1
         with:
