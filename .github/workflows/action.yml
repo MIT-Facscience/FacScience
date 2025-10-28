@@ -1,4 +1,4 @@
-name: Build and Deploy Facscience 
+name: Build and Deploy Facsciences
 
 on:
   push:
