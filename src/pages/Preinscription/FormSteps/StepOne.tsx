@@ -50,8 +50,8 @@ const mapResDataToCandidateInfo = (
     | "TA";
 
   // Vérifier l'éligibilité (séries scientifiques uniquement)
-  const eligibleSeries = ["S", "C", "D"];
-  const isEligible = eligibleSeries.includes(series);
+  const noteligibleSeries = ["L", "OSE", "A1", "A2"];
+  const isEligible = !noteligibleSeries.includes(series);
 
   return {
     id: `${numBacc}-${anneeBacc}`,
