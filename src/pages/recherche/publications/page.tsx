@@ -11,7 +11,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Publication {
   id: string;
@@ -27,166 +27,22 @@ interface Publication {
   citations?: number;
 }
 
-// Données d'exemple
-const mockPublications: Publication[] = [
-  {
-    id: "1",
-    title:
-      "Deep Learning Approaches for Natural Language Understanding in Conversational AI Systems",
-    authors: ["Marie Dubois", "Jean Dupont", "Sophie Martin"],
-    venue: "Journal of Artificial Intelligence Research",
-    year: 2024,
-    type: "journal",
-    abstract:
-      "This paper presents novel deep learning architectures for improving natural language understanding in conversational AI systems. We propose a hybrid approach combining transformer models with graph neural networks.",
-    keywords: ["Deep Learning", "NLP", "Conversational AI", "Transformers"],
-    doi: "10.1613/jair.1.12345",
-    citations: 42,
-  },
-  {
-    id: "2",
-    title:
-      "Quantum Machine Learning: A Comprehensive Survey of Current Approaches and Future Perspectives",
-    authors: ["Pierre Quantum", "Alice Computing", "Bob Analysis"],
-    venue: "International Conference on Machine Learning (ICML)",
-    year: 2024,
-    type: "conference",
-    abstract:
-      "We provide a comprehensive survey of quantum machine learning algorithms, analyzing their theoretical foundations and practical implementations on current quantum hardware.",
-    keywords: ["Quantum Computing", "Machine Learning", "Quantum Algorithms"],
-    citations: 28,
-  },
-  {
-    id: "3",
-    title:
-      "Federated Learning with Privacy-Preserving Techniques: Challenges and Solutions",
-    authors: ["Emma Privacy", "Lucas Federated", "Nina Secure"],
-    venue: "IEEE Transactions on Information Forensics and Security",
-    year: 2023,
-    type: "journal",
-    abstract:
-      "This work addresses the challenges of maintaining privacy in federated learning systems while ensuring model performance and convergence.",
-    keywords: [
-      "Federated Learning",
-      "Privacy",
-      "Security",
-      "Differential Privacy",
-    ],
-    citations: 67,
-  },
-  {
-    id: "4",
-    title:
-      "Computer Vision for Autonomous Driving: Real-time Object Detection and Tracking",
-    authors: ["Thomas Vision", "Clara Detection"],
-    venue: "European Conference on Computer Vision (ECCV)",
-    year: 2023,
-    type: "conference",
-    abstract:
-      "We present a novel real-time object detection and tracking system specifically designed for autonomous driving applications.",
-    keywords: ["Computer Vision", "Autonomous Driving", "Object Detection"],
-    citations: 35,
-  },
-  {
-    id: "5",
-    title: "Blockchain-based Smart Contracts for IoT Device Management",
-    authors: ["Alex Blockchain", "Sarah IoT", "David Smart"],
-    venue: "Workshop on Blockchain and IoT",
-    year: 2023,
-    type: "workshop",
-    abstract:
-      "This paper explores the integration of blockchain technology with IoT devices through smart contracts for enhanced security and management.",
-    keywords: ["Blockchain", "IoT", "Smart Contracts"],
-    citations: 15,
-  },
-  {
-    id: "6",
-    title: "Advances in Reinforcement Learning for Robotics Applications",
-    authors: ["Robot Master", "Learning Expert"],
-    venue: "Robotics and Autonomous Systems",
-    year: 2022,
-    type: "journal",
-    abstract:
-      "A comprehensive analysis of reinforcement learning techniques applied to robotics, with focus on manipulation and navigation tasks.",
-    keywords: ["Reinforcement Learning", "Robotics", "Navigation"],
-    citations: 89,
-  },
-  {
-    id: "7",
-    title:
-      "Explainable AI for Medical Diagnosis: Interpretable Models and Clinical Applications",
-    authors: ["Dr. Sarah Analysis", "Prof. John Explain", "Dr. Maria Clinical"],
-    venue: "Nature Machine Intelligence",
-    year: 2024,
-    type: "journal",
-    abstract:
-      "We present interpretable machine learning models for medical diagnosis, focusing on transparency and clinical applicability in healthcare settings.",
-    keywords: [
-      "Explainable AI",
-      "Medical Diagnosis",
-      "Healthcare",
-      "Interpretability",
-    ],
-    doi: "10.1038/s42256-024-00789-1",
-    citations: 73,
-  },
-  {
-    id: "8",
-    title: "Edge Computing for Real-time Data Processing in Smart Cities",
-    authors: ["Urban Tech", "Smart City Expert", "Data Scientist"],
-    venue: "IEEE International Conference on Smart Cities",
-    year: 2024,
-    type: "conference",
-    abstract:
-      "This paper explores edge computing architectures for real-time data processing in smart city applications, addressing latency and scalability challenges.",
-    keywords: ["Edge Computing", "Smart Cities", "Real-time Processing", "IoT"],
-    citations: 31,
-  },
-  {
-    id: "9",
-    title:
-      "Sustainable Machine Learning: Energy-Efficient Neural Network Training",
-    authors: ["Green AI Researcher", "Sustainable Computing", "Energy Expert"],
-    venue: "Workshop on Green AI",
-    year: 2023,
-    type: "workshop",
-    abstract:
-      "We investigate energy-efficient training methods for neural networks, proposing novel techniques to reduce carbon footprint in ML training.",
-    keywords: [
-      "Green AI",
-      "Energy Efficiency",
-      "Sustainable Computing",
-      "Neural Networks",
-    ],
-    citations: 18,
-  },
-  {
-    id: "10",
-    title: "Cybersecurity in Cloud Computing: A Multi-layered Defense Approach",
-    authors: ["Security Expert", "Cloud Architect", "Cyber Analyst"],
-    venue: "ACM Transactions on Information and System Security",
-    year: 2023,
-    type: "journal",
-    abstract:
-      "This work presents a comprehensive multi-layered security framework for cloud computing environments, addressing emerging threats and vulnerabilities.",
-    keywords: [
-      "Cybersecurity",
-      "Cloud Computing",
-      "Defense Systems",
-      "Security Framework",
-    ],
-    doi: "10.1145/3456789.3456790",
-    citations: 54,
-  },
-];
-
 const ITEMS_PER_PAGE = 4;
+const API_BASE_URL = "http://localhost:5194";
 
-export default function ScientificPublications() {
+export default function PublicationsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<string>("all");
   const [selectedYear, setSelectedYear] = useState<string>("all");
+  // const [customYear, setCustomYear] = useState<string>("");
+  // const [useCustomYear, setUseCustomYear] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // États pour l'API
+  const [publications, setPublications] = useState<Publication[]>([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const publicationTypes = [
     { value: "all", label: "Tous types" },
@@ -196,55 +52,68 @@ export default function ScientificPublications() {
     { value: "book", label: "Livres" },
   ];
 
-  const years = [
-    "all",
-    ...Array.from(new Set(mockPublications.map((pub) => pub.year))).sort(
-      (a, b) => b - a
-    ),
-  ];
+  // Années disponibles
+  const years = ["all", "2024", "2023", "2022", "2021"];
 
-  const filteredPublications = useMemo(() => {
-    const filtered = mockPublications.filter((pub) => {
-      const matchesSearch =
-        searchTerm === "" ||
-        pub.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        pub.authors.some((author) =>
-          author.toLowerCase().includes(searchTerm.toLowerCase())
-        ) ||
-        pub.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+  // Fetch des publications depuis l'API
+  useEffect(() => {
+    const fetchPublications = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const params = new URLSearchParams();
+        
+        // N'ajouter les paramètres que s'ils sont différents de "all" ou non vides
+        if (searchTerm.trim()) {
+          params.append('search', searchTerm.trim());
+        }
+        if (selectedType && selectedType !== 'all') {
+          params.append('type', selectedType);
+        }
+        if (selectedYear && selectedYear !== 'all') {
+          params.append('year', selectedYear);
+        }
+        params.append('page', currentPage.toString());
+        params.append('limit', ITEMS_PER_PAGE.toString());
 
-      const matchesType = selectedType === "all" || pub.type === selectedType;
-      const matchesYear =
-        selectedYear === "all" || pub.year.toString() === selectedYear;
+        const url = `${API_BASE_URL}/api/publications?${params.toString()}`;
+        console.log('Fetching URL:', url);
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+        const data = await response.json();
+        console.log('Fetched data:', data);
+        setPublications(data.publications || []);
+        setTotal(data.total || 0);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Erreur inconnue');
+        console.error('Fetch error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      return matchesSearch && matchesType && matchesYear;
-    });
-
-    // Reset current page if it's beyond available pages
-    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-    if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
-    }
-
-    return filtered;
+    fetchPublications();
   }, [searchTerm, selectedType, selectedYear, currentPage]);
 
-  const totalPages = Math.ceil(filteredPublications.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedPublications = filteredPublications.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
+  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+
+  // Réinitialiser la page à 1 quand les filtres changent
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedType, selectedYear]);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      // Scroll to top when page changes
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  // Réinitialiser la page à 1 quand les filtres changent
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedType, selectedYear]);
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -281,7 +150,6 @@ export default function ScientificPublications() {
     const maxVisiblePages = 5;
 
     if (totalPages <= maxVisiblePages) {
-      // Show all pages if total pages is small
       for (let i = 1; i <= totalPages; i++) {
         buttons.push(
           <button
@@ -298,7 +166,6 @@ export default function ScientificPublications() {
         );
       }
     } else {
-      // Show first page
       buttons.push(
         <button
           key={1}
@@ -313,7 +180,6 @@ export default function ScientificPublications() {
         </button>
       );
 
-      // Add ellipsis if needed
       if (currentPage > 3) {
         buttons.push(
           <span key="ellipsis1" className="px-1 sm:px-2 text-muted-foreground">
@@ -322,7 +188,6 @@ export default function ScientificPublications() {
         );
       }
 
-      // Add pages around current page
       const start = Math.max(2, currentPage - 1);
       const end = Math.min(totalPages - 1, currentPage + 1);
 
@@ -342,7 +207,6 @@ export default function ScientificPublications() {
         );
       }
 
-      // Add ellipsis if needed
       if (currentPage < totalPages - 2) {
         buttons.push(
           <span key="ellipsis2" className="px-1 sm:px-2 text-muted-foreground">
@@ -351,7 +215,6 @@ export default function ScientificPublications() {
         );
       }
 
-      // Show last page
       if (totalPages > 1) {
         buttons.push(
           <button
@@ -406,15 +269,16 @@ export default function ScientificPublications() {
               </div>
 
               {/* Filtres */}
-              {/* <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto"> */}
-              <div className="grid grid-cols-2 md:flex  gap-2 sm:gap-3 w-full sm:w-auto">
-
+              <div className="grid grid-cols-2 md:flex gap-2 sm:gap-3 w-full sm:w-auto">
                 <div className="relative flex-1 sm:flex-none min-w-0">
                   <Filter className="absolute text-slate-800 left-2.5 sm:left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <select
-                    className="w-full pl-9 sm:pl-10 pr-7 sm:pr-8 py-2.5 sm:py-3 text-sm sm:text-base border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer rounded-md"
+                    className="w-full pl-9 sm:pl-10 pr-7 sm:pr-8 py-2.5 sm:py-3 text-sm sm:text-base border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer rounded-md text-slate-800"
                     value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}
+                    onChange={(e) => {
+                      console.log('Type sélectionné:', e.target.value);
+                      setSelectedType(e.target.value);
+                    }}
                   >
                     {publicationTypes.map((type) => (
                       <option key={type.value} value={type.value}>
@@ -427,13 +291,16 @@ export default function ScientificPublications() {
                 <div className="relative flex-1 sm:flex-none min-w-0">
                   <Calendar className="absolute text-slate-800 left-2.5 sm:left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <select
-                    className="w-full pl-9 sm:pl-10 pr-7 sm:pr-8 py-2.5 sm:py-3 text-sm sm:text-base border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer rounded-md"
+                    className="w-full pl-9 sm:pl-10 pr-7 sm:pr-8 py-2.5 sm:py-3 text-sm sm:text-base border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 appearance-none cursor-pointer rounded-md text-slate-800"
                     value={selectedYear}
-                    onChange={(e) => setSelectedYear(e.target.value)}
+                    onChange={(e) => {
+                      console.log('Année sélectionnée:', e.target.value);
+                      setSelectedYear(e.target.value);
+                    }}
                   >
                     <option value="all">Toutes années</option>
                     {years.slice(1).map((year) => (
-                      <option key={year} value={year.toString()}>
+                      <option key={year} value={year}>
                         {year}
                       </option>
                     ))}
@@ -453,13 +320,13 @@ export default function ScientificPublications() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
               <div>
                 <p className="text-xl sm:text-2xl font-bold" style={{ color: "#111011" }}>
-                  {filteredPublications.length}
+                  {loading ? "..." : total}
                 </p>
                 <p className="text-sm sm:text-base" style={{ color: "#524751" }}>Publications trouvées</p>
               </div>
               <div className="text-right">
                 <p className="text-xs sm:text-sm" style={{ color: "#524751" }}>
-                  Page {currentPage} sur {totalPages}
+                  Page {currentPage} sur {totalPages || 1}
                 </p>
               </div>
             </div>
@@ -468,8 +335,62 @@ export default function ScientificPublications() {
 
         {/* Liste des publications */}
         <div className="space-y-4 sm:space-y-6">
-          {paginatedPublications.length > 0 ? (
-            paginatedPublications.map((publication) => (
+          {loading ? (
+            <div className="text-center py-8 sm:py-12">
+              <p className="text-lg sm:text-xl" style={{ color: "#524751" }}>
+                Chargement des publications...
+              </p>
+            </div>
+         ) : error ? (
+            <div className="bg-white/70 backdrop-blur-sm shadow-lg border border-red-200 p-6 sm:p-8 rounded-lg">
+              <div className="flex flex-col items-center text-center space-y-4">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-50 flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 sm:w-10 sm:h-10 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2" style={{ color: "#111011" }}>
+                    Oups ! Une erreur est survenue
+                  </h3>
+                  <p className="text-base sm:text-lg" style={{ color: "#524751" }}>
+                    {error}
+                  </p>
+                </div>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white rounded-md transition-colors duration-200"
+                  style={{ backgroundColor: "#780376" }}
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                  Réessayer
+                </button>
+              </div>
+            </div>
+          ) : publications.length > 0 ? (
+            publications.map((publication) => (
               <div
                 key={publication.id}
                 className="bg-white/70 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-300 group rounded-lg"
