@@ -11,36 +11,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Récupérer le code
+      # Récupérer le code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Installer Node.js
+      # Installer Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3️⃣ Créer le fichier .env à partir des Secrets
+      # Créer le fichier .env à partir des Secrets
       - name: Setup .env
         run: |
           echo "VITE_BACKEND_PREINSCRIPTION=${{ secrets.VITE_BACKEND_PREINSCRIPTION }}" >> .env
           echo "VITE_BACKEND_FACSCIENCES=${{ secrets.VITE_BACKEND_FACSCIENCES }}" >> .env
           echo "VITE_BACKEND_WEBSERVICES=${{ secrets.VITE_BACKEND_WEBSERVICES }}" >> .env
 
-      # 4️⃣ Installer les dépendances
+      # Installer les dépendances
       - name: Install dependencies
         run: npm install
 
-      # 5️⃣ Tests optionnels
+      # Tests optionnels
       - name: Run tests (optional)
         run: npm test --if-present
 
-      # 6️⃣ Build React
+      # Build React
       - name: Build project
         run: npm run build
 
-      # 7️⃣ Sauvegarder le build comme artefacts
+      # Sauvegarder le build comme artefacts
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -53,14 +53,14 @@ jobs:
     needs: build
 
     steps:
-      # 1️⃣ Télécharger le build du job précédent
+      # Télécharger le build du job précédent
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: react-build
           path: build
 
-      # 2️⃣ Nettoyer le dossier cible sur le serveur
+      # Nettoyer le dossier cible sur le serveur pour eviter les erreurs
       - name: Clean target folder
         uses: appleboy/ssh-action@v1
         with:
@@ -71,7 +71,7 @@ jobs:
           script: |
             rm -rf /var/www/facscience/*
 
-      # 3️⃣ Copier le build dans le dossier cible
+      # Copier le build dans le dossier cible
       - name: Copy build to folder
         uses: appleboy/scp-action@v0.1.7
         with:
