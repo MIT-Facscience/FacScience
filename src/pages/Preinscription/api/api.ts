@@ -149,6 +149,6 @@ export const isValidEmail = (email: string): boolean => {
 };
 
 export const isValidTel = (tel: string): boolean => {
-  const telRegex = /^(?:\+261\d{9}|(?:020|032|033|034|037)\d{7})$/;
+  const telRegex = /^(?:\+261(?:20|32|33|34|37|38)\d{7}|(?:020|032|033|034|037|038)\d{7})$/;
   return telRegex.test(tel.trim().replace(/\s+/g, ""));
 };
