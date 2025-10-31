@@ -1,0 +1,33 @@
+{
+  "title": "Structure organisationnelle",
+  "members_show": "Afficher les membres",
+  "members_hide": "Masquer les membres",
+  "cofac_members": "Membres du COFAC",
+  "appartenance": {
+    "responsable mention": "Responsable Mention",
+    "membre exterieur": "Membre extérieur",
+    "representant enseignant": "Représentant Enseignant",
+    "representant pat": "Représentant PAT",
+    "representant etudiant": "Représentant Etudiant"
+  },
+  "hierarchy": {
+    "cofac": "COFAC",
+    "doyen": "DOYEN",
+    "secretaire principale": "SECRÉTAIRE PRINCIPALE",
+    "service informatique": "SERVICE INFORMATIQUE",
+    "service comptabilite": "SERVICE COMPTABILITÉ",
+    "service personnel": "SERVICE PERSONNEL",
+    "service scolarite": "SERVICE SCOLARITÉ",
+    "service des affaires generales": "SERVICE DES AFFAIRES GÉNÉRALES",
+    "dicos": "DICOS",
+    "vice doyen formation": "VICE DOYEN FORMATION",
+    "association des etudiants": "ASSOCIATION DES ÉTUDIANTS",
+    "vice doyen numerique": "VICE DOYEN NUMÉRIQUE",
+    "vice doyen recherche": "VICE DOYEN RECHERCHE",
+    "college des enseignants": "COLLÈGE DES ENSEIGNANTS",
+    "conseil scientifique": "CONSEIL SCIENTIFIQUE",
+    "mention": "MENTION",
+    "parcours": "PARCOURS",
+    "labo": "LABO"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "title": "Rafitry ny fikambanana",
+  "members_show": "Aseho ny mpikambana",
+  "members_hide": "Afeno ny mpikambana",
+  "cofac_members": "Mpikambana ao amin'ny COFAC",
+  "appartenance": {
+    "responsable mention": "Tompon'andraikitra Mention",
+    "membre exterieur": "Mpikambana ivelany",
+    "representant enseignant": "Solontenan'ny Mpampianatra",
+    "representant pat": "Solontenan'ny PAT",
+    "representant etudiant": "Solontenan'ny Mpianatra"
+  },
+  "hierarchy": {
+    "cofac": "COFAC",
+    "doyen": "DOYENA",
+    "secretaire principale": "SEKRETERA LOHOLONA",
+    "service informatique": "SERVISIN'NY INFORMATIQUE",
+    "service comptabilite": "SERVISIN'NY KAONTABILITE",
+    "service personnel": "SERVISIN'NY MPANOMPO",
+    "service scolarite": "SERVISIN'NY SCOLARITÉ",
+    "service des affaires generales": "SERVISIN'NY RAHARAHAM-BAOVAO",
+    "dicos": "DICOS",
+    "vice doyen formation": "VICE DOYENA MPIANDRAIKITRA NY FANOFANANA",
+    "association des etudiants": "FIARAHAMONIN'NY MPIANATRA",
+    "vice doyen numerique": "VICE DOYENA MPIANDRAIKITRA NY NOMERIKA",
+    "vice doyen recherche": "VICE DOYENA MPIANDRAIKITRA NY FIKAROHANA",
+    "college des enseignants": "KOLEJIN'NY MPAMPIANATRA",
+    "conseil scientifique": "FILANKEVITRY SIANSIKA",
+    "mention": "MENTION",
+    "parcours": "LALA",
+    "labo": "LABORATOARA"
+  }
+}

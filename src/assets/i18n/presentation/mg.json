@@ -1,1 +1,77 @@
-{}
+{
+  "title": "Ny Tantaranay",
+  "subtitle": "Mihoatra ny 60 taona amin'ny fahaiza-manao ara-pianarana sy ny fandraisan'anjara amin'ny fampandrosoana ara-tsiansa eto Madagasikara",
+  "mission": {
+    "title": "Ny Iraka Anay",
+    "firstMission": "Ny hampiofana mpahay siansa avo lenta afaka mandray anjara amin'ny fampandrosoana maharitra an'i Madagasikara sy ny faritra Ranomasimbe Indianina amin'ny alalan'ny fahaiza-manao ara-pianarana sy ny fikarohana vaovao.",
+    "secondMission": "Manolo-tena izahay amin'ny fanomezana fampianarana ara-tsiansa kalitao iraisam-pirenena sady mitahiry ny soatoavina kolontsainay ary mamaly ny fanamby eo an-toerana."
+  },
+  "vision": {
+    "title": "Ny Vina Anay",
+    "slogan": "« Ny siansa ho fanompoana ny fampandrosoana »",
+    "firstVision": "Ho lasa ivon-toerana ara-pahaiza-manao ekena maneran-tany ho an'ny fampianarana ambony sy ny fikarohana ara-tsiansa, sady mpandray anjara lehibe amin'ny fampandrosoana ara-tsosialy sy ara-toekarena eto Madagasikara.",
+    "secondVision": "Maniry izahay ny ho tahirin-kevitra amin'ny fampiofanana mpahay siansa voatokana sy manavao, afaka miatrika ny fanamby amin'ny taonjato faha-21.",
+    "popular": "Malaza"
+  },
+  "timeline": {
+    "title": "Tantaram-pandrosoana"
+  },
+  "value": {
+    "title": "Ny Soatoavina Fototra Anay",
+    "award": {
+      "title": "Fahaiza-manao",
+      "infos": "Mikendry ny fahaiza-manao izahay amin'ny fandaharan'asa fampianarana sy fikarohana rehetra ataonay."
+    },
+    "users": {
+      "title": "Fiaraha-miasa",
+      "infos": "Mamporisika ny fiaraha-miasa eo amin'ny mpianatra, mpampianatra ary mpiara-miasa iraisam-pirenena izahay."
+    },
+    "innovation": {
+      "title": "Fanavaozana",
+      "infos": "Mamporisika ny fanavaozana sy ny famoronana amin'ny fikarohana ara-tsiansa izahay."
+    }
+  },
+  "timeline": {
+    "title": "Tantaram-pandrosoana",
+    "events": {
+      "foundation": {
+        "year": "1961",
+        "title": "Fanorenana ny Failaka",
+        "description": "Fametrahana ny Failakan'ny Siansa, ho andry iray amin'ny fampianarana ambony ara-tsiansa eto Madagasikara."
+      },
+      "departments": {
+        "title": "Fandaminana ny sampana",
+        "description": "Fandaminana ny sampan-dalana amin'ny Fizika, Simia, Biolojia, Matematika ary Informatika."
+      },
+      "infrastructure": {
+        "title": "Fampandrosoana ny fotodrafitrasa",
+        "description": "Fananganana sy fanavaozana ny laboratoara sy trano famakiam-boky hanohanana ny fampianarana sy ny fikarohana."
+      },
+      "international": {
+        "title": "Fisokafana iraisam-pirenena",
+        "description": "Fametrahana fifandraisana amin'ny oniversite vahiny sy fandraisana mpianatra mpifanakalozam-pianarana."
+      },
+      "innovation": {
+        "title": "Fanavaozana ara-panabeazana",
+        "description": "Fampidirana fiofanana nomerika, sehatra fianarana an-tserasera ary tetikasa maoderina."
+      }
+    }
+  },
+  
+  "stats": {
+    "yearsExcellence": {
+      "number": "60+",
+      "label": "Taona nahaiza-manao"
+    },
+    "graduates": {
+      "number": "5000+",
+      "label": "Nahazo diplaoma"
+    },
+    "programs": {
+      "label": "Sampan-dalana"
+    },
+    "teachers": {
+      "label": "Mpampianatra"
+    }
+  }
+}

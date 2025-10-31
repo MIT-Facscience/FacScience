@@ -1,23 +1,22 @@
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function VisionPage() {
+  const { t } = useTranslation("vision");
+
   const latestNews = [
     {
-      title:
-        "Partenariat International: Collaboration avec l'Université etrangeres",
-      description:
-        "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe",
+      title: t("vision.news.0.title"),
+      description: t("vision.news.0.description"),
       image: "/partenariat.png",
       date: "",
     },
-    
     {
-      title:
-        "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
-      description:
-        "Découvrez les motivations de nos nouveaux enseignants-chercheurs",
+      title: t("vision.news.1.title"),
+      description: t("vision.news.1.description"),
       image: "/nouveauprof.jpg",
       date: "",
     },
@@ -25,14 +24,14 @@ export default function VisionPage() {
 
   const events = [
     {
-      title: "Digitalisation",
-      subtitle: "numérisation des mémoires de fin d'études, thèses et autres publications",
-      date: "A venir",
+      title: t("vision.events.0.title"),
+      subtitle: t("vision.events.0.subtitle"),
+      date: t("vision.events.0.date"),
     },
     {
-      title: "Conférence Innovation Technologique",
-      subtitle: "entre toutes les parties prenantes: étudiants, professeurs, chercheurs et industriels",
-      date: "A venir",
+      title: t("vision.events.1.title"),
+      subtitle: t("vision.events.1.subtitle"),
+      date: t("vision.events.1.date"),
     },
   ];
 
@@ -58,11 +57,10 @@ export default function VisionPage() {
               </div>
               <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                  Vision & Objectifs
+                  {t("vision.title")}
                 </h1>
                 <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                  Notre vision d'avenir et les objectifs stratégiques qui
-                  guident notre développement
+                  {t("vision.subtitle")}
                 </p>
               </div>
             </motion.div>
@@ -72,10 +70,10 @@ export default function VisionPage() {
                 <div className="container mx-auto px-4">
                   {/* Three Column Layout */}
                   <div className="grid lg:grid-cols-3 gap-8 mb-16">
-                    {/* LATEST Column */}
+                    {/* STRATEGY Column */}
                     <div className="space-y-6 p-16">
                       <h2 className="text-4xl font-black text-gray-900 mb-8">
-                        STRATEGIE
+                        {t("vision.sections.strategy")}
                       </h2>
 
                       {latestNews.map((news, index) => (
@@ -100,15 +98,15 @@ export default function VisionPage() {
                       ))}
                     </div>
 
-                    {/* FEATURE Column */}
-                    <div className="space-y-6 ">
+                    {/* VISION Column */}
+                    <div className="space-y-6">
                       <h2 className="text-4xl font-black text-gray-900 mb-8 text-center">
-                        Vision
+                        {t("vision.sections.vision")}
                       </h2>
 
                       <div className="text-center">
                         <h1 className="text-3xl font-serif text-amber-700 mb-8 leading-tight">
-                          Think Global, Act National
+                          {t("vision.sections.slogan")}
                         </h1>
 
                         <img
@@ -119,24 +117,7 @@ export default function VisionPage() {
 
                         <div className="text-left space-y-4">
                           <p className="text-gray-700 leading-relaxed">
-                            La nouvelle présidence de l’Université
-                            d’Antananarivo a choisi le slogan « Think Global,
-                            Act National » comme la ligne conductrice qui
-                            portera toute la politique et les actions de
-                            l’Université. Ainsi, la stratégie
-                            communicationnelle, ainsi que sa traduction au
-                            niveau opérationnel, tourneront autour de celle-ci.
-                            L’Université d’Antananarivo s’attache à ses valeurs
-                            de modernité à la pointe des technologies. Elle se
-                            connecte au monde par tous les moyens. Elle fait
-                            partie des leaders dans le domaine de la formation
-                            et de la recherche. Dans cette optique, elle
-                            développe des formations adaptées aux vrais besoins
-                            de la société. L’Université d’Antananarivo, étant le
-                            regroupement d’intellectuels, reste une voix que
-                            l’on écoute dans les débats publics. Elle reste une
-                            référence mondiale sur le plan académique grace à
-                            ses partenaires et ses alumnis.
+                            {t("vision.presidentText")}
                           </p>
 
                           <div className="grid grid-cols-2 gap-4 mt-6">
@@ -145,7 +126,7 @@ export default function VisionPage() {
                                 95%
                               </div>
                               <div className="text-xs text-purple-600">
-                                Taux d'employabilité
+                                {t("vision.stats.employmentRate")}
                               </div>
                             </div>
                             <div className="text-center p-4 bg-amber-50 rounded-lg">
@@ -153,7 +134,7 @@ export default function VisionPage() {
                                 50+
                               </div>
                               <div className="text-xs text-amber-600">
-                                Publications/an
+                                {t("vision.stats.publications")}
                               </div>
                             </div>
                           </div>
@@ -161,10 +142,10 @@ export default function VisionPage() {
                       </div>
                     </div>
 
-                    {/* EVENTS Column */}
+                    {/* STRATEGY Column (Right) */}
                     <div className="space-y-6 p-16">
                       <h2 className="text-4xl font-black text-gray-900 mb-8 text-right">
-                        STRATEGIE
+                        {t("vision.sections.strategy")}
                       </h2>
 
                       <img
@@ -199,18 +180,9 @@ export default function VisionPage() {
                             href="/actualites"
                             className="text-sm text-purple-600 hover:text-purple-800 font-medium"
                           >
-                            Voir plus d'événements
+                            {t("vision.links.moreEvents")}
                           </a>
                         </div>
-
-                        {/* <div className="mt-4">
-                          <a
-                            href="#"
-                            className="text-sm text-purple-600 hover:text-purple-800 font-medium"
-                          >
-                            Événements à la Demande
-                          </a>
-                        </div> */}
                       </div>
                     </div>
                   </div>
