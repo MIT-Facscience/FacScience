@@ -66,8 +66,8 @@ export default function App() {
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
-        <Route path="/admission/modalite" element={<AdmissionPage />}/>
-        <Route path="/admission/preinscription" element={<Formulaire/>}/>
+        {/* <Route path="/admission/modalite" element={<AdmissionPage />}/>
+        <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
         {/* <Route path="/admission/preinscription" element={<NotFound/>}/> */}
 
         {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
