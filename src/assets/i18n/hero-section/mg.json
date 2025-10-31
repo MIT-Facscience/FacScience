@@ -1,0 +1,35 @@
+
+{
+    "heroSection": {
+        "slides": {
+            "slide1": {
+                "alt": "Campus lehiben'ny Fakiolte an'ny siansa",
+                "title": "Campus Maoderina",
+                "description": "Toeram-pianarana tsara manokana",
+                "buttonText": "Hijery ny fampiofanay"
+            },
+            "slide2": {
+                "alt": "Toeram-pianarana",
+                "title": "Toeram-pianarana",
+                "description": "Ressources documentaires complètes",
+                "buttonText": "Hijery ny fampiofanay"
+            },
+            "slide3": {
+                "alt": "INT",
+                "title": "Innovation et Technologies",
+                "description": "Inscrivez-vous au parcours INT de la mention Informatique et Technologies",
+                "buttonText": "Fisoratra anarana INT"
+            }
+        },
+        "mainTitle": {
+            "default": "Fakiolte an'ny siansa",
+            "int": "Fisoratra anarana INT"
+        },
+        "learnMore": "Hianatra bebe kokoa",
+        "controls": {
+            "previous": "Sary teo aloha",
+            "next": "Sary manaraka",
+            "goTo": "Mandeha any amin'ny sary"
+        }
+    }
+}

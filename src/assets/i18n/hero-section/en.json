@@ -1,0 +1,34 @@
+{
+    "heroSection": {
+        "slides": {
+            "slide1": {
+                "alt": "Main campus of the Faculty of Sciences",
+                "title": "Modern Campus",
+                "description": "An exceptional learning environment",
+                "buttonText": "Discover our programs"
+            },
+            "slide2": {
+                "alt": "Learning environment",
+                "title": "Learning environment", 
+                "description": "Comprehensive documentary resources",
+                "buttonText": "Discover our programs"
+            },
+            "slide3": {
+                "alt": "INT",
+                "title": "Innovation and Technologies",
+                "description": "Register for the INT program of the Computer Science and Technologies major",
+                "buttonText": "INT Registration"
+            }
+        },
+        "mainTitle": {
+            "default": "Faculty of Sciences",
+            "int": "INT Registration"
+        },
+        "learnMore": "Learn more",
+        "controls": {
+            "previous": "Previous image",
+            "next": "Next image",
+            "goTo": "Go to image"
+        }
+    }
+}

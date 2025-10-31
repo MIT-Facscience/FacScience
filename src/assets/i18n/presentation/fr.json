@@ -1,1 +1,76 @@
-{}
+{
+  "title": "Notre Histoire",
+  "subtitle": "Plus de 60 ans d'excellence académique et de contribution au développement scientifique de Madagascar",
+  "mission": {
+    "title": "Notre Mission",
+    "firstMission": "Former des scientifiques de haut niveau capables de contribuer au développement durable de Madagascar et de la région de l'Océan Indien à travers l'excellence académique et la recherche innovante.",
+    "secondMission": "Nous nous engageons à fournir une éducation scientifique de qualité internationale tout en préservant nos valeurs culturelles et en répondant aux défis locaux."
+  },
+  "vision": {
+    "title": "Notre vision",
+    "slogan": "« La science au service du développement »",
+    "firstVision": "Devenir un centre d'excellence reconnu internationalement pour l'enseignement supérieur et la recherche scientifique, tout en étant un acteur clé du développement socio-économique de Madagascar.",
+    "secondVision": "Nous aspirons à être une référence dans la formation de scientifiques engagés et innovants, capables de relever les défis du 21ème siècle.",
+    "popular": "Popular"
+  },
+  "timeline": {
+    "title": "Chronologie de notre développement"
+  },
+  "value" : {
+    "title" : "Nos Valeurs Fondamentales",
+    "award" : {
+        "title" : "Excellence",
+        "infos" : "Nous visons l'excellence dans tous nos programmes d'enseignement et de recherche."
+    },
+    "users" : {
+        "title" : "Collaboration",
+        "infos" : "Nous favorisons la collaboration entre étudiants, enseignants et partenaires internationaux."
+    },
+    "innovation" : {
+        "title" : "Innovation",
+        "infos" : "Nous encourageons l'innovation et la créativité dans la recherche scientifique."
+    }
+  },
+  "stats": {
+    "yearsExcellence": {
+      "number": "60+",
+      "label": "Années d'excellence"
+    },
+    "graduates": {
+      "number": "5000+",
+      "label": "Diplômés"
+    },
+    "programs": {
+      "label": "Mentions"
+    },
+    "teachers": {
+      "label": "Enseignants"
+    }
+  },
+  "timeline": {
+    "title": "Chronologie de notre développement",
+    "events": {
+      "foundation": {
+        "year": "1961",
+        "title": "Fondation de la Faculté",
+        "description": "Mise en place de la Faculté des Sciences, comme pilier de l'enseignement supérieur scientifique à Madagascar."
+      },
+      "departments": {
+        "title": "Structuration des départements",
+        "description": "Organisation de filières en Physique, Chimie, Biologie, Mathématiques et Informatique."
+      },
+      "infrastructure": {
+        "title": "Développement des infrastructures",
+        "description": "Création et modernisation de laboratoires et bibliothèques pour soutenir l'enseignement et la recherche."
+      },
+      "international": {
+        "title": "Ouverture internationale",
+        "description": "Mise en place de collaborations avec des universités étrangères et accueil d'échanges étudiants."
+      },
+      "innovation": {
+        "title": "Innovation pédagogique",
+        "description": "Introduction de formations numériques, plateformes d'apprentissage en ligne et projets modernes."
+      }
+    }
+  }
+}

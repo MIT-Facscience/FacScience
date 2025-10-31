@@ -1,0 +1,41 @@
+{
+  "vision": {
+    "title": "Ny Vina sy Ny Tanjona",
+    "subtitle": "Ny vina ho avy anay sy ny tanjona stratejika mitarika ny fampandrosoanay",
+    "sections": {
+      "strategy": "STRATEGIA",
+      "vision": "Vina",
+      "slogan": "Mieritreretana manerantany, miasa eo an-toerana"
+    },
+    "news": [
+      {
+        "title": "Fiaraha-miasa iraisam-pirenena: Fikambanana miaraka amin'ny Oniversite vahiny",
+        "description": "Firmahan'ny fifanarahana fiaraha-miasa ho an'ny programa fifanakalozana sy fikarohana miaraka"
+      },
+      {
+        "title": "MPAMPIANATRA VAVAO: Nahoana no faly izy ireo hanatevin-danja ny fakolite anay",
+        "description": "Hitan'ny antony manosika ny mpampianatra mpikaroka vaovao anay"
+      }
+    ],
+    "events": [
+      {
+        "title": "Fampidirana nomerika",
+        "subtitle": "fanovana nomerikan'ny tatitra famaranana, asa soratra ary famoahana hafa",
+        "date": "Ho avy"
+      },
+      {
+        "title": "Fihaonambe momba ny Innovation Teknologika",
+        "subtitle": "eo amin'ny mpandray anjara rehetra: mpianatra, mpampianatra, mpikaroka ary mpampiasa indostrialy",
+        "date": "Ho avy"
+      }
+    ],
+    "presidentText": "Ny filoha vaovao ny Oniversiten'Antananarivo no nisafidy ny teny faneva 'Mieritreretana manerantany, miasa eo an-toerana' ho lalana mitarika handraisana ny politika sy ny hetsika rehetra ataon'ny Oniversite. Noho izany, ny paikady fifampiresahana, ary ny fandikana azy eo amin'ny sehatra fampiharana, dia hihodina manodidina an'io. Mifikitra amin'ny soatoavina maoderina eo an-tampon'ny teknolojia ny Oniversiten'Antananarivo. Mifandray amin'izao tontolo izao izy amin'ny fomba rehetra. Iray amin'ireo mpitarika eo amin'ny sehatry ny fampiofanana sy ny fikarohana izy. Amin'izany fomba izany, dia mamolavola fampiofanana mifanaraka amin'ny tena ilain'ny fiarahamonina izy. Ny Oniversiten'Antananarivo, ho fivorian'ny manam-pahaizana, dia mijanona ho feo henoina ao anatin'ny adihevitra ampahibemaso. Mijanona ho referansa manerantany eo amin'ny sehatra akademika ny mpiara-miasa sy ny mpianatra taloha.",
+    "stats": {
+      "employmentRate": "Tahan'ny asa",
+      "publications": "Famoahana isan-taona"
+    },
+    "links": {
+      "moreEvents": "Hijery hetsika hafa"
+    }
+  }
+}
