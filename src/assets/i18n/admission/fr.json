@@ -71,5 +71,91 @@
     "intInterviews": "Entretiens",
     "intReadyToApply": "Prêt à postuler ?",
     "intEnsureDocuments": "Accédez au formulaire en ligne pour déposer votre dossier de candidature",
-    "intStartApplication": "Déposer mon dossier"
+    "intStartApplication": "Déposer mon dossier",
+    "intForm": {
+        "title": "Formulaire de Préinscription",
+        "subtitle": "Parcours <strong>Innovation et Technologie</strong> – Master 1 & 2",
+        "steps": {
+            "applicationInfo": "Informations candidature",
+            "personalInfo": "Informations personnelles",
+            "academicFile": "Dossier académique",
+            "applicationFee": "Frais de dossier",
+            "summary": "Récapitulatif"
+        },
+        "labels": {
+            "chooseMaster": "Choisir Master",
+            "lastName": "Nom",
+            "firstName": "Prénom",
+            "email": "Email",
+            "phone": "Téléphone",
+            "currentPath": "Parcours actuel",
+            "levelAndGrade": "Niveau & Grade",
+            "cv": "Curriculum Vitae (PDF)",
+            "baccalaureateTranscript": "Relevé de notes du Baccalauréat",
+            "transcripts": "Relevés de notes (3 dernières années)",
+            "paymentProof": "Justificatif de paiement",
+            "paymentReference": "Référence du paiement"
+        },
+        "placeholders": {
+            "enterLastName": "Entrez votre nom",
+            "enterFirstName": "Entrez votre prénom",
+            "enterEmail": "exemple@domaine.com",
+            "enterPhone": "Ex: +261 34 12 345 67",
+            "enterCurrentPath": "Entrez votre parcours",
+            "enterPaymentReference": "Ex: 12345678 / reçu BOA"
+        },
+        "options": {
+            "selectMaster": "-- Choisir Master --",
+            "selectLevel": "-- Sélectionner votre niveau et grade --",
+            "master1": "Master 1",
+            "master2": "Master 2",
+            "l3": "License 3",
+            "m1": "Master 1",
+            "m2": "Master 2"
+        },
+        "errors": {
+            "required": "Ce champ est requis",
+            "invalidEmail": "Format d'email invalide",
+            "invalidPhone": "Numéro de téléphone invalide (10-15 chiffres)",
+            "l3NotAllowedForM2": "Pour Master 2, L3 n'est pas autorisé",
+            "fileRequired": "Le fichier est requis",
+            "fileTooLarge": "Le fichier ne doit pas dépasser 5MB",
+            "yearTranscriptRequired": "Le relevé de notes pour l'année {year} est requis"
+        },
+        "buttons": {
+            "previous": "Précédent",
+            "next": "Suivant",
+            "submit": "Soumettre mon dossier",
+            "submitting": "Envoi en cours...",
+            "newApplication": "Déposer une nouvelle candidature"
+        },
+        "success": {
+            "title": "Candidature déposée avec succès !",
+            "message": "Un email de confirmation a été envoyé à <strong>{email}</strong>.",
+            "details": "Votre dossier a été soumis avec succès."
+        },
+        "summary": {
+            "applicationInfo": "Informations candidature",
+            "personalInfo": "Informations personnelles",
+            "academicFile": "Dossier académique",
+            "applicationFee": "Frais de dossier",
+            "master": "Master",
+            "lastName": "Nom",
+            "firstName": "Prénom",
+            "email": "Email",
+            "phone": "Téléphone",
+            "currentPath": "Parcours",
+            "levelAndGrade": "Niveau & Grade",
+            "cv": "CV",
+            "baccalaureateTranscript": "Relevé de notes du Baccalauréat",
+            "transcripts": "Relevés de notes",
+            "paymentProof": "Justificatif de paiement",
+            "paymentReference": "Référence du paiement",
+            "notSpecified": "Non spécifié",
+            "year": "Année {number}"
+        },
+        "fileNames": {
+            "noFileChosen": "Aucun fichier choisi"
+        }
+    }
 }

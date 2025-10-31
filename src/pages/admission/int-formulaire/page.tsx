@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Upload, User, FileText, CheckCircle, GraduationCap, UserRoundPen, AlertCircle, ArrowLeft, ArrowRight, Mail, Phone } from "lucide-react";
 import { BACKEND_URL } from "@/lib/api";
+import { useTranslation } from "react-i18next";
 
 interface FormData {
   nom: string;
@@ -41,6 +42,7 @@ interface FormErrors {
 }
 
 export default function INTForm() {
+  const { t } = useTranslation("admission");
   const [formData, setFormData] = useState<FormData>({
     nom: "",
     prenom: "",
@@ -62,65 +64,70 @@ export default function INTForm() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const steps = [
-    "Informations candidature",
-    "Informations personnelles",
-    "Dossier académique",
-    "Frais de dossier",
-    "Récapitulatif"
+    t("intForm.steps.applicationInfo"),
+    t("intForm.steps.personalInfo"),
+    t("intForm.steps.academicFile"),
+    t("intForm.steps.applicationFee"),
+    t("intForm.steps.summary")
   ];
+
+  // Fonction pour formater les textes avec HTML
+  const renderHTML = (text: string) => {
+    return <span dangerouslySetInnerHTML={{ __html: text }} />;
+  };
 
   const validateStep = (step: number): FormErrors => {
     const newErrors: FormErrors = {};
     const maxFileSize = 5 * 1024 * 1024; // 5MB
     
     if (step === 1) {
-      if (!formData.master) newErrors.master = "Veuillez sélectionner un niveau de Master";
+      if (!formData.master) newErrors.master = t("intForm.errors.required");
     }
     if (step === 2) {
-      if (!formData.nom.trim()) newErrors.nom = "Le nom est requis";
-      if (!formData.prenom.trim()) newErrors.prenom = "Le prénom est requis";
+      if (!formData.nom.trim()) newErrors.nom = t("intForm.errors.required");
+      if (!formData.prenom.trim()) newErrors.prenom = t("intForm.errors.required");
       if (!formData.email.trim()) {
-        newErrors.email = "L'email est requis";
+        newErrors.email = t("intForm.errors.required");
       } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-        newErrors.email = "Format d'email invalide";
+        newErrors.email = t("intForm.errors.invalidEmail");
       }
       if (!formData.telephone.trim()) {
-        newErrors.telephone = "Le téléphone est requis";
+        newErrors.telephone = t("intForm.errors.required");
       } else if (!/^\+?\d{10,15}$/.test(formData.telephone.replace(/\s/g, ''))) {
-        newErrors.telephone = "Numéro de téléphone invalide (10-15 chiffres)";
+        newErrors.telephone = t("intForm.errors.invalidPhone");
       }
     }
     if (step === 3) {
-      if (!formData.parcours.trim()) newErrors.parcours = "Le parcours est requis";
-      if (!formData.grade) newErrors.grade = "Veuillez sélectionner un grade";
+      if (!formData.parcours.trim()) newErrors.parcours = t("intForm.errors.required");
+      if (!formData.grade) newErrors.grade = t("intForm.errors.required");
       if (formData.master === "M2" && formData.grade === "L3") {
-        newErrors.grade = "Pour Master 2, L3 n'est pas autorisé";
+        newErrors.grade = t("intForm.errors.l3NotAllowedForM2");
       }
-      if (!formData.cv) newErrors.cv = "Le CV est requis";
-      if (!formData.baccalaureat) newErrors.baccalaureat = "Le relevé de notes du baccalauréat est requis";
+      if (!formData.cv) newErrors.cv = t("intForm.errors.fileRequired");
+      if (!formData.baccalaureat) newErrors.baccalaureat = t("intForm.errors.fileRequired");
       const notesErrors = formData.notes.map((note, index) => 
-        !note ? `Le relevé de notes pour l'année ${index + 1} est requis` : null
+        !note ? t("intForm.errors.yearTranscriptRequired", { year: index + 1 }) : null
       ).filter(Boolean) as string[];
       if (notesErrors.length > 0) newErrors.notes = notesErrors;
       
       if (formData.cv && formData.cv.size > maxFileSize) {
-        newErrors.cv = "Le CV ne doit pas dépasser 5MB";
+        newErrors.cv = t("intForm.errors.fileTooLarge");
       }
       if (formData.baccalaureat && formData.baccalaureat.size > maxFileSize) {
-        newErrors.baccalaureat = "Le relevé de notes du baccalauréat ne doit pas dépasser 5MB";
+        newErrors.baccalaureat = t("intForm.errors.fileTooLarge");
       }
       formData.notes.forEach((note, index) => {
         if (note && note.size > maxFileSize) {
           if (!newErrors.notes) newErrors.notes = [];
-          newErrors.notes[index] = `Le relevé de notes pour l'année ${index + 1} ne doit pas dépasser 5MB`;
+          newErrors.notes[index] = t("intForm.errors.fileTooLarge");
         }
       });
     }
     if (step === 4) {
-      if (!formData.referencePaiement.trim()) newErrors.referencePaiement = "La référence de paiement est requise";
-      if (!formData.justificatifPaiement) newErrors.justificatifPaiement = "Le justificatif de paiement est requis";
+      if (!formData.referencePaiement.trim()) newErrors.referencePaiement = t("intForm.errors.required");
+      if (!formData.justificatifPaiement) newErrors.justificatifPaiement = t("intForm.errors.fileRequired");
       if (formData.justificatifPaiement && formData.justificatifPaiement.size > maxFileSize) {
-        newErrors.justificatifPaiement = "Le justificatif de paiement ne doit pas dépasser 5MB";
+        newErrors.justificatifPaiement = t("intForm.errors.fileTooLarge");
       }
     }
 
@@ -167,7 +174,6 @@ export default function INTForm() {
     }
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
@@ -207,11 +213,11 @@ export default function INTForm() {
       if (!response.ok) {
         console.log(response.status)
         if (response.status >= 500) {
-          throw new Error("Erreur du serveur. Veuillez réessayer plus tard.");
+          throw new Error("Server error. Please try again later.");
         }
 
         const data = await response.json().catch(() => ({}));
-        throw new Error(data.message || "Erreur lors de la soumission du formulaire.");
+        throw new Error(data.message || "Error submitting the form.");
       }
 
       const data = await response.json();
@@ -220,9 +226,9 @@ export default function INTForm() {
 
     } catch (error) {
       console.error("Error:", error);
-      let message = "Une erreur inattendue est survenue.";
+      let message = "An unexpected error occurred.";
       if (error instanceof TypeError && error.message === "Failed to fetch") {
-        message = "Impossible de contacter le serveur. Vérifiez votre connexion ou démarrez le backend.";
+        message = "Unable to contact the server. Check your connection or start the backend.";
       } else if (error instanceof Error) {
         message = error.message;
       }
@@ -255,10 +261,9 @@ export default function INTForm() {
     setIsSubmitted(false);
   };
 
-  const renderFileName = (file: File | null) => file ? file.name : "Aucun fichier choisi";
+  const renderFileName = (file: File | null) => file ? file.name : t("intForm.fileNames.noFileChosen");
 
   const isL3Disabled = formData.master === "M2";
-  
 
   const renderStepContent = () => {
     if (isSubmitted) {
@@ -272,21 +277,21 @@ export default function INTForm() {
           >
             <CheckCircle className="h-16 w-16 text-green-500" />
           </motion.div>
-            <h3 className="font-semibold text-2xl text-indigo-800">
-            Candidature déposée avec succès !
-            </h3>
-            <p className="text-base text-gray-700">
-              Un email de confirmation a été envoyé à <span className="font-semibold">{formData.email}</span>.
-            </p>
+          <h3 className="font-semibold text-2xl text-indigo-800">
+            {t("intForm.success.title")}
+          </h3>
+          <p className="text-base text-gray-700">
+            {renderHTML(t("intForm.success.message", { email: formData.email }))}
+          </p>
           <p className="text-gray-600">
-            Votre dossier a été soumis avec succès.
+            {t("intForm.success.details")}
           </p>
           <Button
             onClick={handleReset}
             className="mt-4 flex items-center gap-2 mx-auto"
           >
             <GraduationCap className="h-5 w-5" />
-            Déposer une nouvelle candidature
+            {t("intForm.buttons.newApplication")}
           </Button>
         </div>
       );
@@ -297,10 +302,10 @@ export default function INTForm() {
         return (
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
-              Informations candidature
+              {t("intForm.steps.applicationInfo")}
             </h3>
             <div className="flex flex-col gap-2">
-              <Label htmlFor="master">Choisir Master</Label>
+              <Label htmlFor="master">{t("intForm.labels.chooseMaster")}</Label>
               <select
                 id="master"
                 name="master"
@@ -308,9 +313,9 @@ export default function INTForm() {
                 onChange={handleChange}
                 className={`mt-1 w-full rounded-none border ${errors.master ? 'border-red-500' : 'border-gray-300'} bg-white px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary`}
               >
-                <option value="">-- Choisir Master --</option>
-                <option value="M1">Master 1</option>
-                <option value="M2">Master 2</option>
+                <option value="">{t("intForm.options.selectMaster")}</option>
+                <option value="M1">{t("intForm.options.master1")}</option>
+                <option value="M2">{t("intForm.options.master2")}</option>
               </select>
               {errors.master && (
                 <p className="text-xs text-red-500 mt-1">{errors.master}</p>
@@ -322,15 +327,15 @@ export default function INTForm() {
         return (
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
-              Informations personnelles
+              {t("intForm.steps.personalInfo")}
             </h3>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="nom">Nom</Label>
+                <Label htmlFor="nom">{t("intForm.labels.lastName")}</Label>
                 <Input
                   id="nom"
                   name="nom"
-                  placeholder="Entrez votre nom"
+                  placeholder={t("intForm.placeholders.enterLastName")}
                   value={formData.nom}
                   onChange={handleChange}
                   className={errors.nom ? 'border-red-500' : ''}
@@ -340,11 +345,11 @@ export default function INTForm() {
                 )}
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="prenom">Prénom</Label>
+                <Label htmlFor="prenom">{t("intForm.labels.firstName")}</Label>
                 <Input
                   id="prenom"
                   name="prenom"
-                  placeholder="Entrez votre prénom"
+                  placeholder={t("intForm.placeholders.enterFirstName")}
                   value={formData.prenom}
                   onChange={handleChange}
                   className={errors.prenom ? 'border-red-500' : ''}
@@ -355,13 +360,13 @@ export default function INTForm() {
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="email" className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-primary" /> Email
+                  <Mail className="h-4 w-4 text-primary" /> {t("intForm.labels.email")}
                 </Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="exemple@domaine.com"
+                  placeholder={t("intForm.placeholders.enterEmail")}
                   value={formData.email}
                   onChange={handleChange}
                   className={errors.email ? 'border-red-500' : ''}
@@ -372,12 +377,12 @@ export default function INTForm() {
               </div>
               <div className="flex flex-col gap-2">
                 <Label htmlFor="telephone" className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-primary" /> Téléphone
+                  <Phone className="h-4 w-4 text-primary" /> {t("intForm.labels.phone")}
                 </Label>
                 <Input
                   id="telephone"
                   name="telephone"
-                  placeholder="Ex: +225 01 23 45 67"
+                  placeholder={t("intForm.placeholders.enterPhone")}
                   value={formData.telephone}
                   onChange={handleChange}
                   className={errors.telephone ? 'border-red-500' : ''}
@@ -393,17 +398,17 @@ export default function INTForm() {
         return (
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
-              Dossier académique
+              {t("intForm.steps.academicFile")}
             </h3>
             <div className="flex flex-col gap-2">
               <Label htmlFor="parcours">
                 <UserRoundPen className="h-4 w-4 text-primary" />
-                Parcours actuel
+                {t("intForm.labels.currentPath")}
               </Label>
               <Input
                 id="parcours"
                 name="parcours"
-                placeholder="Entrez votre parcours"
+                placeholder={t("intForm.placeholders.enterCurrentPath")}
                 value={formData.parcours}
                 onChange={handleChange}
                 className={errors.parcours ? 'border-red-500' : ''}
@@ -415,7 +420,7 @@ export default function INTForm() {
             <div className="flex flex-col gap-2">
               <Label htmlFor="grade">
                 <GraduationCap className="h-4 w-4 text-primary" />
-                Niveau & Grade
+                {t("intForm.labels.levelAndGrade")}
               </Label>
               <select
                 id="grade"
@@ -424,10 +429,10 @@ export default function INTForm() {
                 onChange={handleChange}
                 className={`mt-1 w-full rounded-none border ${errors.grade ? 'border-red-500' : 'border-gray-300'} bg-white px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary`}
               >
-                <option value="">-- Sélectionner votre niveau et grade --</option>
-                <option value="L3" disabled={isL3Disabled}>License 3</option>
-                <option value="M1">Master 1</option>
-                <option value="M2">Master 2</option>
+                <option value="">{t("intForm.options.selectLevel")}</option>
+                <option value="L3" disabled={isL3Disabled}>{t("intForm.options.l3")}</option>
+                <option value="M1">{t("intForm.options.m1")}</option>
+                <option value="M2">{t("intForm.options.m2")}</option>
               </select>
               {errors.grade && (
                 <p className="text-xs text-red-500 mt-1">{errors.grade}</p>
@@ -435,7 +440,7 @@ export default function INTForm() {
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="cv" className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-primary" /> Curriculum Vitae (PDF)
+                <FileText className="h-4 w-4 text-primary" /> {t("intForm.labels.cv")}
               </Label>
               <Input
                 id="cv"
@@ -452,7 +457,7 @@ export default function INTForm() {
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="baccalaureat" className="flex items-center gap-2">
-                <Upload className="h-4 w-4 text-primary" /> Relevé de notes du Baccalauréat
+                <Upload className="h-4 w-4 text-primary" /> {t("intForm.labels.baccalaureateTranscript")}
               </Label>
               <Input
                 id="baccalaureat"
@@ -469,7 +474,7 @@ export default function INTForm() {
             </div>
             <div className="flex flex-col">
               <Label className="flex items-center gap-2 mb-2">
-                <User className="h-4 w-4 text-primary" /> Relevés de notes (3 dernières années)
+                <User className="h-4 w-4 text-primary" /> {t("intForm.labels.transcripts")}
               </Label>
               <div className="grid sm:grid-cols-3 gap-4">
                 {[0, 1, 2].map((index) => (
@@ -482,7 +487,7 @@ export default function INTForm() {
                       className={`cursor-pointer ${errors.notes?.[index] ? 'border-red-500' : ''}`}
                     />
                     <p className="text-xs text-muted-foreground mt-1 text-center">
-                      {formData.notes[index]?.name || `Année ${index + 1}`}
+                      {formData.notes[index]?.name || t("intForm.summary.year", { number: index + 1 })}
                     </p>
                     {errors.notes?.[index] && (
                       <p className="text-xs text-red-500 mt-1">{errors.notes[index]}</p>
@@ -497,12 +502,12 @@ export default function INTForm() {
         return (
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
-              Frais de dossier
+              {t("intForm.steps.applicationFee")}
             </h3>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="justificatifPaiement" className="flex items-center gap-2">
-                  <Upload className="h-4 w-4 text-primary" /> Justificatif de paiement
+                  <Upload className="h-4 w-4 text-primary" /> {t("intForm.labels.paymentProof")}
                 </Label>
                 <Input
                   id="justificatifPaiement"
@@ -518,11 +523,11 @@ export default function INTForm() {
                 )}
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="referencePaiement">Référence du paiement</Label>
+                <Label htmlFor="referencePaiement">{t("intForm.labels.paymentReference")}</Label>
                 <Input
                   id="referencePaiement"
                   name="referencePaiement"
-                  placeholder="Ex: 12345678 / reçu BOA"
+                  placeholder={t("intForm.placeholders.enterPaymentReference")}
                   value={formData.referencePaiement}
                   onChange={handleChange}
                   className={errors.referencePaiement ? 'border-red-500' : ''}
@@ -538,37 +543,37 @@ export default function INTForm() {
         return (
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
-              Récapitulatif de votre dossier
+              {t("intForm.steps.summary")}
             </h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-medium text-indigo-700">Informations candidature</h4>
-                <p><strong>Master:</strong> {formData.master || "Non spécifié"}</p>
+                <h4 className="font-medium text-indigo-700">{t("intForm.summary.applicationInfo")}</h4>
+                <p><strong>{t("intForm.summary.master")}:</strong> {formData.master || t("intForm.summary.notSpecified")}</p>
               </div>
               <div>
-                <h4 className="font-medium text-indigo-700">Informations personnelles</h4>
-                <p><strong>Nom:</strong> {formData.nom || "Non spécifié"}</p>
-                <p><strong>Prénom:</strong> {formData.prenom || "Non spécifié"}</p>
-                <p><strong>Email:</strong> {formData.email || "Non spécifié"}</p>
-                <p><strong>Téléphone:</strong> {formData.telephone || "Non spécifié"}</p>
+                <h4 className="font-medium text-indigo-700">{t("intForm.summary.personalInfo")}</h4>
+                <p><strong>{t("intForm.summary.lastName")}:</strong> {formData.nom || t("intForm.summary.notSpecified")}</p>
+                <p><strong>{t("intForm.summary.firstName")}:</strong> {formData.prenom || t("intForm.summary.notSpecified")}</p>
+                <p><strong>{t("intForm.summary.email")}:</strong> {formData.email || t("intForm.summary.notSpecified")}</p>
+                <p><strong>{t("intForm.summary.phone")}:</strong> {formData.telephone || t("intForm.summary.notSpecified")}</p>
               </div>
               <div>
-                <h4 className="font-medium text-indigo-700">Dossier académique</h4>
-                <p><strong>Parcours:</strong> {formData.parcours || "Non spécifié"}</p>
-                <p><strong>Niveau & Grade:</strong> {formData.grade || "Non spécifié"}</p>
-                <p><strong>CV:</strong> {renderFileName(formData.cv)}</p>
-                <p><strong>Relevé de notes du Baccalauréat:</strong> {renderFileName(formData.baccalaureat)}</p>
-                <p><strong>Relevés de notes:</strong></p>
+                <h4 className="font-medium text-indigo-700">{t("intForm.summary.academicFile")}</h4>
+                <p><strong>{t("intForm.summary.currentPath")}:</strong> {formData.parcours || t("intForm.summary.notSpecified")}</p>
+                <p><strong>{t("intForm.summary.levelAndGrade")}:</strong> {formData.grade || t("intForm.summary.notSpecified")}</p>
+                <p><strong>{t("intForm.summary.cv")}:</strong> {renderFileName(formData.cv)}</p>
+                <p><strong>{t("intForm.summary.baccalaureateTranscript")}:</strong> {renderFileName(formData.baccalaureat)}</p>
+                <p><strong>{t("intForm.summary.transcripts")}:</strong></p>
                 <ul className="list-disc pl-5">
                   {formData.notes.map((note, index) => (
-                    <li key={index}>{renderFileName(note)} (Année {index + 1})</li>
+                    <li key={index}>{renderFileName(note)} ({t("intForm.summary.year", { number: index + 1 })})</li>
                   ))}
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium text-indigo-700">Frais de dossier</h4>
-                <p><strong>Justificatif de paiement:</strong> {renderFileName(formData.justificatifPaiement)}</p>
-                <p><strong>Référence du paiement:</strong> {formData.referencePaiement || "Non spécifié"}</p>
+                <h4 className="font-medium text-indigo-700">{t("intForm.summary.applicationFee")}</h4>
+                <p><strong>{t("intForm.summary.paymentProof")}:</strong> {renderFileName(formData.justificatifPaiement)}</p>
+                <p><strong>{t("intForm.summary.paymentReference")}:</strong> {formData.referencePaiement || t("intForm.summary.notSpecified")}</p>
               </div>
             </div>
           </div>
@@ -596,10 +601,10 @@ export default function INTForm() {
                 </div>
               </div>
               <CardTitle className="text-3xl font-bold tracking-wide">
-                Formulaire de Préinscription
+                {t("intForm.title")}
               </CardTitle>
               <CardDescription className="text-indigo-100 text-base">
-                Parcours <strong>Innovation et Technologie</strong> – Master 1 & 2
+                {renderHTML(t("intForm.subtitle"))}
               </CardDescription>
             </div>
           </CardHeader>
@@ -645,7 +650,7 @@ export default function INTForm() {
                     disabled={currentStep === 1}
                     className="flex items-center gap-2"
                   >
-                    <ArrowLeft className="h-5 w-5" /> Précédent
+                    <ArrowLeft className="h-5 w-5" /> {t("intForm.buttons.previous")}
                   </Button>
                   {currentStep < steps.length && (
                     <Button
@@ -653,7 +658,7 @@ export default function INTForm() {
                       onClick={handleNext}
                       className="flex items-center gap-2"
                     >
-                      Suivant <ArrowRight className="h-5 w-5" />
+                      {t("intForm.buttons.next")} <ArrowRight className="h-5 w-5" />
                     </Button>
                   )}
                   {currentStep === steps.length && (
@@ -663,7 +668,7 @@ export default function INTForm() {
                       className="flex items-center gap-2"
                     >
                       <CheckCircle className="h-5 w-5" />
-                      {isSubmitting ? "Envoi en cours..." : "Soumettre mon dossier"}
+                      {isSubmitting ? t("intForm.buttons.submitting") : t("intForm.buttons.submit")}
                     </Button>
                   )}
                 </div>
