@@ -2,14 +2,14 @@ import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PrimaryButton from "./ui/PrimaryButton";
-// import { useTranslation } from "react-i18next";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 // import { useTranslation } from "./lang";
 
 const presentationItems = [
@@ -32,16 +32,16 @@ const admissionItems = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  // const { i18n } = useTranslation();
+  const { i18n } = useTranslation();
   //  const { t, lang, setLang } = useTranslation();
 
 
   const isActive = (path: string) => location.pathname === path;
   const isActiveParent = (base: string) => location.pathname.startsWith(base);
 
-  // const changeLanguage = (lang: string) => {
-  //   i18n.changeLanguage(lang);
-  // };
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <div className="min-h-16 bg-gradient-to-br from-slate-50 via-purple-50/30 to-amber-50/20">
@@ -214,7 +214,7 @@ export default function Navigation() {
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a> */}
 
-                {/* <Select value={i18n.language} onValueChange={changeLanguage}>
+                <Select value={i18n.language} onValueChange={changeLanguage}>
                   <SelectTrigger className="w-fit h-9 bg-white border border-purple-200 text-sm font-medium text-slate-700 focus:ring-0 focus:outline-none mx-2">
                     <SelectValue placeholder="Langue ..." />
                   </SelectTrigger>
@@ -223,7 +223,7 @@ export default function Navigation() {
                     <SelectItem value="en">EN</SelectItem>
                     <SelectItem value="mg">MG</SelectItem>
                   </SelectContent>
-                </Select> */}
+                </Select>
 
                 {/* Contact */}
                 <Link to="/contact">

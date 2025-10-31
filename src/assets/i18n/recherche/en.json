@@ -1,0 +1,33 @@
+{
+    "labo": {
+      "title": "Excellence Laboratories",
+      "description": "laboratories of scientific innovation equipped with the latest technologies",
+      "label": "Laboratories",
+      "stats": {
+        "laboratories": "Laboratories",
+        "researchers": "Researchers",
+        "phdStudents": "PhD Students",
+        "projects": "Projects"
+      },
+      "loading": "Loading laboratories...",
+      "moreDetails": "See more details",
+      "lessDetails": "See less",
+      "others": "+{{count}} others",
+      "expertiseFull": "Full Expertise",
+      "equipment": "Equipment",
+      "ongoingProjects": "Ongoing Projects",
+      "researchersLabel": "Researchers",
+      "phdLabel": "PhD Students",
+      "previous": "Previous",
+      "next": "Next",
+      "errorFetch": "Error fetching laboratories:",
+      "messages": {
+        "success": "Operation successful",
+        "error": "An error occurred"
+      }
+    },
+    "common": {
+      "loading": "Loading...",
+      "search": "Search"
+    }
+  }
