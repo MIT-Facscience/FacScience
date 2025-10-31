@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import { BACKEND_URL } from "@/lib/api";
-import { motion } from "framer-motion";
+import { motion, useTransform } from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -20,6 +20,7 @@ import {
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface ResearchCenter {
   title: string;
@@ -31,7 +32,9 @@ export default function HomePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);
   const [nbMentions, setNbMentions] = useState(14);
   const [nbLabo, setNbLabo] = useState(30);
-  
+  const { t } = useTranslation("home"); // ← nom du dossier dans assets
+
+
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/stat/enseignant`)
       .then((response) => response.json())
