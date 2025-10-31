@@ -43,76 +43,7 @@ export default function HistoirePage() {
       });
   }, []);
 
-  // const timelineEvents = [
-  //   {
-  //     year: "1961",
-  //     title: "Fondation de la Faculté",
-  //     description:
-  //       "Mise en place de la Faculté des Sciences, comme pilier de l’enseignement supérieur scientifique à Madagascar.",
-  //     icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-primary",
-  //   },
-  //   {
-  //     year: "",
-  //     title: "Structuration des départements",
-  //     description:
-  //       "Organisation de filières en Physique, Chimie, Biologie, Mathématiques et Informatique.",
-  //     icon: <Microscope className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-amber-500",
-  //   },
-  //   {
-  //     year: "",
-  //     title: "Développement des infrastructures",
-  //     description:
-  //       "Création et modernisation de laboratoires et bibliothèques pour soutenir l’enseignement et la recherche.",
-  //     icon: <FlaskConical className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-primary",
-  //   },
-  //   {
-  //     title: "Ouverture internationale",
-  //     description:
-  //       "Mise en place de collaborations avec des universités étrangères et accueil d’échanges étudiants.",
-  //     icon: <Globe className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-amber-600",
-  //   },
-  //   {
-  //     year: "",
-  //     title: "Innovation pédagogique",
-  //     description:
-  //       "Introduction de formations numériques, plateformes d’apprentissage en ligne et projets modernes.",
-  //     icon: <Laptop className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-primary",
-  //   },
-  // ];
-
-  // const stats = [
-  //   {
-  //     number: "60+",
-  //     label: "Années d'excellence",
-  //     icon: <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />,
-  //   },
-  //   {
-  //     number: "5000+",
-  //     label: "Diplômés",
-  //     icon: <Users className="h-5 w-5 sm:h-6 sm:w-6" />,
-  //   },
-  //   {
-  //     number: nbMentions,
-  //     label: "Mentions",
-  //     icon: <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />,
-  //   },
-  //   {
-  //     number: nbEnseignants,
-  //     label: "Enseignants",
-  //     icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" />,
-  //   }
-  // ];
-
-   // Construction du tableau avec les traductions
-  
-    
-   // Les icônes restent en dur (pas besoin de traduction)
-  const timelineIcons = {
+   const timelineIcons = {
     foundation: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
     departments: <Microscope className="h-4 w-4 sm:h-5 sm:w-5" />,
     infrastructure: <FlaskConical className="h-4 w-4 sm:h-5 sm:w-5" />,

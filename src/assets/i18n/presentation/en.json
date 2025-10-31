@@ -1,80 +1,78 @@
 {
-    "history" : {
-        "title": "Our Story",
-        "subtitle": "Over 60 years of academic excellence and contribution to Madagascar's scientific development",
-        "mission": {
-            "title": "Our Mission",
-            "firstMission": "To train high-level scientists capable of contributing to the sustainable development of Madagascar and the Indian Ocean region through academic excellence and innovative research.",
-            "secondMission": "We are committed to providing internationally quality scientific education while preserving our cultural values and addressing local challenges."
+    
+    "title": "Our Story",
+    "subtitle": "Over 60 years of academic excellence and contribution to Madagascar's scientific development",
+    "mission": {
+        "title": "Our Mission",
+        "firstMission": "To train high-level scientists capable of contributing to the sustainable development of Madagascar and the Indian Ocean region through academic excellence and innovative research.",
+        "secondMission": "We are committed to providing internationally quality scientific education while preserving our cultural values and addressing local challenges."
+    },
+    "vision": {
+        "title": "Our Vision",
+        "slogan": "\"Science in the service of development\"",
+        "firstVision": "To become an internationally recognized center of excellence for higher education and scientific research, while being a key player in Madagascar's socio-economic development.",
+        "secondVision": "We aspire to be a reference in training committed and innovative scientists capable of meeting the challenges of the 21st century.",
+        "popular": "Popular"
+    },
+    "timeline": {
+        "title": "Timeline of our development"
+    },
+    "value": {
+        "title": "Our Core Values",
+        "award": {
+        "title": "Excellence",
+        "infos": "We strive for excellence in all our teaching and research programs."
         },
-        "vision": {
-            "title": "Our Vision",
-            "slogan": "\"Science in the service of development\"",
-            "firstVision": "To become an internationally recognized center of excellence for higher education and scientific research, while being a key player in Madagascar's socio-economic development.",
-            "secondVision": "We aspire to be a reference in training committed and innovative scientists capable of meeting the challenges of the 21st century.",
-            "popular": "Popular"
+        "users": {
+        "title": "Collaboration",
+        "infos": "We foster collaboration among students, teachers and international partners."
+        },
+        "innovation": {
+        "title": "Innovation",
+        "infos": "We encourage innovation and creativity in scientific research."
+        }
+    },
+    "stats": {
+        "yearsExcellence": {
+            "number": "60+",
+            "label": "Years of Excellence"
+        },
+        "graduates": {
+            "number": "5000+",
+            "label": "Graduates"
+        },
+        "programs": {
+            "label": "Programs"
+        },
+        "teachers": {
+            "label": "Teachers"
+        }
         },
         "timeline": {
-            "title": "Timeline of our development"
-        },
-        "value": {
-            "title": "Our Core Values",
-            "award": {
-            "title": "Excellence",
-            "infos": "We strive for excellence in all our teaching and research programs."
+        "title": "Timeline of Our Development",
+        "events": {
+            "foundation": {
+            "year": "1961",
+            "title": "Foundation of the Faculty",
+            "description": "Establishment of the Faculty of Sciences as a cornerstone of higher scientific education in Madagascar."
             },
-            "users": {
-            "title": "Collaboration",
-            "infos": "We foster collaboration among students, teachers and international partners."
+            "departments": {
+            "title": "Structuring of Departments",
+            "description": "Organization of programs in Physics, Chemistry, Biology, Mathematics, and Computer Science."
+            },
+            "infrastructure": {
+            "title": "Infrastructure Development",
+            "description": "Creation and modernization of laboratories and libraries to support teaching and research."
+            },
+            "international": {
+            "title": "International Outreach",
+            "description": "Establishment of collaborations with foreign universities and hosting of student exchange programs."
             },
             "innovation": {
-            "title": "Innovation",
-            "infos": "We encourage innovation and creativity in scientific research."
-            }
-        },
-        "stats": {
-            "yearsExcellence": {
-                "number": "60+",
-                "label": "Years of Excellence"
-            },
-            "graduates": {
-                "number": "5000+",
-                "label": "Graduates"
-            },
-            "programs": {
-                "label": "Programs"
-            },
-            "teachers": {
-                "label": "Teachers"
-            }
-            },
-            "timeline": {
-            "title": "Timeline of Our Development",
-            "events": {
-                "foundation": {
-                "year": "1961",
-                "title": "Foundation of the Faculty",
-                "description": "Establishment of the Faculty of Sciences as a cornerstone of higher scientific education in Madagascar."
-                },
-                "departments": {
-                "title": "Structuring of Departments",
-                "description": "Organization of programs in Physics, Chemistry, Biology, Mathematics, and Computer Science."
-                },
-                "infrastructure": {
-                "title": "Infrastructure Development",
-                "description": "Creation and modernization of laboratories and libraries to support teaching and research."
-                },
-                "international": {
-                "title": "International Outreach",
-                "description": "Establishment of collaborations with foreign universities and hosting of student exchange programs."
-                },
-                "innovation": {
-                "title": "Educational Innovation",
-                "description": "Introduction of digital training, online learning platforms, and modern academic projects."
-                }
+            "title": "Educational Innovation",
+            "description": "Introduction of digital training, online learning platforms, and modern academic projects."
             }
         }
     }
-
 
 }
