@@ -2,61 +2,46 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState, type JSX } from "react";
 import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface CampusImage {
   src: string;
-  alt: string;
-  title: string;
-  description: string;
-  backgroundColor : string;
-  buttonBorder : string;
-  buttonText : string;
-  buttonLinkForm : string;
-  buttonLinkInfo : string;
-  buttonIcon : JSX.Element | null;
+  translationKey: string;
+  backgroundColor: string;
+  buttonLinkForm: string;
+  buttonLinkInfo: string;
+  buttonIcon: JSX.Element | null;
 }
 
 export function HeroSection(): JSX.Element {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const { t } = useTranslation("hero-section");
 
   const campusImages: CampusImage[] = [
     {
       src: "/fs_facade_2.jpg",
-      alt: "Campus principal de la Faculté des Sciences",
-      title: "Campus Moderne",
-      description: "Un environnement d'apprentissage exceptionnel",
-      backgroundColor : "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
-      buttonBorder : "",
-      buttonText : "Découvrir nos formations",
-      buttonLinkForm : "/formation",
-      buttonLinkInfo : "/presentation",
-      buttonIcon : null,
+      translationKey: "slide1",
+      backgroundColor: "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
+      buttonLinkForm: "/formation",
+      buttonLinkInfo: "/presentation",
+      buttonIcon: null,
     },
     {
       src: "/fs_amphi.jpg",
-      alt: "Environnement d'apprentissage",
-      title: "Environnement d'apprentissage",
-      description: "Ressources documentaires complètes",
-      backgroundColor : "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
-      buttonBorder : "",
-      buttonText : "Découvrir nos formations",
-      buttonLinkForm : "/formation",
-      buttonLinkInfo : "/presentation",
-      buttonIcon : null,
+      translationKey: "slide2",
+      backgroundColor: "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
+      buttonLinkForm: "/formation",
+      buttonLinkInfo: "/presentation",
+      buttonIcon: null,
     },
     {
       src: "/mit.jpeg",
-      alt: "INT",
-      title: "Innovation et Technologies",
-      description: "Inscrivez-vous au parcours INT de la mention Informatique et Technologies",
-      backgroundColor : "from-red-600 to-red-700 hover:from-red-700 hover:to-red-800",
-      buttonBorder : "",
-      buttonText : "Inscription INT",
-      buttonLinkForm : "/admission/int-formulaire",
-      buttonLinkInfo : "/admission/int-modalite",
-      buttonIcon : <ArrowRight/>,
+      translationKey: "slide3",
+      backgroundColor: "from-red-600 to-red-700 hover:from-red-700 hover:to-red-800",
+      buttonLinkForm: "/admission/int-formulaire",
+      buttonLinkInfo: "/admission/int-modalite",
+      buttonIcon: <ArrowRight/>,
     },
   ];
 
@@ -104,12 +89,10 @@ export function HeroSection(): JSX.Element {
     const timer: NodeJS.Timeout = setInterval(() => {
       setIsTransitioning(true);
       
-      // Changer l'image après que l'animation des carrés commence
       setTimeout(() => {
         setCurrentSlide(prev => (prev + 1) % campusImages.length);
-      }, 600); // Changement au milieu de l'animation des carrés
+      }, 600);
       
-      // Terminer la transition
       setTimeout(() => {
         setIsTransitioning(false);
       }, 1200);
@@ -143,7 +126,7 @@ export function HeroSection(): JSX.Element {
             >
               <img
                 src={image.src || "/placeholder.svg"}
-                alt={image.alt}
+                alt={t(`heroSection.slides.${image.translationKey}.alt`)}
                 className="w-full h-full object-cover"
               />
               <div className={`absolute inset-0 transition-opacity duration-500 ${
@@ -160,7 +143,7 @@ export function HeroSection(): JSX.Element {
                       style={{
                         color: 'white'
                       }}>
-                    {(index == 2) ? "Inscription INT" : "Faculté des Sciences"}
+                    {index === 2 ? t("heroSection.mainTitle.int") : t("heroSection.mainTitle.default")}
                   </h1>
                   
                   {/* Contenu dynamique qui change avec les slides */}
@@ -171,7 +154,7 @@ export function HeroSection(): JSX.Element {
                         style={{
                           textShadow: '0 1px 3px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3)'
                         }}>
-                      {image.title}
+                      {t(`heroSection.slides.${image.translationKey}.title`)}
                     </h2>
                   </div>
                   
@@ -182,7 +165,7 @@ export function HeroSection(): JSX.Element {
                        style={{
                          textShadow: '0 1px 3px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)'
                        }}>
-                      {image.description} - Université d'Antananarivo
+                      {t(`heroSection.slides.${image.translationKey}.description`)}
                     </p>
                   </div>
                   
@@ -190,22 +173,22 @@ export function HeroSection(): JSX.Element {
                     index === currentSlide && !isTransitioning ? 'slide-in-up' : 'opacity-0'
                   }`}>
                     <Button
-                          asChild
-                          size="lg"
-                          className={`border-0 shadow-xl rounded-lg bg-gradient-to-r ${image.backgroundColor} transform hover:scale-105 transition-all duration-200`}
-                        >
-                          <Link to={image.buttonLinkForm}>
-                            <span>{image.buttonText}</span>
-                            {image.buttonIcon}
-                          </Link>
-                        </Button>
+                      asChild
+                      size="lg"
+                      className={`border-0 shadow-xl rounded-lg bg-gradient-to-r ${image.backgroundColor} transform hover:scale-105 transition-all duration-200`}
+                    >
+                      <Link to={image.buttonLinkForm}>
+                        <span>{t(`heroSection.slides.${image.translationKey}.buttonText`)}</span>
+                        {image.buttonIcon}
+                      </Link>
+                    </Button>
                     <Button
                       variant="secondary"
                       size="lg"
                       asChild
                       className="border-2 border-amber-300 rounded-lg text-amber-100 backdrop-blur-sm bg-white/10 hover:bg-white/20 transform hover:scale-105 transition-all duration-200"
                     >
-                      <Link to={image.buttonLinkInfo}>En savoir plus</Link>
+                      <Link to={image.buttonLinkInfo}>{t("heroSection.learnMore")}</Link>
                     </Button>
                   </div>
                 </div>
@@ -223,7 +206,7 @@ export function HeroSection(): JSX.Element {
             onClick={prevSlide}
             disabled={isTransitioning}
             className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 disabled:opacity-50 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm transform hover:scale-110"
-            aria-label="Image précédente"
+            aria-label={t("heroSection.controls.previous")}
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -231,7 +214,7 @@ export function HeroSection(): JSX.Element {
             onClick={nextSlide}
             disabled={isTransitioning}
             className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 disabled:opacity-50 text-white p-3 rounded-full transition-all duration-200 backdrop-blur-sm transform hover:scale-110"
-            aria-label="Image suivante"
+            aria-label={t("heroSection.controls.next")}
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -248,7 +231,7 @@ export function HeroSection(): JSX.Element {
                     ? "bg-amber-400 shadow-lg shadow-amber-400/50" 
                     : "bg-white/50 hover:bg-white/70"
                 }`}
-                aria-label={`Aller à l'image ${index + 1}`}
+                aria-label={`${t("heroSection.controls.goTo")} ${index + 1}`}
               />
             ))}
           </div>
@@ -266,7 +249,7 @@ export function HeroSection(): JSX.Element {
         </div>
       </section>
 
-      <style >{`
+      <style>{`
         @keyframes progress {
           0% { width: 0%; }
           100% { width: 100%; }
