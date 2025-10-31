@@ -71,5 +71,92 @@
     "intInterviews": "Dinika",
     "intReadyToApply": "Vonona hanao fangatahana?",
     "intEnsureDocuments": "Mandehana any amin'ny taratasy an-tserasera hametraka ny antontan-taratasy fangatahana",
-    "intStartApplication": "Hametraka ny antontan-taratasy"
+    "intStartApplication": "Hametraka ny antontan-taratasy",
+
+    "intForm": {
+        "title": "Taratasy fisoratrana anarana",
+        "subtitle": "Lalan'ny <strong>Innovation et Technologie</strong> – Master 1 & 2",
+        "steps": {
+            "applicationInfo": "Zavatra ilaina",
+            "personalInfo": "Fampahalalana manokana",
+            "academicFile": "Antontan-taratasy akademika",
+            "applicationFee": "Sarany fametrahana antontan-taratasy",
+            "summary": "Famintinana"
+        },
+        "labels": {
+            "chooseMaster": "Misafidia Master",
+            "lastName": "Anarana",
+            "firstName": "Fanampin'anarana",
+            "email": "Email",
+            "phone": "Finday",
+            "currentPath": "Lalana misy",
+            "levelAndGrade": "Halehibeny & mari-pahaizana",
+            "cv": "Curriculum Vitae (PDF)",
+            "baccalaureateTranscript": "Mari-pahaizana mirakitra naoty bakalorea",
+            "transcripts": "Naoty (3 taona farany)",
+            "paymentProof": "Porofo fandoavam-bola",
+            "paymentReference": "Reference fandoavam-bola"
+        },
+        "placeholders": {
+            "enterLastName": "Ampidiro ny anaranao",
+            "enterFirstName": "Ampidiro ny fanampin'anaranao",
+            "enterEmail": "ohatra@domaine.com",
+            "enterPhone": "Ohatra: +261 34 12 345 67",
+            "enterCurrentPath": "Ampidiro ny lalana misy",
+            "enterPaymentReference": "Ohatra: 12345678 / rosia BOA"
+        },
+        "options": {
+            "selectMaster": "-- Misafidia Master --",
+            "selectLevel": "-- Misafidia ny halehibeny sy mari-pahaizana --",
+            "master1": "Master 1",
+            "master2": "Master 2",
+            "l3": "License 3",
+            "m1": "Master 1",
+            "m2": "Master 2"
+        },
+        "errors": {
+            "required": "Tsy maintsy fenoina ity saha ity",
+            "invalidEmail": "Format email diso",
+            "invalidPhone": "Numero finday diso (10-15 chiffres)",
+            "l3NotAllowedForM2": "Ho an'ny Master 2, tsy azo atao ny L3",
+            "fileRequired": "Ilaina ny rakitra",
+            "fileTooLarge": "Tsy tokony ho lehibe mihoatra ny 5MB ny rakitra",
+            "yearTranscriptRequired": "Ilaina ny transcript ho an'ny taona {year}"
+        },
+        "buttons": {
+            "previous": "Eo aloha",
+            "next": "Manaraka",
+            "submit": "Alefa ny antontan-taratasy",
+            "submitting": "Alefa...",
+            "newApplication": "Mametraka fangatahana vaovao"
+        },
+        "success": {
+            "title": "Nalefan'ny fahombiazana ny fangatahana!",
+            "message": "Nalefa ny email fanamarinana tany amin'ny <strong>{email}</strong>.",
+            "details": "Nalefan'ny fahombiazana ny antontan-taratasinao."
+        },
+        "summary": {
+            "applicationInfo": "Informations fangatahana",
+            "personalInfo": "Informations manokana",
+            "academicFile": "Antontan-taratasy akademika",
+            "applicationFee": "Sarany antontan-taratasy",
+            "master": "Master",
+            "lastName": "Anarana",
+            "firstName": "Fanampin'anarana",
+            "email": "Email",
+            "phone": "Finday",
+            "currentPath": "Lalana",
+            "levelAndGrade": "Halehibeny & mari-pahaizana",
+            "cv": "CV",
+            "baccalaureateTranscript": "Mari-pahaizana mirakitra naoty bakalorea",
+            "transcripts": "Naoty",
+            "paymentProof": "Porofo fandoavam-bola",
+            "paymentReference": "Reference fandoavam-bola",
+            "notSpecified": "Tsy voafaritra",
+            "year": "Taona {number}"
+        },
+        "fileNames": {
+            "noFileChosen": "Tsy nisy rakitra nofidiana"
+        }
+    }
 }
