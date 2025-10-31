@@ -1,1 +1,82 @@
-{}
+
+{
+  "home": {
+    "news": {
+      "title": "Dernières Actualités",
+      "subtitle": "Restez informés des événements importants et des dates clés de la faculté",
+      "seeAll": "Voir toutes les actualités",
+      "urgent": "URGENT",
+      "types": {
+        "event": "Événement",
+        "inscription": "Inscription",
+        "info": "Information"
+      },
+      "items": {
+        "event1": {
+          "title": "Salon des Étudiants 2025",
+          "date": "11-12 Septembre 2025",
+          "time": "08h00 - 17h00",
+          "location": "Amphithéâtre Principal",
+          "description": "Rencontrez les représentants des différents départements et découvrez nos formations"
+        },
+        "inscription1": {
+          "title": "Inscriptions Année 2025-2026",
+          "date": "Jusqu'au 15 Novembre 2025",
+          "time": "08h00 - 16h00",
+          "location": "Bureau des Inscriptions",
+          "description": "Période d'inscription pour la nouvelle année académique"
+        },
+        "info1": {
+          "title": "Journée Portes Ouvertes",
+          "date": "15 Septembre 2025",
+          "time": "09h00 - 15h00",
+          "location": "Campus Principal",
+          "description": "Visitez nos laboratoires et rencontrez nos enseignants-chercheurs"
+        }
+      }
+    },
+    "presentation": {
+      "title": "Faculté des Sciences",
+      "subtitle": "Un centre d'excellence pour l'enseignement supérieur et la recherche scientifique à Madagascar",
+      "heading": "Excellence académique et innovation",
+      "paragraph1": "Depuis plus de 60 ans, la Faculté des Sciences de l'Université d'Antananarivo forme les futurs scientifiques et chercheurs de Madagascar. Nous offrons des programmes d'excellence dans {count} mentions spécialisées.",
+      "paragraph2": "Notre engagement envers la qualité de l'enseignement et la recherche de pointe nous positionne comme un acteur clé du développement scientifique et technologique de la région.",
+      "buttons": {
+        "history": "Notre Histoire",
+        "formations": "Nos Formations"
+      }
+    },
+    "portals": {
+      "title": "Nos Portails",
+      "subtitle": "Découvrez les grands parcours au sein de notre faculté",
+      "items": {
+        "it": {
+          "title": "Informatique et Technologie"
+        },
+        "mi": {
+          "title": "Mathématique et Informatique"
+        },
+        "pc": {
+          "title": "Physique et Chimie"
+        },
+        "svt": {
+          "title": "Sciences de la Vie et de la Terre"
+        }
+      }
+    },
+    "stats": {
+      "students": "Étudiants",
+      "teachers": "Enseignants",
+      "mentions": "Mentions",
+      "laboratories": "Laboratoires"
+    },
+    "callToAction": {
+      "title": "Rejoignez-nous",
+      "subtitle": "Découvrez nos programmes d'excellence et devenez acteur du développement scientifique de Madagascar",
+      "buttons": {
+        "formations": "Découvrir nos formations",
+        "contact": "Nous contacter"
+      }
+    }
+  }
+}

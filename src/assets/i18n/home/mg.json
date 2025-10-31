@@ -1,1 +1,67 @@
-{}
+{
+  "home": {
+    "news": {
+      "title": "Vaovao Farany",
+      "subtitle": "Mifandraisa amin'ny zava-nitranga lehibe sy ny daty manan-danja any amin'ny fakiolte",
+      "seeAll": "Hijery ny vaovao rehetra",
+      "types": {
+        "event": "Zava-nitranga",
+        "inscription": "Fisoratana anarana",
+        "info": "Fampahafantarana"
+      },
+      "urgent": "MAIKA",
+      "items": {
+            "event1": {
+            "title": "Fampidirana Mpianatra 2025",
+            "date": "11-12 Septambra 2025",
+            "time": "08:00 - 17:00",
+            "location": "Amphitheatre Lehibe",
+            "description": "Mifankahita amin'ny solontenan'ny sampana samihafa ary halalaro ny fampiofanay"
+            },
+            "inscription1": {
+            "title": "Fisoratana anarana ho an'ny Taona Akademika 2025-2026",
+            "date": "Hatramin'ny 15 Novambra 2025",
+            "time": "08:00 - 16:00",
+            "location": "Birao ny Fisoratana anarana",
+            "description": "Fotoana fisoratana anarana ho an'ny taona akademika vaovao"
+            },
+            "info1": {
+            "title": "Andro misokatra ny varavarana",
+            "date": "15 Septambra 2025",
+            "time": "09:00 - 15:00",
+            "location": "Campus Lehibe",
+            "description": "Mitsidika ny laboratoarany ary mifankahita amin'ny mpampianatra mpikaroka"
+            }
+        }
+    },
+    "presentation": {
+      "title": "Fakiolte an'ny Siansa",
+      "subtitle": "Toeram-pahamehana ho an'ny fampianarana ambony sy ny fikarohana siantifika any Madagasikara",
+      "heading": "Fahombiazana akademika sy fampandrosoana",
+      "paragraph1": "Nandritra ny 60 taona mahery, ny Fakiolte an'ny Siansa amin'ny Oniversiten'Antananarivo no nanabe sy nanomana ny mpahay siansa sy ny mpikaroka ho an'ny ho avy any Madagasikara. Manolotra programa fahombiazana isika amin'ny {count} sehatra manokana.",
+      "paragraph2": "Ny ezaka ataonay amin'ny kalitaon'ny fampianarana sy ny fikarohana avo lenta no manao anay ho mpandraharaha lehibe amin'ny fampandrosoana siantifika sy teknolojikan'ny faritra.",
+      "buttons": {
+        "history": "Ny Tantarantsika",
+        "formations": "Ny Fampiofanay"
+      }
+    },
+    "portals": {
+      "title": "Ny Vavahadinay",
+      "subtitle": "Hitanareo ny lalana lehibe ao anatin'ny fakioltenay"
+    },
+    "stats": {
+      "students": "Mpianatra",
+      "teachers": "Mpampianatra",
+      "mentions": "Sehatra",
+      "laboratories": "Laboratoara"
+    },
+    "callToAction": {
+      "title": "Miaraha Aminay",
+      "subtitle": "Hitanareo ny programa fahombiazanay ary ho mpandray anjara amin'ny fampandrosoana siantifikan'i Madagasikara",
+      "buttons": {
+        "formations": "Hijery ny fampiofanay",
+        "contact": "Mifandraisa aminay"
+      }
+    }
+  }
+}

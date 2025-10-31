@@ -13,20 +13,20 @@ import {
 // import { useTranslation } from "./lang";
 
 const presentationItems = [
-  { title: "Histoire et Mission", to: "/presentation/histoire" },
-  { title: "Organigramme", to: "/presentation/organigramme" },
-  { title: "Vision et Objectifs", to: "/presentation/vision" },
-  { title: "Annuaires", to: "/presentation/annuaires" },
+  { key: "history", to: "/presentation/histoire" },
+  { key: "organigram", to: "/presentation/organigramme" },
+  { key: "vision", to: "/presentation/vision" },
+  { key: "directory", to: "/presentation/annuaires" },
 ];
 
 const rechercheItems = [
-  { title: "Laboratoires", to: "/recherche/laboratoires" },
-  { title: "Publications", to: "/recherche/publications" },
+  { key: "labs", to: "/recherche/laboratoires" },
+  { key: "publications", to: "/recherche/publications" },
 ];
 
 const admissionItems = [
-  {title : "Modalites", to: "/admission/modalite"},
-  {title : "Preinscription", to: "/admission/preinscription"},
+  { key: "modalities", to: "/admission/modalite" },
+  { key: "preRegistration", to: "/admission/preinscription" },
 ];
 
 export default function Navigation() {
@@ -39,6 +39,9 @@ export default function Navigation() {
   const isActive = (path: string) => location.pathname === path;
   const isActiveParent = (base: string) => location.pathname.startsWith(base);
 
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
   };
@@ -60,17 +63,13 @@ export default function Navigation() {
                 />
                 <div className="lg:hidden xl:block">
                   <h1 className="text-base sm:text-lg font-semibold text-sidebar-foreground tracking-tight">
-                    Faculté des Sciences
+                    {t("title")}
                   </h1>
                   <h3 className="text-xs sm:text-sm font-medium text-muted-foreground tracking-tight">
-                    Université d'Antananarivo
+                    {t("universityName")}
                   </h3>
                 </div>
               </Link>
-              {/* <select value={lang} onChange={(e) => setLang(e.target.value as "fr" | "en")}>
-                <option value="fr">🇫🇷 Français</option>
-                <option value="en">🇬🇧 English</option>
-              </select> */}
 
               {/* Desktop Nav */}
               <nav className="hidden lg:flex items-center space-x-1">
@@ -83,9 +82,7 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    {/* <span>{t("about")}</span> */}
-                    <span>Présentation</span>
-
+                    <span>{t("about")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -101,7 +98,7 @@ export default function Navigation() {
                           }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
-                          {item.title}
+                          {t(`aboutItems.${item.key}`)}
                         </a>
                       ))}
                     </div>
@@ -117,9 +114,7 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    {/* <span>{t("search")}</span> */}
-                    <span>Recherche</span>
-
+                    <span>{t("research")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -135,13 +130,14 @@ export default function Navigation() {
                           }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
-                          {item.title}
+                          {t(`researchItems.${item.key}`)}
                         </a>
                       ))}
                     </div>
                   </div>
                 </div>
 
+                {/* Admission Dropdown */}
                 <div className="relative group">
                   <button
                     className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
@@ -150,9 +146,7 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    {/* <span>{t("admission")}</span> */}
-                    <span>Admission</span>
-
+                    <span>{t("admission")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -168,7 +162,7 @@ export default function Navigation() {
                           }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
-                          {item.title}
+                          {t(`admissionItems.${item.key}`)}
                         </a>
                       ))}
                     </div>
@@ -184,7 +178,7 @@ export default function Navigation() {
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
                   }`}
                 >
-                  Formation
+                  {t("training")}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
@@ -197,7 +191,7 @@ export default function Navigation() {
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
                   }`}
                 >
-                  Actualités
+                  {t("news")}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
@@ -216,7 +210,7 @@ export default function Navigation() {
 
                 <Select value={i18n.language} onValueChange={changeLanguage}>
                   <SelectTrigger className="w-fit h-9 bg-white border border-purple-200 text-sm font-medium text-slate-700 focus:ring-0 focus:outline-none mx-2">
-                    <SelectValue placeholder="Langue ..." />
+                    <SelectValue placeholder={t("language")} />
                   </SelectTrigger>
                   <SelectContent className="bg-white border border-purple-200 rounded-lg shadow-md">
                     <SelectItem value="fr">FR</SelectItem>
@@ -224,10 +218,11 @@ export default function Navigation() {
                     <SelectItem value="mg">MG</SelectItem>
                   </SelectContent>
                 </Select>
+                </Select>
 
                 {/* Contact */}
                 <Link to="/contact">
-                  <PrimaryButton>Contact</PrimaryButton>
+                  <PrimaryButton>{t("contact")}</PrimaryButton>
                 </Link>
               </nav>
 
@@ -263,9 +258,14 @@ export default function Navigation() {
                       height={40}
                       className="rounded-full"
                     />
-                    <h1 className="text-xl font-semibold text-sidebar-foreground tracking-tight">
-                      Faculté des Sciences
-                    </h1>
+                    <div>
+                      <h1 className="text-xl font-semibold text-sidebar-foreground tracking-tight">
+                        {t("title")}
+                      </h1>
+                      <h3 className="text-sm font-medium text-muted-foreground tracking-tight">
+                        {t("universityName")}
+                      </h3>
+                    </div>
                   </Link>
                   <button
                     onClick={() => setIsOpen(false)}
@@ -275,22 +275,39 @@ export default function Navigation() {
                   </button>
                 </div>
 
+                {/* Language Selector Mobile */}
+                <div className="pb-4 border-b border-purple-200/50">
+                  <Select value={i18n.language} onValueChange={changeLanguage}>
+                    <SelectTrigger className="w-full h-12 bg-white border border-purple-200 text-base font-medium text-slate-700">
+                      <SelectValue placeholder={t("language")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white border border-purple-200 rounded-lg shadow-md">
+                      <SelectItem value="fr">FR</SelectItem>
+                      <SelectItem value="en">EN</SelectItem>
+                      <SelectItem value="mg">MG</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 {/* Sections */}
                 {[
                   {
-                    title: "Présentation",
+                    title: t("about"),
                     items: presentationItems,
                     base: "/presentation",
+                    namespace: "aboutItems"
                   },
                   {
-                    title: "Recherche",
+                    title: t("research"),
                     items: rechercheItems,
                     base: "/recherche",
+                    namespace: "researchItems"
                   },
                   {
-                    title: "Admission",
+                    title: t("admission"),
                     items: admissionItems,
                     base: "/admission",
+                    namespace: "admissionItems"
                   },
                 ].map((section) => (
                   <div key={section.title} className="space-y-3">
@@ -315,7 +332,7 @@ export default function Navigation() {
                           }`}
                           onClick={() => setIsOpen(false)}
                         >
-                          {item.title}
+                          {t(`${section.namespace}.${item.key}`)}
                         </a>
                       ))}
                     </div>
@@ -326,22 +343,17 @@ export default function Navigation() {
                 <div className="space-y-3 pt-6 border-t border-border">
                   {[
                     {
-                      name: "Formation",
+                      name: t("training"),
                       path: "/formation",
                       base: "/formation",
                     },
                     {
-                      name: "Actualités",
+                      name: t("news"),
                       path: "/actualites",
                       base: "/actualites",
                     },
                     {
-                      name: "Résultats",
-                      path: "/resultats",
-                      base: "/resultats",
-                    },
-                    {
-                      name: "Contact",
+                      name: t("contact"),
                       path: "/contact",
                       base: "/contact",
                       special: true,
