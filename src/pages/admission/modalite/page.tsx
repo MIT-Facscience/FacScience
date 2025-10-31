@@ -1,11 +1,5 @@
 "use client";
 
-// import {
-//   Accordion,
-//   AccordionContent,
-//   AccordionItem,
-//   AccordionTrigger,
-// } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,8 +19,10 @@ import {
   MapPin,
   Users,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function AdmissionPage() {
+  const { t } = useTranslation("admission");
 
   const handleDownloadFiche = async (): Promise<void> => {
     try {
@@ -50,9 +46,18 @@ export default function AdmissionPage() {
       
     } catch (error: unknown) {
       console.error('Erreur de téléchargement:', error);
-      // Fallback direct
       window.open('/Fiche/FicheFS.pdf', '_blank');
     }
+  };
+
+  // Fonction pour formater les textes multilignes
+  const renderMultilineText = (text: string) => {
+    return text.split('\n').map((line, index) => (
+      <span key={index}>
+        {line}
+        {index < text.split('\n').length - 1 && <br />}
+      </span>
+    ));
   };
 
   return (
@@ -77,10 +82,10 @@ export default function AdmissionPage() {
               </div>
               <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                  Conditions d'admission
+                  {t("conditionadmission")}
                 </h1>
                 <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                  Détails et modalités pour l'année académique 2024-2025
+                  {t("detailsandmodality")}
                 </p>
               </div>
             </motion.div>
@@ -92,7 +97,7 @@ export default function AdmissionPage() {
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Calendar className="h-5 w-5 text-primary" />
-                      <CardTitle className="text-lg">Date Limite</CardTitle>
+                      <CardTitle className="text-lg">{t("datelimit")}</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -100,7 +105,7 @@ export default function AdmissionPage() {
                       15 Novembre 2025
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      Dépôt des dossiers
+                      {t("depositdossiers")}
                     </p>
                   </CardContent>
                 </Card>
@@ -110,7 +115,7 @@ export default function AdmissionPage() {
                     <div className="flex items-center gap-2">
                       <FileText className="h-5 w-5 text-secondary" />
                       <CardTitle className="text-lg">
-                        Droit de préinscription
+                        {t("preinscriptionfee")}
                       </CardTitle>
                     </div>
                   </CardHeader>
@@ -119,7 +124,7 @@ export default function AdmissionPage() {
                       50 000 Ar
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      Non remboursable
+                      {t("nonrefundable")}
                     </p>
                   </CardContent>
                 </Card>
@@ -128,13 +133,13 @@ export default function AdmissionPage() {
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Users className="h-5 w-5 text-accent" />
-                      <CardTitle className="text-lg">Public Concerné</CardTitle>
+                      <CardTitle className="text-lg">{t("targetaudience")}</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-lg font-semibold">Bacheliers</p>
+                    <p className="text-lg font-semibold">{t("bacheliers")}</p>
                     <p className="text-sm text-muted-foreground">
-                      Session 2024 - 2025
+                      {t("session")}
                     </p>
                   </CardContent>
                 </Card>
@@ -148,26 +153,23 @@ export default function AdmissionPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <BookOpen className="h-6 w-6 text-primary" />
-                        Généralités sur l'admission
+                        {t("generaladmission")}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="bg-muted p-4">
                         <h4 className="font-semibold mb-2 flex items-center gap-2">
                           <CheckCircle className="h-4 w-4 text-primary" />
-                          Modalités d'admission
+                          {t("admissionmodalities")}
                         </h4>
                         <p className="text-sm text-muted-foreground">
-                          L'admission à la Faculté des Sciences se fait par voie
-                          de la selection de dossier. Les candidats sont classés
-                          selon les notes obtenues au baccalauréat, en tenant
-                          compte de la série et de la mention.
+                          {t("admissionprocess")}
                         </p>
                       </div>
 
                       <div>
                         <h4 className="font-semibold mb-3">
-                          Processus de sélection :
+                          {t("selectionprocess")}
                         </h4>
                         <ol className="space-y-2 text-sm">
                           <li className="flex gap-3">
@@ -177,9 +179,7 @@ export default function AdmissionPage() {
                             >
                               1
                             </Badge>
-                            <span>
-                              Constitution et dépôt du dossier de candidature
-                            </span>
+                            <span>{t("step1")}</span>
                           </li>
                           <li className="flex gap-3">
                             <Badge
@@ -188,10 +188,7 @@ export default function AdmissionPage() {
                             >
                               2
                             </Badge>
-                            <span>
-                              Classement des candidats par ordre de mérite selon
-                              les notes du bac
-                            </span>
+                            <span>{t("step2")}</span>
                           </li>
                           <li className="flex gap-3">
                             <Badge
@@ -200,9 +197,7 @@ export default function AdmissionPage() {
                             >
                               3
                             </Badge>
-                            <span>
-                              Publication des résultats et liste des admis
-                            </span>
+                            <span>{t("step3")}</span>
                           </li>
                           <li className="flex gap-3">
                             <Badge
@@ -211,9 +206,7 @@ export default function AdmissionPage() {
                             >
                               4
                             </Badge>
-                            <span>
-                              Inscription définitive pour les candidats retenus
-                            </span>
+                            <span>{t("step4")}</span>
                           </li>
                         </ol>
                       </div>
@@ -223,12 +216,10 @@ export default function AdmissionPage() {
                           <AlertCircle className="h-4 w-4 text-destructive mt-0.5" />
                           <div>
                             <p className="font-medium text-destructive">
-                              Important
+                              {t("important")}
                             </p>
                             <p className="text-sm text-destructive/80">
-                              Les dossiers incomplets ou déposés après la date
-                              limite ne seront pas traités. Les frais
-                              d'inscription ne sont pas remboursables.
+                              {t("importantnote")}
                             </p>
                           </div>
                         </div>
@@ -241,35 +232,22 @@ export default function AdmissionPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <FileText className="h-6 w-6 text-primary" />
-                        Pièces à fournir pour le dossier
+                        {t("documentsrequired")}
                       </CardTitle>
                       <CardDescription>
-                        Tous les documents doivent être des copies certifiées
-                        conformes
+                        {t("documentsnote")}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-           
-                          {/* "Fiche de renseignements dûment remplie",
-                          // "Copie certifiée conforme du diplôme du baccalauréat",
-                          // "Copie certifiée conforme du relevé de notes du baccalauréat",
-                          // "Extrait d'acte de naissance (original de moins de 3 mois)",
-                          // "Certificat de résidence (original de moins de 3 mois)",
-                          // "Certificat médical délivré par un médecin agréé",
-                          // "Quatre (4) photos d'identité récentes",
-                          // "Une enveloppe timbrée portant l'adresse du candidat",
-                          "Reçu de versement des frais d'inscription (50 000 Ar)",
-                        */}
-
                       <div className="space-y-3">
                         {[
                           {
-                              text: "Fiche de renseignements dûment remplie",
-                              hasDownload: true, // Active le bouton pour cet item
+                            text: t("document1"),
+                            hasDownload: true,
                           },
                           {
-                              text: "Reçu de versement des frais d'inscription (50 000 Ar)",
-                              hasDownload: false, // Pas de bouton pour cet item
+                            text: t("document2"),
+                            hasDownload: false,
                           },
                         ].map((item, index) => (
                           <div
@@ -277,33 +255,22 @@ export default function AdmissionPage() {
                             className="flex items-start gap-2 p-3 bg-muted/50 border-l-2 border-primary/30"
                           >
                             <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                            <div className="flex-1"> 
-                              <span className="text-sm block">{item.text}</span> {/* 'block' pour que le bouton passe en dessous */}
+                            <div className="flex-1">
+                              <span className="text-sm block">{item.text}</span>
                               {item.hasDownload && (
-                                  <button
-                                      onClick={handleDownloadFiche}
-                                      className="mt-1 text-xs text-primary hover:underline flex items-center gap-1"
-                                    >
-                                      📥 Télécharger la fiche
-                                    </button>
+                                <button
+                                  onClick={handleDownloadFiche}
+                                  className="mt-1 text-xs text-primary hover:underline flex items-center gap-1"
+                                >
+                                  📥 {t("downloadform")}
+                                </button>
                               )}
                             </div>
                           </div>
                         ))}
                       </div>
-
-                      {/* <div className="mt-4 p-3 bg-blue-50 border border-blue-200">
-                        <p className="text-sm text-blue-900">
-                          <strong>Note :</strong> Les photocopies doivent être
-                          certifiées conformes par les autorités compétentes
-                          (Maire, Chef Fokontany, etc.)
-                        </p>
-                      </div> */}
                     </CardContent>
                   </Card>
-
-                  {/* Conditions par série */}
-                  
                 </div>
 
                 {/* Sidebar */}
@@ -313,50 +280,34 @@ export default function AdmissionPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <MapPin className="h-5 w-5 text-primary" />
-                        Informations de contact
+                        {t("contactinfo")}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="flex items-start gap-2">
                         <MapPin className="h-4 w-4 text-muted-foreground mt-1" />
                         <div>
-                          <p className="font-medium">Adresse</p>
+                          <p className="font-medium">{t("address")}</p>
                           <p className="text-sm text-muted-foreground">
-                            Faculté des Sciences
-                            <br />
-                            Campus Universitaire d'Ankatso
-                            <br />
-                            BP 906, Antananarivo 101
-                            <br />
-                            Madagascar
+                            {renderMultilineText(t("addressdetails"))}
                           </p>
                         </div>
                       </div>
                       <div className="flex items-start gap-2">
                         <FileText className="h-4 w-4 text-muted-foreground mt-1" />
                         <div>
-                          <p className="font-medium">Scolarité</p>
+                          <p className="font-medium">{t("registrar")}</p>
                           <p className="text-sm text-muted-foreground">
-                            Bâtiment Administration
-                            <br />
-                            J-331
-                            <br />
-                            Lundi - Vendredi : 8h00 - 16h00
+                            {renderMultilineText(t("registrardetails"))}
                           </p>
                         </div>
                       </div>
                       <div className="flex items-start gap-2">
                         <FileText className="h-4 w-4 text-muted-foreground mt-1" />
                         <div>
-                          <p className="font-medium">Paiement des frais</p>
+                          <p className="font-medium">{t("paymentinfo")}</p>
                           <p className="text-sm text-muted-foreground">
-                            À effectuer à la Banque BOA-Compte
-                            N°25979340004,libellé à Monsieur le Doyen de la
-                            Faculté
-                            <br />
-                            Montant : 50 000 Ariary
-                            <br />
-                            (Non remboursable)
+                            {renderMultilineText(t("paymentdetails"))}
                           </p>
                         </div>
                       </div>
@@ -368,41 +319,30 @@ export default function AdmissionPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Calendar className="h-5 w-5 text-primary" />
-                        Calendrier 2025
+                        {t("calendar2025")}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="space-y-2">
-                        {/* <div className="flex justify-between items-center p-3 bg-muted">
-                          <span className="text-sm font-medium">
-                            Retrait dossiers
-                          </span>
-                          <Badge variant="outline" className="rounded-none">
-                            15 Août
-                          </Badge>
-                        </div> */}
                         <div className="flex justify-between items-center p-3 bg-muted">
                           <span className="text-sm font-medium">
-                            Fin Dépôt dossiers
+                            {t("deadlinedossier")}
                           </span>
                           <Badge variant="default" className="rounded-none">
                             15 Novembre
                           </Badge>
                         </div>
                         <div className="flex justify-between items-center p-3 bg-muted">
-                          <span className="text-sm font-medium">Résultats</span>
+                          <span className="text-sm font-medium">{t("results")}</span>
                           <Badge variant="outline" className="rounded-none">
                             Mi-Décembre
                           </Badge>
                         </div>
                       </div>
                       <div className="text-xs text-muted-foreground pt-2 border-t">
-                        <p>• Dépôt sur place ou par courrier recommandé</p>
-                        <p>
-                          • Le cachet de la poste fait foi pour l'envoi postal
-                        </p>
-                        <p>• Inscription en ligne</p>
-                        
+                        <p>• {t("onsitedeposit")}</p>
+                        <p>• {t("postmarkproof")}</p>
+                        <p>• {t("onlineregistration")}</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -410,10 +350,9 @@ export default function AdmissionPage() {
                   {/* Call to Action */}
                   <Card className="bg-primary text-primary-foreground rounded-none">
                     <CardHeader>
-                      <CardTitle>Prêt à postuler ?</CardTitle>
+                      <CardTitle>{t("readytoapply")}</CardTitle>
                       <CardDescription className="text-primary-foreground/80">
-                        Assurez-vous d'avoir tous les documents requis avant de
-                        soumettre votre dossier.
+                        {t("ensuredocuments")}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -424,7 +363,7 @@ export default function AdmissionPage() {
                           (window.location.href = "/admission/preinscription")
                         }
                       >
-                        Commencer l'inscription
+                        {t("startregistration")}
                       </Button>
                     </CardContent>
                   </Card>
