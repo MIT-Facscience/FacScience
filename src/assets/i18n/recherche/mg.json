@@ -1,0 +1,34 @@
+{
+    "labo": {
+      "title": "Laboratoara Tsara Indrindra",
+      "description": "laboratoara ara-tsiansa mandroso sy misy teknolojia farany",
+      "label": "Laboratoara",
+      "stats": {
+        "laboratories": "Laboratoara",
+        "researchers": "Mpikaroka",
+        "phdStudents": "Mpirotsaka Doktora",
+        "projects": "Tetikasa"
+      },
+      "loading": "Eo am-pakana ny laboratoara...",
+      "moreDetails": "Jereo ny antsipiriany bebe kokoa",
+      "lessDetails": "Asehoy kely kokoa",
+      "others": "+{{count}} hafa",
+      "expertiseFull": "Fahaizana feno",
+      "equipment": "Fitaovana",
+      "ongoingProjects": "Tetikasa mbola mandeha",
+      "researchersLabel": "Mpikaroka",
+      "phdLabel": "Mpirotsaka Doktora",
+      "previous": "Teo aloha",
+      "next": "Manaraka",
+      "errorFetch": "Nisy olana tamin’ny fakana ny laboratoara :",
+      "messages": {
+        "success": "Vita soa aman-tsara",
+        "error": "Nisy hadisoana nitranga"
+      }
+    },
+    "common": {
+      "loading": "Eo am-pakana...",
+      "search": "Karohy"
+    }
+  }
+  

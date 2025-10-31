@@ -1,0 +1,36 @@
+{
+    "publications": {
+    "title": "Publications Scientifiques",
+    "description": "Découvrez nos dernières recherches et contributions académiques dans les domaines de pointe",
+    "searchPlaceholder": "Rechercher par titre, auteur ou mot-clé...",
+    "types": {
+    "all": "Tous types",
+    "journal": "Articles de revue",
+    "conference": "Conférences",
+    "workshop": "Ateliers",
+    "book": "Livres"
+    },
+    "years": {
+    "all": "Toutes années"
+    },
+    "found": "Publications trouvées",
+    "page": "Page {{current}} sur {{total}}",
+    "loading": "Chargement des publications...",
+    "errorTitle": "Oups ! Une erreur est survenue",
+    "retry": "Réessayer",
+    "noResults": "Aucune publication trouvée",
+    "noResultsHint": "Essayez de modifier vos critères de recherche",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "citationsFull": "citations",
+    "citationsShort": "cit.",
+    "authors": "Auteurs",
+    "venue": "Venue",
+    "doi": "DOI",
+    "link": "Lien"
+    },
+    "common": {
+    "loading": "Chargement...",
+    "search": "Rechercher"
+    }
+    }

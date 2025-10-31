@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+// import { useTranslation } from "./lang";
 
 const presentationItems = [
   { key: "history", to: "/presentation/histoire" },

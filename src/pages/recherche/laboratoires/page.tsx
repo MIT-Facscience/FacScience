@@ -25,8 +25,10 @@ import {
   Users,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import {useTranslation} from "react-i18next";
 
 export default function LaboratoiresPage() {
+  const {t} = useTranslation("recherche");
   const [isLoading, setLoading] = useState(true);
   const [expandedLab, setExpandedLab] = useState<number | null>(null);
   const [labos, setLabos] = useState<Laboratoires[]>([]);
@@ -303,7 +305,7 @@ export default function LaboratoiresPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Chargement des laboratoires...</h1>
+          <h1 className="text-2xl font-bold mb-4"> { t("common.loading")}</h1>
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
         </div>
       </div>
@@ -317,59 +319,59 @@ export default function LaboratoiresPage() {
         <div className="text-center mb-20">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Laboratoires d'Excellence
+              {/* Laboratoires d'Excellence */}
+            { t("labo.title")}
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              {laboratoiresToUse.length} laboratoires d'innovation scientifique équipés des dernières
-              technologies
+              {laboratoiresToUse.length} { t("labo.description")}
             </p>
           </div>
         </div>
 
         {/* Statistiques */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-          {[
-            {
-              value: laboratoiresToUse.length,
-              label: "Laboratoires",
-              color: "from-blue-500 to-indigo-600",
-            },
-            {
-              value: totalPersonnel,
-              label: "Chercheurs",
-              color: "from-emerald-500 to-teal-600",
-            },
-            {
-              value: totalDoctorants,
-              label: "Doctorants",
-              color: "from-purple-500 to-violet-600",
-            },
-            {
-              value: totalProjets,
-              label: "Projets",
-              color: "from-rose-500 to-pink-600",
-            },
-          ].map((stat, index) => (
-            <div key={index} className="relative group">
-              <div
-                className="absolute inset-0 bg-black opacity-10 transform rotate-6 group-hover:rotate-12 transition-transform duration-300"
-                style={{
-                  backgroundImage: `linear-gradient(to right, ${
-                    stat.color.split(" ")[1]
-                  }, ${stat.color.split(" ")[3]})`,
-                }}
-              ></div>
-              <div className="relative bg-white p-8 shadow-lg border border-gray-100 text-center group-hover:shadow-xl transition-all duration-300">
-                <div
-                  className={`text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
-                >
-                  <CountUp end={stat.value} duration={4} delay={1} />
-                </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+     {[
+       {
+         value: laboratoiresToUse.length,
+         label: t("labo.stats.laboratories"),  // "Laboratoires"
+         color: "from-blue-500 to-indigo-600",
+       },
+       {
+         value: totalPersonnel,
+         label: t("labo.stats.researchers"),   // "Chercheurs"
+         color: "from-emerald-500 to-teal-600",
+       },
+       {
+         value: totalDoctorants,
+         label: t("labo.stats.phdStudents"),   // "Doctorants"
+         color: "from-purple-500 to-violet-600",
+       },
+       {
+         value: totalProjets,
+         label: t("labo.stats.projects"),      // "Projets"
+         color: "from-rose-500 to-pink-600",
+       },
+     ].map((stat, index) => (
+       <div key={index} className="relative group">
+         <div
+           className="absolute inset-0 bg-black opacity-10 transform rotate-6 group-hover:rotate-12 transition-transform duration-300"
+           style={{
+             backgroundImage: `linear-gradient(to right, ${
+               stat.color.split(" ")[1]
+             }, ${stat.color.split(" ")[3]})`,
+           }}
+         ></div>
+         <div className="relative bg-white p-8 shadow-lg border border-gray-100 text-center group-hover:shadow-xl transition-all duration-300">
+           <div
+             className={`text-4xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
+           >
+             <CountUp end={stat.value} duration={4} delay={1} />
+           </div>
+           <div className="text-gray-600 font-medium">{stat.label}</div>
+         </div>
+       </div>
+     ))}
+   </div>
 
         {/* Laboratoires Grid */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
@@ -453,7 +455,7 @@ export default function LaboratoiresPage() {
                           variant="outline"
                           className="text-xs px-2 py-1 border-gray-200 text-gray-500"
                         >
-                          +{staticData.specialites.length - 2} autres
+                          +{staticData.specialites.length - 2} {t("labo.others")}
                         </Badge>
                       )}
                     </div>
@@ -482,20 +484,21 @@ export default function LaboratoiresPage() {
                           >
                             {"personnel" in lab ? lab.personnel:staticData.personnel || staticData.personnel}
                           </div>
-                          <div className="text-xs text-gray-600">Chercheurs</div>
+                          <div className="text-xs text-gray-600">{t("labo.researchersLabel")}</div>
                         </div>
                         <div className="text-center">
                           <div className="text-2xl font-bold text-blue-600">
                             {"doctorants"in lab ? lab.doctorants:staticData.doctorants || staticData.doctorants}
                           </div>
-                          <div className="text-xs text-gray-600">Doctorants</div>
+                          <div className="text-xs text-gray-600">{t("labo.phdLabel")}</div>
                         </div>
                       </div>
 
                       {/* Spécialités complètes */}
                       <div>
                         <h4 className="font-semibold text-gray-800 mb-2 text-sm">
-                          Expertise complète
+                          {/* Expertise complète */}
+                          {t("labo.expertiseFull")}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {staticData.specialites.map((spec, i) => (
@@ -513,7 +516,7 @@ export default function LaboratoiresPage() {
                       {/* Équipements */}
                       <div>
                         <h4 className="font-semibold text-gray-800 mb-2 text-sm">
-                          Équipements
+                        {t("labo.equipment")}
                         </h4>
                         <div className="space-y-1">
                           {staticData.equipements.map((equip, i) => (
@@ -533,7 +536,7 @@ export default function LaboratoiresPage() {
                       {/* Projets */}
                       <div>
                         <h4 className="font-semibold text-gray-800 mb-2 text-sm">
-                          Projets en cours
+                        {t("labo.ongoingProjects")}
                         </h4>
                         <div className="space-y-2">
                           {staticData.projets.map((projet, i) => (
@@ -562,12 +565,12 @@ export default function LaboratoiresPage() {
                     {isExpanded ? (
                       <>
                         <ChevronUp className="h-4 w-4 mr-2" />
-                        Voir moins
+                        {t("labo.lessDetails")}
                       </>
                     ) : (
                       <>
                         <ChevronDown className="h-4 w-4 mr-2" />
-                        Voir plus de détails
+                        {t("labo.moreDetails")}
                       </>
                     )}
                   </Button>
@@ -585,7 +588,7 @@ export default function LaboratoiresPage() {
               disabled={currentPage === 1}
               className="px-8 py-3 font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              ← Précédent
+              ←{t("labo.previous")}
             </Button>
             
             <div className="flex items-center gap-2">
@@ -611,7 +614,7 @@ export default function LaboratoiresPage() {
               className="px-8 py-3 font-semibold border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               variant="outline"
             >
-              Suivant →
+             {t("labo.next")} →
             </Button>
           </div>
         </div>

@@ -71,5 +71,91 @@
     "intInterviews": "Interviews",
     "intReadyToApply": "Ready to apply?",
     "intEnsureDocuments": "Access the online form to submit your application file",
-    "intStartApplication": "Submit my application"
+    "intStartApplication": "Submit my application",
+    "intForm": {
+        "title": "Pre-registration Form",
+        "subtitle": "<strong>Innovation and Technology</strong> Track – Master 1 & 2",
+        "steps": {
+            "applicationInfo": "Application Information",
+            "personalInfo": "Personal Information", 
+            "academicFile": "Academic File",
+            "applicationFee": "Application Fee",
+            "summary": "Summary"
+        },
+        "labels": {
+            "chooseMaster": "Choose Master",
+            "lastName": "Last Name",
+            "firstName": "First Name",
+            "email": "Email",
+            "phone": "Phone",
+            "currentPath": "Current Path",
+            "levelAndGrade": "Level & Grade",
+            "cv": "Curriculum Vitae (PDF)",
+            "baccalaureateTranscript": "Baccalaureate Transcript",
+            "transcripts": "Transcripts (last 3 years)",
+            "paymentProof": "Payment Proof",
+            "paymentReference": "Payment Reference"
+        },
+        "placeholders": {
+            "enterLastName": "Enter your last name",
+            "enterFirstName": "Enter your first name",
+            "enterEmail": "example@domain.com",
+            "enterPhone": "Ex: +261 34 12 345 67",
+            "enterCurrentPath": "Enter your current path",
+            "enterPaymentReference": "Ex: 12345678 / BOA receipt"
+        },
+        "options": {
+            "selectMaster": "-- Choose Master --",
+            "selectLevel": "-- Select your level and grade --",
+            "master1": "Master 1",
+            "master2": "Master 2",
+            "l3": "Bachelor 3",
+            "m1": "Master 1",
+            "m2": "Master 2"
+        },
+        "errors": {
+            "required": "This field is required",
+            "invalidEmail": "Invalid email format",
+            "invalidPhone": "Invalid phone number (10-15 digits)",
+            "l3NotAllowedForM2": "For Master 2, Bachelor 3 is not allowed",
+            "fileRequired": "File is required",
+            "fileTooLarge": "File must not exceed 5MB",
+            "yearTranscriptRequired": "Transcript for year {year} is required"
+        },
+        "buttons": {
+            "previous": "Previous",
+            "next": "Next",
+            "submit": "Submit my application",
+            "submitting": "Submitting...",
+            "newApplication": "Submit a new application"
+        },
+        "success": {
+            "title": "Application submitted successfully!",
+            "message": "A confirmation email has been sent to <strong>{email}</strong>.",
+            "details": "Your application has been successfully submitted."
+        },
+        "summary": {
+            "applicationInfo": "Application Information",
+            "personalInfo": "Personal Information",
+            "academicFile": "Academic File",
+            "applicationFee": "Application Fee",
+            "master": "Master",
+            "lastName": "Last Name",
+            "firstName": "First Name",
+            "email": "Email",
+            "phone": "Phone",
+            "currentPath": "Current Path",
+            "levelAndGrade": "Level & Grade",
+            "cv": "CV",
+            "baccalaureateTranscript": "Baccalaureate Transcript",
+            "transcripts": "Transcripts",
+            "paymentProof": "Payment Proof",
+            "paymentReference": "Payment Reference",
+            "notSpecified": "Not specified",
+            "year": "Year {number}"
+        },
+        "fileNames": {
+            "noFileChosen": "No file chosen"
+        }
+    }
 }
