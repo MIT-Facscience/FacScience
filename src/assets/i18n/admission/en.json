@@ -257,6 +257,40 @@
                 "verify": "Verify",
                 "verifying": "Verifying..."
             }
+        },
+        "stepTwoThree": {
+            "choosePortal": "Choose your portal",
+            "loadingPortals": "Loading portals...",
+            "bankInfo": {
+                "title": "Bank information",
+                "reference": {
+                "label": "Bank reference",
+                "placeholder": "Ex: YMA7730/COT"
+                },
+                "agency": {
+                "label": "Agency",
+                "placeholder": "Ex: Ambanidia"
+                },
+                "date": {
+                "label": "Date"
+                }
+            },
+            "contactInfo": {
+                "title": "Contact information",
+                "email": {
+                "label": "Email address",
+                "placeholder": "example@email.com"
+                },
+                "phone": {
+                "label": "Phone",
+                "placeholder": "033XXXXXXX / +26133XXXXXXX",
+                "invalid": "Invalid format"
+                }
+            },
+            "buttons": {
+                "back": "Back",
+                "continue": "Continue"
+            }
         }
     }
 }

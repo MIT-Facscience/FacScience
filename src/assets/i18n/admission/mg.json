@@ -259,6 +259,40 @@
                 "verify": "Hamarinina",
                 "verifying": "Fanamarinana..."
             }
+        },
+        "stepTwoThree": {
+            "choosePortal": "Safidio ny vavahadinao",
+            "loadingPortals": "Fanodinana vavahady...",
+            "bankInfo": {
+                "title": "Filazana momba ny banky",
+                "reference": {
+                "label": "Fampidirana banky",
+                "placeholder": "Ohatra: YMA7730/COT"
+                },
+                "agency": {
+                "label": "Masontany",
+                "placeholder": "Ohatra: Ambanidia"
+                },
+                "date": {
+                "label": "Daty"
+                }
+            },
+            "contactInfo": {
+                "title": "Filazana ifandraisana",
+                "email": {
+                "label": "Adiresy mailaka",
+                "placeholder": "ohatra@mailaka.com"
+                },
+                "phone": {
+                "label": "Finday",
+                "placeholder": "033XXXXXXX / +26133XXXXXXX",
+                "invalid": "Endrika tsy manara-dalàna"
+                }
+            },
+            "buttons": {
+                "back": "Hiverina",
+                "continue": "Hanohy"
+            }
         }
     }
 }
