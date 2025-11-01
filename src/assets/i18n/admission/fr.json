@@ -351,43 +351,43 @@
             "title": "Informations personnelles",
             "fields": {
                 "firstName": {
-                "label": "Prénom",
-                "error": "Le prénom est requis"
+                    "label": "Prénom",
+                    "error": "Le prénom est requis"
                 },
                 "lastName": {
-                "label": "Nom", 
-                "error": "Le nom est requis"
+                    "label": "Nom", 
+                    "error": "Le nom est requis"
                 },
                 "email": {
-                "label": "Email",
-                "error": {
-                    "required": "L'email est requis",
-                    "invalid": "Format d'email invalide"
-                }
+                    "label": "Email",
+                    "error": {
+                        "required": "L'email est requis",
+                        "invalid": "Format d'email invalide"
+                    }
                 },
                 "telephone": {
-                "label": "Téléphone",
-                "error": "Le téléphone est requis"
+                    "label": "Téléphone",
+                    "error": "Le téléphone est requis"
                 },
                 "bacNationality": {
-                "label": "Etablissement d'origine",
-                "error": "L'établissement est requis"
+                    "label": "Etablissement d'origine",
+                    "error": "L'établissement est requis"
                 },
                 "personalNationality": {
-                "label": "Nationalité",
-                "error": "La nationalité est requise"
+                    "label": "Nationalité",
+                    "error": "La nationalité est requise"
                 },
                 "reference": {
-                "label": "Référence de paiement",
-                "error": "Référence requise"
+                    "label": "Référence de paiement",
+                    "error": "Référence requise"
                 },
                 "agenceRef": {
-                "label": "Agence",
-                "error": "Agence requise"
+                    "label": "Agence",
+                    "error": "Agence requise"
                 },
                 "dateRef": {
-                "label": "Date de paiement",
-                "error": "Date requise"
+                    "label": "Date de paiement",
+                    "error": "Date requise"
                 }
             },
             "buttons": {
@@ -398,9 +398,9 @@
             "title": "Documents & Programme",
             "documents": {
                 "diploma": {
-                "title": "Attestation de diplôme",
-                "chooseFile": "Choisir un fichier",
-                "fileSelected": "Fichier sélectionné"
+                    "title": "Attestation de diplôme",
+                    "chooseFile": "Choisir un fichier",
+                    "fileSelected": "Fichier sélectionné"
                 }
             },
             "program": {
@@ -410,6 +410,49 @@
                 "previous": "Précédent",
                 "continue": "Continuer",
                 "disabledTooltip": "Veuillez sélectionner un programme et un fichier de diplôme"
+            }
+        },
+        "stepThreeStranger": {
+            "beforeSubmission": {
+                "title": "Récapitulatif avant soumission",
+                "sections": {
+                "personalInfo": {
+                    "title": "Informations personnelles",
+                    "fields": {
+                        "fullName": "Nom complet",
+                        "email": "Email",
+                        "phone": "Téléphone",
+                        "nationality": "Nationalité",
+                        "institution": "Établissement d'origine"
+                    }
+                },
+                "program": {
+                    "title": "Programme choisi",
+                    "notSelected": "Non sélectionné"
+                },
+                "bankInfo": {
+                    "title": "Informations bancaires"
+                },
+                "documents": {
+                    "title": "Documents",
+                    "diploma": {
+                        "provided": "Diplôme fourni",
+                        "notProvided": "Diplôme non fourni"
+                    }
+                }
+                },
+                "buttons": {
+                    "back": "Retour",
+                    "submit": "Soumettre",
+                    "submitting": "Soumission en cours..."
+                }
+            },
+            "afterSubmission": {
+                "title": "Soumission réussie !",
+                "message": "Votre demande a été soumise avec succès.",
+                "buttons": {
+                    "printReceipt": "Imprimer le récépissé"
+                }
             }
         }
     }
