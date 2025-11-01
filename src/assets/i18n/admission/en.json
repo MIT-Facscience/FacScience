@@ -237,6 +237,26 @@
         "steps": {
             "malagasy": ["Information", "Confirmation"],
             "stranger": ["Personal Information", "Documents and background", "Confirmation"]
+        },
+        "stepOne": {
+            "title": "Eligibility Verification",
+            "subtitle": "Please enter your baccalaureate information",
+            "bacNumberLabel": "Baccalaureate number",
+            "bacNumberExample": "(Ex:3280151) *",
+            "gradYearLabel": "Graduation year",
+            "gradYearExample": "(Ex:2025) *",
+            "errors": {
+                "requiredFields": "Please fill in all required fields",
+                "invalidYear": "Invalid graduation year",
+                "candidateNotFound": "Candidate not found with this information",
+                "notEligible": "Your baccalaureate series does not allow you to apply to scientific programs",
+                "defaultError": "An error occurred",
+                "dataNotFound": "Data not found"
+            },
+            "buttons": {
+                "verify": "Verify",
+                "verifying": "Verifying..."
+            }
         }
     }
 }
