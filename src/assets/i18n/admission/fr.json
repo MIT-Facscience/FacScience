@@ -157,5 +157,86 @@
         "fileNames": {
             "noFileChosen": "Aucun fichier choisi"
         }
+    },
+    "preinscription": {
+        "title": "Pré-inscription en ligne",
+        "subtitle": "Simplifiez votre inscription à la Faculté des Sciences d'Antananarivo avec notre système de pré-inscription en ligne sécurisé.",
+        "processTitle": "Processus d'inscription en 4 étapes",
+        "steps": {
+            "eligibility": "Vérification d'éligibilité",
+            "programSelection": "Sélection du programme",
+            "personalInfo": "Information personnelle et référence bancaire",
+            "confirmation": "Confirmation et soumission"
+        },
+        "requirements": {
+            "documents": {
+                "title": "Documents requis",
+                "items": [
+                    "Relevé de notes du baccalauréat",
+                    "Reçu de paiement des frais de dossier"
+                ]
+            },
+            "deadlines": {
+                "title": "Délais",
+                "items": [
+                    "Période d'inscription ouverte",
+                    "Traitement sous 24-48h"
+                ]
+            },
+            "eligibleSeries": {
+                "title": "Séries éligibles",
+                "items": [
+                    "Série S, C, D pour tous les programmes",
+                    "Série S, C uniquement pour MIT"
+                ]
+            }
+        },
+        "importantNotice": {
+            "title": "Informations importantes",
+            "items": [
+                "Assurez-vous d'avoir tous les documents requis avant de commencer",
+                "Les fichiers doivent être au format image (PNG, JPG) et ne pas dépasser 5 MB",
+                "Une fois soumise, votre candidature ne peut plus être modifiée",
+                "Vous recevrez une confirmation par email dans les 24-48 heures"
+            ]
+        },
+        "cta": {
+            "start": "Commencer ma pré-inscription",
+            "securityNote": "Processus sécurisé • Données protégées • Support technique disponible"
+        }
+    },
+    "formulaire": {
+        "formationChoice": {
+            "title": "Choisissez votre type de formation",
+            "subtitle": "Sélectionnez le parcours qui correspond à votre projet",
+            "academic": {
+                "title": "Formation Académique",
+                "description": "Parcours orienté vers la recherche et l'approfondissement théorique. Idéal pour poursuivre en master et doctorat.",
+                "chooseButton": "Choisir Académique"
+            },
+            "professional": {
+                "title": "Formation Professionnalisante",
+                "description": "Parcours orienté vers l'insertion professionnelle rapide. Formation pratique et stages en entreprise.",
+                "physics": "Physique",
+                "chemistry": "Chimie", 
+                "svt": "SVT",
+                "chooseButton": "Choisir Professionnalisante"
+            }
+        },
+        "bacType": {
+            "malagasy": "Bacc Malagasy",
+            "foreign": "Bacc Étranger"
+        },
+        "currentFormation": {
+            "title": "Vous vous inscrivez en :",
+            "modify": "Modifier"
+        },
+        "support": {
+            "help": "Besoin d'aide ? Contactez le service des inscriptions :"
+        },
+        "steps": {
+            "malagasy": ["Informations", "Confirmation"],
+            "stranger": ["Information Personnelle", "Documents et parcours", "Confirmation"]
+        }
     }
 }

@@ -157,5 +157,86 @@
         "fileNames": {
             "noFileChosen": "No file chosen"
         }
+    },
+    "preinscription": {
+        "title": "Online Pre-registration",
+        "subtitle": "Simplify your enrollment at the Faculty of Sciences of Antananarivo with our secure online pre-registration system.",
+        "processTitle": "Registration process in 4 steps",
+        "steps": {
+            "eligibility": "Eligibility verification",
+            "programSelection": "Program selection",
+            "personalInfo": "Personal information and bank reference",
+            "confirmation": "Confirmation and submission"
+        },
+        "requirements": {
+            "documents": {
+                "title": "Required documents",
+                "items": [
+                    "Baccalaureate transcript",
+                    "Proof of payment of application fee"
+                ]
+            },
+            "deadlines": {
+                "title": "Deadlines",
+                "items": [
+                    "Registration period open",
+                    "Processing within 24-48 hours"
+                ]
+            },
+            "eligibleSeries": {
+                "title": "Eligible series",
+                "items": [
+                    "Series S, C, D for all programs",
+                    "Series S, C only for MIT"
+                ]
+            }
+        },
+        "importantNotice": {
+            "title": "Important information",
+            "items": [
+                "Make sure you have all required documents before starting",
+                "Files must be in image format (PNG, JPG) and not exceed 5 MB",
+                "Once submitted, your application cannot be modified",
+                "You will receive a confirmation email within 24-48 hours"
+            ]
+        },
+        "cta": {
+            "start": "Start my pre-registration",
+            "securityNote": "Secure process • Protected data • Technical support available"
+        }
+    },
+    "formulaire": {
+        "formationChoice": {
+            "title": "Choose your type of training",
+            "subtitle": "Select the path that matches your project",
+            "academic": {
+                "title": "Academic Training",
+                "description": "Path oriented towards research and theoretical deepening. Ideal for pursuing master's and doctorate.",
+                "chooseButton": "Choose Academic"
+            },
+            "professional": {
+                "title": "Professional Training",
+                "description": "Path oriented towards rapid professional integration. Practical training and internships in companies.",
+                "physics": "Physics",
+                "chemistry": "Chemistry",
+                "svt": "SVT", 
+                "chooseButton": "Choose Professional"
+            }
+        },
+        "bacType": {
+            "malagasy": "Malagasy Baccalaureate",
+            "foreign": "Foreign Baccalaureate"
+        },
+        "currentFormation": {
+            "title": "You are registering for:",
+            "modify": "Modify"
+        },
+        "support": {
+            "help": "Need help? Contact the registration service:"
+        },
+        "steps": {
+            "malagasy": ["Information", "Confirmation"],
+            "stranger": ["Personal Information", "Documents and background", "Confirmation"]
+        }
     }
 }

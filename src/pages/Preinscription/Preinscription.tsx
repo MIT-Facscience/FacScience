@@ -1,32 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Clock, CheckCircle, AlertTriangle, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Preinscription: React.FC = () => {
+  const { t } = useTranslation("admission");
+
   const requirements = [
     {
       icon: <FileText className="w-6 h-6 text-blue-600" />,
-      title: 'Documents requis',
-      items: ['Relevé de notes du baccalauréat', 'Reçu de paiement des frais de dossier']
+      title: t("preinscription.requirements.documents.title"),
+      items: t("preinscription.requirements.documents.items", { returnObjects: true })
     },
     {
       icon: <Clock className="w-6 h-6 text-orange-600" />,
-      title: 'Délais',
-      items: ['Période d\'inscription ouverte', 'Traitement sous 24-48h']
+      title: t("preinscription.requirements.deadlines.title"),
+      items: t("preinscription.requirements.deadlines.items", { returnObjects: true })
     },
     {
       icon: <CheckCircle className="w-6 h-6 text-green-600" />,
-      title: 'Séries éligibles',
-      items: ['Série S, C, D pour tous les programmes', 'Série S, C uniquement pour MIT']
+      title: t("preinscription.requirements.eligibleSeries.title"),
+      items: t("preinscription.requirements.eligibleSeries.items", { returnObjects: true })
     }
   ];
 
   const steps = [
-    'Vérification d\'éligibilité',
-    'Sélection du programme',
-    'Information personnelle et réferance bancaire',
-    'Confirmation et soumission'
+    t("preinscription.steps.eligibility"),
+    t("preinscription.steps.programSelection"),
+    t("preinscription.steps.personalInfo"),
+    t("preinscription.steps.confirmation")
   ];
+
+  const importantNoticeItems = t("preinscription.importantNotice.items", { returnObjects: true });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
@@ -34,18 +39,17 @@ const Preinscription: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Pré-inscription en ligne
+            {t("preinscription.title")}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Simplifiez votre inscription à la Faculté des Sciences d'Antananarivo 
-            avec notre système de pré-inscription en ligne sécurisé.
+            {t("preinscription.subtitle")}
           </p>
         </div>
 
         {/* Process Steps */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Processus d'inscription en 4 étapes
+            {t("preinscription.processTitle")}
           </h2>
           <div className="grid md:grid-cols-4 gap-6">
             {steps.map((step, index) => (
@@ -68,7 +72,7 @@ const Preinscription: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900">{req.title}</h3>
               </div>
               <ul className="space-y-2">
-                {req.items.map((item, itemIndex) => (
+                {Array.isArray(req.items) && req.items.map((item, itemIndex) => (
                   <li key={itemIndex} className="text-sm text-gray-600 flex items-start space-x-2">
                     <span className="w-1.5 h-1.5 bg-faculty-purple-600 rounded-full mt-2 flex-shrink-0"></span>
                     <span>{item}</span>
@@ -84,12 +88,13 @@ const Preinscription: React.FC = () => {
           <div className="flex items-start space-x-3">
             <AlertTriangle className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-semibold text-orange-900 mb-2">Informations importantes</h3>
+              <h3 className="font-semibold text-orange-900 mb-2">
+                {t("preinscription.importantNotice.title")}
+              </h3>
               <ul className="text-sm text-orange-800 space-y-1">
-                <li>• Assurez-vous d'avoir tous les documents requis avant de commencer</li>
-                <li>• Les fichiers doivent être au format image (PNG, JPG) et ne pas dépasser 5 MB</li>
-                <li>• Une fois soumise, votre candidature ne peut plus être modifiée</li>
-                <li>• Vous recevrez une confirmation par email dans les 24-48 heures</li>
+                {Array.isArray(importantNoticeItems) && importantNoticeItems.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -101,11 +106,11 @@ const Preinscription: React.FC = () => {
             to="/formulaire"
             className="inline-flex items-center bg-faculty-purple-700 hover:bg-faculty-purple-800 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 space-x-3"
           >
-            <span>Commencer ma pré-inscription</span>
+            <span>{t("preinscription.cta.start")}</span>
             <ArrowRight className="w-5 h-5" />
           </Link>
           <p className="text-sm text-gray-500 mt-4">
-            Processus sécurisé • Données protégées • Support technique disponible
+            {t("preinscription.cta.securityNote")}
           </p>
         </div>
       </div>
