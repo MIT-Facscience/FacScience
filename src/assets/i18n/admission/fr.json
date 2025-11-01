@@ -346,6 +346,53 @@
                 "unknownErrorDetail": "Une erreur inattendue est survenue",
                 "connectionError": "Erreur de connexion"
             }
+        },
+        "stepOneStranger": {
+            "title": "Informations personnelles",
+            "fields": {
+                "firstName": {
+                "label": "Prénom",
+                "error": "Le prénom est requis"
+                },
+                "lastName": {
+                "label": "Nom", 
+                "error": "Le nom est requis"
+                },
+                "email": {
+                "label": "Email",
+                "error": {
+                    "required": "L'email est requis",
+                    "invalid": "Format d'email invalide"
+                }
+                },
+                "telephone": {
+                "label": "Téléphone",
+                "error": "Le téléphone est requis"
+                },
+                "bacNationality": {
+                "label": "Etablissement d'origine",
+                "error": "L'établissement est requis"
+                },
+                "personalNationality": {
+                "label": "Nationalité",
+                "error": "La nationalité est requise"
+                },
+                "reference": {
+                "label": "Référence de paiement",
+                "error": "Référence requise"
+                },
+                "agenceRef": {
+                "label": "Agence",
+                "error": "Agence requise"
+                },
+                "dateRef": {
+                "label": "Date de paiement",
+                "error": "Date requise"
+                }
+            },
+            "buttons": {
+                "continue": "Continuer"
+            }
         }
     }
 }

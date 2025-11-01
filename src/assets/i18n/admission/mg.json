@@ -348,6 +348,53 @@
                 "unknownErrorDetail": "Nisy olana tsy nampoizina nitranga",
                 "connectionError": "Hadisoana fifandraisana"
             }
+        },
+        "stepOneStranger": {
+            "title": "Filazana manokana",
+            "fields": {
+                "firstName": {
+                "label": "Anarana",
+                "error": "Ilaina ny anarana"
+                },
+                "lastName": {
+                "label": "Fanampin'anarana",
+                "error": "Ilaina ny fanampin'anarana"
+                },
+                "email": {
+                "label": "Mailaka",
+                "error": {
+                    "required": "Ilaina ny mailaka",
+                    "invalid": "Endrika mailaka tsy manara-dalàna"
+                }
+                },
+                "telephone": {
+                "label": "Finday",
+                "error": "Ilaina ny finday"
+                },
+                "bacNationality": {
+                "label": "Tranonkalan-dehibe niaviana",
+                "error": "Ilaina ny tranonkalan-dehibe"
+                },
+                "personalNationality": {
+                "label": "Zom-pirenena",
+                "error": "Ilaina ny zom-pirenena"
+                },
+                "reference": {
+                "label": "Fampidirana fandoavam-bola",
+                "error": "Ilaina ny fampidirana"
+                },
+                "agenceRef": {
+                "label": "Masontany",
+                "error": "Ilaina ny masontany"
+                },
+                "dateRef": {
+                "label": "Daty fandoavam-bola",
+                "error": "Ilaina ny daty"
+                }
+            },
+            "buttons": {
+                "continue": "Hanohy"
+            }
         }
     }
 }

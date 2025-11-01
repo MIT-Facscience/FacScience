@@ -346,6 +346,53 @@
                 "unknownErrorDetail": "An unexpected error occurred",
                 "connectionError": "Connection error"
             }
+        },
+        "stepOneStranger": {
+            "title": "Personal Information",
+            "fields": {
+                "firstName": {
+                "label": "First Name",
+                "error": "First name is required"
+                },
+                "lastName": {
+                "label": "Last Name",
+                "error": "Last name is required"
+                },
+                "email": {
+                "label": "Email",
+                "error": {
+                    "required": "Email is required",
+                    "invalid": "Invalid email format"
+                }
+                },
+                "telephone": {
+                "label": "Phone",
+                "error": "Phone is required"
+                },
+                "bacNationality": {
+                "label": "Institution of Origin",
+                "error": "Institution is required"
+                },
+                "personalNationality": {
+                "label": "Nationality",
+                "error": "Nationality is required"
+                },
+                "reference": {
+                "label": "Payment Reference",
+                "error": "Reference is required"
+                },
+                "agenceRef": {
+                "label": "Agency",
+                "error": "Agency is required"
+                },
+                "dateRef": {
+                "label": "Payment Date",
+                "error": "Date is required"
+                }
+            },
+            "buttons": {
+                "continue": "Continue"
+            }
         }
     }
 }
