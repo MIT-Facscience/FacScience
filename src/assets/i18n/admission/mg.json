@@ -239,6 +239,26 @@
         "steps": {
             "malagasy": ["Fampahalalana", "Fanamarinana"],
             "stranger": ["Fampahalalana manokana", "Taratasy sy lalana", "Fanamarinana"]
+        },
+        "stepOne": {
+            "title": "Fanamarinana fahafahana miditra",
+            "subtitle": "Ampidiro ny filazana momba ny bakalorea",
+            "bacNumberLabel": "Laharana bakalorea",
+            "bacNumberExample": "(Ohatra:3280151) *",
+            "gradYearLabel": "Taona nahazoana ny bakalorea",
+            "gradYearExample": "(Ohatra:2025) *",
+            "errors": {
+                "requiredFields": "Fenoy ny bokotra rehetra ilaina",
+                "invalidYear": "Taona nahazoana tsy manara-dalàna",
+                "candidateNotFound": "Tsy hita ny mpikambana miaraka amin'ity fampahalalana ity",
+                "notEligible": "Ny karazana bakalorea anao tsy mahafaka anao hitory amin'ny programa siantifika",
+                "defaultError": "Nisy olana nitranga",
+                "dataNotFound": "Tsy hita ny angona"
+            },
+            "buttons": {
+                "verify": "Hamarinina",
+                "verifying": "Fanamarinana..."
+            }
         }
     }
 }

@@ -237,6 +237,26 @@
         "steps": {
             "malagasy": ["Informations", "Confirmation"],
             "stranger": ["Information Personnelle", "Documents et parcours", "Confirmation"]
+        },
+        "stepOne": {
+            "title": "Vérification d'éligibilité",
+            "subtitle": "Veuillez saisir vos informations de baccalauréat",
+            "bacNumberLabel": "Numéro de baccalauréat",
+            "bacNumberExample": "(Ex:3280151) *",
+            "gradYearLabel": "Année de graduation", 
+            "gradYearExample": "(Ex:2025) *",
+            "errors": {
+                "requiredFields": "Veuillez remplir tous les champs requis",
+                "invalidYear": "Année de graduation invalide",
+                "candidateNotFound": "Candidat introuvable avec ces informations",
+                "notEligible": "Votre série de baccalauréat ne vous permet pas de postuler aux programmes scientifiques",
+                "defaultError": "Une erreur est survenue",
+                "dataNotFound": "Données introuvables"
+            },
+            "buttons": {
+                "verify": "Vérifier",
+                "verifying": "Vérification en cours..."
+            }
         }
     }
 }
