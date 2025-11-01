@@ -351,43 +351,43 @@
             "title": "Personal Information",
             "fields": {
                 "firstName": {
-                "label": "First Name",
-                "error": "First name is required"
+                    "label": "First Name",
+                    "error": "First name is required"
                 },
                 "lastName": {
-                "label": "Last Name",
-                "error": "Last name is required"
+                    "label": "Last Name",
+                    "error": "Last name is required"
                 },
                 "email": {
-                "label": "Email",
-                "error": {
-                    "required": "Email is required",
-                    "invalid": "Invalid email format"
-                }
+                    "label": "Email",
+                    "error": {
+                        "required": "Email is required",
+                        "invalid": "Invalid email format"
+                    }
                 },
                 "telephone": {
-                "label": "Phone",
-                "error": "Phone is required"
+                    "label": "Phone",
+                    "error": "Phone is required"
                 },
                 "bacNationality": {
-                "label": "Institution of Origin",
-                "error": "Institution is required"
+                    "label": "Institution of Origin",
+                    "error": "Institution is required"
                 },
                 "personalNationality": {
-                "label": "Nationality",
-                "error": "Nationality is required"
+                    "label": "Nationality",
+                    "error": "Nationality is required"
                 },
                 "reference": {
-                "label": "Payment Reference",
-                "error": "Reference is required"
+                    "label": "Payment Reference",
+                    "error": "Reference is required"
                 },
                 "agenceRef": {
-                "label": "Agency",
-                "error": "Agency is required"
+                    "label": "Agency",
+                    "error": "Agency is required"
                 },
                 "dateRef": {
-                "label": "Payment Date",
-                "error": "Date is required"
+                    "label": "Payment Date",
+                    "error": "Date is required"
                 }
             },
             "buttons": {
@@ -398,9 +398,9 @@
             "title": "Documents & Program",
             "documents": {
                 "diploma": {
-                "title": "Diploma Certificate",
-                "chooseFile": "Choose a file",
-                "fileSelected": "File selected"
+                    "title": "Diploma Certificate",
+                    "chooseFile": "Choose a file",
+                    "fileSelected": "File selected"
                 }
             },
             "program": {
@@ -410,6 +410,49 @@
                 "previous": "Previous",
                 "continue": "Continue",
                 "disabledTooltip": "Please select a program and a diploma file"
+            }
+        },
+        "stepThreeStranger": {
+            "beforeSubmission": {
+                "title": "Summary before submission",
+                "sections": {
+                "personalInfo": {
+                    "title": "Personal Information",
+                    "fields": {
+                        "fullName": "Full name",
+                        "email": "Email",
+                        "phone": "Phone",
+                        "nationality": "Nationality",
+                        "institution": "Institution of origin"
+                    }
+                },
+                "program": {
+                    "title": "Selected Program",
+                    "notSelected": "Not selected"
+                },
+                "bankInfo": {
+                    "title": "Bank Information"
+                },
+                "documents": {
+                    "title": "Documents",
+                    "diploma": {
+                        "provided": "Diploma provided",
+                        "notProvided": "Diploma not provided"
+                    }
+                }
+                },
+                "buttons": {
+                    "back": "Back",
+                    "submit": "Submit",
+                    "submitting": "Submitting..."
+                }
+            },
+            "afterSubmission": {
+                "title": "Submission Successful!",
+                "message": "Your application has been successfully submitted.",
+                "buttons": {
+                    "printReceipt": "Print receipt"
+                }
             }
         }
     }

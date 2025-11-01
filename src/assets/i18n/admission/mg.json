@@ -413,6 +413,49 @@
                 "continue": "Hanohy",
                 "disabledTooltip": "Mifidiana programa sy rakitra diplaoma azafady"
             }
+        },
+        "stepThreeStranger": {
+            "beforeSubmission": {
+                "title": "Famintinana alohan'ny fandefasana",
+                "sections": {
+                "personalInfo": {
+                    "title": "Filazana manokana",
+                    "fields": {
+                        "fullName": "Anarana feno",
+                        "email": "Mailaka",
+                        "phone": "Finday",
+                        "nationality": "Zom-pirenena",
+                        "institution": "Tranonkalan-dehibe niaviana"
+                    }
+                },
+                "program": {
+                    "title": "Programma nofidina",
+                    "notSelected": "Tsy voafidy"
+                },
+                "bankInfo": {
+                    "title": "Filazana momba ny banky"
+                },
+                "documents": {
+                    "title": "Antontan-taratasy",
+                    "diploma": {
+                        "provided": "Nomena diplaoma",
+                        "notProvided": "Tsy nomena diplaoma"
+                    }
+                }
+                },
+                "buttons": {
+                    "back": "Hiverina",
+                    "submit": "Alefa",
+                    "submitting": "Alefa..."
+                }
+            },
+            "afterSubmission": {
+                "title": "Nalevana soa aman-tsara!",
+                "message": "Nalevana soa aman-tsara ny fangatahanao.",
+                "buttons": {
+                    "printReceipt": "Printy ny rosia"
+                }
+            }
         }
     }
 }
