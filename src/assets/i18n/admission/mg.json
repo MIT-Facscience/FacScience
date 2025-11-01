@@ -395,6 +395,24 @@
             "buttons": {
                 "continue": "Hanohy"
             }
+        },
+        "stepTwoStranger": {
+            "title": "Antontan-taratasy & Programme",
+            "documents": {
+                "diploma": {
+                "title": "Fanamarinana diplaoma",
+                "chooseFile": "Misafidia rakitra",
+                "fileSelected": "Rakitra nofidina"
+                }
+            },
+            "program": {
+                "title": "Safidio ny programmao"
+            },
+            "buttons": {
+                "previous": "Hiverina",
+                "continue": "Hanohy",
+                "disabledTooltip": "Mifidiana programa sy rakitra diplaoma azafady"
+            }
         }
     }
 }

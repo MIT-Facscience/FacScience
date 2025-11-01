@@ -393,6 +393,24 @@
             "buttons": {
                 "continue": "Continue"
             }
+        },
+        "stepTwoStranger": {
+            "title": "Documents & Program",
+            "documents": {
+                "diploma": {
+                "title": "Diploma Certificate",
+                "chooseFile": "Choose a file",
+                "fileSelected": "File selected"
+                }
+            },
+            "program": {
+                "title": "Choose your program"
+            },
+            "buttons": {
+                "previous": "Previous",
+                "continue": "Continue",
+                "disabledTooltip": "Please select a program and a diploma file"
+            }
         }
     }
 }
