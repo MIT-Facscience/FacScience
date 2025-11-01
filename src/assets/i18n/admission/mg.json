@@ -293,6 +293,61 @@
                 "back": "Hiverina",
                 "continue": "Hanohy"
             }
+        },
+        "stepFour": {
+            "confirmation": {
+                "title": "Fanamafisana ny fangatahanao",
+                "subtitle": "Jereo ny filazanao alohan'ny handefasana ny fangatahana fisoratana anarana",
+                "summaryTitle": "Famintinana ny fangatahanao :",
+                "candidateInfo": "Filazana momba ny mpikambana",
+                "fullName": "Anarana feno :",
+                "bacNumber": "Laharana BAC :",
+                "bacYear": "Taonan'ny BAC :",
+                "series": "Karazana :",
+                "program": "Programma nofidina",
+                "contactInfo": "Filazana ifandraisana",
+                "bankInfo": "Fampidirana banky",
+                "warning": {
+                "title": "Fampitandrena :",
+                "message": "Raha alefa, tsy azo ovaina intsony ny fangatahanao. Ataovy izay hahazoana antoka fa marina ny filazana rehetra."
+                }
+            },
+            "submission": {
+                "submitting": "Alefa...",
+                "submit": "Alefa ny fangatahana"
+            },
+            "success": {
+                "title": "Arahabaina !",
+                "message": "Nalevana soa aman-tsara ny fangatahana fisoratana anarana",
+                "preinscriptionNumber": "Laharana fisoratana anarana :",
+                "finalSummary": "Famintinana farany",
+                "candidate": "Mpikambana :",
+                "program": "Programma :",
+                "email": "Mailaka :",
+                "phone": "Finday :"
+            },
+            "nextSteps": {
+                "title": "Dingana manaraka :",
+                "emailConfirmation": "Hahazo mailaka fanamafisana ianao amin'ny {email}",
+                "documentVerification": "Ho verifien'ny ekipanay ny antontan-taratasinao",
+                "resultsPublication": "Hoboaka ny 15 Septembre 2025 ny vokatra",
+                "keepNumber": "Ataovy ny laharan'ny fisoratana anaranao hanarahan-dia : {number}"
+            },
+            "help": {
+                "title": "Mila fanampiana ?",
+                "email": "scolarite@sciences.univ-antananarivo.mg",
+                "phone": "+261 20 22 279 95"
+            },
+            "buttons": {
+                "back": "Hiverina",
+                "printReceipt": "Printy ny rosia",
+                "returnHome": "Hiverina any an-tranony"
+            },
+            "errors": {
+                "unknownError": "Hadisoana tsy fantatra",
+                "unknownErrorDetail": "Nisy olana tsy nampoizina nitranga",
+                "connectionError": "Hadisoana fifandraisana"
+            }
         }
     }
 }

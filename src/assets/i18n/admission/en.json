@@ -291,6 +291,61 @@
                 "back": "Back",
                 "continue": "Continue"
             }
+        },
+        "stepFour": {
+            "confirmation": {
+                "title": "Confirmation of your application",
+                "subtitle": "Check your information before submitting your pre-registration application",
+                "summaryTitle": "Summary of your application:",
+                "candidateInfo": "Candidate information",
+                "fullName": "Full name:",
+                "bacNumber": "BAC number:",
+                "bacYear": "BAC year:",
+                "series": "Series:",
+                "program": "Chosen program",
+                "contactInfo": "Contact information",
+                "bankInfo": "Bank reference",
+                "warning": {
+                "title": "Warning:",
+                "message": "Once submitted, your application cannot be modified. Make sure all information is correct."
+                }
+            },
+            "submission": {
+                "submitting": "Submitting...",
+                "submit": "Submit application"
+            },
+            "success": {
+                "title": "Congratulations!",
+                "message": "Your pre-registration application has been successfully submitted",
+                "preinscriptionNumber": "Pre-registration number:",
+                "finalSummary": "Final summary",
+                "candidate": "Candidate:",
+                "program": "Program:",
+                "email": "Email:",
+                "phone": "Phone:"
+            },
+            "nextSteps": {
+                "title": "Next steps:",
+                "emailConfirmation": "You will receive a confirmation email at {email}",
+                "documentVerification": "Your documents will be verified by our administrative team",
+                "resultsPublication": "Pre-selection results will be published on September 15, 2025",
+                "keepNumber": "Keep your pre-registration number for tracking: {number}"
+            },
+            "help": {
+                "title": "Need help?",
+                "email": "scolarite@sciences.univ-antananarivo.mg",
+                "phone": "+261 20 22 279 95"
+            },
+            "buttons": {
+                "back": "Back",
+                "printReceipt": "Print receipt",
+                "returnHome": "Return to home"
+            },
+            "errors": {
+                "unknownError": "Unknown error",
+                "unknownErrorDetail": "An unexpected error occurred",
+                "connectionError": "Connection error"
+            }
         }
     }
 }

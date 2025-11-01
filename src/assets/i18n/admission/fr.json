@@ -291,6 +291,61 @@
                 "back": "Retour",
                 "continue": "Continuer"
             }
+        },
+        "stepFour": {
+            "confirmation": {
+                "title": "Confirmation de votre demande",
+                "subtitle": "Vérifiez vos informations avant de soumettre votre demande de pré-inscription",
+                "summaryTitle": "Récapitulatif de votre demande :",
+                "candidateInfo": "Informations du candidat",
+                "fullName": "Nom complet :",
+                "bacNumber": "Numéro BAC :",
+                "bacYear": "Année BAC :",
+                "series": "Série :",
+                "program": "Programme choisi",
+                "contactInfo": "Informations de contact",
+                "bankInfo": "Référence bancaire",
+                "warning": {
+                "title": "Attention :",
+                "message": "Une fois soumise, votre demande ne pourra plus être modifiée. Assurez-vous que toutes les informations sont correctes."
+                }
+            },
+            "submission": {
+                "submitting": "Soumission en cours...",
+                "submit": "Soumettre la demande"
+            },
+            "success": {
+                "title": "Félicitations !",
+                "message": "Votre demande de pré-inscription a été soumise avec succès",
+                "preinscriptionNumber": "Numéro de préinscription :",
+                "finalSummary": "Récapitulatif final",
+                "candidate": "Candidat :",
+                "program": "Programme :",
+                "email": "Email :",
+                "phone": "Téléphone :"
+            },
+            "nextSteps": {
+                "title": "Prochaines étapes :",
+                "emailConfirmation": "Vous recevrez un email de confirmation à {email}",
+                "documentVerification": "Vos documents seront vérifiés par notre équipe administrative",
+                "resultsPublication": "Les résultats de pré-sélection seront publiés le 15 septembre 2025",
+                "keepNumber": "Conservez votre numéro de préinscription pour le suivi : {number}"
+            },
+            "help": {
+                "title": "Besoin d'aide ?",
+                "email": "scolarite@sciences.univ-antananarivo.mg",
+                "phone": "+261 20 22 279 95"
+            },
+            "buttons": {
+                "back": "Retour",
+                "printReceipt": "Imprimer le récépissé",
+                "returnHome": "Retourner à l'accueil"
+            },
+            "errors": {
+                "unknownError": "Erreur inconnue",
+                "unknownErrorDetail": "Une erreur inattendue est survenue",
+                "connectionError": "Erreur de connexion"
+            }
         }
     }
 }
