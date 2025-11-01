@@ -393,6 +393,24 @@
             "buttons": {
                 "continue": "Continuer"
             }
+        },
+        "stepTwoStranger": {
+            "title": "Documents & Programme",
+            "documents": {
+                "diploma": {
+                "title": "Attestation de diplôme",
+                "chooseFile": "Choisir un fichier",
+                "fileSelected": "Fichier sélectionné"
+                }
+            },
+            "program": {
+                "title": "Choisissez votre programme"
+            },
+            "buttons": {
+                "previous": "Précédent",
+                "continue": "Continuer",
+                "disabledTooltip": "Veuillez sélectionner un programme et un fichier de diplôme"
+            }
         }
     }
 }
