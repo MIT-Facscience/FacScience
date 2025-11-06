@@ -13,10 +13,13 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import {useTranslation} from "react-i18next";
 
 export default function HistoirePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);
   const [nbMentions, setNbMentions] = useState(14);
+
+  const { t } = useTranslation("presentation");
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/stat/enseignant`)
@@ -40,105 +43,79 @@ export default function HistoirePage() {
       });
   }, []);
 
-  // const timelineEvents = [
-  //   {
-  //     year: "1961",
-  //     title: "Fondation de la Faculté",
-  //     description: "Création de la Faculté des Sciences de l'Université d'Antananarivo, qui se positionne en tant que leader du secteur de l'enseignement supérieur scientifique à Madagascar.",
-  //     icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-primary"
-  //   },
-  //   {
-  //     year: "",
-  //     title: "Expansion des Départements",
-  //     description: "Création des départements de Physique, Chimie et Biologie pour répondre aux besoins croissants du pays en formation scientifique.",
-  //     icon: <Microscope className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-amber-500"
-  //   },
-  //   {
-  //     year: "",
-  //     title: "Modernisation des Laboratoires",
-  //     description: "Mise en place de laboratoires modernes et acquisition d'équipements de pointe pour la recherche et l'enseignement.",
-  //     icon: <Award className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-primary"
-  //   },
-  //   {
-  //     year: "",
-  //     title: "Partenariats Internationaux",
-  //     description: "Développement de collaborations avec des universités européennes et africaines, programmes d'échange étudiants et enseignants.",
-  //     icon: <Globe className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-amber-600"
-  //   },
-  //   {
-  //     year: "",
-  //     title: "Campus Numérique",
-  //     description: "Lancement du projet de digitalisation avec l'introduction de plateformes d'apprentissage en ligne et de laboratoires virtuels.",
-  //     icon: <Users className="h-4 w-4 sm:h-5 sm:w-5" />,
-  //     color: "bg-primary"
-  //   }
-  // ]
+   const timelineIcons = {
+    foundation: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
+    departments: <Microscope className="h-4 w-4 sm:h-5 sm:w-5" />,
+    infrastructure: <FlaskConical className="h-4 w-4 sm:h-5 sm:w-5" />,
+    international: <Globe className="h-4 w-4 sm:h-5 sm:w-5" />,
+    innovation: <Laptop className="h-4 w-4 sm:h-5 sm:w-5" />,
+  };
 
-  const timelineEvents = [
+  const timelineColors = {
+    foundation: "bg-primary",
+    departments: "bg-amber-500",
+    infrastructure: "bg-primary",
+    international: "bg-amber-600",
+    innovation: "bg-primary",
+  };
+
+   const timelineEvents = [
     {
-      year: "1961",
-      title: "Fondation de la Faculté",
-      description:
-        "Mise en place de la Faculté des Sciences, comme pilier de l’enseignement supérieur scientifique à Madagascar.",
-      icon: <BookOpen className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-primary",
+      year: t('timeline.events.foundation.year'),
+      title: t('timeline.events.foundation.title'),
+      description: t('timeline.events.foundation.description'),
+      icon: timelineIcons.foundation,
+      color: timelineColors.foundation,
     },
     {
       year: "",
-      title: "Structuration des départements",
-      description:
-        "Organisation de filières en Physique, Chimie, Biologie, Mathématiques et Informatique.",
-      icon: <Microscope className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-amber-500",
+      title: t('timeline.events.departments.title'),
+      description: t('timeline.events.departments.description'),
+      icon: timelineIcons.departments,
+      color: timelineColors.departments,
     },
     {
       year: "",
-      title: "Développement des infrastructures",
-      description:
-        "Création et modernisation de laboratoires et bibliothèques pour soutenir l’enseignement et la recherche.",
-      icon: <FlaskConical className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-primary",
-    },
-    {
-      title: "Ouverture internationale",
-      description:
-        "Mise en place de collaborations avec des universités étrangères et accueil d’échanges étudiants.",
-      icon: <Globe className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-amber-600",
+      title: t('timeline.events.infrastructure.title'),
+      description: t('timeline.events.infrastructure.description'),
+      icon: timelineIcons.infrastructure,
+      color: timelineColors.infrastructure,
     },
     {
       year: "",
-      title: "Innovation pédagogique",
-      description:
-        "Introduction de formations numériques, plateformes d’apprentissage en ligne et projets modernes.",
-      icon: <Laptop className="h-4 w-4 sm:h-5 sm:w-5" />,
-      color: "bg-primary",
+      title: t('timeline.events.international.title'),
+      description: t('timeline.events.international.description'),
+      icon: timelineIcons.international,
+      color: timelineColors.international,
+    },
+    {
+      year: "",
+      title: t('timeline.events.innovation.title'),
+      description: t('timeline.events.innovation.description'),
+      icon: timelineIcons.innovation,
+      color: timelineColors.innovation,
     },
   ];
 
   const stats = [
     {
-      number: "60+",
-      label: "Années d'excellence",
+      number: t('stats.yearsExcellence.number'),
+      label: t('stats.yearsExcellence.label'),
       icon: <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />,
     },
     {
-      number: "5000+",
-      label: "Diplômés",
+      number: t('stats.graduates.number'),
+      label: t('stats.graduates.label'),
       icon: <Users className="h-5 w-5 sm:h-6 sm:w-6" />,
     },
     {
-      number: nbMentions,
-      label: "Mentions",
+      number: nbMentions.toString(),
+      label: t('stats.programs.label'),
       icon: <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />,
     },
     {
-      number: nbEnseignants,
-      label: "Enseignants",
+      number: nbEnseignants.toString(),
+      label: t('stats.teachers.label'),
       icon: <Microscope className="h-5 w-5 sm:h-6 sm:w-6" />,
     }
   ];
@@ -165,11 +142,13 @@ export default function HistoirePage() {
               </div>
               <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                  Notre Histoire
+                  {/* Notre Histoire */}
+                  {t("title")}
                 </h1>
                 <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                  Plus de 60 ans d'excellence académique et de contribution au
-                  développement scientifique de Madagascar
+                  {/* Plus de 60 ans d'excellence académique et de contribution au
+                  développement scientifique de Madagascar */}
+                  {t("subtitle")}
                 </p>
               </div>
             </motion.div>
@@ -216,20 +195,17 @@ export default function HistoirePage() {
                     <div className="p-2 bg-primary/90 text-white ">
                       <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
-                    <span>Notre Mission</span>
+                    <span>
+                      {t("mission.title")}
+                    </span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 sm:space-y-4">
                   <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                    Former des scientifiques de haut niveau capables de
-                    contribuer au développement durable de Madagascar et de la
-                    région de l'Océan Indien à travers l'excellence académique
-                    et la recherche innovante.
+                    {t("mission.firstMission")}
                   </p>
                   <p className="text-gray-600 text-sm sm:text-base">
-                    Nous nous engageons à fournir une éducation scientifique de
-                    qualité internationale tout en préservant nos valeurs
-                    culturelles et en répondant aux défis locaux.
+                    {t("mission.secondMission")}
                   </p>
                 </CardContent>
               </Card>
@@ -240,23 +216,20 @@ export default function HistoirePage() {
                     <div className="p-2 bg-amber-600 text-white">
                       <Globe className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
-                    <span>Notre Vision</span>
+                    <span>
+                      {t("vision.title")}
+                    </span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 sm:space-y-4">
                   <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                    « La science au service du développement »
+                    {t("vision.slogan")}
                   </p>
                   <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-                    Devenir un centre d'excellence reconnu internationalement
-                    pour l'enseignement supérieur et la recherche scientifique,
-                    tout en étant un acteur clé du développement
-                    socio-économique de Madagascar.
+                    {t("vision.firstVision")}
                   </p>
                   <p className="text-gray-600 text-sm sm:text-base">
-                    Nous aspirons à être une référence dans la formation de
-                    scientifiques engagés et innovants, capables de relever les
-                    défis du 21ème siècle.
+                   {t("vision.secondVision")}
                   </p>
                 </CardContent>
               </Card>
@@ -270,7 +243,7 @@ export default function HistoirePage() {
               className="mb-12 sm:mb-16"
             >
               <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-800">
-                Chronologie de notre développement
+                {t("timeline.title")}
               </h2>
 
               {/* Desktop Timeline */}
@@ -394,7 +367,7 @@ export default function HistoirePage() {
               <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-50 to-purple-100 text-white">
                 <CardHeader className="pb-4 sm:pb-6">
                   <CardTitle className="text-2xl sm:text-3xl text-center text-gray-500 mb-4 sm:mb-6">
-                    Nos Valeurs Fondamentales
+                    {t("value.title")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -404,11 +377,10 @@ export default function HistoirePage() {
                         <Award className="h-6 w-6 sm:h-8 sm:w-8 text-gray-50" />
                       </div>
                       <h3 className="text-lg sm:text-xl text-gray-600 font-semibold mb-2 sm:mb-3">
-                        Excellence
+                        {t("value.award.title")}
                       </h3>
                       <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                        Nous visons l'excellence dans tous nos programmes
-                        d'enseignement et de recherche.
+                        {t("value.award.infos")}
                       </p>
                     </div>
 
@@ -417,11 +389,10 @@ export default function HistoirePage() {
                         <Users className="h-6 w-6 sm:h-8 sm:w-8 text-gray-50" />
                       </div>
                       <h3 className="text-lg sm:text-xl text-gray-600 font-semibold mb-2 sm:mb-3">
-                        Collaboration
+                        {t("value.users.title")}
                       </h3>
                       <p className=" text-gray-600 text-sm sm:text-base leading-relaxed">
-                        Nous favorisons la collaboration entre étudiants,
-                        enseignants et partenaires internationaux.
+                        {t("value.users.infos")}
                       </p>
                     </div>
 
@@ -430,11 +401,10 @@ export default function HistoirePage() {
                         <Microscope className="h-6 w-6 sm:h-8 sm:w-8 text-gray-50" />
                       </div>
                       <h3 className="text-lg sm:text-xl text-gray-600 font-semibold mb-2 sm:mb-3">
-                        Innovation
+                        {t("value.innovation.title")}
                       </h3>
                       <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                        Nous encourageons l'innovation et la créativité dans la
-                        recherche scientifique.
+                        {t("value.innovation.infos")}
                       </p>
                     </div>
                   </div>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import { BACKEND_URL } from "@/lib/api";
-import { motion } from "framer-motion";
+import { motion} from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -20,7 +20,7 @@ import {
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 interface ResearchCenter {
   title: string;
   backgroundColor: string;
@@ -31,7 +31,8 @@ export default function HomePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);
   const [nbMentions, setNbMentions] = useState(14);
   const [nbLabo, setNbLabo] = useState(30);
-  
+  const { t } = useTranslation("home");
+
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/stat/enseignant`)
       .then((response) => response.json())
@@ -68,22 +69,22 @@ export default function HomePage() {
   const stats = [
     {
       number: "5000",
-      label: "Étudiants",
+      label: t("home.stats.students"),
       icon: <Users className="h-6 w-6" />,
     },
     {
       number: nbEnseignants,
-      label: "Enseignants",
+      label: t("home.stats.teachers"),
       icon: <Award className="h-6 w-6" />,
     },
     {
       number: nbMentions,
-      label: "Mentions",
+      label: t("home.stats.mentions"),
       icon: <BookOpen className="h-6 w-6" />,
     },
     {
       number: nbLabo,
-      label: "Laboratoires",
+      label: t("home.stats.laboratories"),
       icon: <Microscope className="h-6 w-6" />,
     },
   ];
@@ -92,35 +93,33 @@ export default function HomePage() {
     {
       id: 1,
       type: "event",
-      title: "Salon des Étudiants 2025",
-      date: "11-12 Septembre 2025",
-      time: "08h00 - 17h00",
-      location: "Amphithéâtre Principal",
-      description:
-        "Rencontrez les représentants des différents départements et découvrez nos formations",
+      title: t("home.news.items.event1.title"),
+      date: t("home.news.items.event1.date"),
+      time: t("home.news.items.event1.time"),
+      location: t("home.news.items.event1.location"),
+      description: t("home.news.items.event1.description"),
       urgent: true,
       icon: <Users className="h-4 w-4" />,
     },
     {
       id: 2,
       type: "inscription",
-      title: "Inscriptions Année 2025-2026",
-      date: "Jusqu'au 15 Novembre 2025",
-      time: "08h00 - 16h00",
-      location: "Bureau des Inscriptions",
-      description: "Période d'inscription pour la nouvelle année académique",
+      title: t("home.news.items.inscription1.title"),
+      date: t("home.news.items.inscription1.date"),
+      time: t("home.news.items.inscription1.time"),
+      location: t("home.news.items.inscription1.location"),
+      description: t("home.news.items.inscription1.description"),
       urgent: true,
       icon: <Calendar className="h-4 w-4" />,
     },
     {
       id: 3,
       type: "info",
-      title: "Journée Portes Ouvertes",
-      date: "15 Septembre 2025",
-      time: "09h00 - 15h00",
-      location: "Campus Principal",
-      description:
-        "Visitez nos laboratoires et rencontrez nos enseignants-chercheurs",
+      title: t("home.news.items.info1.title"),
+      date: t("home.news.items.info1.date"),
+      time: t("home.news.items.info1.time"),
+      location: t("home.news.items.info1.location"),
+      description: t("home.news.items.info1.description"),
       urgent: false,
       icon: <MapPin className="h-4 w-4" />,
     },
@@ -128,22 +127,22 @@ export default function HomePage() {
 
   const centers: ResearchCenter[] = [
     {
-      title: "Informatique et Technologie",
+      title: t("home.portals.items.it.title"),
       backgroundColor: "bg-gray-800",
       logoType: "/Logo_IT.jpg",
     },
     {
-      title: "Mathematique et Informatique",
+      title: t("home.portals.items.mi.title"),
       backgroundColor: "bg-slate-600",
       logoType: "/Logo_MI.jpg",
     },
     {
-      title: "Physique et Chimie",
+      title: t("home.portals.items.pc.title"),
       backgroundColor: "bg-green-600",
       logoType: "/Logo_ADD.jpg",
     },
     {
-      title: "SVT",
+      title: t("home.portals.items.svt.title"),
       backgroundColor: "bg-stone-500",
       logoType: "/Logo_BFA.jpg",
     },
@@ -162,12 +161,11 @@ export default function HomePage() {
                   <div className="flex items-center justify-center space-x-2 mb-4">
                     <Bell className="h-6 w-6 text-primary" />
                     <h2 className="text-3xl font-bold text-foreground">
-                      Dernières Actualités
+                      {t("home.news.title")}
                     </h2>
                   </div>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Restez informés des événements importants et des dates clés
-                    de la faculté
+                    {t("home.news.subtitle")}
                   </p>
                 </div>
 
@@ -179,7 +177,7 @@ export default function HomePage() {
                     >
                       {news.urgent && (
                         <div className="bg-[gent-clip-path] z-40 absolute top-3 -right-1.5 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground pl-5 pr-3 py-1 text-xs font-semibold">
-                          URGENT
+                          {t("home.news.urgent")}
                           <span className="right-0 top-full z-50 bg-red-400 absolute w-1.5 h-1.5 triangle" />
                         </div>
                       )}
@@ -208,11 +206,7 @@ export default function HomePage() {
                                   : "bg-destructive/10 text-foreground"
                               }`}
                             >
-                              {news.type === "event"
-                                ? "Événement"
-                                : news.type === "inscription"
-                                ? "Inscription"
-                                : "Information"}
+                              {t(`home.news.types.${news.type}`)}
                             </Badge>
                             <h3 className="font-semibold text-card-foreground text-lg leading-tight mb-2">
                               {news.title}
@@ -245,7 +239,7 @@ export default function HomePage() {
 
                 <div className="text-center w-full flex items-center justify-center mt-12">
                   <Link to="/actualites">
-                    <PrimaryButton>Voir toutes les actualités</PrimaryButton>
+                    <PrimaryButton>{t("home.news.seeAll")}</PrimaryButton>
                   </Link>
                 </div>
               </div>
@@ -260,11 +254,10 @@ export default function HomePage() {
           >
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-primary mb-4">
-                Faculté des Sciences
+                {t("home.presentation.title")}
               </h2>
               <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
-                Un centre d'excellence pour l'enseignement supérieur et la
-                recherche scientifique à Madagascar
+                {t("home.presentation.subtitle")}
               </p>
             </div>
 
@@ -276,7 +269,7 @@ export default function HomePage() {
               >
                 <img
                   src="/chalet.png"
-                  alt="Étudiants en bibliothèque"
+                  alt={t("home.presentation.title")}
                   className=" shadow-xl w-full h-80 object-cover"
                 />
               </motion.div>
@@ -288,28 +281,25 @@ export default function HomePage() {
                 className="space-y-6"
               >
                 <h3 className="text-2xl font-bold text-foreground">
-                  Excellence académique et innovation
+                  {t("home.presentation.heading")}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Depuis plus de 60 ans, la Faculté des Sciences de l'Université
-                  d'Antananarivo forme les futurs scientifiques et chercheurs de
-                  Madagascar. Nous offrons des programmes d'excellence dans {nbMentions + " "}
-                  mentions spécialisées.
+                  {t("home.presentation.paragraph1", { count: nbMentions })}
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Notre engagement envers la qualité de l'enseignement et la
-                  recherche de pointe nous positionne comme un acteur clé du
-                  développement scientifique et technologique de la région.
+                  {t("home.presentation.paragraph2")}
                 </p>
                 <div className="flex space-x-4">
                   <Button asChild className="rounded-none">
                     <Link to="/presentation/histoire">
-                      Notre Histoire
+                      {t("home.presentation.buttons.history")}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button variant="secondary" asChild className="rounded-none">
-                    <Link to="/formation">Nos Formations</Link>
+                    <Link to="/formation">
+                      {t("home.presentation.buttons.formations")}
+                    </Link>
                   </Button>
                 </div>
               </motion.div>
@@ -329,7 +319,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.6 }}
                 className="text-4xl md:text-5xl font-bold text-primary mb-5"
               >
-                Nos Portails
+                {t("home.portals.title")}
               </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 10 }}
@@ -337,7 +327,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.7 }}
                 className="text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed"
               >
-                Découvrez les grands parcours au sein de notre faculté
+                {t("home.portals.subtitle")}
               </motion.p>
             </div>
 
@@ -351,17 +341,14 @@ export default function HomePage() {
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
                   className="group bg-white shadow-lg overflow-hidden relative cursor-pointer h-[320px] border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
-                  {/* Ligne décorative en haut avec effet d'animation */}
                   <div className="h-1 bg-gradient-to-r from-primary to-primary/60 w-0 group-hover:w-full transition-all duration-500 mx-auto mt-6"></div>
 
-                  {/* Contenu texte */}
                   <div className="p-6 flex flex-col">
                     <h3 className="text-2xl font-semibold text-gray-800 mb-4 group-hover:text-primary transition-colors duration-300">
                       {center.title}
                     </h3>
                   </div>
 
-                  {/* Logo positionné en bas avec espacement réduit */}
                   <div className="mt-auto p-6 pt-0">
                     <div className="opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                       <img
@@ -372,15 +359,6 @@ export default function HomePage() {
                     </div>
                   </div>
                   
-                  {/* Indicateur d'interaction */}
-                  {/* <div className="absolute bottom-6 right-6 flex items-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-sm font-medium mr-2">Voir</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </div> */}
-                  
-                  {/* Overlay d'arrière-plan subtil au survol */}
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.div>
               ))}
@@ -395,24 +373,6 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="mb-20"
           >
-            {/* <div className="grid md:grid-cols-4 gap-6">
-              {stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="p-8 min-w-72 max-w-80 border-l-2 border-gray-300 hover:border-gray-400 transition-colors duration-300"
-                >
-                  <div className="text-left">
-                    <div className="text-7xl font-light text-gray-800 mb-4">
-                      {stat.number}
-                    </div>
-                    <div className="text-black-600 text-lg leading-relaxed">
-                      {stat.label}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div> */}
-
             <div className="grid md:grid-cols-4 gap-6 ">
               {stats.map((stat, index) => (
                 <motion.div
@@ -449,11 +409,10 @@ export default function HomePage() {
             <Card className="border-0 shadow-xl bg-gradient-to-br rounded-none from-primary/10 to-primary/20 overflow-hidden">
               <CardContent className="p-12 text-center">
                 <h2 className="text-4xl font-bold mb-6 text-primary">
-                  Rejoignez-nous
+                  {t("home.callToAction.title")}
                 </h2>
                 <p className="text-xl text-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-                  Découvrez nos programmes d'excellence et devenez acteur du
-                  développement scientifique de Madagascar
+                  {t("home.callToAction.subtitle")}
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                   <Button
@@ -462,7 +421,7 @@ export default function HomePage() {
                     className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold rounded-none"
                   >
                     <Link to="/formation">
-                      Découvrir nos formations
+                      {t("home.callToAction.buttons.formations")}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
@@ -472,7 +431,9 @@ export default function HomePage() {
                     size="lg"
                     className="border-2 border-secondary rounded-none text-secondary-foreground hover:bg-secondary/10 bg-transparent hover:text-secondary-foreground/90"
                   >
-                    <Link to="/contact">Nous contacter</Link>
+                    <Link to="/contact">
+                      {t("home.callToAction.buttons.contact")}
+                    </Link>
                   </Button>
                 </div>
               </CardContent>

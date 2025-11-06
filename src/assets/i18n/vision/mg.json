@@ -1,0 +1,41 @@
+{
+  "vision": {
+    "title": "Ny Vina sy Ny Tanjona",
+    "subtitle": "Ny vinanay ho an'ny ho avy sy ny tanjona stratejika mitarika ny fampandrosoanay",
+    "sections": {
+      "strategy": "STRATEJIA",
+      "vision": "Vina",
+      "slogan": "Think Global, Act National"
+    },
+    "news": [
+      {
+        "title": "Fiaraha-miasa iraisam-pirenena: Fikambanana miaraka amin'ny Oniversite vahiny",
+        "description": "Fifanaovan-tsonia ny fifanaraham-piaraha-miasa ho an'ny programa fifanakalozana sy fikarohana iarahana"
+      },
+      {
+        "title": "MPAMPIANATRA VAOVAO: Nahoana no faly izy ireo hanatevin-danja ny fakolite anay? ",
+        "description": "Fantaro ireo antony manosika ny mpampianatra mpikaroka vaovao anay"
+      }
+    ],
+    "events": [
+      {
+        "title": "Fampidirana nomerika",
+        "subtitle": "fanovana nomerikan'ny tatitra famaranana, asa soratra ary famoahana hafa",
+        "date": "Ho avy"
+      },
+      {
+        "title": "Famelabelaran-kevitra momba ny Fanavaozana Teknolojika",
+        "subtitle": "eo amin'ny mpandray anjara rehetra: mpianatra, mpampianatra, mpikaroka ary mpisehatra eo amin'ny indostria",
+        "date": "Ho avy"
+      }
+    ],
+    "presidentText": "Ny filoha vaovaon'ny Oniversiten'Antananarivo dia nisafidy ny teny faneva « Think Global, Act National » ho sori-dalana hitondrana ny politika sy ny hetsika rehetra ataon'ny Oniversite. Noho izany, ny paikadin-tserasera, ary koa ny fandikana azy eo amin'ny sehatra fampiharana, dia hihodina manodidina an'io. Mifikitra amin'ny soatoavina maoderina eo an-tampon'ny teknolojia ny Oniversiten'Antananarivo. Mifandray amin'izao tontolo izao izy amin'ny fomba rehetra. Iray amin'ireo mpitarika eo amin'ny sehatry ny fampiofanana sy ny fikarohana izy. Araka izany, dia mamolavola fampiofanana mifanaraka amin'ny tena ilain'ny fiarahamonina izy. Ny Oniversiten'Antananarivo, izay fivodronan'ny manam-pahaizana, dia mijanona ho feo henoina ao anatin'ny adihevitra (ampahibemaso). Mijanona ho fitaratra manerantany eo amin'ny sehatra akademika noho ireo mpiara-miasa aminy sy ny maintimolaliny.",
+    "stats": {
+      "employmentRate": "Tahan'ny asa",
+      "publications": "Famoahana isan-taona"
+    },
+    "links": {
+      "moreEvents": "Hijery hetsika hafa"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+    "publications": {
+      "title": "Famoahana Siantifika",
+      "description": "Fantaro ny fikarohana sy fandraisana anjara akademika farany amin’ny sehatra mandroso",
+      "searchPlaceholder": "Karohy amin’ny lohateny, mpanoratra na teny fanalahidy...",
+      "types": {
+        "all": "Karazana rehetra",
+        "journal": "Lahatsoratra anaty gazety siantifika",
+        "conference": "Fihaonambe",
+        "workshop": "Atrikasa",
+        "book": "Boky"
+      },
+      "years": {
+        "all": "Taona rehetra"
+      },
+      "found": "Famoahana hita",
+      "page": "Pejy {{current}} amin’ny {{total}}",
+      "loading": "Eo am-pakana ny famoahana...",
+      "errorTitle": "Oups ! Nisy olana nitranga",
+      "retry": "Avereno indray",
+      "noResults": "Tsy nisy famoahana hita",
+      "noResultsHint": "Andramo ovaina ny fepetra fikarohana",
+      "previous": "Teo aloha",
+      "next": "Manaraka",
+      "citationsFull": "famakiana",
+      "citationsShort": "fam.",
+      "authors": "Mpanoratra",
+      "venue": "Toerana navoaka",
+      "doi": "DOI",
+      "link": "Rohy"
+    },
+    "common": {
+      "loading": "Eo am-pakana...",
+      "search": "Karohy"
+    }
+  }
+  

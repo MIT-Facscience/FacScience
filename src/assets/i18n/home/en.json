@@ -1,1 +1,82 @@
-{}
+
+{
+  "home": {
+    "news": {
+      "title": "Latest News",
+      "subtitle": "Stay informed about important events and key dates at the faculty",
+      "seeAll": "See all news",
+      "urgent": "URGENT",
+      "types": {
+        "event": "Event",
+        "inscription": "Registration",
+        "info": "Information"
+      },
+      "items": {
+        "event1": {
+          "title": "Student Fair 2025",
+          "date": "September 11-12, 2025",
+          "time": "08:00 - 17:00",
+          "location": "Main Amphitheater",
+          "description": "Meet representatives from different departments and discover our programs"
+        },
+        "inscription1": {
+          "title": "Registration for 2025-2026 Academic Year",
+          "date": "Until November 15, 2025",
+          "time": "08:00 - 16:00",
+          "location": "Registration Office",
+          "description": "Registration period for the new academic year"
+        },
+        "info1": {
+          "title": "Open House Day",
+          "date": "September 15, 2025",
+          "time": "09:00 - 15:00",
+          "location": "Main Campus",
+          "description": "Visit our laboratories and meet our teacher-researchers"
+        }
+      }
+    },
+    "presentation": {
+      "title": "Faculty of Sciences",
+      "subtitle": "A center of excellence for higher education and scientific research in Madagascar",
+      "heading": "Academic excellence and innovation",
+      "paragraph1": "For over 60 years, the Faculty of Sciences of the University of Antananarivo has been training future scientists and researchers of Madagascar. We offer excellence programs in {count} specialized fields.",
+      "paragraph2": "Our commitment to teaching quality and cutting-edge research positions us as a key player in the scientific and technological development of the region.",
+      "buttons": {
+        "history": "Our History",
+        "formations": "Our Programs"
+      }
+    },
+    "portals": {
+      "title": "Our Portals",
+      "subtitle": "Discover the major pathways within our faculty",
+      "items": {
+        "it": {
+          "title": "Computer Science and Technology"
+        },
+        "mi": {
+          "title": "Mathematics and Computer Science"
+        },
+        "pc": {
+          "title": "Physics and Chemistry"
+        },
+        "svt": {
+          "title": "Life and Earth Sciences"
+        }
+      }
+    },
+    "stats": {
+      "students": "Students",
+      "teachers": "Teachers",
+      "mentions": "Fields",
+      "laboratories": "Laboratories"
+    },
+    "callToAction": {
+      "title": "Join Us",
+      "subtitle": "Discover our excellence programs and become an actor in Madagascar's scientific development",
+      "buttons": {
+        "formations": "Discover our programs",
+        "contact": "Contact us"
+      }
+    }
+  }
+}
