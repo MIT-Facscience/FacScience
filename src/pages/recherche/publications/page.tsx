@@ -12,6 +12,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface Publication {
   id: string;
@@ -31,6 +32,7 @@ const ITEMS_PER_PAGE = 4;
 const API_BASE_URL = "http://localhost:5194";
 
 export default function PublicationsPage() {
+  const { t } = useTranslation("publication");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<string>("all");
   const [selectedYear, setSelectedYear] = useState<string>("all");
@@ -45,11 +47,11 @@ export default function PublicationsPage() {
   const [error, setError] = useState<string | null>(null);
 
   const publicationTypes = [
-    { value: "all", label: "Tous types" },
-    { value: "journal", label: "Articles de revue" },
-    { value: "conference", label: "Conférences" },
-    { value: "workshop", label: "Ateliers" },
-    { value: "book", label: "Livres" },
+    { value: "all", label: t("publications.types.all") },
+    { value: "journal", label: t("publications.types.journal") },
+    { value: "conference", label: t("publications.types.conference") },
+    { value: "workshop", label: t("publications.types.workshop") },
+    { value: "book", label: t("publications.types.book") },
   ];
 
   // Années disponibles
@@ -242,14 +244,13 @@ export default function PublicationsPage() {
         <div className="container mx-auto h-64 sm:h-80 md:h-96 px-4 md:px-6 xl:px-8 pt-4 sm:pt-6 md:pt-8">
           <div className="text-center mb-6 sm:mb-8">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-hover to-ring bg-clip-text text-transparent mt-4 sm:mt-8 md:mt-12">
-              Publications Scientifiques
+              {t("publications.title")}
             </h1>
             <p
               className="text-base sm:text-lg max-w-2xl mx-auto mt-3 sm:mt-4 px-4"
               style={{ color: "#524751" }}
             >
-              Découvrez nos dernières recherches et contributions académiques
-              dans les domaines de pointe
+              {t("publications.description")}
             </p>
           </div>
 
@@ -261,7 +262,7 @@ export default function PublicationsPage() {
                 <Search className="absolute text-black left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5" />
                 <input
                   type="text"
-                  placeholder="Rechercher par titre, auteur ou mot-clé..."
+                  placeholder={t("publications.searchPlaceholder")}
                   className="w-full pl-10 sm:pl-12 text-slate-800 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-amber-200 bg-white/80 backdrop-blur-sm focus:ring-2 transition-all duration-200 rounded-md"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -298,7 +299,7 @@ export default function PublicationsPage() {
                       setSelectedYear(e.target.value);
                     }}
                   >
-                    <option value="all">Toutes années</option>
+                    <option value="all">{t("publications.years.all")}</option>
                     {years.slice(1).map((year) => (
                       <option key={year} value={year}>
                         {year}
@@ -322,11 +323,11 @@ export default function PublicationsPage() {
                 <p className="text-xl sm:text-2xl font-bold" style={{ color: "#111011" }}>
                   {loading ? "..." : total}
                 </p>
-                <p className="text-sm sm:text-base" style={{ color: "#524751" }}>Publications trouvées</p>
+                <p className="text-sm sm:text-base" style={{ color: "#524751" }}>{t("publications.found")}</p>
               </div>
               <div className="text-right">
                 <p className="text-xs sm:text-sm" style={{ color: "#524751" }}>
-                  Page {currentPage} sur {totalPages || 1}
+                  {t("publications.page", { current: currentPage, total: totalPages || 1 })}
                 </p>
               </div>
             </div>
@@ -338,7 +339,7 @@ export default function PublicationsPage() {
           {loading ? (
             <div className="text-center py-8 sm:py-12">
               <p className="text-lg sm:text-xl" style={{ color: "#524751" }}>
-                Chargement des publications...
+                {t("publications.loading")}
               </p>
             </div>
          ) : error ? (
@@ -361,7 +362,7 @@ export default function PublicationsPage() {
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold mb-2" style={{ color: "#111011" }}>
-                    Oups ! Une erreur est survenue
+                    {t("publications.errorTitle")}
                   </h3>
                   <p className="text-base sm:text-lg" style={{ color: "#524751" }}>
                     {error}
@@ -385,7 +386,7 @@ export default function PublicationsPage() {
                       d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                     />
                   </svg>
-                  Réessayer
+                  {t("publications.retry")}
                 </button>
               </div>
             </div>
@@ -439,10 +440,10 @@ export default function PublicationsPage() {
                         {publication.citations}
                       </p>
                       <p className="text-xs sm:text-sm hidden sm:block" style={{ color: "#524751" }}>
-                        citations
+                        {t("publications.citationsFull")}
                       </p>
                       <p className="text-xs block sm:hidden" style={{ color: "#524751" }}>
-                        cit.
+                        {t("publications.citationsShort")}
                       </p>
                     </div>
                   )}
@@ -452,7 +453,7 @@ export default function PublicationsPage() {
                 <div className="flex items-start gap-2 mb-3 sm:mb-4">
                   <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5" style={{ color: "#524751" }} />
                   <p className="text-sm sm:text-base" style={{ color: "#111011" }}>
-                    {publication.authors.join(", ")}
+                    {t("publications.authors")} {publication.authors.join(", ")}
                   </p>
                 </div>
 
@@ -460,7 +461,7 @@ export default function PublicationsPage() {
                 <div className="flex items-start gap-2 mb-3 sm:mb-4">
                   <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5" style={{ color: "#524751" }} />
                   <p className="text-sm sm:text-base font-medium" style={{ color: "#111011" }}>
-                    {publication.venue}
+                    {t("publications.venue")} {publication.venue}
                   </p>
                 </div>
 
@@ -500,7 +501,7 @@ export default function PublicationsPage() {
                         style={{ backgroundColor: "#780376" }}
                       >
                         <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        DOI
+                        {t("publications.doi")}
                       </button>
                     )}
                     {publication.url && (
@@ -509,7 +510,7 @@ export default function PublicationsPage() {
                         style={{ backgroundColor: "#f1f5f9", color: "#524751" }}
                       >
                         <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        Lien
+                        {t("publications.link")}
                       </button>
                     )}
                   </div>
@@ -519,10 +520,10 @@ export default function PublicationsPage() {
           ) : (
             <div className="text-center py-8 sm:py-12">
               <p className="text-lg sm:text-xl" style={{ color: "#524751" }}>
-                Aucune publication trouvée
+                {t("publications.noResults")}
               </p>
               <p className="text-sm mt-2" style={{ color: "#524751" }}>
-                Essayez de modifier vos critères de recherche
+                {t("publications.noResultsHint")}
               </p>
             </div>
           )}
@@ -539,7 +540,7 @@ export default function PublicationsPage() {
                   className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-400 bg-white/80 rounded-md border hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex-shrink-0 order-1"
                 >
                   <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 hover:text-amber-100" />
-                  Précédent
+                  {t("publications.previous")}
                 </button>
 
                 <div className="flex items-center gap-1 sm:gap-2 flex-1 justify-center order-3 sm:order-2">
@@ -551,7 +552,7 @@ export default function PublicationsPage() {
                   disabled={currentPage === totalPages}
                   className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-400 bg-white/80 rounded-md border hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex-shrink-0 order-2 sm:order-3"
                 >
-                  Suivant
+                  {t("publications.next")}
                   <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
