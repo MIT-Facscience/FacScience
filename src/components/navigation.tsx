@@ -32,9 +32,7 @@ const admissionItems = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { i18n } = useTranslation();
-  //  const { t, lang, setLang } = useTranslation();
-
+  const { i18n, t } = useTranslation("navigation");
 
   const isActive = (path: string) => location.pathname === path;
   const isActiveParent = (base: string) => location.pathname.startsWith(base);
@@ -192,19 +190,7 @@ export default function Navigation() {
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
-                {/* Résultats */}
-                {/* <a
-                  href="/resultats"
-                  className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
-                    isActive("/resultats")
-                      ? "text-primary bg-purple-50/70"
-                      : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
-                  }`}
-                >
-                  Résultats
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
-                </a> */}
-
+                {/* Language Selector */}
                 <Select value={i18n.language} onValueChange={changeLanguage}>
                   <SelectTrigger className="w-fit h-9 bg-white border border-purple-200 text-sm font-medium text-slate-700 focus:ring-0 focus:outline-none mx-2">
                     <SelectValue placeholder={t("language")} />
