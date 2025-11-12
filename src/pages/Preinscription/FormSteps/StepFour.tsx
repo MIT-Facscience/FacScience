@@ -148,7 +148,7 @@ export const StepFour: React.FC<StepFourProps> = ({
             </div>
 
             {/* Banque */}
-            <div className="bg-white p-4 ">
+            <div className="bg-white p-4 rounded-lg">
               <h4 className="font-medium text-gray-700 mb-2">
                 {t("formulaire.stepFour.confirmation.bankInfo")}
               </h4>
@@ -336,7 +336,7 @@ export const StepFour: React.FC<StepFourProps> = ({
       </div>
 
       {/* Contact Information */}
-      <div className="bg-white border border-gray-200  p-6">
+      <div className="bg-white border border-gray-200 rounded-lg p-6">
         <h4 className="font-semibold text-gray-800 mb-3">
           {t("formulaire.stepFour.help.title")}
         </h4>

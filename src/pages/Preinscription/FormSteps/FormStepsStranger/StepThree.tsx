@@ -25,6 +25,7 @@ const StepThree: React.FC<StepThreeProps> = ({
   isSubmitted
 }) => {
   const { t } = useTranslation("admission");
+  const { t } = useTranslation("admission");
 
   // Vue avant soumission
   if (!isSubmitted) {
@@ -35,7 +36,7 @@ const StepThree: React.FC<StepThreeProps> = ({
         </h2>
 
         {/* Informations personnelles */}
-        <div className="bg-gray-50 p-6  border border-gray-200">
+        <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
           <h3 className="font-semibold text-gray-800 mb-4 text-lg">
             {t('formulaire.stepThreeStranger.beforeSubmission.sections.personalInfo.title')}
           </h3>
@@ -64,7 +65,7 @@ const StepThree: React.FC<StepThreeProps> = ({
         </div>
 
         {/* Programme choisi */}
-        <div className="bg-gray-50 p-6  border border-gray-200">
+        <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
           <h3 className="font-semibold text-gray-800 mb-2 text-lg">
             {t('formulaire.stepThreeStranger.beforeSubmission.sections.program.title')}
           </h3>
@@ -74,7 +75,7 @@ const StepThree: React.FC<StepThreeProps> = ({
         </div>
 
         {/* Informations bancaires */}
-        <div className="bg-gray-50 p-6  border border-gray-200">
+        <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
           <h3 className="font-semibold text-gray-800 mb-4 text-lg">
             {t('formulaire.stepThreeStranger.beforeSubmission.sections.bankInfo.title')}
           </h3>
@@ -95,7 +96,7 @@ const StepThree: React.FC<StepThreeProps> = ({
         </div>
 
         {/* Documents */}
-        <div className="bg-gray-50 p-6  border border-gray-200">
+        <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
           <h3 className="font-semibold text-gray-800 mb-4 text-lg">
             {t('formulaire.stepThreeStranger.beforeSubmission.sections.documents.title')}
           </h3>
@@ -124,14 +125,14 @@ const StepThree: React.FC<StepThreeProps> = ({
           <button
             onClick={onBack}
             disabled={isSubmitting}
-            className="px-6 py-3 border border-gray-300  text-gray-700 hover:bg-gray-50 transition-colors duration-200 disabled:opacity-50"
+            className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200 disabled:opacity-50"
           >
             {t('formulaire.stepThreeStranger.beforeSubmission.buttons.back')}
           </button>
           <button
             onClick={onSubmit}
             disabled={isSubmitting || !documents.diploma}
-            className="px-6 py-3 bg-faculty-purple-600 text-white  flex items-center space-x-2 hover:bg-faculty-purple-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-faculty-purple-600 text-white rounded-lg flex items-center space-x-2 hover:bg-faculty-purple-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
@@ -167,7 +168,7 @@ const StepThree: React.FC<StepThreeProps> = ({
       
       <button 
         onClick={() => window.print()} 
-        className="px-6 py-3 border border-faculty-purple-600 text-faculty-purple-600  mt-4 flex items-center justify-center mx-auto hover:bg-purple-50 transition-colors duration-200"
+        className="px-6 py-3 border border-faculty-purple-600 text-faculty-purple-600 rounded-lg mt-4 flex items-center justify-center mx-auto hover:bg-purple-50 transition-colors duration-200"
       >
         <Download className="w-4 h-4 mr-2" />
         {t('formulaire.stepThreeStranger.afterSubmission.buttons.printReceipt')}
