@@ -157,5 +157,303 @@
         "fileNames": {
             "noFileChosen": "No file chosen"
         }
+    },
+    "preinscription": {
+        "title": "Online Pre-registration",
+        "subtitle": "Simplify your enrollment at the Faculty of Sciences of Antananarivo with our secure online pre-registration system.",
+        "processTitle": "Registration process in 4 steps",
+        "steps": {
+            "eligibility": "Eligibility verification",
+            "programSelection": "Program selection",
+            "personalInfo": "Personal information and bank reference",
+            "confirmation": "Confirmation and submission"
+        },
+        "requirements": {
+            "documents": {
+                "title": "Required documents",
+                "items": [
+                    "Baccalaureate transcript",
+                    "Proof of payment of application fee"
+                ]
+            },
+            "deadlines": {
+                "title": "Deadlines",
+                "items": [
+                    "Registration period open",
+                    "Processing within 24-48 hours"
+                ]
+            },
+            "eligibleSeries": {
+                "title": "Eligible series",
+                "items": [
+                    "Series S, C, D for all programs",
+                    "Series S, C only for MIT"
+                ]
+            }
+        },
+        "importantNotice": {
+            "title": "Important information",
+            "items": [
+                "Make sure you have all required documents before starting",
+                "Files must be in image format (PNG, JPG) and not exceed 5 MB",
+                "Once submitted, your application cannot be modified",
+                "You will receive a confirmation email within 24-48 hours"
+            ]
+        },
+        "cta": {
+            "start": "Start my pre-registration",
+            "securityNote": "Secure process • Protected data • Technical support available"
+        }
+    },
+    "formulaire": {
+        "formationChoice": {
+            "title": "Choose your type of training",
+            "subtitle": "Select the path that matches your project",
+            "academic": {
+                "title": "Academic Training",
+                "description": "Path oriented towards research and theoretical deepening. Ideal for pursuing master's and doctorate.",
+                "chooseButton": "Choose Academic"
+            },
+            "professional": {
+                "title": "Professional Training",
+                "description": "Path oriented towards rapid professional integration. Practical training and internships in companies.",
+                "physics": "Physics",
+                "chemistry": "Chemistry",
+                "svt": "SVT", 
+                "chooseButton": "Choose Professional"
+            }
+        },
+        "bacType": {
+            "malagasy": "Malagasy Baccalaureate",
+            "foreign": "Foreign Baccalaureate"
+        },
+        "currentFormation": {
+            "title": "You are registering for:",
+            "modify": "Modify"
+        },
+        "support": {
+            "help": "Need help? Contact the registration service:"
+        },
+        "steps": {
+            "malagasy": ["Information", "Confirmation"],
+            "stranger": ["Personal Information", "Documents and background", "Confirmation"]
+        },
+        "stepOne": {
+            "title": "Eligibility Verification",
+            "subtitle": "Please enter your baccalaureate information",
+            "bacNumberLabel": "Baccalaureate number",
+            "bacNumberExample": "(Ex:3280151) *",
+            "gradYearLabel": "Graduation year",
+            "gradYearExample": "(Ex:2025) *",
+            "errors": {
+                "requiredFields": "Please fill in all required fields",
+                "invalidYear": "Invalid graduation year",
+                "candidateNotFound": "Candidate not found with this information",
+                "notEligible": "Your baccalaureate series does not allow you to apply to scientific programs",
+                "defaultError": "An error occurred",
+                "dataNotFound": "Data not found"
+            },
+            "buttons": {
+                "verify": "Verify",
+                "verifying": "Verifying..."
+            }
+        },
+        "stepTwoThree": {
+            "choosePortal": "Choose your portal",
+            "loadingPortals": "Loading portals...",
+            "bankInfo": {
+                "title": "Bank information",
+                "reference": {
+                "label": "Bank reference",
+                "placeholder": "Ex: YMA7730/COT"
+                },
+                "agency": {
+                "label": "Agency",
+                "placeholder": "Ex: Ambanidia"
+                },
+                "date": {
+                "label": "Date"
+                }
+            },
+            "contactInfo": {
+                "title": "Contact information",
+                "email": {
+                "label": "Email address",
+                "placeholder": "example@email.com"
+                },
+                "phone": {
+                "label": "Phone",
+                "placeholder": "033XXXXXXX / +26133XXXXXXX",
+                "invalid": "Invalid format"
+                }
+            },
+            "buttons": {
+                "back": "Back",
+                "continue": "Continue"
+            }
+        },
+        "stepFour": {
+            "confirmation": {
+                "title": "Confirmation of your application",
+                "subtitle": "Check your information before submitting your pre-registration application",
+                "summaryTitle": "Summary of your application:",
+                "candidateInfo": "Candidate information",
+                "fullName": "Full name:",
+                "bacNumber": "BAC number:",
+                "bacYear": "BAC year:",
+                "series": "Series:",
+                "program": "Chosen program",
+                "contactInfo": "Contact information",
+                "bankInfo": "Bank reference",
+                "warning": {
+                "title": "Warning:",
+                "message": "Once submitted, your application cannot be modified. Make sure all information is correct."
+                }
+            },
+            "submission": {
+                "submitting": "Submitting...",
+                "submit": "Submit application"
+            },
+            "success": {
+                "title": "Congratulations!",
+                "message": "Your pre-registration application has been successfully submitted",
+                "preinscriptionNumber": "Pre-registration number:",
+                "finalSummary": "Final summary",
+                "candidate": "Candidate:",
+                "program": "Program:",
+                "email": "Email:",
+                "phone": "Phone:"
+            },
+            "nextSteps": {
+                "title": "Next steps:",
+                "emailConfirmation": "You will receive a confirmation email at {email}",
+                "documentVerification": "Your documents will be verified by our administrative team",
+                "resultsPublication": "Pre-selection results will be published on September 15, 2025",
+                "keepNumber": "Keep your pre-registration number for tracking: {number}"
+            },
+            "help": {
+                "title": "Need help?",
+                "email": "scolarite@sciences.univ-antananarivo.mg",
+                "phone": "+261 20 22 279 95"
+            },
+            "buttons": {
+                "back": "Back",
+                "printReceipt": "Print receipt",
+                "returnHome": "Return to home"
+            },
+            "errors": {
+                "unknownError": "Unknown error",
+                "unknownErrorDetail": "An unexpected error occurred",
+                "connectionError": "Connection error"
+            }
+        },
+        "stepOneStranger": {
+            "title": "Personal Information",
+            "fields": {
+                "firstName": {
+                    "label": "First Name",
+                    "error": "First name is required"
+                },
+                "lastName": {
+                    "label": "Last Name",
+                    "error": "Last name is required"
+                },
+                "email": {
+                    "label": "Email",
+                    "error": {
+                        "required": "Email is required",
+                        "invalid": "Invalid email format"
+                    }
+                },
+                "telephone": {
+                    "label": "Phone",
+                    "error": "Phone is required"
+                },
+                "bacNationality": {
+                    "label": "Institution of Origin",
+                    "error": "Institution is required"
+                },
+                "personalNationality": {
+                    "label": "Nationality",
+                    "error": "Nationality is required"
+                },
+                "reference": {
+                    "label": "Payment Reference",
+                    "error": "Reference is required"
+                },
+                "agenceRef": {
+                    "label": "Agency",
+                    "error": "Agency is required"
+                },
+                "dateRef": {
+                    "label": "Payment Date",
+                    "error": "Date is required"
+                }
+            },
+            "buttons": {
+                "continue": "Continue"
+            }
+        },
+        "stepTwoStranger": {
+            "title": "Documents & Program",
+            "documents": {
+                "diploma": {
+                    "title": "Diploma Certificate",
+                    "chooseFile": "Choose a file",
+                    "fileSelected": "File selected"
+                }
+            },
+            "program": {
+                "title": "Choose your program"
+            },
+            "buttons": {
+                "previous": "Previous",
+                "continue": "Continue",
+                "disabledTooltip": "Please select a program and a diploma file"
+            }
+        },
+        "stepThreeStranger": {
+            "beforeSubmission": {
+                "title": "Summary before submission",
+                "sections": {
+                "personalInfo": {
+                    "title": "Personal Information",
+                    "fields": {
+                        "fullName": "Full name",
+                        "email": "Email",
+                        "phone": "Phone",
+                        "nationality": "Nationality",
+                        "institution": "Institution of origin"
+                    }
+                },
+                "program": {
+                    "title": "Selected Program",
+                    "notSelected": "Not selected"
+                },
+                "bankInfo": {
+                    "title": "Bank Information"
+                },
+                "documents": {
+                    "title": "Documents",
+                    "diploma": {
+                        "provided": "Diploma provided",
+                        "notProvided": "Diploma not provided"
+                    }
+                }
+                },
+                "buttons": {
+                    "back": "Back",
+                    "submit": "Submit",
+                    "submitting": "Submitting..."
+                }
+            },
+            "afterSubmission": {
+                "title": "Submission Successful!",
+                "message": "Your application has been successfully submitted.",
+                "buttons": {
+                    "printReceipt": "Print receipt"
+                }
+            }
+        }
     }
 }

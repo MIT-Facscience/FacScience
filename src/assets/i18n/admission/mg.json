@@ -73,6 +73,54 @@
     "intEnsureDocuments": "Mandehana any amin'ny taratasy an-tserasera hametraka ny antontan-taratasy fangatahana",
     "intStartApplication": "Hametraka ny antontan-taratasy",
 
+    "preinscription": {
+        "title": "Fisoratrana anarana an-tserasera",
+        "subtitle": "Tsoahy ny fisoratrana anaranao any amin'ny Faculté des Sciences d'Antananarivo amin'ny alalan'ny rafitra fisoratrana anarana an-tserasera arovana.",
+        "processTitle": "Dingana fisoratrana anarana amin'ny dingana 4",
+        "steps": {
+            "eligibility": "Fanamarinana ny fahafaha-miditra",
+            "programSelection": "Fisafidianana programa",
+            "personalInfo": "Fampahalalana manokana sy referansa banky",
+            "confirmation": "Fanamarinana sy fandefasana"
+        },
+        "requirements": {
+            "documents": {
+                "title": "Taratasy takiana",
+                "items": [
+                    "Transkripta ny baccalauréat",
+                    "Rosia fandoavam-bola sarany antontan-taratasy"
+                ]
+            },
+            "deadlines": {
+                "title": "Fotoana",
+                "items": [
+                    "Vaniny fisoratrana anarana misokatra",
+                    "Fikarakarana ao anatin'ny 24-48 ora"
+                ]
+            },
+            "eligibleSeries": {
+                "title": "Sokajy azo idirana",
+                "items": [
+                    "Sokajy S, C, D ho an'ny programa rehetra",
+                    "Sokajy S, C ho an'ny MIT fotsiny"
+                ]
+            }
+        },
+        "importantNotice": {
+            "title": "Fampahalalana lehibe",
+            "items": [
+                "Ataovy azo antoka fa manana ny taratasy ilaina rehetra ianao alohan'ny hanombohana",
+                "Tsy maintsy ho amin'ny endrika sary (PNG, JPG) ny rakitra ary tsy mihoatra ny 5 MB",
+                "Raha alefa, tsy azo ovaina intsony ny fangatahanao",
+                "Ho azonao amin'ny alalan'ny mailaka ny fanamarinana ao anatin'ny 24-48 ora"
+            ]
+        },
+        "cta": {
+            "start": "Manomboka ny fisoratrana anarana",
+            "securityNote": "Dingana arovana • Angona voaro • Tohana ara-teknika misy"
+        }
+    },
+
     "intForm": {
         "title": "Taratasy fisoratrana anarana",
         "subtitle": "Lalan'ny <strong>Innovation et Technologie</strong> – Master 1 & 2",
@@ -87,7 +135,7 @@
             "chooseMaster": "Misafidia Master",
             "lastName": "Anarana",
             "firstName": "Fanampin'anarana",
-            "email": "Email",
+            "email": "Mailaka",
             "phone": "Finday",
             "currentPath": "Lalana misy",
             "levelAndGrade": "Halehibeny & mari-pahaizana",
@@ -116,12 +164,12 @@
         },
         "errors": {
             "required": "Tsy maintsy fenoina ity saha ity",
-            "invalidEmail": "Format email diso",
+            "invalidEmail": "Diso ny endriky ny mailakanao",
             "invalidPhone": "Numero finday diso (10-15 chiffres)",
             "l3NotAllowedForM2": "Ho an'ny Master 2, tsy azo atao ny L3",
             "fileRequired": "Ilaina ny rakitra",
             "fileTooLarge": "Tsy tokony ho lehibe mihoatra ny 5MB ny rakitra",
-            "yearTranscriptRequired": "Ilaina ny transcript ho an'ny taona {year}"
+            "yearTranscriptRequired": "Ilaina ny transkripta ho an'ny taona {year}"
         },
         "buttons": {
             "previous": "Eo aloha",
@@ -132,18 +180,18 @@
         },
         "success": {
             "title": "Nalefan'ny fahombiazana ny fangatahana!",
-            "message": "Nalefa ny email fanamarinana tany amin'ny <strong>{email}</strong>.",
+            "message": "Nalefa ny mailaka fanamarinana tany amin'ny <strong>{email}</strong>.",
             "details": "Nalefan'ny fahombiazana ny antontan-taratasinao."
         },
         "summary": {
-            "applicationInfo": "Informations fangatahana",
-            "personalInfo": "Informations manokana",
+            "applicationInfo": "Zavatra ilaina",
+            "personalInfo": "Fampahalalana manokana",
             "academicFile": "Antontan-taratasy akademika",
             "applicationFee": "Sarany antontan-taratasy",
             "master": "Master",
             "lastName": "Anarana",
             "firstName": "Fanampin'anarana",
-            "email": "Email",
+            "email": "Mailaka",
             "phone": "Finday",
             "currentPath": "Lalana",
             "levelAndGrade": "Halehibeny & mari-pahaizana",
@@ -157,6 +205,257 @@
         },
         "fileNames": {
             "noFileChosen": "Tsy nisy rakitra nofidiana"
+        }
+    },
+    "formulaire": {
+        "formationChoice": {
+            "title": "Misafidia ny karazana fianarana",
+            "subtitle": "Safidio ny lalana mifanaraka amin'ny tetikasao",
+            "academic": {
+                "title": "Fianarana Akademika",
+                "description": "Lalana mitodika any amin'ny fikarohana sy ny fanamafisana teoria. Mety ho an'ny fandrosoana any amin'ny master sy doctorat.",
+                "chooseButton": "Misafidia Akademika"
+            },
+            "professional": {
+                "title": "Fianarana Profesionnaly",
+                "description": "Lalana mitodika any amin'ny fidirana amin'ny asa haingana. Fiofanana azo ampiharina sy tetezamita any amin'ny orinasa.",
+                "physics": "Fizika",
+                "chemistry": "Simia",
+                "svt": "SVT",
+                "chooseButton": "Misafidia Profesionnaly"
+            }
+        },
+        "bacType": {
+            "malagasy": "Bacc Malagasy",
+            "foreign": "Bacc Vahiny"
+        },
+        "currentFormation": {
+            "title": "Manisoratra anarana amin'ny :",
+            "modify": "Hanova"
+        },
+        "support": {
+            "help": "Mila fanampiana? Mifandraisa amin'ny service fisoratrana anarana :"
+        },
+        "steps": {
+            "malagasy": ["Fampahalalana", "Fanamarinana"],
+            "stranger": ["Fampahalalana manokana", "Taratasy sy lalana", "Fanamarinana"]
+        },
+        "stepOne": {
+            "title": "Fanamarinana fahafahana miditra",
+            "subtitle": "Ampidiro ny filazana momba ny bakalorea",
+            "bacNumberLabel": "Laharana bakalorea",
+            "bacNumberExample": "(Ohatra:3280151) *",
+            "gradYearLabel": "Taona nahazoana ny bakalorea",
+            "gradYearExample": "(Ohatra:2025) *",
+            "errors": {
+                "requiredFields": "Fenoy ny bokotra rehetra ilaina",
+                "invalidYear": "Taona nahazoana tsy manara-dalàna",
+                "candidateNotFound": "Tsy hita ny mpikambana miaraka amin'ity fampahalalana ity",
+                "notEligible": "Ny karazana bakalorea anao tsy mahafaka anao hitory amin'ny programa siantifika",
+                "defaultError": "Nisy olana nitranga",
+                "dataNotFound": "Tsy hita ny angona"
+            },
+            "buttons": {
+                "verify": "Hamarinina",
+                "verifying": "Fanamarinana..."
+            }
+        },
+        "stepTwoThree": {
+            "choosePortal": "Safidio ny vavahadinao",
+            "loadingPortals": "Fanodinana vavahady...",
+            "bankInfo": {
+                "title": "Filazana momba ny banky",
+                "reference": {
+                "label": "Fampidirana banky",
+                "placeholder": "Ohatra: YMA7730/COT"
+                },
+                "agency": {
+                "label": "Masontany",
+                "placeholder": "Ohatra: Ambanidia"
+                },
+                "date": {
+                "label": "Daty"
+                }
+            },
+            "contactInfo": {
+                "title": "Filazana ifandraisana",
+                "email": {
+                "label": "Adiresy mailaka",
+                "placeholder": "ohatra@mailaka.com"
+                },
+                "phone": {
+                "label": "Finday",
+                "placeholder": "033XXXXXXX / +26133XXXXXXX",
+                "invalid": "Endrika tsy manara-dalàna"
+                }
+            },
+            "buttons": {
+                "back": "Hiverina",
+                "continue": "Hanohy"
+            }
+        },
+        "stepFour": {
+            "confirmation": {
+                "title": "Fanamafisana ny fangatahanao",
+                "subtitle": "Jereo ny filazanao alohan'ny handefasana ny fangatahana fisoratana anarana",
+                "summaryTitle": "Famintinana ny fangatahanao :",
+                "candidateInfo": "Filazana momba ny mpikambana",
+                "fullName": "Anarana feno :",
+                "bacNumber": "Laharana BAC :",
+                "bacYear": "Taonan'ny BAC :",
+                "series": "Karazana :",
+                "program": "Programma nofidina",
+                "contactInfo": "Filazana ifandraisana",
+                "bankInfo": "Fampidirana banky",
+                "warning": {
+                "title": "Fampitandrena :",
+                "message": "Raha alefa, tsy azo ovaina intsony ny fangatahanao. Ataovy izay hahazoana antoka fa marina ny filazana rehetra."
+                }
+            },
+            "submission": {
+                "submitting": "Alefa...",
+                "submit": "Alefa ny fangatahana"
+            },
+            "success": {
+                "title": "Arahabaina !",
+                "message": "Nalevana soa aman-tsara ny fangatahana fisoratana anarana",
+                "preinscriptionNumber": "Laharana fisoratana anarana :",
+                "finalSummary": "Famintinana farany",
+                "candidate": "Mpikambana :",
+                "program": "Programma :",
+                "email": "Mailaka :",
+                "phone": "Finday :"
+            },
+            "nextSteps": {
+                "title": "Dingana manaraka :",
+                "emailConfirmation": "Hahazo mailaka fanamafisana ianao amin'ny {email}",
+                "documentVerification": "Ho verifien'ny ekipanay ny antontan-taratasinao",
+                "resultsPublication": "Hoboaka ny 15 Septembre 2025 ny vokatra",
+                "keepNumber": "Ataovy ny laharan'ny fisoratana anaranao hanarahan-dia : {number}"
+            },
+            "help": {
+                "title": "Mila fanampiana ?",
+                "email": "scolarite@sciences.univ-antananarivo.mg",
+                "phone": "+261 20 22 279 95"
+            },
+            "buttons": {
+                "back": "Hiverina",
+                "printReceipt": "Printy ny rosia",
+                "returnHome": "Hiverina any an-tranony"
+            },
+            "errors": {
+                "unknownError": "Hadisoana tsy fantatra",
+                "unknownErrorDetail": "Nisy olana tsy nampoizina nitranga",
+                "connectionError": "Hadisoana fifandraisana"
+            }
+        },
+        "stepOneStranger": {
+            "title": "Filazana manokana",
+            "fields": {
+                "firstName": {
+                "label": "Anarana",
+                "error": "Ilaina ny anarana"
+                },
+                "lastName": {
+                "label": "Fanampin'anarana",
+                "error": "Ilaina ny fanampin'anarana"
+                },
+                "email": {
+                "label": "Mailaka",
+                "error": {
+                    "required": "Ilaina ny mailaka",
+                    "invalid": "Endrika mailaka tsy manara-dalàna"
+                }
+                },
+                "telephone": {
+                "label": "Finday",
+                "error": "Ilaina ny finday"
+                },
+                "bacNationality": {
+                "label": "Tranonkalan-dehibe niaviana",
+                "error": "Ilaina ny tranonkalan-dehibe"
+                },
+                "personalNationality": {
+                "label": "Zom-pirenena",
+                "error": "Ilaina ny zom-pirenena"
+                },
+                "reference": {
+                "label": "Fampidirana fandoavam-bola",
+                "error": "Ilaina ny fampidirana"
+                },
+                "agenceRef": {
+                "label": "Masontany",
+                "error": "Ilaina ny masontany"
+                },
+                "dateRef": {
+                "label": "Daty fandoavam-bola",
+                "error": "Ilaina ny daty"
+                }
+            },
+            "buttons": {
+                "continue": "Hanohy"
+            }
+        },
+        "stepTwoStranger": {
+            "title": "Antontan-taratasy & Programme",
+            "documents": {
+                "diploma": {
+                "title": "Fanamarinana diplaoma",
+                "chooseFile": "Misafidia rakitra",
+                "fileSelected": "Rakitra nofidina"
+                }
+            },
+            "program": {
+                "title": "Safidio ny programmao"
+            },
+            "buttons": {
+                "previous": "Hiverina",
+                "continue": "Hanohy",
+                "disabledTooltip": "Mifidiana programa sy rakitra diplaoma azafady"
+            }
+        },
+        "stepThreeStranger": {
+            "beforeSubmission": {
+                "title": "Famintinana alohan'ny fandefasana",
+                "sections": {
+                "personalInfo": {
+                    "title": "Filazana manokana",
+                    "fields": {
+                        "fullName": "Anarana feno",
+                        "email": "Mailaka",
+                        "phone": "Finday",
+                        "nationality": "Zom-pirenena",
+                        "institution": "Tranonkalan-dehibe niaviana"
+                    }
+                },
+                "program": {
+                    "title": "Programma nofidina",
+                    "notSelected": "Tsy voafidy"
+                },
+                "bankInfo": {
+                    "title": "Filazana momba ny banky"
+                },
+                "documents": {
+                    "title": "Antontan-taratasy",
+                    "diploma": {
+                        "provided": "Nomena diplaoma",
+                        "notProvided": "Tsy nomena diplaoma"
+                    }
+                }
+                },
+                "buttons": {
+                    "back": "Hiverina",
+                    "submit": "Alefa",
+                    "submitting": "Alefa..."
+                }
+            },
+            "afterSubmission": {
+                "title": "Nalevana soa aman-tsara!",
+                "message": "Nalevana soa aman-tsara ny fangatahanao.",
+                "buttons": {
+                    "printReceipt": "Printy ny rosia"
+                }
+            }
         }
     }
 }
