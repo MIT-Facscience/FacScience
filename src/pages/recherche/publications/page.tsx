@@ -157,7 +157,7 @@ export default function PublicationsPage() {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
+            className={`w-8 h-8 sm:w-10 sm:h-10  font-medium transition-all duration-200 ${
               i === currentPage
                 ? "bg-primary text-white shadow-lg"
                 : "bg-card text-foreground hover:bg-muted border border-border"
@@ -172,7 +172,7 @@ export default function PublicationsPage() {
         <button
           key={1}
           onClick={() => handlePageChange(1)}
-          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
+          className={`w-8 h-8 sm:w-10 sm:h-10  font-medium transition-all duration-200 ${
             1 === currentPage
               ? "bg-primary text-white shadow-lg"
               : "bg-card text-foreground hover:bg-muted border border-border"
@@ -198,7 +198,7 @@ export default function PublicationsPage() {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
+            className={`w-8 h-8 sm:w-10 sm:h-10  font-medium transition-all duration-200 ${
               i === currentPage
                 ? "bg-primary text-white shadow-lg"
                 : "bg-card text-foreground hover:bg-muted border border-border"
@@ -222,7 +222,7 @@ export default function PublicationsPage() {
           <button
             key={totalPages}
             onClick={() => handlePageChange(totalPages)}
-            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-medium transition-all duration-200 ${
+            className={`w-8 h-8 sm:w-10 sm:h-10  font-medium transition-all duration-200 ${
               totalPages === currentPage
                 ? "bg-primary text-white shadow-lg"
                 : "bg-card text-foreground hover:bg-muted border border-border"
@@ -343,7 +343,7 @@ export default function PublicationsPage() {
               </p>
             </div>
          ) : error ? (
-            <div className="bg-white/70 backdrop-blur-sm shadow-lg border border-red-200 p-6 sm:p-8 rounded-lg">
+            <div className="bg-white/70 backdrop-blur-sm shadow-lg border border-red-200 p-6 sm:p-8 ">
               <div className="flex flex-col items-center text-center space-y-4">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-50 flex items-center justify-center">
                   <svg
@@ -394,7 +394,7 @@ export default function PublicationsPage() {
             publications.map((publication) => (
               <div
                 key={publication.id}
-                className="bg-white/70 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-300 group rounded-lg"
+                className="bg-white/70 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-300 group "
               >
                 {/* En-tête de la publication */}
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-3 sm:mb-4 gap-3 sm:gap-0">
@@ -532,7 +532,7 @@ export default function PublicationsPage() {
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-8 sm:mt-12 mb-8 sm:mb-12">
-            <div className="bg-white/60 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6 rounded-lg">
+            <div className="bg-white/60 backdrop-blur-sm shadow-lg border border-pink-200 p-4 sm:p-6 ">
               <div className="flex items-center justify-between gap-2 sm:gap-0 flex-wrap">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}

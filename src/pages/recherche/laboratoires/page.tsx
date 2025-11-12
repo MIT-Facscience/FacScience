@@ -465,7 +465,7 @@ export default function LaboratoiresPage() {
                   {isExpanded && (
                     <div className="space-y-4 animate-in slide-in-from-top-2 duration-300">
                       {/* Contact complet */}
-                      <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                      <div className="bg-gray-50 p-4  space-y-2">
                         <div className="flex items-center gap-3">
                           <Mail className="h-4 w-4 text-blue-500" />
                           <span className="text-sm">{"email"in lab ? lab.email:staticData.personnel || staticData.email}</span>
@@ -477,7 +477,7 @@ export default function LaboratoiresPage() {
                       </div>
 
                       {/* Personnel détaillé */}
-                      <div className="flex gap-6 justify-center bg-gray-50 p-4 rounded-lg">
+                      <div className="flex gap-6 justify-center bg-gray-50 p-4 ">
                         <div className="text-center">
                           <div
                             className={`text-2xl font-bold bg-gradient-to-r ${staticData.accentColor} bg-clip-text text-transparent`}
@@ -582,7 +582,7 @@ export default function LaboratoiresPage() {
 
         {/* Navigation de pagination */}
         <div className="text-center mt-16">
-          <div className="inline-flex flex-wrap gap-4 p-4 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <div className="inline-flex flex-wrap gap-4 p-4 bg-white  shadow-lg border border-gray-100">
             <Button
               onClick={handlePrev}
               disabled={currentPage === 1}

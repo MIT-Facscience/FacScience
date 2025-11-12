@@ -170,21 +170,21 @@ export default function ContactPage() {
           {/* Stats rapides */}
           {/* <div className="flex justify-center gap-8 mt-12">
             <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 mx-auto bg-purple-300 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
+              <div className="w-16 h-16 mx-auto bg-purple-300  flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
                 <Users className="h-8 w-8 text-white" />
               </div>
               <p className="text-2xl font-bold text-purple-300">5000+</p>
               <p className="text-sm text-slate-600">Étudiants</p>
             </div>
             <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 mx-auto bg-amber-200 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-amber-300/50">
+              <div className="w-16 h-16 mx-auto bg-amber-200  flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-amber-300/50">
                 <BookOpen className="h-8 w-8 text-white" />
               </div>
               <p className="text-2xl font-bold text-amber-700">5</p>
               <p className="text-sm text-slate-600">Départements</p>
             </div>
             <div className="text-center group cursor-pointer">
-              <div className="w-16 h-16 mx-auto bg-purple-300 rounded-2xl flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
+              <div className="w-16 h-16 mx-auto bg-purple-300  flex items-center justify-center mb-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-purple-300/50">
                 <Award className="h-8 w-8 text-white" />
               </div>
               <p className="text-2xl font-bold text-purple-300">50+</p>
@@ -294,7 +294,7 @@ export default function ContactPage() {
                       ].map((social, index) => (
                         <button
                           key={index}
-                          className={`w-12 h-12 bg-gradient-to-r ${social.color} rounded-lg flex items-center justify-center transform hover:scale-110 transition-all duration-300 shadow-lg ${social.hoverColor} group`}
+                          className={`w-12 h-12 bg-gradient-to-r ${social.color}  flex items-center justify-center transform hover:scale-110 transition-all duration-300 shadow-lg ${social.hoverColor} group`}
                         >
                           <social.icon className="h-5 w-5 text-white group-hover:rotate-12 transition-transform duration-300" />
                         </button>
@@ -464,9 +464,9 @@ export default function ContactPage() {
                 <h2 className="text-black"> Actions Rapides</h2> 
                 </h3>
                 <div className="space-y-3">
-                  <button className="w-full p-3 bg-white/20 hover:bg-white/30 rounded-lg text-left transition-all duration-300 hover:transform hover:scale-105">
+                  <button className="w-full p-3 bg-white/20 hover:bg-white/30  text-left transition-all duration-300 hover:transform hover:scale-105">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-white/20  flex items-center justify-center">
                       <MapPin className="w-6 h-6 text-gray-600"/>
                       </div>
                       <div>
@@ -475,9 +475,9 @@ export default function ContactPage() {
                       </div>
                     </div>
                   </button>
-                  <button className="w-full p-3 bg-white/20 hover:bg-white/30 rounded-lg text-left transition-all duration-300 hover:transform hover:scale-105">
+                  <button className="w-full p-3 bg-white/20 hover:bg-white/30  text-left transition-all duration-300 hover:transform hover:scale-105">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-white/20  flex items-center justify-center">
                         <Phone className="w-6 h-6 text-gray-600"/>
                       </div>
                       <div>

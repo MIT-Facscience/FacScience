@@ -143,7 +143,7 @@ export default function EcoleDoctoralePage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {/* Statistiques */}
-                  <div className="grid grid-cols-3 gap-4 p-4 bg-slate-50 rounded-lg">
+                  <div className="grid grid-cols-3 gap-4 p-4 bg-slate-50 ">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-blue-600">{spec.doctorants}</div>
                       <div className="text-sm text-slate-600">Doctorants</div>

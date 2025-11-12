@@ -47,7 +47,7 @@ const Preinscription: React.FC = () => {
         </div>
 
         {/* Process Steps */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
+        <div className="bg-white  shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
             {t("preinscription.processTitle")}
           </h2>

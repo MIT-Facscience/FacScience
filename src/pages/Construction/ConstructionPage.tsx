@@ -29,7 +29,7 @@ export default function ConstructionPage() {
         </h1>
 
         {/* Sous-titre */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-purple-100">
+        <div className="bg-white/80 backdrop-blur-sm  p-8 shadow-xl border border-purple-100">
           <p className="text-gray-700 text-xl leading-relaxed">
             Cette page est encore en développement.
             <br />
@@ -46,11 +46,11 @@ export default function ConstructionPage() {
             to="/Home"
             className="group relative inline-flex items-center gap-3 px-8 py-4
               bg-gradient-to-r from-primary to-purple-600
-              text-white font-semibold rounded-2xl
+              text-white font-semibold 
               shadow-lg shadow-indigo-300/30
               transition-all duration-300
               hover:shadow-indigo-400/50 hover:-translate-y-1 hover:scale-105
-              before:absolute before:inset-0 before:rounded-2xl before:bg-white/10
+              before:absolute before:inset-0 before: before:bg-white/10
               before:opacity-0 hover:before:opacity-100 before:transition-opacity"
           >
             <House className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
@@ -68,7 +68,7 @@ export default function ConstructionPage() {
       </div>
 
       {/* Footer amélioré */}
-      <footer className="mt-16 text-center relative z-10 bg-white/70 backdrop-blur-md rounded-2xl px-8 py-6 shadow-lg border border-indigo-100">
+      <footer className="mt-16 text-center relative z-10 bg-white/70 backdrop-blur-md  px-8 py-6 shadow-lg border border-indigo-100">
         <div className="h-px w-3/4 bg-gradient-to-r from-transparent via-indigo-300 to-transparent mx-auto mb-4"></div>
         <p className="text-base text-gray-700 font-semibold">
           &copy; 2025 Faculté des Sciences – Université d'Antananarivo

@@ -40,9 +40,9 @@ export default function PartenariatPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
                       <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-accent/20  flex items-center justify-center">
                           <Building className="h-6 w-6 text-accent" />
                         </div>
                         <div>
@@ -63,9 +63,9 @@ export default function PartenariatPage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
                       <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-accent/20  flex items-center justify-center">
                           <Globe className="h-6 w-6 text-accent" />
                         </div>
                         <div>
@@ -86,9 +86,9 @@ export default function PartenariatPage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
                       <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-accent/20  flex items-center justify-center">
                           <Users className="h-6 w-6 text-accent" />
                         </div>
                         <div>
@@ -111,9 +111,9 @@ export default function PartenariatPage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
                       <div className="flex items-center space-x-3 mb-4">
-                        <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-accent/20  flex items-center justify-center">
                           <BookOpen className="h-6 w-6 text-accent" />
                         </div>
                         <div>
@@ -147,7 +147,7 @@ export default function PartenariatPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border ">
                       <div className="flex items-center space-x-2 mb-3">
                         <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                           <span className="text-xs font-bold text-blue-600">
@@ -166,7 +166,7 @@ export default function PartenariatPage() {
                       </p>
                     </div>
 
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border ">
                       <div className="flex items-center space-x-2 mb-3">
                         <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
                           <span className="text-xs font-bold text-red-600">
@@ -187,7 +187,7 @@ export default function PartenariatPage() {
                       </p>
                     </div>
 
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border ">
                       <div className="flex items-center space-x-2 mb-3">
                         <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                           <span className="text-xs font-bold text-green-600">
@@ -206,7 +206,7 @@ export default function PartenariatPage() {
                       </p>
                     </div>
 
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border ">
                       <div className="flex items-center space-x-2 mb-3">
                         <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
                           <span className="text-xs font-bold text-yellow-600">
@@ -225,7 +225,7 @@ export default function PartenariatPage() {
                       </p>
                     </div>
 
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border ">
                       <div className="flex items-center space-x-2 mb-3">
                         <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
                           <span className="text-xs font-bold text-purple-600">
@@ -244,7 +244,7 @@ export default function PartenariatPage() {
                       </p>
                     </div>
 
-                    <div className="p-4 border rounded-lg">
+                    <div className="p-4 border ">
                       <div className="flex items-center space-x-2 mb-3">
                         <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
                           <span className="text-xs font-bold text-orange-600">
@@ -277,7 +277,7 @@ export default function PartenariatPage() {
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <div className="flex items-center space-x-2 mb-2">
                           <Users className="h-5 w-5 text-accent" />
                           <h3 className="font-semibold">
@@ -292,7 +292,7 @@ export default function PartenariatPage() {
                         </ul>
                       </div>
 
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <div className="flex items-center space-x-2 mb-2">
                           <BookOpen className="h-5 w-5 text-accent" />
                           <h3 className="font-semibold">
@@ -309,7 +309,7 @@ export default function PartenariatPage() {
                     </div>
 
                     <div className="space-y-4">
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <div className="flex items-center space-x-2 mb-2">
                           <Award className="h-5 w-5 text-accent" />
                           <h3 className="font-semibold">
@@ -324,7 +324,7 @@ export default function PartenariatPage() {
                         </ul>
                       </div>
 
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <div className="flex items-center space-x-2 mb-2">
                           <Building className="h-5 w-5 text-accent" />
                           <h3 className="font-semibold">
@@ -352,7 +352,7 @@ export default function PartenariatPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="border rounded-lg p-6">
+                    <div className="border  p-6">
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <h3 className="text-lg font-semibold text-accent">
@@ -375,7 +375,7 @@ export default function PartenariatPage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-6">
+                    <div className="border  p-6">
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <h3 className="text-lg font-semibold text-accent">
@@ -398,7 +398,7 @@ export default function PartenariatPage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-6">
+                    <div className="border  p-6">
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <h3 className="text-lg font-semibold text-accent">

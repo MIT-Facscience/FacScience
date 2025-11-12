@@ -71,7 +71,7 @@ export default function Navigation() {
                 {/* Présentation Dropdown */}
                 <div className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
+                    className={`flex items-center space-x-1 px-5 py-3 text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
                       isActiveParent("/presentation")
                         ? "text-primary bg-accent-foreground"
                         : "text-sidebar-primary hover:text-ring"
@@ -80,13 +80,13 @@ export default function Navigation() {
                     <span>{t("about")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
-                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                     <div className="p-6 space-y-1">
                       {presentationItems.map((item, index) => (
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
+                          className={`block px-4 py-3  text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
                             isActive(item.to)
                               ? "bg-purple-100 text-focus border-focus"
                               : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
@@ -103,7 +103,7 @@ export default function Navigation() {
                 {/* Recherche Dropdown */}
                 <div className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
+                    className={`flex items-center space-x-1 px-5 py-3 text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
                       isActiveParent("/recherche")
                         ? "text-primary bg-accent-foreground"
                         : "text-sidebar-primary hover:text-ring"
@@ -112,13 +112,13 @@ export default function Navigation() {
                     <span>{t("research")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
-                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl  shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                     <div className="p-6 space-y-1">
                       {rechercheItems.map((item, index) => (
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
+                          className={`block px-4 py-3  text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
                             isActive(item.to)
                               ? "bg-purple-100 text-focus border-focus"
                               : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
@@ -135,7 +135,7 @@ export default function Navigation() {
                 {/* Admission Dropdown */}
                 <div className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
+                    className={`flex items-center space-x-1 px-5 py-3 text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
                       isActiveParent("/admission")
                         ? "text-primary bg-accent-foreground"
                         : "text-sidebar-primary hover:text-ring"
@@ -144,13 +144,13 @@ export default function Navigation() {
                     <span>{t("admission")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
-                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl  shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                     <div className="p-6 space-y-1">
                       {admissionItems.map((item, index) => (
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
+                          className={`block px-4 py-3  text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
                             isActive(item.to)
                               ? "bg-purple-100 text-focus border-focus"
                               : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
@@ -167,7 +167,7 @@ export default function Navigation() {
                 {/* Formation */}
                 <a
                   href="/formation"
-                  className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
+                  className={`px-5 py-3 text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
                     isActive("/formation")
                       ? "text-primary bg-purple-50/70"
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
@@ -180,7 +180,7 @@ export default function Navigation() {
                 {/* Actualités */}
                 <a
                   href="/actualites"
-                  className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
+                  className={`px-5 py-3 text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
                     isActive("/actualites")
                       ? "text-primary bg-purple-50/70"
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
@@ -192,10 +192,10 @@ export default function Navigation() {
 
                 {/* Language Selector */}
                 <Select value={i18n.language} onValueChange={changeLanguage}>
-                  <SelectTrigger className="w-fit h-9 bg-white border border-purple-200 text-sm font-medium text-slate-700 focus:ring-0 focus:outline-none mx-2">
+                  <SelectTrigger className="w-fit h-9 bg-white border border-purple-200 text-sm font-medium text-slate-700 focus:ring-0 focus:outline-none mx-2 rounded-none">
                     <SelectValue placeholder={t("language")} />
                   </SelectTrigger>
-                  <SelectContent className="bg-white border border-purple-200 rounded-lg shadow-md">
+                  <SelectContent className="bg-white border border-purple-200 shadow-md rounded-none">
                     <SelectItem value="fr">FR</SelectItem>
                     <SelectItem value="en">EN</SelectItem>
                     <SelectItem value="mg">MG</SelectItem>
@@ -210,7 +210,7 @@ export default function Navigation() {
 
               {/* Mobile Menu Button */}
               <button
-                className="lg:hidden p-2.5 text-sidebar-primary hover:text-primary hover:bg-muted rounded-lg transition-colors"
+                className="lg:hidden p-2.5 text-sidebar-primary hover:text-primary hover:bg-muted transition-colors"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <Menu className="w-5 h-5" />
@@ -263,7 +263,7 @@ export default function Navigation() {
                     <SelectTrigger className="w-full h-12 bg-white border border-purple-200 text-base font-medium text-slate-700">
                       <SelectValue placeholder={t("language")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-purple-200 rounded-lg shadow-md">
+                    <SelectContent className="bg-white border border-purple-200 shadow-md">
                       <SelectItem value="fr">FR</SelectItem>
                       <SelectItem value="en">EN</SelectItem>
                       <SelectItem value="mg">MG</SelectItem>

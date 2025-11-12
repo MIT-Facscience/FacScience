@@ -200,7 +200,7 @@ export default function AdminPage() {
                   <CardTitle>Activité Récente</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 ">
                     <div className="h-2 w-2 bg-green-500 rounded-full"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">
@@ -209,7 +209,7 @@ export default function AdminPage() {
                       <p className="text-xs text-slate-600">Il y a 2 heures</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 ">
                     <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">
@@ -218,7 +218,7 @@ export default function AdminPage() {
                       <p className="text-xs text-slate-600">Il y a 4 heures</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 ">
                     <div className="h-2 w-2 bg-purple-500 rounded-full"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">
@@ -311,7 +311,7 @@ export default function AdminPage() {
                     {actualites_recentes.map((actu) => (
                       <div
                         key={actu.id}
-                        className="flex items-center justify-between p-4 border rounded-lg"
+                        className="flex items-center justify-between p-4 border "
                       >
                         <div className="flex-1">
                           <h4 className="font-semibold text-slate-800">
@@ -427,7 +427,7 @@ export default function AdminPage() {
                         {formations_recentes.map((formation, index) => (
                           <div
                             key={index}
-                            className="flex items-center justify-between p-4 border rounded-lg"
+                            className="flex items-center justify-between p-4 border "
                           >
                             <div className="flex-1">
                               <h4 className="font-semibold text-slate-800">
@@ -547,7 +547,7 @@ export default function AdminPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        <div className="p-4 border rounded-lg">
+                        <div className="p-4 border ">
                           <h4 className="font-semibold text-slate-800">
                             Licence L1 Mathématiques et Informatique
                           </h4>

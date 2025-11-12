@@ -205,7 +205,7 @@ function MentionsCarousel() {
         </div>
 
         <Button
-          className="absolute -left-4 top-1/2 -translate-y-1/2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 rounded-lg cursor-pointer"
+          className="absolute -left-4 top-1/2 -translate-y-1/2 backdrop-blur-sm border-primary/20 hover:bg-primary/10  cursor-pointer"
           onClick={prevSlide}
         >
           <ChevronLeft className="h-6 w-6" />
@@ -213,7 +213,7 @@ function MentionsCarousel() {
 
         <Button
           size="icon"
-          className="absolute -right-4 top-1/2 -translate-y-1/2 backdrop-blur-sm border-primary/20 hover:bg-primary/10 rounded-lg cursor-pointer"
+          className="absolute -right-4 top-1/2 -translate-y-1/2 backdrop-blur-sm border-primary/20 hover:bg-primary/10  cursor-pointer"
           onClick={nextSlide}
         >
           <ChevronRight className="h-6 w-6" />

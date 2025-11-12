@@ -1,6 +1,8 @@
 import { Facebook, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function Footer() {
+  const { t } = useTranslation("footer");
   return (
     <footer className="bg-white/95 backdrop-blur-xl text-sidebar-primary border-purple-200/40 relative">
       {/* Accent coloré en haut */}
@@ -11,7 +13,7 @@ export function Footer() {
           {/* Logo et description */}
           <div className="space-y-6 lg:col-span-1">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full shadow-lg flex items-center justify-center ring-amber-200/50">
+              <div className="w-10 h-10  shadow-lg flex items-center justify-center ring-amber-200/50">
                 <img
                   src="/fac-science.jpg"
                   className="h-10 w-10 text-amber-100 object-cover"
@@ -19,17 +21,15 @@ export function Footer() {
               </div>
               <div>
                 <span className="text-xl sm:text-2xl font-semibold text-sidebar-foreground">
-                  Faculté des Sciences
+                  {t("footer.title")}
                 </span>
                 <p className="text-sm text-muted-foreground font-medium">
-                  UNIVERSITÉ D'ANTANANARIVO
+                  {t("footer.universityTitle")}
                 </p>
               </div>
             </div>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Formation d'excellence en sciences et technologies pour le
-              développement de Madagascar. Innovation, recherche et excellence
-              académique depuis plus de 50 ans.
+             {t("footer.longText")}
             </p>
           </div>
 
@@ -73,12 +73,12 @@ export function Footer() {
             </h3>
             <div className="space-y-4">
               <div className="flex items-start space-x-3 group">
-                <div className="w-8 h-8 bg-purple-50 border border-purple-200/50 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-purple-100 transition-colors duration-300">
+                <div className="w-8 h-8 bg-purple-50 border border-purple-200/50  flex items-center justify-center mt-0.5 group-hover:bg-purple-100 transition-colors duration-300">
                   <MapPin className="h-4 w-4 text-primary group-hover:text-primary" />
                 </div>
                 <div>
                   <p className="text-base text-sidebar-foreground font-medium">
-                    Adresse
+                    {t("footer.AddressTitle")}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Campus universitaire Ambohitsaina, BP 906
@@ -89,12 +89,12 @@ export function Footer() {
               </div>
 
               <div className="flex items-start space-x-3 group">
-                <div className="w-8 h-8 bg-purple-50 border border-purple-200/50 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-purple-100 transition-colors duration-300">
+                <div className="w-8 h-8 bg-purple-50 border border-purple-200/50  flex items-center justify-center mt-0.5 group-hover:bg-purple-100 transition-colors duration-300">
                   <Phone className="h-4 w-4 text-primary group-hover:text-ring" />
                 </div>
                 <div>
                   <p className="text-base text-sidebar-foreground font-medium">
-                    Téléphone
+                    {t("footer.phoneTitle")}
                   </p>
                   <a
                     href="tel:+261201234567"
@@ -113,7 +113,7 @@ export function Footer() {
               </div>
 
               <div className="flex items-start space-x-3 group">
-                <div className="w-8 h-8 bg-purple-50 border border-purple-200/50 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-purple-100 transition-colors duration-300">
+                <div className="w-8 h-8 bg-purple-50 border border-purple-200/50  flex items-center justify-center mt-0.5 group-hover:bg-purple-100 transition-colors duration-300">
                   <Mail className="h-4 w-4 text-primary group-hover:text-primary" />
                 </div>
                 <div>
@@ -139,19 +139,19 @@ export function Footer() {
             <div className="flex space-x-4">
               <a
                 href="https://www.facebook.com/p/Facult%C3%A9-des-Sciences-Antananarivo-100086509081041/?locale=fr_FR"
-                className="w-10 h-10 bg-purple-50 hover:bg-gradient-to-br hover:from-purple-100 hover:to-purple-200 rounded-full flex items-center justify-center transition-all duration-300 group border border-purple-200/50"
+                className="w-10 h-10 bg-purple-50 hover:bg-gradient-to-br hover:from-purple-100 hover:to-purple-200  flex items-center justify-center transition-all duration-300 group border border-purple-200/50"
               >
                 <Facebook className="h-4 w-4 text-primary group-hover:text-primary" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-purple-50 hover:bg-gradient-to-br hover:from-purple-100 hover:to-purple-200 rounded-full flex items-center justify-center transition-all duration-300 group border border-purple-200/50"
+                className="w-10 h-10 bg-purple-50 hover:bg-gradient-to-br hover:from-purple-100 hover:to-purple-200  flex items-center justify-center transition-all duration-300 group border border-purple-200/50"
               >
                 <Twitter className="h-4 w-4 text-primary group-hover:text-primary" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-purple-50 hover:bg-gradient-to-br hover:from-purple-100 hover:to-purple-200 rounded-full flex items-center justify-center transition-all duration-300 group border border-purple-200/50"
+                className="w-10 h-10 bg-purple-50 hover:bg-gradient-to-br hover:from-purple-100 hover:to-purple-200  flex items-center justify-center transition-all duration-300 group border border-purple-200/50"
               >
                 <Linkedin className="h-4 w-4 text-primary group-hover:text-primary" />
               </a>
@@ -160,12 +160,12 @@ export function Footer() {
             {/* Horaires */}
             <div className="p-4 bg-gradient-to-br from-muted to-amber-50/30 border border-purple-200/50">
               <p className="text-base font-medium text-sidebar-foreground mb-2">
-                Heures d'ouverture
+                {t("footer.timeTitle")}
               </p>
               <p className="text-sm text-muted-foreground">
-                Lun - Ven : 7h30 - 17h00
+                {t("footer.timeWeek")}
                 <br />
-                Sam : 8h00 - 12h00
+                {t("footer.timeWeekend")}
               </p>
             </div>
           </div>
@@ -178,11 +178,10 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-1 md:space-y-0 pb-3 md:pb-5">
           <div className="text-center md:text-left">
             <p className="text-base text-muted-foreground">
-              &copy; 2025 Faculté des Sciences - Université d'Antananarivo. Tous
-              droits réservés.
+              &copy; {t("footer.copyright")}
             </p>
             <p className="text-sm text-muted-foreground mt-1">
-              Établissement public d'enseignement supérieur
+              {t("footer.universityState")}
             </p>
           </div>
 

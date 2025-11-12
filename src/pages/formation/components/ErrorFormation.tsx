@@ -1,6 +1,9 @@
 import ErrorComp from "@/components/Home/error";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 export default function ErrorFormation({ error }: { error: string }) {
+  const {t} = useTranslation("formation");
+
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -23,20 +26,20 @@ export default function ErrorFormation({ error }: { error: string }) {
                 </div>
                 <div className="relative z-10 text-center py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                    Nos Formations
+                    {t("formation.title")}
                   </h1>
                   <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
-                    Découvrez nos mentions et parcours d'excellence scientifique
+                    {t("formation.description")}
                   </p>
                 </div>
               </motion.div>
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-slate-600 text-center">
-                Nos Mentions disponibles
+                {t("formation.mention.title")}
               </h1>
               <p className="text-sm md:text-lg text-center mb-10 mt-2">
-                Voici la liste des mentions disponibles dans notre faculté
+                {t("formation.mention.description")}
               </p>
               <ErrorComp>{error}</ErrorComp>
               {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">

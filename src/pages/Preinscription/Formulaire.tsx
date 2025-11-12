@@ -158,7 +158,7 @@ const Formulaire: React.FC = () => {
           {/* Option Académique */}
           <button
             onClick={() => handleConfirmFormationChange("academique")}
-            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-primary group"
+            className="bg-white  shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-primary group"
           >
             <div className="flex flex-col items-center text-center space-y-6">
               <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-[#bb40b9] transition-colors duration-300">
@@ -191,7 +191,7 @@ const Formulaire: React.FC = () => {
           {/* Option Professionnalisante */}
           <button
             onClick={() => handleConfirmFormationChange("professionnalisante")}
-            className="bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-secondary group"
+            className="bg-white  shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border-2 border-transparent hover:border-secondary group"
           >
             <div className="flex flex-col items-center text-center space-y-6">
               <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center group-hover:bg-[#e2c562] transition-colors duration-300">
@@ -258,7 +258,7 @@ const Formulaire: React.FC = () => {
           <div className="bg-white shadow-xl rounded-sm p-8 md:p-12 space-y-3">
             {/* Indicateur du type de formation choisi */}
             <div
-              className={`flex items-center justify-between p-4 rounded-lg mb-6 ${
+              className={`flex items-center justify-between p-4  mb-6 ${
                 formationType === "academique"
                   ? "bg-purple-50 border border-purple-200"
                   : "bg-amber-50 border border-amber-200"
@@ -297,7 +297,7 @@ const Formulaire: React.FC = () => {
             </div>
 
             {/* Choix type de bac */}
-            <div className="flex space-x-6 my-3 w-full justify-around p-3 rounded-lg">
+            <div className="flex space-x-6 my-3 w-full justify-around p-3 ">
               <button
                 className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${
                   bactype === "mg"

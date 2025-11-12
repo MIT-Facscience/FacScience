@@ -90,7 +90,7 @@ export default function INTAdmissionPage() {
               {/* Contenu principal */}
               <div className="relative z-10 flex flex-col items-center justify-center text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6 space-y-6">
                 {/* Logo + Titre combiné */}
-                <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-lg">
+                <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 bg-white/10 backdrop-blur-sm px-6 py-3  shadow-lg">
                   <div className="flex items-center space-x-3">
                     <div className="overflow-hidden w-12 h-12 bg-gradient-to-tr from-purple-500 to-blue-500 rounded-full flex items-center justify-center font-bold text-white text-xl shadow-md">
                       <img className="w-full" src="/INT logo.png" alt="INT" />
@@ -159,13 +159,13 @@ export default function INTAdmissionPage() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="px-6 pb-6 pt-2 flex-1 space-y-6">
-                      <div className="bg-neutral-50 p-4 rounded-lg space-y-2">
+                      <div className="bg-neutral-50 p-4  space-y-2">
                         <p className="font-semibold text-red-700">{t("intMaster1")}</p>
                         <p className="text-sm text-gray-600">
                           {t("intMaster1Description")}
                         </p>
                       </div>
-                      <div className="bg-neutral-50 p-4 rounded-lg space-y-2">
+                      <div className="bg-neutral-50 p-4  space-y-2">
                         <p className="font-semibold text-red-700">{t("intMaster2")}</p>
                         <p className="text-sm text-gray-600">
                           {t("intMaster2Description")}

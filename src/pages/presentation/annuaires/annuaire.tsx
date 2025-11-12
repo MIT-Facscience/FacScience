@@ -124,7 +124,7 @@ const AnnuairePage = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center bg-white p-8 rounded-lg shadow-lg border border-red-200">
+        <div className="text-center bg-white p-8  shadow-lg border border-red-200">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-red-600 text-2xl">!</span>
           </div>
@@ -157,7 +157,7 @@ const AnnuairePage = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="group bg-white hover:bg-slate-50 transition-all duration-300 border border-slate-200 hover:border-slate-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md"
+          className="group bg-white hover:bg-slate-50 transition-all duration-300 border border-slate-200 hover:border-slate-300  overflow-hidden shadow-sm hover:shadow-md"
         >
           <div className="p-6">
             <div className="flex items-center space-x-6">
@@ -240,7 +240,7 @@ const AnnuairePage = () => {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="group relative bg-white hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-purple-300 rounded-lg overflow-hidden"
+        className="group relative bg-white hover:shadow-xl transition-all duration-300 border border-slate-200 hover:border-purple-300  overflow-hidden"
       >
         <div className="p-6">
           <div className="text-center mb-4">
@@ -310,10 +310,10 @@ const AnnuairePage = () => {
   };
 
   const AdminPanel = () => (
-    <div className="bg-white shadow-sm border border-slate-200 rounded-lg p-8 mb-8">
+    <div className="bg-white shadow-sm border border-slate-200  p-8 mb-8">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
-          <div className="p-3 bg-purple-600 text-white rounded-lg">
+          <div className="p-3 bg-purple-600 text-white ">
             <Settings className="w-6 h-6" />
           </div>
           <div>
@@ -325,15 +325,15 @@ const AnnuairePage = () => {
         </div>
 
         <div className="flex space-x-3">
-          <button className="flex items-center px-4 py-2 bg-purple-600 text-white hover:bg-purple-700 transition-colors shadow-sm rounded-lg">
+          <button className="flex items-center px-4 py-2 bg-purple-600 text-white hover:bg-purple-700 transition-colors shadow-sm ">
             <Plus className="w-5 h-5 mr-2" />
             Ajouter
           </button>
-          <button className="flex items-center px-4 py-2 bg-green-600 text-white hover:bg-green-700 transition-colors shadow-sm rounded-lg">
+          <button className="flex items-center px-4 py-2 bg-green-600 text-white hover:bg-green-700 transition-colors shadow-sm ">
             <Upload className="w-5 h-5 mr-2" />
             Importer
           </button>
-          <button className="flex items-center px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-sm rounded-lg">
+          <button className="flex items-center px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-sm ">
             <Download className="w-5 h-5 mr-2" />
             Exporter
           </button>
@@ -341,7 +341,7 @@ const AnnuairePage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-purple-50 p-6 border border-purple-200 rounded-lg">
+        <div className="bg-purple-50 p-6 border border-purple-200 ">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-purple-600 text-sm font-medium">Professeurs</p>
@@ -353,7 +353,7 @@ const AnnuairePage = () => {
           </div>
         </div>
 
-        <div className="bg-amber-50 p-6 border border-amber-200 rounded-lg">
+        <div className="bg-amber-50 p-6 border border-amber-200 ">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-amber-600 text-sm font-medium">Personnels</p>
@@ -365,7 +365,7 @@ const AnnuairePage = () => {
           </div>
         </div>
 
-        <div className="bg-blue-50 p-6 border border-blue-200 rounded-lg">
+        <div className="bg-blue-50 p-6 border border-blue-200 ">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-600 text-sm font-medium">Total</p>
@@ -410,7 +410,7 @@ const AnnuairePage = () => {
         {isAdmin && <AdminPanel />}
 
         {/* Navigation Tabs */}
-        <div className="bg-white shadow-sm border border-slate-200 rounded-lg p-2 mt-8 mb-8">
+        <div className="bg-white shadow-sm border border-slate-200  p-2 mt-8 mb-8">
           <div className="flex space-x-2">
             {[
               {
@@ -429,7 +429,7 @@ const AnnuairePage = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center px-6 py-4 font-medium transition-all duration-300 rounded-lg ${
+                className={`flex items-center px-6 py-4 font-medium transition-all duration-300  ${
                   activeTab === tab.id
                     ? "bg-purple-600 text-white shadow-sm"
                     : "text-slate-600 hover:bg-slate-100"
@@ -452,7 +452,7 @@ const AnnuairePage = () => {
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white shadow-sm border border-slate-200 rounded-lg p-6 mb-6">
+        <div className="bg-white shadow-sm border border-slate-200  p-6 mb-6">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -461,12 +461,12 @@ const AnnuairePage = () => {
                 placeholder="Rechercher une personne..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                className="w-full pl-12 pr-4 py-3 border border-slate-300  focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
               />
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="flex bg-slate-100 rounded-lg p-1">
+              <div className="flex bg-slate-100  p-1">
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2 rounded transition-all ${
@@ -506,7 +506,7 @@ const AnnuairePage = () => {
               setItemsPerPage(Number(e.target.value));
               setCurrentPage(1);
             }}
-            className="border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="border border-slate-300  px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
           >
             <option value={6}>6 par page</option>
             <option value={12}>12 par page</option>
@@ -547,7 +547,7 @@ const AnnuairePage = () => {
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm("")}
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                className="px-4 py-2 bg-purple-600 text-white  hover:bg-purple-700 transition-colors"
               >
                 Effacer la recherche
               </button>
@@ -561,7 +561,7 @@ const AnnuairePage = () => {
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => prev - 1)}
-              className={`flex items-center px-4 py-2 rounded-lg border transition-colors ${
+              className={`flex items-center px-4 py-2  border transition-colors ${
                 currentPage === 1
                   ? "opacity-50 cursor-not-allowed border-slate-200 text-slate-400"
                   : "hover:bg-purple-50 text-purple-600 border-purple-200"
@@ -575,7 +575,7 @@ const AnnuairePage = () => {
               <button
                 key={i}
                 onClick={() => setCurrentPage(i + 1)}
-                className={`w-10 h-10 flex items-center justify-center rounded-lg border transition-colors ${
+                className={`w-10 h-10 flex items-center justify-center  border transition-colors ${
                   currentPage === i + 1
                     ? "bg-purple-600 text-white border-purple-600 shadow-md"
                     : "text-slate-600 border-slate-300 hover:bg-slate-100"
@@ -588,7 +588,7 @@ const AnnuairePage = () => {
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => prev + 1)}
-              className={`flex items-center px-4 py-2 rounded-lg border transition-colors ${
+              className={`flex items-center px-4 py-2  border transition-colors ${
                 currentPage === totalPages
                   ? "opacity-50 cursor-not-allowed border-slate-200 text-slate-400"
                   : "hover:bg-purple-50 text-purple-600 border-purple-200"

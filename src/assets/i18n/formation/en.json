@@ -1,1 +1,10 @@
-{}
+{
+    "formation" :{
+         "title":"Fampiofanana",
+        "description":"Hitanareo eto ny Fizarazarana rehetra amin'ny fampiofanana rehetra eto amin'ny fakiolte an'ny siana",
+        "mention" :{
+            "title":"Ny fizarazarana misy" ,
+            "description" : "Hitanareo eto ny Fizarazarana rehetra amin'ny fampiofanana rehetra eto amin'ny fakiolte an'ny siana"
+        }
+    }
+}

@@ -121,7 +121,7 @@ export default function VisionPage() {
                           </p>
 
                           <div className="grid grid-cols-2 gap-4 mt-6">
-                            <div className="text-center p-4 bg-purple-50 rounded-lg">
+                            <div className="text-center p-4 bg-purple-50 ">
                               <div className="text-2xl font-bold text-purple-800">
                                 95%
                               </div>
@@ -129,7 +129,7 @@ export default function VisionPage() {
                                 {t("vision.stats.employmentRate")}
                               </div>
                             </div>
-                            <div className="text-center p-4 bg-amber-50 rounded-lg">
+                            <div className="text-center p-4 bg-amber-50 ">
                               <div className="text-2xl font-bold text-amber-800">
                                 50+
                               </div>
@@ -151,7 +151,7 @@ export default function VisionPage() {
                       <img
                         src="/media-digitalisation.jpg"
                         alt="Campus Events"
-                        className="w-full h-32 object-cover rounded-lg"
+                        className="w-full h-32 object-cover "
                       />
 
                       <div className="space-y-6">

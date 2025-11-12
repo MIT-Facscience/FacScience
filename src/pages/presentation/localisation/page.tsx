@@ -34,7 +34,7 @@ export default function LocalisationPage() {
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-6">
-                      <div className="p-6 bg-accent/10 rounded-lg">
+                      <div className="p-6 bg-accent/10 ">
                         <h3 className="text-lg font-semibold text-accent mb-4">
                           Adresse Postale
                         </h3>
@@ -46,7 +46,7 @@ export default function LocalisationPage() {
                         </div>
                       </div>
 
-                      <div className="p-6 bg-accent/10 rounded-lg">
+                      <div className="p-6 bg-accent/10 ">
                         <h3 className="text-lg font-semibold text-accent mb-4">
                           Coordonnées GPS
                         </h3>
@@ -75,7 +75,7 @@ export default function LocalisationPage() {
                     </div>
 
                     <div className="space-y-6">
-                      <div className="p-6 bg-accent/10 rounded-lg">
+                      <div className="p-6 bg-accent/10 ">
                         <h3 className="text-lg font-semibold text-accent mb-4">
                           Contact
                         </h3>
@@ -110,7 +110,7 @@ export default function LocalisationPage() {
                         </div>
                       </div>
 
-                      <div className="p-6 bg-accent/10 rounded-lg">
+                      <div className="p-6 bg-accent/10 ">
                         <h3 className="text-lg font-semibold text-accent mb-4">
                           Quartier
                         </h3>
@@ -146,7 +146,7 @@ export default function LocalisationPage() {
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6 mb-8">
                     <div className="md:col-span-2">
-                      <div className="bg-muted/30 rounded-lg p-8 min-h-[400px] flex items-center justify-center">
+                      <div className="bg-muted/30  p-8 min-h-[400px] flex items-center justify-center">
                         <div className="text-center">
                           <MapPin className="h-16 w-16 text-accent mx-auto mb-4" />
                           <p className="text-lg font-semibold mb-2">
@@ -161,7 +161,7 @@ export default function LocalisationPage() {
                     </div>
 
                     <div className="space-y-4">
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-red-500 rounded"></div>
                           <span className="text-sm font-medium">
@@ -173,7 +173,7 @@ export default function LocalisationPage() {
                         </p>
                       </div>
 
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-blue-500 rounded"></div>
                           <span className="text-sm font-medium">
@@ -185,7 +185,7 @@ export default function LocalisationPage() {
                         </p>
                       </div>
 
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-green-500 rounded"></div>
                           <span className="text-sm font-medium">
@@ -197,7 +197,7 @@ export default function LocalisationPage() {
                         </p>
                       </div>
 
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-yellow-500 rounded"></div>
                           <span className="text-sm font-medium">
@@ -209,7 +209,7 @@ export default function LocalisationPage() {
                         </p>
                       </div>
 
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-4 h-4 bg-purple-500 rounded"></div>
                           <span className="text-sm font-medium">Services</span>
@@ -234,7 +234,7 @@ export default function LocalisationPage() {
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <div className="flex items-center space-x-2 mb-3">
                           <Bus className="h-5 w-5 text-accent" />
                           <h3 className="font-semibold">Transport Public</h3>
@@ -258,7 +258,7 @@ export default function LocalisationPage() {
                         </div>
                       </div>
 
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <div className="flex items-center space-x-2 mb-3">
                           <Car className="h-5 w-5 text-accent" />
                           <h3 className="font-semibold">Accès Routier</h3>
@@ -288,7 +288,7 @@ export default function LocalisationPage() {
                     </div>
 
                     <div className="space-y-4">
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <h3 className="font-semibold mb-3">Points de Repère</h3>
                         <div className="space-y-2 text-sm">
                           <p>
@@ -310,7 +310,7 @@ export default function LocalisationPage() {
                         </div>
                       </div>
 
-                      <div className="p-4 border rounded-lg">
+                      <div className="p-4 border ">
                         <h3 className="font-semibold mb-3">
                           Services à Proximité
                         </h3>
@@ -336,7 +336,7 @@ export default function LocalisationPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6">
-                    <div className="p-4 bg-accent/10 rounded-lg">
+                    <div className="p-4 bg-accent/10 ">
                       <h3 className="font-semibold text-accent mb-3">
                         Horaires d'Ouverture
                       </h3>
@@ -356,7 +356,7 @@ export default function LocalisationPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 bg-accent/10 rounded-lg">
+                    <div className="p-4 bg-accent/10 ">
                       <h3 className="font-semibold text-accent mb-3">
                         Sécurité
                       </h3>
@@ -368,7 +368,7 @@ export default function LocalisationPage() {
                       </div>
                     </div>
 
-                    <div className="p-4 bg-accent/10 rounded-lg">
+                    <div className="p-4 bg-accent/10 ">
                       <h3 className="font-semibold text-accent mb-3">
                         Accessibilité
                       </h3>

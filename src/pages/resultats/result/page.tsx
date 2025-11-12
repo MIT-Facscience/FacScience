@@ -435,7 +435,7 @@ export default function ResultatsPage() {
                               </div>
                             </div>
                           </div>
-                          <div className="mb-4 p-3 bg-slate-50 rounded-lg">
+                          <div className="mb-4 p-3 bg-slate-50 ">
                             <div className="text-sm text-slate-600">Critères de sélection:</div>
                             <div className="font-medium text-slate-800">{selection.criteres}</div>
                           </div>
@@ -517,15 +517,15 @@ export default function ResultatsPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid md:grid-cols-3 gap-4">
-                      <div className="text-center p-4 bg-slate-50 rounded-lg">
+                      <div className="text-center p-4 bg-slate-50 ">
                         <div className="text-2xl font-bold text-slate-800">2022</div>
                         <div className="text-lg text-blue-600">198 admis</div>
                       </div>
-                      <div className="text-center p-4 bg-slate-50 rounded-lg">
+                      <div className="text-center p-4 bg-slate-50 ">
                         <div className="text-2xl font-bold text-slate-800">2023</div>
                         <div className="text-lg text-green-600">225 admis</div>
                       </div>
-                      <div className="text-center p-4 bg-slate-50 rounded-lg">
+                      <div className="text-center p-4 bg-slate-50 ">
                         <div className="text-2xl font-bold text-slate-800">2024</div>
                         <div className="text-lg text-purple-600">255 admis</div>
                       </div>

@@ -33,7 +33,7 @@ export default function InfrastructurePage() {
                   alt="Vue d'ensemble du campus de la Faculté des Sciences"
                   width={800}
                   height={400}
-                  className="rounded-lg mx-auto shadow-lg"
+                  className=" mx-auto shadow-lg"
                 />
               </div>
             </div>
@@ -53,7 +53,7 @@ export default function InfrastructurePage() {
                         alt="Façade principale de la Faculté des Sciences"
                         width={400}
                         height={250}
-                        className="rounded-lg shadow-md w-full"
+                        className=" shadow-md w-full"
                       />
                       <h3 className="font-semibold">Façade Principale</h3>
                       <p className="text-sm text-muted-foreground">
@@ -68,7 +68,7 @@ export default function InfrastructurePage() {
                         alt="Bâtiments des départements"
                         width={400}
                         height={250}
-                        className="rounded-lg shadow-md w-full"
+                        className=" shadow-md w-full"
                       />
                       <h3 className="font-semibold">Bâtiments Départements</h3>
                       <p className="text-sm text-muted-foreground">
@@ -83,7 +83,7 @@ export default function InfrastructurePage() {
                         alt="Espace d'étude extérieur"
                         width={400}
                         height={250}
-                        className="rounded-lg shadow-md w-full"
+                        className=" shadow-md w-full"
                       />
                       <h3 className="font-semibold">Espaces d'Étude</h3>
                       <p className="text-sm text-muted-foreground">
@@ -97,7 +97,7 @@ export default function InfrastructurePage() {
                         alt="Monument emblématique de la faculté"
                         width={400}
                         height={250}
-                        className="rounded-lg shadow-md w-full"
+                        className=" shadow-md w-full"
                       />
                       <h3 className="font-semibold">Monument Emblématique</h3>
                       <p className="text-sm text-muted-foreground">
@@ -112,7 +112,7 @@ export default function InfrastructurePage() {
                         alt="Fresque artistique du campus"
                         width={400}
                         height={250}
-                        className="rounded-lg shadow-md w-full"
+                        className=" shadow-md w-full"
                       />
                       <h3 className="font-semibold">Art et Culture</h3>
                       <p className="text-sm text-muted-foreground">
@@ -127,7 +127,7 @@ export default function InfrastructurePage() {
                         alt="Cour centrale du campus"
                         width={400}
                         height={250}
-                        className="rounded-lg shadow-md w-full"
+                        className=" shadow-md w-full"
                       />
                       <h3 className="font-semibold">Cour Centrale</h3>
                       <p className="text-sm text-muted-foreground">
@@ -149,8 +149,8 @@ export default function InfrastructurePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-                      <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-accent/20  flex items-center justify-center mb-4">
                         <Building className="h-6 w-6 text-accent" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">
@@ -176,8 +176,8 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-                      <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-accent/20  flex items-center justify-center mb-4">
                         <Microscope className="h-6 w-6 text-accent" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">
@@ -202,8 +202,8 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-                      <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-accent/20  flex items-center justify-center mb-4">
                         <BookOpen className="h-6 w-6 text-accent" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">
@@ -228,8 +228,8 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-                      <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-accent/20  flex items-center justify-center mb-4">
                         <Computer className="h-6 w-6 text-accent" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">
@@ -254,8 +254,8 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-                      <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-accent/20  flex items-center justify-center mb-4">
                         <Wifi className="h-6 w-6 text-accent" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">
@@ -280,8 +280,8 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
-                      <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                    <div className="p-6 border  hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-accent/20  flex items-center justify-center mb-4">
                         <Car className="h-6 w-6 text-accent" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">
@@ -318,7 +318,7 @@ export default function InfrastructurePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
-                    <div className="border rounded-lg p-6">
+                    <div className="border  p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Physique</Badge>
                         <h3 className="text-lg font-semibold">
@@ -341,7 +341,7 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-6">
+                    <div className="border  p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Chimie</Badge>
                         <h3 className="text-lg font-semibold">
@@ -364,7 +364,7 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-6">
+                    <div className="border  p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Biologie</Badge>
                         <h3 className="text-lg font-semibold">
@@ -387,7 +387,7 @@ export default function InfrastructurePage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-6">
+                    <div className="border  p-6">
                       <div className="flex items-center space-x-2 mb-4">
                         <Badge variant="secondary">Informatique</Badge>
                         <h3 className="text-lg font-semibold">
@@ -423,7 +423,7 @@ export default function InfrastructurePage() {
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <h3 className="font-semibold text-accent mb-2">
                           Modernisation des Laboratoires
                         </h3>
@@ -436,7 +436,7 @@ export default function InfrastructurePage() {
                         </Badge>
                       </div>
 
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <h3 className="font-semibold text-accent mb-2">
                           Extension Bibliothèque
                         </h3>
@@ -451,7 +451,7 @@ export default function InfrastructurePage() {
                     </div>
 
                     <div className="space-y-4">
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <h3 className="font-semibold text-accent mb-2">
                           Campus Numérique
                         </h3>
@@ -464,7 +464,7 @@ export default function InfrastructurePage() {
                         </Badge>
                       </div>
 
-                      <div className="p-4 bg-accent/10 rounded-lg">
+                      <div className="p-4 bg-accent/10 ">
                         <h3 className="font-semibold text-accent mb-2">
                           Éco-Campus
                         </h3>

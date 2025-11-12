@@ -175,7 +175,7 @@ export function HeroSection(): JSX.Element {
                     <Button
                       asChild
                       size="lg"
-                      className={`border-0 shadow-xl rounded-lg bg-gradient-to-r ${image.backgroundColor} transform hover:scale-105 transition-all duration-200`}
+                      className={`border-0 shadow-xl  bg-gradient-to-r ${image.backgroundColor} transform hover:scale-105 transition-all duration-200 rounded-none`}
                     >
                       <Link to={image.buttonLinkForm}>
                         <span>{t(`heroSection.slides.${image.translationKey}.buttonText`)}</span>
@@ -186,7 +186,7 @@ export function HeroSection(): JSX.Element {
                       variant="secondary"
                       size="lg"
                       asChild
-                      className="border-2 border-amber-300 rounded-lg text-amber-100 backdrop-blur-sm bg-white/10 hover:bg-white/20 transform hover:scale-105 transition-all duration-200"
+                      className="border-2 border-amber-300  text-amber-100 backdrop-blur-sm bg-white/10 hover:bg-white/20 transform hover:scale-105 transition-all duration-200 rounded-none"
                     >
                       <Link to={image.buttonLinkInfo}>{t("heroSection.learnMore")}</Link>
                     </Button>

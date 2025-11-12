@@ -69,7 +69,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
             {programs.map((program) => (
               <label
                 key={program.idPortail}
-                className={`flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 ${
+                className={`flex items-center space-x-3 p-3 border  hover:bg-gray-50 cursor-pointer transition-all duration-200 ${
                   program.idPortail === selectedProgram?.idPortail
                     ? "border-1 border-faculty-purple-600 border-l-4"
                     : "hover:border-l-4 hover:border-l-orange-400"

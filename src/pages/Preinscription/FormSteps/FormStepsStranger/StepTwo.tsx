@@ -47,7 +47,7 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
       </h2>
 
       {/* Section Documents */}
-      <div className="border-2 border-dashed rounded-lg p-6">
+      <div className="border-2 border-dashed  p-6">
         <h3 className="mb-2 font-medium">
           {t('formulaire.stepTwoStranger.documents.diploma.title')}
         </h3>
@@ -82,7 +82,7 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
           {programs.map(program => (
             <label 
               key={program.idPortail} 
-              className={`flex items-center space-x-4 p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+              className={`flex items-center space-x-4 p-4 border  cursor-pointer transition-all duration-200 ${
                 localProgram?.idPortail === program.idPortail 
                   ? 'border-purple-500 bg-purple-50 shadow-sm' 
                   : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
@@ -114,7 +114,7 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
       <div className="flex justify-between pt-6">
         <button 
           onClick={onBack} 
-          className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+          className="px-6 py-3 border border-gray-300  text-gray-700 hover:bg-gray-50 transition-colors duration-200"
         >
           {t('formulaire.stepTwoStranger.buttons.previous')}
         </button>
@@ -122,7 +122,7 @@ export default function StepTwo({ selectedProgram, setSelectedProgram, documents
         <button 
           onClick={handleNext} 
           disabled={isContinueDisabled}
-          className={`px-6 py-3 rounded-lg flex items-center transition-colors duration-200 ${
+          className={`px-6 py-3  flex items-center transition-colors duration-200 ${
             isContinueDisabled
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
               : 'bg-faculty-purple-600 text-white hover:bg-faculty-purple-700'

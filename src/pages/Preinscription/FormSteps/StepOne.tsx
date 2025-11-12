@@ -168,7 +168,7 @@ export const StepOne: React.FC<StepOneProps> = ({ onNext }) => {
         </div>
 
         {error && (
-          <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-3 rounded-lg">
+          <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-3 ">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
             <span className="text-sm">{error}</span>
           </div>
