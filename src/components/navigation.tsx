@@ -201,7 +201,10 @@ export default function Navigation() {
                     <SelectItem value="mg">MG</SelectItem>
                   </SelectContent>
                 </Select>
-
+                  
+                  <Link to ="resultats">
+                  Resultats
+                  </Link>
                 {/* Contact */}
                 <Link to="/contact">
                   <PrimaryButton>{t("contact")}</PrimaryButton>
