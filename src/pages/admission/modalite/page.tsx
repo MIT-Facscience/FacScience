@@ -102,7 +102,7 @@ export default function AdmissionPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-2xl font-bold text-primary">
-                      15 Novembre 2025
+                      15 Décembre 2025
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {t("depositdossiers")}
@@ -329,7 +329,7 @@ export default function AdmissionPage() {
                             {t("deadlinedossier")}
                           </span>
                           <Badge variant="default" className="rounded-none">
-                            15 Novembre
+                            15 Décembre
                           </Badge>
                         </div>
                         <div className="flex justify-between items-center p-3 bg-muted">
