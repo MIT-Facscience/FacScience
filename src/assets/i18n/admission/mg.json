@@ -118,6 +118,16 @@
         "cta": {
             "start": "Manomboka ny fisoratrana anarana",
             "securityNote": "Dingana arovana • Angona voaro • Tohana ara-teknika misy"
+        },
+        "closed": {
+            "title": "Tapitra ny fisoratrana anarana",
+            "message": "Tapitra ankehitriny ny vaniny fisoratrana anarana.",
+            "info": {
+                "title": "Fampahalalana lehibe",
+                "description": "Tapitra ny fisoratrana anarana ho an'ity taom-pianarana ity. Jereo ny tranokalanay ho an'ny vaniny fisoratrana anarana manaraka."
+            },
+            "backToAdmission": "Hiverina any amin'ny fomba fidirana",
+            "backToHome": "Hiverina any an-tranony"
         }
     },
 

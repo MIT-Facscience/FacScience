@@ -203,6 +203,16 @@
         "cta": {
             "start": "Commencer ma pré-inscription",
             "securityNote": "Processus sécurisé • Données protégées • Support technique disponible"
+        },
+        "closed": {
+            "title": "Préinscription terminée",
+            "message": "La période de préinscription est actuellement fermée.",
+            "info": {
+                "title": "Informations importantes",
+                "description": "Les préinscriptions pour cette année académique sont terminées. Veuillez consulter notre site pour les prochaines périodes d'inscription."
+            },
+            "backToAdmission": "Retour aux modalités d'admission",
+            "backToHome": "Retour à l'accueil"
         }
     },
     "formulaire": {
