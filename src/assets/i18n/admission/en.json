@@ -203,6 +203,16 @@
         "cta": {
             "start": "Start my pre-registration",
             "securityNote": "Secure process • Protected data • Technical support available"
+        },
+        "closed": {
+            "title": "Pre-registration closed",
+            "message": "The pre-registration period is currently closed.",
+            "info": {
+                "title": "Important information",
+                "description": "Pre-registrations for this academic year are closed. Please check our website for upcoming registration periods."
+            },
+            "backToAdmission": "Back to admission modalities",
+            "backToHome": "Back to home"
         }
     },
     "formulaire": {
