@@ -10,7 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { useTranslation } from "./lang";
+import { useResults } from "@/pages/resultats/resultatContext";
+
+// const SHOW_RESULTS = import.meta.env.VITE_SHOW_RESULTS === 'true';
 
 const presentationItems = [
   { key: "history", to: "/presentation/histoire" },
@@ -33,6 +35,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { i18n, t } = useTranslation("navigation");
+  const { showResults } = useResults(); // Récupère l'état
 
   const isActive = (path: string) => location.pathname === path;
   const isActiveParent = (base: string) => location.pathname.startsWith(base);
@@ -190,6 +193,21 @@ export default function Navigation() {
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
+                {/* Resultats - Affiché conditionnellement */}
+                {showResults && (
+                  <a
+                    href="/resultats"
+                    className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
+                      isActive("/resultats")
+                        ? "text-primary bg-purple-50/70"
+                        : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
+                    }`}
+                  >
+                    {t("results")}
+                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
+                  </a>
+                )}
+
                 {/* Language Selector */}
                 <Select value={i18n.language} onValueChange={changeLanguage}>
                   <SelectTrigger className="w-fit h-9 bg-white border border-purple-200 text-sm font-medium text-slate-700 focus:ring-0 focus:outline-none mx-2">
@@ -334,6 +352,12 @@ export default function Navigation() {
                       path: "/actualites",
                       base: "/actualites",
                     },
+                    // Ajout conditionnel de Résultats
+                    ...(showResults ? [{
+                      name: t("results"),
+                      path: "/resultats",
+                      base: "/resultats",
+                    }] : []),
                     {
                       name: t("contact"),
                       path: "/contact",

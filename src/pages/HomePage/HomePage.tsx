@@ -26,6 +26,7 @@ interface ResearchCenter {
   backgroundColor: string;
   logoType: string;
 }
+import ToggleResultsButton from "@/components/toggleResultsButton";
 
 export default function HomePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);

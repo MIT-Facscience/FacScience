@@ -188,7 +188,7 @@ export default function CandidatsPreinscrits() {
   const numeroColor = isAcademique ? "text-blue-600" : "text-green-600"
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <div className="container mx-auto px-4 py-8">
         {/* Header avec animation */}
         <div className="text-center mb-12 animate-fade-in">
@@ -199,13 +199,13 @@ export default function CandidatsPreinscrits() {
             Candidatures Préinscrits
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Consultez la liste des candidats ayant effectué leur préinscription pour l'admission en Licence 1 - Année Académique 2024-2025
+            Consultez la liste des candidats ayant effectué leur préinscription pour l'admission en Licence 1 - Année Académique 2025-2026
           </p>
           
           {/* Statut de la sélection */}
           <div className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-amber-100 border border-amber-300 rounded-full">
             <Clock className="h-5 w-5 text-amber-600" />
-            <span className="text-amber-800 font-medium">Sélection en cours - Résultats prévus le 15 Novembre 2024</span>
+            <span className="text-amber-800 font-medium">Sélection en cours - Résultats prévus après le 15 Novembre 2025</span>
           </div>
         </div>
 
@@ -291,7 +291,7 @@ export default function CandidatsPreinscrits() {
                   <SelectValue placeholder={`Toutes les ${activeTab === "academique" ? "mentions" : "filières"}`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Toutes</SelectItem>
+                  <SelectItem value="all">Portails</SelectItem>
                   {getCurrentItems().map((item) => (
                     <SelectItem key={item.abbrev} value={item.key}>{item.nom}</SelectItem>
                   ))}
@@ -381,104 +381,13 @@ export default function CandidatsPreinscrits() {
             )}
           </CardContent>
           <CardHeader className={`rounded-none bg-gradient-to-r ${gradientClass} mt-4 border-t`}>
-            <Button className={` rounded-none bg-gradient-to-r ${isAcademique ? "from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700" : "from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"}`}>
+            <Button className="rounded-none" >
               <Download className="h-4 w-4 mr-2 " />
               Exporter en PDF
             </Button>
           </CardHeader>
         </Card>
 
-        {/* Note importante */}
-        <Card className={`rounded-none border-${isAcademique ? "blue" : "green"}-200 bg-${isAcademique ? "blue" : "green"}-50 mb-10`}>
-          <CardContent className="p-6">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0">
-                <div className={`w-10 h-10 rounded-full bg-${isAcademique ? "blue" : "green"}-600 flex items-center justify-center`}>
-                  {isAcademique ? <FileText className="h-5 w-5 text-white" /> : <GraduationCap className="h-5 w-5 text-white" />}
-                </div>
-              </div>
-              <div>
-                <h3 className={`font-semibold ${isAcademique ? "text-blue-900" : "text-green-900"} mb-2`}>Information importante</h3>
-                <p className={`text-sm ${isAcademique ? "text-blue-800" : "text-green-800"} leading-relaxed`}>
-                  Cette liste présente tous les candidats ayant effectué leur préinscription. La validation du dossier ne garantit pas l'admission définitive. 
-                  Les résultats finaux de la sélection seront publiés après l'étude approfondie de tous les dossiers.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Calendrier et informations */}
-        <div className="mt-10 grid md:grid-cols-2 gap-6">
-          <Card className=" rounded-none border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-slate-50 to-purple-50">
-              <CardTitle className="flex items-center gap-2 text-slate-800">
-                <Calendar className="h-5 w-5 text-purple-600" />
-                Calendrier de Sélection
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-100 flex items-center justify-center flex-shrink-0 rounded-full">
-                  <CheckCircle2 className="h-6 w-6 text-green-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-800">Clôture des inscriptions</div>
-                  <div className="text-sm text-slate-600">30 Septembre 2024</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12  bg-blue-100 flex items-center justify-center flex-shrink-0 rounded-full">
-                  <Clock className="h-6 w-6 text-blue-600 animate-pulse " />
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-800">Étude des dossiers</div>
-                  <div className="text-sm text-slate-600">1 - 14 Novembre 2024</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12  bg-purple-100 flex items-center justify-center flex-shrink-0 rounded-full">
-                  <FileText className="h-6 w-6 text-purple-600 " />
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-800">Publication des résultats</div>
-                  <div className="text-sm text-slate-600">15 Novembre 2024</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-none border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-slate-50 to-indigo-50">
-              <CardTitle className="flex items-center gap-2 text-slate-800">
-                <Users className="h-5 w-5 text-indigo-600" />
-                Besoin d'aide ?
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-4">
-              <p className="text-slate-600 leading-relaxed">
-                Pour toute question concernant votre candidature ou le processus de sélection, n'hésitez pas à nous contacter.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    📧
-                  </div>
-                  <span className="text-slate-700">admission@faculte-sciences.mg</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                    📞
-                  </div>
-                  <span className="text-slate-700">+261 34 XX XXX XX</span>
-                </div>
-              </div>
-              <Button className=" rounded-none w-full bg-primary  hover:from-indigo-700 hover:to-purple-700 mt-4">
-                Contacter le service des admissions
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   )

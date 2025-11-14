@@ -26,7 +26,10 @@ import NotFound from "./components/not-found";
 import INTAdmissionPage from "./pages/admission/int-modalite/page";
 // import Formulaire from "./pages/Preinscription/Formulaire";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
+import ResultatsPage from "./pages/resultats/page";
+import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
+import { ResultsProvider } from "./pages/resultats/resultatContext";
 
 export default function App() {
  // const location = useLocation();
@@ -38,52 +41,57 @@ export default function App() {
  // const hideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
-    <div className="min-h-screen">
-      {/* Header caché sur certaines routes */}
-      <Navigation />
+    <ResultsProvider>
 
-      <Routes>
-        {/* <Route path="/" element={<ConstructionPage />} /> */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/formation" element={<FormationPage />} />
-        <Route path="/recherche" element={<RecherchePage />} />
-        <Route path="/recherche/ecole-doctorale" element={<EcoleDoctoralePage />} />
-        <Route path="/recherche/laboratoires" element={<LaboratoiresPage />} />
-        <Route path="/recherche/publications" element={<PublicationsPage />} />
-        <Route path="/presentation" element={<PresentationPage />} />
-        <Route path="/actualites" element={<ActualitesPage />} />
-        <Route path="/actualites/:id" element={<ActualiteDetail />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/formation/detail" element={<FormationItems />} />
-        <Route path="/admin" element={<AdminPage />} />
-        {/* <Route path="/resultats" element={<ResultatsPage />} /> */}
-        <Route path="/resultats" element={<NotFound />} />
-        <Route path="/presentation/histoire" element={<HistoirePage />} />
-        <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
-        <Route path="/presentation/vision" element={<VisionPage />} />
-        {/* <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} /> */}
-        <Route path="/resultats/listes-admis" element={<NotFound />} />
-        <Route path="/formation/detailparcours" element={<ParcourDetail />} />
-        <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
+      <div className="min-h-screen">
+        {/* Header caché sur certaines routes */}
+        <Navigation />
 
-        {/* <Route path="/admission/modalite" element={<AdmissionPage />}/>
-        <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
-        {/* <Route path="/admission/preinscription" element={<NotFound/>}/> */}
+        <Routes>
+          {/* <Route path="/" element={<ConstructionPage />} /> */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/formation" element={<FormationPage />} />
+          <Route path="/recherche" element={<RecherchePage />} />
+          <Route path="/recherche/ecole-doctorale" element={<EcoleDoctoralePage />} />
+          <Route path="/recherche/laboratoires" element={<LaboratoiresPage />} />
+          <Route path="/recherche/publications" element={<PublicationsPage />} />
+          <Route path="/presentation" element={<PresentationPage />} />
+          <Route path="/actualites" element={<ActualitesPage />} />
+          <Route path="/actualites/:id" element={<ActualiteDetail />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/formation/detail" element={<FormationItems />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/resultats" element={<ResultatsPage />} />
+          <Route path="/resultats" element={<NotFound />} />
+          <Route path="/presentation/histoire" element={<HistoirePage />} />
+          <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
+          <Route path="/presentation/vision" element={<VisionPage />} />
+          <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
+          <Route path="/resultats/listes-admis" element={<NotFound />} />
+          <Route path="/formation/detailparcours" element={<ParcourDetail />} />
+          <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
-        {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
+          {/* <Route path="/admission/modalite" element={<AdmissionPage />}/>
+          <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
+          {/* <Route path="/admission/preinscription" element={<NotFound/>}/> */}
 
-        {/* <Route path="" element={<AllMention />} /> */}
-        <Route path="/admission/modalite" element={<AdmissionPage />} />
-        <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
-        <Route path="/admission/preinscription" element={<Formulaire />} />
-        <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
+          {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 
-        {/* Route "catch-all" */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          {/* <Route path="" element={<AllMention />} /> */}
+          <Route path="/admission/modalite" element={<AdmissionPage />} />
+          <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
+          <Route path="/admission/preinscription" element={<Formulaire />} />
+          <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
 
-      {/* Footer caché sur certaines routes */}
-      <Footer />
-    </div>
+          {/* Route "catch-all" */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+
+        {/* Footer caché sur certaines routes */}
+        <Footer />
+      </div>
+
+    </ResultsProvider>
+    
   );
 }
