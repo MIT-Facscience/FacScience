@@ -20,11 +20,10 @@ import VisionPage from "./pages/presentation/vision/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
-import Formulaire from "./pages/Preinscription/Formulaire";
+import PreinscriptionWrapper from "./pages/Preinscription/PreinscriptionWrapper";
 import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 import INTAdmissionPage from "./pages/admission/int-modalite/page";
-// import Formulaire from "./pages/Preinscription/Formulaire";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 
@@ -75,7 +74,7 @@ export default function App() {
         {/* <Route path="" element={<AllMention />} /> */}
         <Route path="/admission/modalite" element={<AdmissionPage />} />
         <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
-        <Route path="/admission/preinscription" element={<Formulaire />} />
+        <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
         <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
 
         {/* Route "catch-all" */}
