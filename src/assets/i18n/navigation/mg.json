@@ -1,0 +1,27 @@
+
+{
+    "title": "Fakiolte an'ny siansa",
+    "universityName": "Oniversite an'Antananarivo",
+    "about": "Fampahafantarana",
+    "research": "Fikarohana",
+    "admission": "Fidirana",
+    "training": "Famiofana",
+    "news": "Vaovao",
+    "results": "Vokatra", 
+    "contact": "Fifandraisana",
+    "language": "Fiteny",
+    "aboutItems": {
+        "history": "Tantara sy Mission",
+        "organigram": "Organigramme",
+        "vision": "Vision et Objectifs",
+        "directory": "Annuaire"
+    },
+    "researchItems": {
+        "labs": "Laboratoire",
+        "publications": "Publication"
+    },
+    "admissionItems": {
+        "modalities": "Modalités",
+        "preRegistration": "Préinscription"
+    }
+}

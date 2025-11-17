@@ -1,0 +1,33 @@
+{
+    "labo": {
+      "title": "Laboratoires d'Excellence",
+      "description": "laboratoires d'innovation scientifique équipés des dernières technologies",
+      "label": "Laboratoires",
+      "stats": {
+        "laboratories": "Laboratoires",
+        "researchers": "Chercheurs",
+        "phdStudents": "Doctorants",
+        "projects": "Projets"
+      },
+      "loading": "Chargement des laboratoires...",
+      "moreDetails": "Voir plus de détails",
+      "lessDetails": "Voir moins",
+      "others": "+{{count}} autres",
+      "expertiseFull": "Expertise complète",
+      "equipment": "Équipements",
+      "ongoingProjects": "Projets en cours",
+      "researchersLabel": "Chercheurs",
+      "phdLabel": "Doctorants",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "errorFetch": "Erreur lors de la récupération des laboratoires :",
+      "messages": {
+        "success": "Opération réussie",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "common": {
+      "loading": "Chargement des laboratoires...",
+      "search": "Rechercher"
+    }
+  }

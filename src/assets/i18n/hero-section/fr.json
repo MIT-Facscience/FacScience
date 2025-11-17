@@ -1,0 +1,34 @@
+{
+    "heroSection": {
+        "slides": {
+            "slide1": {
+                "alt": "Campus principal de la Faculté des Sciences",
+                "title": "Campus Moderne",
+                "description": "Un environnement d'apprentissage exceptionnel",
+                "buttonText": "Découvrir nos formations"
+            },
+            "slide2": {
+                "alt": "Environnement d'apprentissage",
+                "title": "Environnement d'apprentissage",
+                "description": "Ressources documentaires complètes",
+                "buttonText": "Découvrir nos formations"
+            },
+            "slide3": {
+                "alt": "INT",
+                "title": "Innovation et Technologies",
+                "description": "Inscrivez-vous au parcours INT de la mention Informatique et Technologies",
+                "buttonText": "Inscription INT"
+            }
+        },
+        "mainTitle": {
+            "default": "Faculté des Sciences",
+            "int": "Inscription INT"
+        },
+        "learnMore": "En savoir plus",
+        "controls": {
+            "previous": "Image précédente",
+            "next": "Image suivante", 
+            "goTo": "Aller à l'image"
+        }
+    }
+}

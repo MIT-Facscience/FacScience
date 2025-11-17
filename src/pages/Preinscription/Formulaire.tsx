@@ -8,6 +8,7 @@ import { StepProgress } from "./FormSteps/StepProgress";
 import { StepTwoThree } from "./FormSteps/StepTwoThree";
 import { getProgram } from "./api/programs";
 import type { ApplicationData, CandidateInfo, Program } from "./types/index";
+import { useTranslation } from "react-i18next";
 
 interface PersonalInfo {
   email: string;
@@ -16,6 +17,7 @@ interface PersonalInfo {
 
 const Formulaire: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation("admission");
 
   // États principaux
   const [formationType, setFormationType] = useState<
@@ -32,12 +34,8 @@ const Formulaire: React.FC = () => {
   // État pour gérer si on affiche le choix de formation
   const [showFormationChoice, setShowFormationChoice] = useState(false);
 
-  const stepTitles = ["Informations", "Confirmation"];
-  const stepStranger = [
-    "Information Personnelle",
-    "Documents et parcours",
-    "Confirmation",
-  ];
+  const stepTitles = t("formulaire.steps.malagasy", { returnObjects: true }) as string[];
+  const stepStranger = t("formulaire.steps.stranger", { returnObjects: true }) as string[];
 
   const handleStepOneComplete = (info: CandidateInfo) => {
     setCandidateInfo(info);
@@ -92,8 +90,6 @@ const Formulaire: React.FC = () => {
   ) => {
     setFormationType(newFormationType);
     setShowFormationChoice(false);
-    // Données déjà réinitialisées par handleModifyFormationType si c'est un changement
-    // Si c'est le même type, on continue normalement
   };
 
   const renderMalagasyFlow = () => {
@@ -151,10 +147,10 @@ const Formulaire: React.FC = () => {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Choisissez votre type de formation
+            {t("formulaire.formationChoice.title")}
           </h1>
           <p className="text-lg text-gray-600">
-            Sélectionnez le parcours qui correspond à votre projet
+            {t("formulaire.formationChoice.subtitle")}
           </p>
         </div>
 
@@ -171,11 +167,10 @@ const Formulaire: React.FC = () => {
 
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                  Formation Académique
+                  {t("formulaire.formationChoice.academic.title")}
                 </h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Parcours orienté vers la recherche et l'approfondissement
-                  théorique. Idéal pour poursuivre en master et doctorat.
+                  {t("formulaire.formationChoice.academic.description")}
                 </p>
               </div>
 
@@ -188,7 +183,7 @@ const Formulaire: React.FC = () => {
               </ul>
 
               <div className="mt-4 px-6 py-2 bg-[#bb40b9] text-white rounded-full group-hover:bg-[#bb40b9] transition-colors duration-300">
-                Choisir Académique
+                {t("formulaire.formationChoice.academic.chooseButton")}
               </div>
             </div>
           </button>
@@ -205,31 +200,36 @@ const Formulaire: React.FC = () => {
 
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                  Formation Professionnalisante
+                  {t("formulaire.formationChoice.professional.title")}
                 </h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Parcours orienté vers l'insertion professionnelle rapide.
-                  Formation pratique et stages en entreprise.
+                  {t("formulaire.formationChoice.professional.description")}
                 </p>
               </div>
 
               <div className="text-sm text-gray-500 space-y-2 text-left w-full mb-8">
                 <div>
-                  <span className="font-medium text-gray-700">Physique:</span>{" "}
+                  <span className="font-medium text-gray-700">
+                    {t("formulaire.formationChoice.professional.physics")}:
+                  </span>{" "}
                   LIPSS, LIER, TND, LIGCRR
                 </div>
                 <div>
-                  <span className="font-medium text-gray-700">Chimie:</span>{" "}
+                  <span className="font-medium text-gray-700">
+                    {t("formulaire.formationChoice.professional.chemistry")}:
+                  </span>{" "}
                   LISTE, ACP
                 </div>
                 <div>
-                  <span className="font-medium text-gray-700">SVT:</span> FPST,
-                  GEODE, PSEG, ENTOAP
+                  <span className="font-medium text-gray-700">
+                    {t("formulaire.formationChoice.professional.svt")}:
+                  </span>{" "}
+                  FPST, GEODE, PSEG, ENTOAP
                 </div>
               </div>
 
               <div className="mt-4 px-6 py-2 bg-[#e2c562] text-white rounded-full group-hover:bg-secondary transition-colors duration-300">
-                Choisir Professionnalisante
+                {t("formulaire.formationChoice.professional.chooseButton")}
               </div>
             </div>
           </button>
@@ -272,7 +272,7 @@ const Formulaire: React.FC = () => {
                 )}
                 <div>
                   <p className="text-sm text-gray-600">
-                    Vous vous inscrivez en :
+                    {t("formulaire.currentFormation.title")}
                   </p>
                   <p
                     className={`font-semibold ${
@@ -283,8 +283,8 @@ const Formulaire: React.FC = () => {
                   >
                     Formation{" "}
                     {formationType === "academique"
-                      ? "Académique"
-                      : "Professionnalisante"}
+                      ? t("formulaire.formationChoice.academic.title")
+                      : t("formulaire.formationChoice.professional.title")}
                   </p>
                 </div>
               </div>
@@ -292,7 +292,7 @@ const Formulaire: React.FC = () => {
                 onClick={handleModifyFormationType}
                 className="text-sm text-gray-500 hover:text-gray-700 underline"
               >
-                Modifier
+                {t("formulaire.currentFormation.modify")}
               </button>
             </div>
 
@@ -306,7 +306,7 @@ const Formulaire: React.FC = () => {
                 }`}
                 onClick={() => setBactype("mg")}
               >
-                Bacc Malagasy
+                {t("formulaire.bacType.malagasy")}
               </button>
               <button
                 className={`bg-white shadow p-2 px-6 w-full rounded border border-transparent active:shadow-sm hover:shadow-lg hover:border-faculty-purple-200 active:bg-gray-50 transition-all duration-300 ${
@@ -316,7 +316,7 @@ const Formulaire: React.FC = () => {
                 }`}
                 onClick={() => setBactype("etg")}
               >
-                Bacc Étranger
+                {t("formulaire.bacType.foreign")}
               </button>
             </div>
 
@@ -329,7 +329,7 @@ const Formulaire: React.FC = () => {
         <div className="max-w-4xl mx-auto mt-8">
           <div className="text-center text-sm text-gray-500">
             <p>
-              Besoin d'aide ? Contactez le service des inscriptions :
+              {t("formulaire.support.help")}
               <a
                 className="font-medium text-primary ml-1"
                 href="mailto:sciencesfaculte@univ-antananarivo.mg"

@@ -2,6 +2,7 @@ import { TriangleAlert } from "lucide-react";
 import React, { useState } from "react";
 import { isValidEmail, isValidTel } from "../api/api";
 import type { CandidateInfo, Program } from "../types";
+import { useTranslation } from "react-i18next";
 
 interface StepTwoThreeProps {
   candidateInfo: CandidateInfo;
@@ -20,6 +21,7 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
   onNext,
   onBack,
 }) => {
+  const { t } = useTranslation("admission");
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
@@ -50,13 +52,15 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Programmes */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Choisissez votre portail</h3>
+        <h3 className="text-lg font-semibold mb-2">
+          {t("formulaire.stepTwoThree.choosePortal")}
+        </h3>
         {!programs ? (
           <div className="flex items-center justify-center py-8">
             <div className="flex flex-col items-center space-y-3">
               <div className="w-12 h-12 border-4 border-faculty-purple-600 border-t-transparent rounded-full animate-spin"></div>
               <p className="text-gray-500 text-sm">
-                Chargement des portails...
+                {t("formulaire.stepTwoThree.loadingPortals")}
               </p>
             </div>
           </div>
@@ -93,19 +97,20 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
 
       {/* Informations bancaires */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Informations bancaires</h3>
+        <h3 className="text-lg font-semibold mb-2">
+          {t("formulaire.stepTwoThree.bankInfo.title")}
+        </h3>
         <div className="grid gap-4 md:grid-cols-3">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Référence bancaire
+              {t("formulaire.stepTwoThree.bankInfo.reference.label")}
             </label>
             <input
               type="text"
-              placeholder="Ex: YMA7730/COT"
+              placeholder={t("formulaire.stepTwoThree.bankInfo.reference.placeholder")}
               value={bankReference ?? ""}
               onChange={(e) => {
                 const value = e.target.value;
-                // Limiter à 12 caractères maximum
                 if (value.length <= 12) {
                   setBankReference(value);
                 }
@@ -116,11 +121,11 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Agence
+              {t("formulaire.stepTwoThree.bankInfo.agency.label")}
             </label>
             <input
               type="text"
-              placeholder="Ex: Ambanidia"
+              placeholder={t("formulaire.stepTwoThree.bankInfo.agency.placeholder")}
               value={(bankAgence ?? "").trim()}
               onChange={(e) => setBankAgence(e.target.value)}
               className="border px-4 py-2 border-gray-200 w-full"
@@ -128,11 +133,10 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Date
+              {t("formulaire.stepTwoThree.bankInfo.date.label")}
             </label>
             <input
               type="date"
-              placeholder="Date"
               value={bankDate?.toISOString().split("T")[0]}
               onChange={(e) => setBankDate(new Date(e.target.value))}
               className="border px-4 py-2 border-gray-200 w-full"
@@ -143,15 +147,17 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
 
       {/* Contact */}
       <div>
-        <h3 className="text-lg font-semibold mb-2">Informations de contact</h3>
+        <h3 className="text-lg font-semibold mb-2">
+          {t("formulaire.stepTwoThree.contactInfo.title")}
+        </h3>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Adresse e-mail
+              {t("formulaire.stepTwoThree.contactInfo.email.label")}
             </label>
             <input
               type="email"
-              placeholder="exemple@email.com"
+              placeholder={t("formulaire.stepTwoThree.contactInfo.email.placeholder")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={`border px-4 py-2 border-gray-200 w-full ${
@@ -161,30 +167,23 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Téléphone
+              {t("formulaire.stepTwoThree.contactInfo.phone.label")}
             </label>
             <div className="relative">
               <input
                 type="tel"
-                placeholder="033XXXXXXX / +26133XXXXXXX"
+                placeholder={t("formulaire.stepTwoThree.contactInfo.phone.placeholder")}
                 value={telephone}
                 onChange={(e) => {
-                  let val = e.target.value.replace(/[^0-9+\s]/g, ""); // garde seulement + et chiffres
-
-                  // + seulement en première position
+                  let val = e.target.value.replace(/[^0-9+\s]/g, "");
                   if (val.indexOf("+") > 0) {
                     val = val.replace(/\+/g, "");
                   }
-
-                  // si ça commence par +261 → max 13 caractères
                   if (val.startsWith("+261")) {
                     val = val.slice(0, 13);
-                  }
-                  // sinon format national → max 10 caractères
-                  else {
+                  } else {
                     val = val.slice(0, 10);
                   }
-
                   setTelephone(val);
                 }}
                 className={`border px-4 py-2 border-gray-200 w-full ${
@@ -192,10 +191,11 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
                 }`}
               />
               {telephone && !isValidTel(telephone) && (
-                // <span className="absolute right-2 top-2 text-red-500 text-sm">
-                //   Format invalide
-                // </span>
-                <TriangleAlert className="absolute right-1 top-1.5 text-red-400 bg-red-100 p-1 rounded w-8 h-8" />
+                <div className="absolute right-1 top-1.5 flex items-center">
+                  <TriangleAlert 
+                    className="text-red-400 bg-red-100 p-1 rounded w-8 h-8" 
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -209,14 +209,14 @@ export const StepTwoThree: React.FC<StepTwoThreeProps> = ({
           onClick={onBack}
           className="px-6 py-2 border border-gray-300 rounded-sm text-gray-700 hover:bg-gray-50"
         >
-          Retour
+          {t("formulaire.stepTwoThree.buttons.back")}
         </button>
         <button
           type="submit"
           disabled={!selectedProgram || !email || !telephone || !bankAgence || !bankReference || !bankDate || !isValidEmail(email) || !isValidTel(telephone.replace(" ", ""))}
           className="px-6 py-2 bg-faculty-purple-600 text-white rounded-sm hover:bg-faculty-purple-700 disabled:opacity-50"
         >
-          Continuer
+          {t("formulaire.stepTwoThree.buttons.continue")}
         </button>
       </div>
     </form>

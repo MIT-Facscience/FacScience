@@ -152,3 +152,31 @@ export const isValidTel = (tel: string): boolean => {
   const telRegex = /^(?:\+261(?:20|32|33|34|37|38)\d{7}|(?:020|032|033|034|037|038)\d{7})$/;
   return telRegex.test(tel.trim().replace(/\s+/g, ""));
 };
+
+export interface PreinscriptionStatus {
+  isClosed: boolean;
+}
+
+export const checkPreinscriptionStatus = async (): Promise<PreinscriptionStatus> => {
+  try {
+    const response = await fetch(
+      `${BACKEND_PREINSCRIPTION_URL}/api/Register/status`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      return { isClosed: false };
+    }
+
+    const data: PreinscriptionStatus = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Erreur lors de la vérification du statut:", error);
+    return { isClosed: false };
+  }
+};

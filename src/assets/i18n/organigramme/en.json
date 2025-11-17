@@ -1,0 +1,33 @@
+{
+  "title": "Organizational Structure",
+  "members_show": "Show members",
+  "members_hide": "Hide members",
+  "cofac_members": "COFAC Members",
+  "appartenance": {
+    "responsable mention": "Program Manager",
+    "membre exterieur": "External Member",
+    "representant enseignant": "Teacher Representative",
+    "representant pat": "PAT Representative",
+    "representant etudiant": "Student Representative"
+  },
+  "hierarchy": {
+    "cofac": "COFAC",
+    "doyen": "DEAN",
+    "secretaire principale": "PRINCIPAL SECRETARY",
+    "service informatique": "IT SERVICE",
+    "service comptabilite": "ACCOUNTING SERVICE",
+    "service personnel": "PERSONNEL SERVICE",
+    "service scolarite": "REGISTRAR SERVICE",
+    "service des affaires generales": "GENERAL AFFAIRS SERVICE",
+    "dicos": "DICOS",
+    "vice doyen formation": "VICE DEAN TRAINING",
+    "association des etudiants": "STUDENTS ASSOCIATION",
+    "vice doyen numerique": "VICE DEAN DIGITAL",
+    "vice doyen recherche": "VICE DEAN RESEARCH",
+    "college des enseignants": "TEACHERS COLLEGE",
+    "conseil scientifique": "SCIENTIFIC COUNCIL",
+    "mention": "PROGRAM",
+    "parcours": "PATHWAY",
+    "labo": "LAB"
+  }
+}

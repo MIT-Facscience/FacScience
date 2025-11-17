@@ -1,0 +1,41 @@
+{
+  "vision": {
+    "title": "Vision & Objectifs",
+    "subtitle": "Notre vision d'avenir et les objectifs stratégiques qui guident notre développement",
+    "sections": {
+      "strategy": "STRATÉGIE",
+      "vision": "Vision",
+      "slogan": "Think Global, Act National"
+    },
+    "news": [
+      {
+        "title": "Partenariat International: Collaboration avec l'Université étrangères",
+        "description": "Signature d'un accord de coopération pour des programmes d'échange et de recherche conjointe"
+      },
+      {
+        "title": "NOUVEAUX PROFESSEURS: Pourquoi ils sont enthousiastes de rejoindre notre faculté",
+        "description": "Découvrez les motivations de nos nouveaux enseignants-chercheurs"
+      }
+    ],
+    "events": [
+      {
+        "title": "Digitalisation",
+        "subtitle": "numérisation des mémoires de fin d'études, thèses et autres publications",
+        "date": "À venir"
+      },
+      {
+        "title": "Conférence Innovation Technologique",
+        "subtitle": "entre toutes les parties prenantes: étudiants, professeurs, chercheurs et industriels",
+        "date": "À venir"
+      }
+    ],
+    "presidentText": "La nouvelle présidence de l'Université d'Antananarivo a choisi le slogan « Think Global, Act National » comme la ligne conductrice qui portera toute la politique et les actions de l'Université. Ainsi, la stratégie communicationnelle, ainsi que sa traduction au niveau opérationnel, tourneront autour de celle-ci. L'Université d'Antananarivo s'attache à ses valeurs de modernité à la pointe des technologies. Elle se connecte au monde par tous les moyens. Elle fait partie des leaders dans le domaine de la formation et de la recherche. Dans cette optique, elle développe des formations adaptées aux vrais besoins de la société. L'Université d'Antananarivo, étant le regroupement d'intellectuels, reste une voix que l'on écoute dans les débats publics. Elle reste une référence mondiale sur le plan académique grace à ses partenaires et ses alumnis.",
+    "stats": {
+      "employmentRate": "Taux d'employabilité",
+      "publications": "Publications/an"
+    },
+    "links": {
+      "moreEvents": "Voir plus d'événements"
+    }
+  }
+}

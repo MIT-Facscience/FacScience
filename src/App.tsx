@@ -20,15 +20,15 @@ import VisionPage from "./pages/presentation/vision/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
-import Formulaire from "./pages/Preinscription/Formulaire";
+import PreinscriptionWrapper from "./pages/Preinscription/PreinscriptionWrapper";
 import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
 import INTAdmissionPage from "./pages/admission/int-modalite/page";
-// import Formulaire from "./pages/Preinscription/Formulaire";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
 import ResultatsPage from "./pages/resultats/page";
 import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
+import { ResultsProvider } from "./pages/resultats/resultatContext";
 
 export default function App() {
  // const location = useLocation();
@@ -40,9 +40,11 @@ export default function App() {
  // const hideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
-    <div className="min-h-screen">
-      {/* Header caché sur certaines routes */}
-      <Navigation />
+    <ResultsProvider>
+
+      <div className="min-h-screen">
+        {/* Header caché sur certaines routes */}
+        <Navigation />
 
       <Routes>
         {/* <Route path="/" element={<ConstructionPage />} /> */}
@@ -68,24 +70,27 @@ export default function App() {
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
-        <Route path="/admission/modalite" element={<AdmissionPage />}/>
-        <Route path="/admission/preinscription" element={<Formulaire/>}/>
-        {/* <Route path="/admission/preinscription" element={<NotFound/>}/> */}
+          {/* <Route path="/admission/modalite" element={<AdmissionPage />}/>
+          <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
+          {/* <Route path="/admission/preinscription" element={<NotFound/>}/> */}
 
-        {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
+          {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 
         {/* <Route path="" element={<AllMention />} /> */}
         <Route path="/admission/modalite" element={<AdmissionPage />} />
         <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
-        <Route path="/admission/preinscription" element={<Formulaire />} />
+        <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
         <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
 
-        {/* Route "catch-all" */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          {/* Route "catch-all" */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
 
-      {/* Footer caché sur certaines routes */}
-      <Footer />
-    </div>
+        {/* Footer caché sur certaines routes */}
+        <Footer />
+      </div>
+
+    </ResultsProvider>
+    
   );
 }

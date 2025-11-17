@@ -1,0 +1,41 @@
+{
+  "vision": {
+    "title": "Vision & Objectives",
+    "subtitle": "Our future vision and strategic objectives that guide our development",
+    "sections": {
+      "strategy": "STRATEGY",
+      "vision": "Vision",
+      "slogan": "Think Global, Act National"
+    },
+    "news": [
+      {
+        "title": "International Partnership: Collaboration with Foreign Universities",
+        "description": "Signing of a cooperation agreement for exchange programs and joint research"
+      },
+      {
+        "title": "NEW PROFESSORS: Why they are excited to join our faculty",
+        "description": "Discover the motivations of our new teacher-researchers"
+      }
+    ],
+    "events": [
+      {
+        "title": "Digitalization",
+        "subtitle": "digitization of final year dissertations, theses and other publications",
+        "date": "Coming soon"
+      },
+      {
+        "title": "Technological Innovation Conference",
+        "subtitle": "among all stakeholders: students, professors, researchers and industry professionals",
+        "date": "Coming soon"
+      }
+    ],
+    "presidentText": "The new presidency of the University of Antananarivo has chosen the slogan 'Think Global, Act National' as the guiding principle that will carry all the University's policies and actions. Thus, the communication strategy, as well as its operational translation, will revolve around this. The University of Antananarivo is committed to its values of modernity at the forefront of technology. It connects to the world by all means. It is among the leaders in the field of training and research. With this in mind, it develops training programs adapted to the real needs of society. The University of Antananarivo, being a gathering of intellectuals, remains a voice that is heard in public debates. It remains a global academic reference thanks to its partners and alumni.",
+    "stats": {
+      "employmentRate": "Employment rate",
+      "publications": "Publications/year"
+    },
+    "links": {
+      "moreEvents": "See more events"
+    }
+  }
+}

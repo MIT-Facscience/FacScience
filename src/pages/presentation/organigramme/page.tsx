@@ -1,10 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { ChevronDown, ChevronUp, Mail } from "lucide-react"
-import type React from "react"
-import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ChevronDown, ChevronUp, Mail } from "lucide-react";
+import type React from "react";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 // Types pour les données
 interface PersonData {
@@ -262,11 +263,25 @@ const membresCofac: CofacMember[] = [
   },
 ];
 
-// Composant pour les membres COFAC
+// Composant pour les membres COFAC (traduit)
 const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
+  const { t } = useTranslation("organigramme");
+
+  const normalizeKey = (str: string) =>
+    str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9\s]/g, "")
+      .trim()
+      .replace(/\s+/g, " ");
+
+  const label = t(`appartenance.${normalizeKey(member.appartenance)}`, {
+    defaultValue: member.appartenance,
+  });
+
   return (
     <div className="flex flex-col items-center p-6 relative">
-      {/* Circular Photo */}
       <div className="relative z-20">
         <img
           src={member.photo || "/professional-man.png"}
@@ -275,18 +290,15 @@ const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
         />
       </div>
 
-      {/* Name and Title Card */}
       <div className="bg-white/90 backdrop-blur-sm px-4 py-3 text-center shadow-lg min-w-[200px] max-w-[250px] -mt-8 relative z-10">
         <div className="pt-8">
           <h4 className="font-bold text-gray-800 text-sm md:text-base leading-tight mb-1">
-            {member.nomPrenom.split(" ").slice(-2).join(" ")}{" "}
-            {/* Show last two parts of name for brevity */}
+            {member.nomPrenom.split(" ").slice(-2).join(" ")}
           </h4>
           <p className="text-xs md:text-sm text-gray-600 font-medium">
-            {member.appartenance}
+            {label}
           </p>
 
-          {/* Contact info - smaller and subtle */}
           {member.email && (
             <div className="mt-2 pt-2 border-t border-gray-200">
               <div className="flex items-center justify-center gap-1 text-xs text-gray-500">
@@ -307,72 +319,40 @@ const HierarchyNode: React.FC<{
   children?: React.ReactNode;
   person?: PersonData;
   isService?: boolean;
-}> = ({
-  title,
-  level,
-  children,
-  person,
-  //isService = false
-}) => {
+}> = ({ title, level, children, person }) => {
+  const { t } = useTranslation("organigramme");
+
+  const normalizeKey = (str: string) =>
+    str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9\s]/g, "")
+      .trim()
+      .replace(/\s+/g, " ");
+
+  const translatedTitle = t(`hierarchy.${normalizeKey(title)}`, {
+    defaultValue: title,
+  });
+
   const getNodeStyle = () => {
     switch (level) {
       case 0:
-        return {
-          backgroundColor: "#ffffff",
-          titleColor: "#780376",
-          borderColor: "#d1d5db",
-        };
+        return { backgroundColor: "#ffffff", titleColor: "#780376", borderColor: "#d1d5db" };
       case 1:
-        return {
-          backgroundColor: "#ffffff",
-          titleColor: "#1e293b",
-          borderColor: "#d1d5db",
-        };
+        return { backgroundColor: "#ffffff", titleColor: "#1e293b", borderColor: "#d1d5db" };
       case 2:
-        return {
-          backgroundColor: "#ffffff",
-          titleColor: "#b45309",
-          borderColor: "#d1d5db",
-        };
+        return { backgroundColor: "#ffffff", titleColor: "#b45309", borderColor: "#d1d5db" };
       case 3:
-        return {
-          backgroundColor: "#ffffff",
-          titleColor: "#3b82f6",
-          borderColor: "#d1d5db",
-        };
+        return { backgroundColor: "#ffffff", titleColor: "#3b82f6", borderColor: "#d1d5db" };
       case 4:
-        return {
-          backgroundColor: "#ffffff",
-          titleColor: "#10b981",
-          borderColor: "#d1d5db",
-        };
+        return { backgroundColor: "#ffffff", titleColor: "#10b981", borderColor: "#d1d5db" };
       default:
-        return {
-          backgroundColor: "#ffffff",
-          titleColor: "#6b7280",
-          borderColor: "#d1d5db",
-        };
+        return { backgroundColor: "#ffffff", titleColor: "#6b7280", borderColor: "#d1d5db" };
     }
   };
 
-  // const getConnectorColor = () => {
-  //   switch (level) {
-  //     case 0:
-  //       return "#780376"
-  //     case 1:
-  //       return "#1e293b"
-  //     case 2:
-  //       return "#b45309"
-  //     case 3:
-  //       return "#3b82f6"
-  //     case 4:
-  //       return "#10b981"
-  //     default:
-  //       return "#6b7280"
-  //   }
-  // }
-
-  const nodeStyle = getNodeStyle()
+  const nodeStyle = getNodeStyle();
 
   return (
     <div className="flex flex-col items-center">
@@ -393,23 +373,19 @@ const HierarchyNode: React.FC<{
           }}
         >
           <h3
-            className={`font-bold ${
-              level === 0 ? "text-xs" : "text-[10px]"
-            } text-balance leading-tight break-words hyphens-auto`}
+            className={`font-bold ${level === 0 ? "text-xs" : "text-[10px]"} text-balance leading-tight break-words hyphens-auto`}
             style={{
               color: nodeStyle.titleColor,
               backgroundColor: "transparent",
             }}
           >
-            {title}
+            {translatedTitle}
           </h3>
           {person && (
             <div className="mt-0.5 space-y-0.5">
               <p
                 className="text-[9px] font-medium leading-tight text-black break-words"
-                style={{
-                  backgroundColor: "transparent",
-                }}
+                style={{ backgroundColor: "transparent" }}
               >
                 {person.prenom} {person.nom}
               </p>
@@ -435,8 +411,7 @@ const HierarchyNode: React.FC<{
 
       {children && (
         <>
-          {/* <div className="w-px h-2 border-l-2" style={{ borderColor: getConnectorColor() }}></div> */}
-          <div className="flex flex-col items-center ">{children}</div>
+          <div className="flex flex-col items-center">{children}</div>
         </>
       )}
     </div>
@@ -444,6 +419,7 @@ const HierarchyNode: React.FC<{
 };
 
 export default function Organigramme() {
+  const { t } = useTranslation("organigramme");
   const [showCofacMembers, setShowCofacMembers] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -452,23 +428,17 @@ export default function Organigramme() {
       setWindowWidth(window.innerWidth);
     };
 
-    // Set initial width
     handleResize();
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Grouper les membres COFAC par appartenance
   const groupedMembers = membresCofac.reduce((acc, member) => {
-    if (!acc[member.appartenance]) {
-      acc[member.appartenance] = [];
-    }
+    if (!acc[member.appartenance]) acc[member.appartenance] = [];
     acc[member.appartenance].push(member);
     return acc;
   }, {} as Record<string, CofacMember[]>);
 
-  // Séparer les vice-doyens et les chefs de service
   const viceDoyens = personnelPrincipal.filter((p) =>
     p.responsabilite.includes("Vice Doyen")
   );
@@ -481,7 +451,6 @@ export default function Organigramme() {
       !p.responsabilite.includes("Chef de service")
   );
 
-  // Trouver des personnes spécifiques pour la structure hiérarchique
   const doyen = {
     nom: "DOYEN",
     prenom: "",
@@ -508,7 +477,6 @@ export default function Organigramme() {
     p.responsabilite.includes("base de données")
   );
 
-  // Services mapping
   const serviceInformatique = chefsService.find((p) =>
     p.responsabilite.includes("Informatique")
   );
@@ -547,7 +515,7 @@ export default function Organigramme() {
               </div>
               <div className="relative z-10 text-center py-10 sm:py-16 lg:py-20 px-4 sm:px-6">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
-                  Structure organisationnelle
+                  {t("title")}
                 </h1>
                 <p className="text-base sm:text-lg lg:text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed"></p>
               </div>
@@ -568,43 +536,33 @@ export default function Organigramme() {
                 >
                   {/* COFAC */}
                   <HierarchyNode title="COFAC" level={0}>
-                    {/* ===== Ligne verticale depuis COFAC ===== */}
                     <div className="w-px h-6 bg-gray-400"></div>
 
-                    {/* Level 1: Conseil Scientifique - Doyen - Collège des Enseignants */}
-                    {/* Ligne horizontale centrée */}
                     <div className="flex justify-center items-start relative w-324 gap-2">
                       <div className="absolute top-0 left-2 right-3 h-px bg-gray-400" />
 
-                      {/* Conseil Scientifique Branch */}
                       <div className="flex flex-col items-center">
                         <div className="w-px h-6 bg-gray-400"></div>
                         <HierarchyNode title="CONSEIL SCIENTIFIQUE" level={1}>
                           <div className="w-px h-6 bg-gray-400"></div>
-
                           <HierarchyNode title="MENTION" level={2}>
                             <div className="w-px h-6 bg-gray-400"></div>
-
                             <HierarchyNode title="PARCOURS" level={3}>
                               <div className="w-px h-6 bg-gray-400"></div>
-
                               <HierarchyNode title="LABO" level={4} />
                             </HierarchyNode>
                           </HierarchyNode>
                         </HierarchyNode>
                       </div>
 
-                      {/* ===== DOYEN ===== */}
-                      <div className="flex flex-col items-center ">
+                      <div className="flex flex-col items-center">
                         <div className="w-px h-6 bg-gray-400"></div>
                         <HierarchyNode title="DOYEN" level={1} person={doyen} />
                         <div className="w-px h-6 bg-gray-400"></div>
 
-                        {/* ===== Ligne horizontale depuis DOYEN ===== */}
                         <div className="relative w-full flex justify-center items-start gap-1">
                           <div className="absolute top-0 left-80 right-15 h-px bg-gray-400"></div>
 
-                          {/* Secrétaire + Services */}
                           <div className="flex flex-col items-center">
                             <div className="w-px h-6 bg-gray-400"></div>
                             <HierarchyNode
@@ -614,7 +572,6 @@ export default function Organigramme() {
                             />
                             <div className="w-px h-10 bg-gray-400"></div>
 
-                            {/* ===== Ligne horizontale depuis SECRÉTAIRE ===== */}
                             <div className="relative w-full flex justify-center items-start gap-2">
                               <div className="absolute top-0 left-15 right-15 h-px bg-gray-400"></div>
 
@@ -662,7 +619,7 @@ export default function Organigramme() {
                                 <div className="flex flex-col items-center">
                                   <div className="w-px h-6 bg-gray-400"></div>
                                   <HierarchyNode
-                                    title="SERVICE DES AFFAIRES ÉTRANGÈRES"
+                                    title="SERVICE DES AFFAIRES GÉNÉRALES"
                                     level={3}
                                     person={serviceAffaires}
                                   />
@@ -671,13 +628,11 @@ export default function Organigramme() {
                             </div>
                           </div>
 
-                          {/* DICOS - rapproché de la Secrétaire */}
                           <div className="flex flex-col items-center">
                             <div className="w-px h-6 bg-gray-400"></div>
                             <HierarchyNode title="DICOS" level={2} />
                           </div>
 
-                          {/* Vice-Doyens */}
                           {viceDoyenFormation && (
                             <div className="flex flex-col items-center">
                               <div className="w-px h-6 bg-gray-400"></div>
@@ -717,7 +672,6 @@ export default function Organigramme() {
                         </div>
                       </div>
 
-                      {/* Collège des Enseignants Branch */}
                       <div className="flex flex-col items-center">
                         <div className="w-px h-6 bg-gray-400"></div>
                         <HierarchyNode
@@ -734,7 +688,7 @@ export default function Organigramme() {
               <section className="mt-9">
                 <div className="text-center mb-8">
                   <h2 className="text-3xl font-bold mb-4 text-foreground">
-                    Membres du COFAC
+                    {t("cofac_members")}
                   </h2>
                   <Button
                     onClick={() => setShowCofacMembers(!showCofacMembers)}
@@ -744,12 +698,12 @@ export default function Organigramme() {
                     {showCofacMembers ? (
                       <>
                         <ChevronUp className="h-4 w-4" />
-                        Masquer les membres
+                        {t("members_hide")}
                       </>
                     ) : (
                       <>
                         <ChevronDown className="h-4 w-4" />
-                        Afficher les membres ({membresCofac.length})
+                        {t("members_show")} ({membresCofac.length})
                       </>
                     )}
                   </Button>
@@ -758,38 +712,49 @@ export default function Organigramme() {
                 {showCofacMembers && (
                   <div className="space-y-12">
                     {Object.entries(groupedMembers).map(
-                      ([appartenance, members]) => (
-                        <div key={appartenance}>
-                          <h3 className="text-xl font-semibold mb-6 text-center text-white bg-primary py-3">
-                            {appartenance} ({members.length})
-                          </h3>
+                      ([appartenance, members]) => {
+                        const normalized = appartenance
+                          .toLowerCase()
+                          .normalize("NFD")
+                          .replace(/[\u0300-\u036f]/g, "")
+                          .replace(/[^a-z0-9\s]/g, "")
+                          .trim()
+                          .replace(/\s+/g, " ");
+                        const translatedAppartenance = t(`appartenance.${normalized}`, {
+                          defaultValue: appartenance,
+                        });
 
-                          {/* Blue background container matching reference image */}
-                          <div className="p-8 md:p-12">
-                            {/* Responsive grid that adapts to member count */}
-                            <div
-                              className={`grid gap-8 justify-items-center ${
-                                members.length <= 2
-                                  ? "grid-cols-1 md:grid-cols-2"
-                                  : members.length <= 3
-                                  ? "grid-cols-1 md:grid-cols-3"
-                                  : members.length <= 4
-                                  ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-                                  : members.length <= 6
-                                  ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                                  : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-                              }`}
-                            >
-                              {members.map((member) => (
-                                <CofacMemberCard
-                                  key={member.num}
-                                  member={member}
-                                />
-                              ))}
+                        return (
+                          <div key={appartenance}>
+                            <h3 className="text-xl font-semibold mb-6 text-center text-white bg-primary py-3">
+                              {translatedAppartenance} ({members.length})
+                            </h3>
+
+                            <div className="p-8 md:p-12">
+                              <div
+                                className={`grid gap-8 justify-items-center ${
+                                  members.length <= 2
+                                    ? "grid-cols-1 md:grid-cols-2"
+                                    : members.length <= 3
+                                    ? "grid-cols-1 md:grid-cols-3"
+                                    : members.length <= 4
+                                    ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+                                    : members.length <= 6
+                                    ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                                    : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                                }`}
+                              >
+                                {members.map((member) => (
+                                  <CofacMemberCard
+                                    key={member.num}
+                                    member={member}
+                                  />
+                                ))}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )
+                        );
+                      }
                     )}
                   </div>
                 )}

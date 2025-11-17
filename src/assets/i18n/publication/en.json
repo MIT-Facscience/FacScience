@@ -1,0 +1,36 @@
+{
+    "publications": {
+    "title": "Scientific Publications",
+    "description": "Discover our latest research and academic contributions in cutting-edge fields",
+    "searchPlaceholder": "Search by title, author or keyword...",
+    "types": {
+    "all": "All types",
+    "journal": "Journal Articles",
+    "conference": "Conferences",
+    "workshop": "Workshops",
+    "book": "Books"
+    },
+    "years": {
+    "all": "All years"
+    },
+    "found": "Publications found",
+    "page": "Page {{current}} of {{total}}",
+    "loading": "Loading publications...",
+    "errorTitle": "Oops! An error occurred",
+    "retry": "Retry",
+    "noResults": "No publications found",
+    "noResultsHint": "Try modifying your search criteria",
+    "previous": "Previous",
+    "next": "Next",
+    "citationsFull": "citations",
+    "citationsShort": "cit.",
+    "authors": "Authors",
+    "venue": "Venue",
+    "doi": "DOI",
+    "link": "Link"
+    },
+    "common": {
+    "loading": "Loading...",
+    "search": "Search"
+    }
+    }

@@ -1,0 +1,27 @@
+
+{
+    "title": "Faculty of sciences",
+    "universityName": "University of Antananarivo",
+    "about": "About",
+    "research": "Research", 
+    "admission": "Admission",
+    "training": "Training",
+    "news": "News",
+    "results": "Results",
+    "contact": "Contact",
+    "language": "Language",
+    "aboutItems": {
+        "history": "History and Mission",
+        "organigram": "Organizational Chart",
+        "vision": "Vision and Objectives",
+        "directory": "Directories"
+    },
+    "researchItems": {
+        "labs": "Laboratories",
+        "publications": "Publications"
+    },
+    "admissionItems": {
+        "modalities": "Procedures",
+        "preRegistration": "Pre-registration"
+    }
+}
