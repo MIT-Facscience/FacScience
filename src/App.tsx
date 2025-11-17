@@ -26,6 +26,8 @@ import NotFound from "./components/not-found";
 import INTAdmissionPage from "./pages/admission/int-modalite/page";
 // import Formulaire from "./pages/Preinscription/Formulaire";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
+import ResultatsPage from "./pages/resultats/page";
+import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 
 export default function App() {
@@ -56,12 +58,12 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/formation/detail" element={<FormationItems />} />
         <Route path="/admin" element={<AdminPage />} />
-        {/* <Route path="/resultats" element={<ResultatsPage />} /> */}
+        <Route path="/resultats" element={<ResultatsPage />} />
         <Route path="/resultats" element={<NotFound />} />
         <Route path="/presentation/histoire" element={<HistoirePage />} />
         <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
         <Route path="/presentation/vision" element={<VisionPage />} />
-        {/* <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} /> */}
+        <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
         <Route path="/resultats/listes-admis" element={<NotFound />} />
         <Route path="/formation/detailparcours" element={<ParcourDetail />} />
         <Route path="/presentation/annuaires/" element={<AnnuairePage />} />

@@ -53,7 +53,7 @@ export default function PublicationsPage() {
   ];
 
   // Années disponibles
-  const years = ["all", "2024", "2023", "2022", "2021"];
+  const years = ["all", "2024", "2023", "2022", "2021","2025"];
 
   // Fetch des publications depuis l'API
   useEffect(() => {
@@ -504,13 +504,13 @@ export default function PublicationsPage() {
                       </button>
                     )}
                     {publication.url && (
-                      <button
+                      <a
                         className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-md transition-colors duration-200 flex-shrink-0"
-                        style={{ backgroundColor: "#f1f5f9", color: "#524751" }}
+                        style={{ backgroundColor: "#f1f5f9", color: "#524751" }} href= {publication.url}
                       >
                         <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        Lien
-                      </button>
+                        Link
+                      </a>
                     )}
                   </div>
                 </div>
