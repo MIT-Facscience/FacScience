@@ -28,7 +28,7 @@ import INTFormulaire from "./pages/admission/int-formulaire/page";
 import ResultatsPage from "./pages/resultats/page";
 import ListesAdmisPage from "./pages/resultats/listes-admis/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
-import { ResultsProvider } from "./pages/resultats/resultatContext";
+import { ResultsProvider } from "@/pages/resultats/ResultsProvider";
 
 export default function App() {
  // const location = useLocation();

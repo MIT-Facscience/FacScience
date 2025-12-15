@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs,TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Search, Download, Filter, Users, FileText, Calendar, CheckCircle2, Clock, GraduationCap } from "lucide-react"
 import { useEffect, useState } from "react"
-import { BACKEND_PREINSCRIPTION_URL ,BACKEND_URL} from "@/lib/api"
+import { BACKEND_PREINSCRIPTION_URL} from "@/lib/api"
 // type StatGType = {
 //   total: number;
 //   admis: number;
@@ -52,22 +52,27 @@ export default function CandidatsPreinscrits() {
   const [loading, setLoading] = useState(true)
 
   // Récupération des portails
-  useEffect(() => {
-    fetch(`${BACKEND_URL}/api/stat/preinscrits`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Portails reçus:', data)
-        setListPort(data || [])
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des portails :", error)
-        setListPort([])
-      })
-  }, [])
-
+ useEffect(() => {
+  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-portail`, {
+    
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Portails reçus:', data)
+      setListPort(data || [])
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la récupération des portails :", error)
+      setListPort([])
+    })
+}, [])
   // Récupération des résultats
   useEffect(() => {
-    fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Preinscription/list-result`, {
+    fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-result`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -228,10 +233,10 @@ export default function CandidatsPreinscrits() {
             Consultez la liste des candidats qui ont été selectionnés en Licence 1 - Année Académique 2025-2026
           </p>
           
-          <div className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-amber-100 border border-amber-300 rounded-full">
+          {/* <div className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-amber-100 border border-amber-300 rounded-full">
             <Clock className="h-5 w-5 text-amber-600" />
             <span className="text-amber-800 font-medium">Sélection en cours -jusqu'au 15 Décembre 2025</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Statistiques globales */}

@@ -21,8 +21,7 @@ const Formulaire: React.FC = () => {
 
   // États principaux
   const [formationType, setFormationType] = useState<
-    "academique" | "professionnalisante" | null
-  >(null);
+    "academique" | "professionnalisante" | null  >(null);
 
   const [currentStep, setCurrentStep] = useState<1 | 2>(1);
   const [candidateInfo, setCandidateInfo] = useState<CandidateInfo | null>(null);

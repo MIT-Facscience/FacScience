@@ -1,16 +1,7 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { ResultsContext } from './ResultatContext';
 
-interface ResultsContextType {
-  showResults: boolean;
-  loading: boolean;
-}
-
-const ResultsContext = createContext<ResultsContextType>({
-  showResults: false,
-  loading: true,
-});
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5097';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5174';
 
 export function ResultsProvider({ children }: { children: React.ReactNode }) {
   const [showResults, setShowResults] = useState(false);
@@ -43,5 +34,3 @@ export function ResultsProvider({ children }: { children: React.ReactNode }) {
     </ResultsContext.Provider>
   );
 }
-
-export const useResults = () => useContext(ResultsContext);

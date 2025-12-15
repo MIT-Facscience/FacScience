@@ -1,4 +1,4 @@
-import { useResults } from "@/pages/resultats/resultatContext";
+import { useResults } from "@/pages/resultats/";
 import {Eye, EyeOff} from "lucide-react";
 
 export default function ToggleResultsButton () {

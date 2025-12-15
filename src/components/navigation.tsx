@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useResults } from "@/pages/resultats/resultatContext";
+import { useResults } from "@/pages/resultats";
 
 // const SHOW_RESULTS = import.meta.env.VITE_SHOW_RESULTS === 'true';
 
