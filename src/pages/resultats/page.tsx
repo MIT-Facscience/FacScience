@@ -1,18 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs,TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Search, Download, Filter, Users, FileText, Calendar, CheckCircle2, Clock, GraduationCap } from "lucide-react"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Search, Download, Filter, Users, FileText, Calendar, CheckCircle2, GraduationCap } from "lucide-react"
 import { useEffect, useState } from "react"
-import { BACKEND_PREINSCRIPTION_URL} from "@/lib/api"
-// type StatGType = {
-//   total: number;
-//   admis: number;
-//   nonAdmis: number;
-//   tauxAdmission: number;
-// }
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+import { BACKEND_PREINSCRIPTION_URL } from "@/lib/api"
 
 type PortalType = {
   idPortail: number;
@@ -27,159 +22,251 @@ type ListResultatType = {
   prenom: string;
   nom?: string;
   anneeBacc: string;
-  portail: string;  // C'est le NOM du portail, pas l'ID
+  portail: string;
   abrevi: string;
   date: string;
   rang: number;
+  limite: number;
+  statut: string;
+  positionDansPortail: number;
 }
-
-// type StatPortailType = {
-//   nomPortail: string;
-//   abbrev: string;
-//   total: number;
-//   admis: number;
-//   nonAdmis: number;
-//   tauxAdmission: number;
-// }
-
+type PaginatedResultType = {
+  data: ListResultatType[];
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  pageSize: number;
+  hasPrevious: boolean;
+  hasNext: boolean;
+}
 export default function CandidatsPreinscrits() {
-  // const [statG, setStatG] = useState<StatGType>()
   const [listPort, setListPort] = useState<PortalType[]>([])
   const [listResult, setListResult] = useState<ListResultatType[]>([])
+  const [allResultsForStats, setAllResultsForStats] = useState<ListResultatType[]>([]) // Données complètes pour les statistiques
   const [searchTerm, setSearchTerm] = useState("")
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
   const [selectedPortail, setSelectedPortail] = useState("all")
   const [activeTab, setActiveTab] = useState("academique")
+  const [statusFilter, setStatusFilter] = useState<"all" | "selected" | "waiting">("all")
   const [loading, setLoading] = useState(true)
+  const [paginationInfo, setPaginationInfo] = useState({
+  currentPage: 1,
+  totalPages: 1,
+  totalItems: 0,
+  pageSize: 50,
+  hasPrevious: false,
+  hasNext: false
+})
+const [pageSize, setPageSize] = useState(50)
+const [currentPage, setCurrentPage] = useState(1)
+  // Debounce pour la recherche
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm)
+    }, 500) // Attendre 500ms après que l'utilisateur arrête de taper
 
-  // Récupération des portails
- useEffect(() => {
-  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-portail`, {
-    
+    return () => clearTimeout(timer)
+  }, [searchTerm])
+
+const fetchResults = (
+  portailId: string = "all", 
+  search: string = "", 
+  page: number = 1,
+  size: number = 50
+) => {
+  setLoading(true)
+  
+  const requestBody: any = {
+    pageNumber: page,
+    pageSize: size
+  }
+  
+  if (portailId !== "all") {
+    requestBody.idPortail = parseInt(portailId)
+  }
+  
+  if (search.trim()) {
+    requestBody.searchTerm = search.trim()
+  }
+  
+  console.log('Requête avec pagination:', requestBody)
+  
+  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-result`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify(requestBody)
   })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('Portails reçus:', data)
-      setListPort(data || [])
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const text = await response.text()
+      if (!text || text.trim() === '') {
+        console.warn('Réponse vide de l\'API')
+        return null
+      }
+      return JSON.parse(text) as PaginatedResultType
+    })
+    .then((paginatedResult) => {
+      if (paginatedResult) {
+        console.log(`Page ${paginatedResult.currentPage}/${paginatedResult.totalPages} - ${paginatedResult.data.length} résultats`)
+        setListResult(paginatedResult.data || [])
+        setPaginationInfo({
+          currentPage: paginatedResult.currentPage,
+          totalPages: paginatedResult.totalPages,
+          totalItems: paginatedResult.totalItems,
+          pageSize: paginatedResult.pageSize,
+          hasPrevious: paginatedResult.hasPrevious,
+          hasNext: paginatedResult.hasNext
+        })
+      } else {
+        setListResult([])
+      }
+      setLoading(false)
     })
     .catch((error) => {
-      console.error("Erreur lors de la récupération des portails :", error)
-      setListPort([])
+      console.error("Erreur lors de la récupération des résultats:", error)
+      setListResult([])
+      setLoading(false)
     })
-}, [])
-  // Récupération des résultats
-  useEffect(() => {
-    fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-result`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+}
+
+// Fonction pour récupérer TOUTES les données pour les statistiques (une seule fois au chargement)
+const fetchAllResultsForStats = () => {
+  const requestBody = {
+    pageNumber: 1,
+    pageSize: 10000 // Récupérer toutes les données
+  }
+  
+  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-result`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody)
+  })
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const text = await response.text()
+      if (!text || text.trim() === '') {
+        console.warn('Réponse vide de l\'API pour les statistiques')
+        return null
+      }
+      return JSON.parse(text) as PaginatedResultType
+    })
+    .then((paginatedResult) => {
+      if (paginatedResult) {
+        console.log(`Données complètes pour statistiques: ${paginatedResult.data.length} résultats`)
+        setAllResultsForStats(paginatedResult.data || [])
       }
     })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        
-        // Vérifier si la réponse contient du contenu
-        const text = await response.text()
-        if (!text || text.trim() === '') {
-          console.warn('Réponse vide de l\'API')
-          return []
-        }
-        
-        try {
-          return JSON.parse(text)
-        } catch (e) {
-          console.error('Erreur de parsing JSON:', e)
-          return []
-        }
-      })
+    .catch((error) => {
+      console.error("Erreur lors de la récupération des données pour statistiques:", error)
+    })
+}
+
+// Récupération des portails (une seule fois)
+useEffect(() => {
+  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-portail`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
       .then((data) => {
-        console.log('Résultats reçus:', data)
-        setListResult(data || [])
-        setLoading(false)
+        console.log('Portails reçus:', data)
+        setListPort(data || [])
       })
       .catch((error) => {
-        console.error("Erreur lors de la récupération des résultats :", error)
-        setListResult([])
-        setLoading(false)
+        console.error("Erreur lors de la récupération des portails:", error)
+        setListPort([])
       })
+  
+  // Récupérer toutes les données pour les statistiques (une seule fois)
+  fetchAllResultsForStats()
   }, [])
 
-  // Filtrer les portails par type (académique ou professionalisante)
+ useEffect(() => {
+  fetchResults(selectedPortail, debouncedSearchTerm, currentPage, pageSize)
+}, [])
+
+useEffect(() => {
+  setCurrentPage(1) // Reset à la page 1
+  fetchResults(selectedPortail, debouncedSearchTerm, 1, pageSize)
+}, [selectedPortail, debouncedSearchTerm, pageSize])
+// Recharger quand la page change
+useEffect(() => {
+  fetchResults(selectedPortail, debouncedSearchTerm, currentPage, pageSize)
+}, [currentPage])
+  // Filtrer les portails par type
   const portailsAcademiques = listPort.filter(p => p.estAcademique === true)
   const portailsProfessionalisants = listPort.filter(p => p.estAcademique === false)
+const handlePageChange = (newPage: number) => {
+  if (newPage >= 1 && newPage <= paginationInfo.totalPages) {
+    setCurrentPage(newPage)
+    // Scroll en haut de la page
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+}
 
+const handlePageSizeChange = (newSize: number) => {
+  setPageSize(newSize)
+  setCurrentPage(1) // Reset à la page 1
+}
+
+const handleResetFilters = () => {
+  setSearchTerm("")
+  setSelectedPortail("all")
+  setCurrentPage(1)
+}
   // Obtenir les portails actuels selon l'onglet actif
   const getCurrentPortails = () => 
     activeTab === "academique" ? portailsAcademiques : portailsProfessionalisants
 
-  // Obtenir le total des inscrits pour le type actuel
-  // const getTotalInscrits = () => {
-  //   const portailsActuels = getCurrentPortails()
-  //   const nomsPortails = portailsActuels.map(p => p.nomPortail)
-  //   return listResult.filter(r => nomsPortails.includes(r.portail)).length
-  // }
-
-  // Obtenir le total académique
-  const getTotalAcademique = () => {
+  // Statistiques globales (indépendantes des filtres) - basées sur TOUTES les données
+  const getGlobalTotalAcademique = () => {
     const nomsPortails = portailsAcademiques.map(p => p.nomPortail)
-    return listResult.filter(r => nomsPortails.includes(r.portail)).length
+    return allResultsForStats.filter(r => nomsPortails.includes(r.portail)).length
   }
 
-  // Obtenir le total professionalisante
-  const getTotalProfessionalisante = () => {
+  const getGlobalTotalProfessionalisante = () => {
     const nomsPortails = portailsProfessionalisants.map(p => p.nomPortail)
-    return listResult.filter(r => nomsPortails.includes(r.portail)).length
+    return allResultsForStats.filter(r => nomsPortails.includes(r.portail)).length
   }
 
-  // Obtenir les statistiques par portail
-  // const getStatsByPortail = () => {
-  //   const portailsActuels = getCurrentPortails()
-  //   return portailsActuels.map(portail => {
-  //     const candidats = listResult.filter(r => r.portail === portail.nomPortail)
-  //     return {
-  //       nomPortail: portail.nomPortail,
-  //       abbrev: portail.abbreviation,
-  //       total: candidats.length,
-  //       idPortail: portail.idPortail
-  //     }
-  //   })
-  // }
+  const getGlobalTotalCandidatures = () => {
+    return allResultsForStats.length
+  }
 
-  // Filtrer les candidats selon la recherche et le portail sélectionné
+  const getGlobalTotalPortails = () => {
+    return listPort.length
+  }
+
+  // Filtrer les candidats (simplifié car le filtrage est fait côté backend)
   const getFilteredCandidats = () => {
-    let candidats = listResult
+    if (!Array.isArray(listResult) || listResult.length === 0) {
+      return []
+    }
     
-    // Filtrer par type (académique ou professionalisante)
+    // Filtrer seulement par type (académique ou professionalisante)
     const portailsActuels = getCurrentPortails()
     const nomsPortails = portailsActuels.map(p => p.nomPortail)
     
-    // Par défaut, afficher tous les candidats validés du type actuel
-    candidats = candidats.filter(c => nomsPortails.includes(c.portail))
+    let filtered = listResult.filter(c => nomsPortails.includes(c.portail))
     
-    // Filtrer par portail sélectionné si un portail spécifique est choisi
-    if (selectedPortail !== "all") {
-      const portailSelectionne = listPort.find(p => p.idPortail === parseInt(selectedPortail))
-      if (portailSelectionne) {
-        candidats = candidats.filter(c => c.portail === portailSelectionne.nomPortail)
-      }
+    // Filtrer par statut
+    if (statusFilter === "selected") {
+      filtered = filtered.filter(c => c.statut === "Sélectionné(e)")
+    } else if (statusFilter === "waiting") {
+      filtered = filtered.filter(c => c.statut !== "Sélectionné(e)")
     }
     
-    // Filtrer par terme de recherche
-    if (searchTerm) {
-      candidats = candidats.filter(c =>
-        c.bacNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        c.prenom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (c.nom && c.nom.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        c.abrevi.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    }
-    
-    return candidats
+    return filtered
   }
 
   const filteredCandidats = getFilteredCandidats()
@@ -194,18 +281,194 @@ export default function CandidatsPreinscrits() {
     return portail ? portail.nomPortail : "N/A"
   }
 
-  // // Fonction pour obtenir l'abréviation du portail par ID
-  // const getPortailAbbrev = (idPortail: number) => {
-  //   const portail = listPort.find(p => p.idPortail === idPortail)
-  //   return portail ? portail.abbreviation : "N/A"
-  // }
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF()
 
-  // // Fonction pour obtenir le nom du portail (déjà dans les données candidat)
-  // const getPortailName = (nomPortail: string) => {
-  //   return nomPortail
-  // }
+    doc.setFontSize(18)
+    doc.text("Résultat de la selection des dossiers", 14, 22)
+    
+    doc.setFontSize(11)
+    let subtitle = `Total candidats: ${filteredCandidats.length}`
+    if (selectedPortail !== "all") {
+      subtitle += ` - Portail: ${getPortailNameById(parseInt(selectedPortail))}`
+    } else {
+      subtitle += ` - ${isAcademique ? "Académique" : "Professionalisante"}`
+    }
+    if (searchTerm) {
+      subtitle += ` - Recherche: "${searchTerm}"`
+    }
+    doc.text(subtitle, 14, 30)
 
-  // const statsByPortail = getStatsByPortail()
+    const tableColumn = ["Rang","N° Bac", "Année Bac", "Nom et Prénom"]
+    const tableRows: (string | number)[][] = []
+
+    filteredCandidats.forEach(candidat => {
+      const candidateData = [
+        candidat.rang,
+        candidat.bacNumber,
+        candidat.anneeBacc,
+        candidat.prenom + (candidat.nom ? " " + candidat.nom : "")
+      ]
+      tableRows.push(candidateData)
+    })
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 35,
+    })
+
+    doc.save(`Resultats_Selection_FacScience_${isAcademique ? 'Academique' : 'Pro'}.pdf`)
+  }
+
+  // Composant de pagination
+  const PaginationControls = () => {
+    const startItem = (paginationInfo.currentPage - 1) * paginationInfo.pageSize + 1
+    const endItem = Math.min(
+      paginationInfo.currentPage * paginationInfo.pageSize, 
+      paginationInfo.totalItems
+    )
+
+    // Générer les numéros de pages à afficher
+    const getPageNumbers = () => {
+      const pages: (number | string)[] = []
+      const maxVisible = 5 // Nombre max de pages visibles
+      
+      if (paginationInfo.totalPages <= maxVisible) {
+        // Afficher toutes les pages
+        for (let i = 1; i <= paginationInfo.totalPages; i++) {
+          pages.push(i)
+        }
+      } else {
+        // Logique pour afficher avec "..."
+        if (paginationInfo.currentPage <= 3) {
+          for (let i = 1; i <= 4; i++) pages.push(i)
+          pages.push('...')
+          pages.push(paginationInfo.totalPages)
+        } else if (paginationInfo.currentPage >= paginationInfo.totalPages - 2) {
+          pages.push(1)
+          pages.push('...')
+          for (let i = paginationInfo.totalPages - 3; i <= paginationInfo.totalPages; i++) {
+            pages.push(i)
+          }
+        } else {
+          pages.push(1)
+          pages.push('...')
+          pages.push(paginationInfo.currentPage - 1)
+          pages.push(paginationInfo.currentPage)
+          pages.push(paginationInfo.currentPage + 1)
+          pages.push('...')
+          pages.push(paginationInfo.totalPages)
+        }
+      }
+      
+      return pages
+    }
+
+    return (
+      <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-white">
+        {/* Info gauche */}
+        <div className="flex items-center gap-4">
+          <span className="text-sm text-slate-600">
+            Affichage de <span className="font-semibold">{startItem}</span> à{' '}
+            <span className="font-semibold">{endItem}</span> sur{' '}
+            <span className="font-semibold">{paginationInfo.totalItems}</span> résultats
+          </span>
+          
+          {/* Sélecteur de taille de page */}
+          <Select 
+            value={pageSize.toString()} 
+            onValueChange={(value) => handlePageSizeChange(parseInt(value))}
+          >
+            <SelectTrigger className="w-32">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="10">10 par page</SelectItem>
+              <SelectItem value="25">25 par page</SelectItem>
+              <SelectItem value="50">50 par page</SelectItem>
+              <SelectItem value="100">100 par page</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Boutons de pagination */}
+        <div className="flex items-center gap-2">
+          {/* Bouton Première page */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(1)}
+            disabled={!paginationInfo.hasPrevious || loading}
+            className="rounded-none"
+          >
+            <span className="sr-only">Première page</span>
+           Première page
+          </Button>
+
+          {/* Bouton Précédent */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={!paginationInfo.hasPrevious || loading}
+            className="rounded-none"
+          >
+            <span className="sr-only">Page précédente</span>
+            Précédent
+          </Button>
+
+          {/* Numéros de pages */}
+          {getPageNumbers().map((page, index) => (
+            page === '...' ? (
+              <span key={`ellipsis-${index}`} className="px-2 text-slate-400">
+                ...
+              </span>
+            ) : (
+              <Button
+                key={page}
+                variant={currentPage === page ? "default" : "outline"}
+                size="sm"
+                onClick={() => handlePageChange(page as number)}
+                disabled={loading}
+                className={`rounded-none min-w-[40px] ${
+                  currentPage === page 
+                    ? "bg-primary text-white" 
+                    : "hover:bg-secondary"
+                }`}
+              >
+                {page}
+              </Button>
+            )
+          ))}
+
+          {/* Bouton Suivant */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={!paginationInfo.hasNext || loading}
+            className="rounded-none"
+          >
+            <span className="sr-only">Page suivante</span>
+            Suivant
+          </Button>
+
+          {/* Bouton Dernière page */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(paginationInfo.totalPages)}
+            disabled={!paginationInfo.hasNext || loading}
+            className="rounded-none"
+          >
+            <span className="sr-only">Dernière page</span>
+            Dernière page
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   if (loading) {
     return (
@@ -232,11 +495,6 @@ export default function CandidatsPreinscrits() {
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Consultez la liste des candidats qui ont été selectionnés en Licence 1 - Année Académique 2025-2026
           </p>
-          
-          {/* <div className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-amber-100 border border-amber-300 rounded-full">
-            <Clock className="h-5 w-5 text-amber-600" />
-            <span className="text-amber-800 font-medium">Sélection en cours -jusqu'au 15 Décembre 2025</span>
-          </div> */}
         </div>
 
         {/* Statistiques globales */}
@@ -244,7 +502,7 @@ export default function CandidatsPreinscrits() {
           <Card className="rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <FileText className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{listResult.length}</div>
+              <div className="text-4xl font-bold mb-2">{getGlobalTotalCandidatures()}</div>
               <div className="text-sm font-medium opacity-90">Candidatures Totales</div>
             </CardContent>
           </Card>
@@ -252,7 +510,7 @@ export default function CandidatsPreinscrits() {
           <Card className="rounded-none border-none shadow-lg bg-purple-50 text-primary transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <Users className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{getTotalAcademique()}</div>
+              <div className="text-4xl font-bold mb-2">{getGlobalTotalAcademique()}</div>
               <div className="text-sm font-medium opacity-90">Inscrits Académiques</div>
               <div className="text-xs opacity-70 mt-1">({portailsAcademiques.length} portails)</div>
             </CardContent>
@@ -261,7 +519,7 @@ export default function CandidatsPreinscrits() {
           <Card className="rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <GraduationCap className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{getTotalProfessionalisante()}</div>
+              <div className="text-4xl font-bold mb-2">{getGlobalTotalProfessionalisante()}</div>
               <div className="text-sm font-medium opacity-90">Inscrits Professionalisants</div>
               <div className="text-xs opacity-70 mt-1">({portailsProfessionalisants.length} portails)</div>
             </CardContent>
@@ -270,7 +528,7 @@ export default function CandidatsPreinscrits() {
           <Card className="border-none rounded-none shadow-lg bg-purple-50 text-primary transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <CheckCircle2 className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{listPort.length}</div>
+              <div className="text-4xl font-bold mb-2">{getGlobalTotalPortails()}</div>
               <div className="text-sm font-medium opacity-90">Portails Disponibles</div>
             </CardContent>
           </Card>
@@ -294,35 +552,6 @@ export default function CandidatsPreinscrits() {
               Professionalisante ({portailsProfessionalisants.length} portails)
             </TabsTrigger>
           </TabsList>
-
-          {/* Cartes statistiques par portail */}
-          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {statsByPortail.length > 0 ? (
-              statsByPortail.map((stat) => (
-                <Card 
-                  key={stat.idPortail} 
-                  className={`rounded-none border-none shadow-lg hover:shadow-xl transition-all cursor-pointer ${
-                    selectedPortail === stat.idPortail.toString() ? 'ring-2 ring-blue-500' : ''
-                  }`}
-                  onClick={() => setSelectedPortail(stat.idPortail.toString())}
-                >
-                  <CardHeader className={`bg-gradient-to-r ${gradientClass}`}>
-                    <CardTitle className="text-lg">{stat.nomPortail}</CardTitle>
-                    <CardDescription className="font-mono font-bold">{stat.abbrev}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-4">
-                    <div className="text-3xl font-bold text-center text-slate-800">{stat.total}</div>
-                    <div className="text-sm text-center text-slate-600 mt-1">candidats inscrits</div>
-                  </CardContent>
-                </Card>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-8 text-slate-500">
-                <Users className="h-12 w-12 mx-auto mb-3 opacity-50" />
-                <p>Aucun portail {isAcademique ? 'académique' : 'professionalisante'} disponible</p>
-              </div>
-            )}
-          </div> */}
         </Tabs>
 
         {/* Outils de recherche */}
@@ -332,17 +561,21 @@ export default function CandidatsPreinscrits() {
               <Filter className="h-5 w-5 text-purple-600" />
               Rechercher un Candidat
             </CardTitle>
-            <CardDescription>Utilisez les filtres ci-dessous pour trouver rapidement un candidat</CardDescription>
+            <CardDescription>
+              Utilisez les filtres ci-dessous pour trouver rapidement un candidat
+              {loading && <span className="ml-2 text-blue-600">• Recherche en cours...</span>}
+            </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="grid md:grid-cols-4 gap-4">
-              <Input 
-                placeholder="N° de candidat ou nom" 
+            <div className="grid md:grid-cols-2 gap-2">
+              {/* <Input 
+                placeholder="N° BAC, nom ou prénom..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="border-slate-300 focus:border-purple-500 focus:ring-purple-500"
-              />
-              <Select value={selectedPortail} onValueChange={setSelectedPortail}>
+                disabled={loading}
+              /> */}
+              <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={loading}>
                 <SelectTrigger className="border-slate-300">
                   <SelectValue placeholder={`Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`} />
                 </SelectTrigger>
@@ -357,21 +590,14 @@ export default function CandidatsPreinscrits() {
               </Select>
               <Button 
                 variant="outline" 
-                className="rounded-none  hover:bg-primary"
-                onClick={() => {
-                  setSearchTerm("")
-                  setSelectedPortail("all")
-                }}
+                className="rounded-none hover:bg-primary"
+                onClick={handleResetFilters}
+                disabled={loading}
               >
                 <Filter className="h-4 w-4 mr-2" />
                 Réinitialiser
               </Button>
-              <Button className="rounded-none bg-primary" onClick={() => {
-                // Le filtrage est automatique via les states
-              }}>
-                <Search className="h-4 w-4 mr-2" />
-                Rechercher
-              </Button>
+             
             </div>
           </CardContent>
         </Card>
@@ -379,75 +605,146 @@ export default function CandidatsPreinscrits() {
         {/* Liste des candidats */}
         <Card className="rounded-none mb-8 border-none shadow-xl">
           <CardHeader className={`bg-${gradientClass}`}>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-4">
               <CardTitle className="text-2xl text-slate-800 capitalize">
                 Liste des candidats {isAcademique ? "académiques" : "professionalisants"}
               </CardTitle>
-              <div className="text-sm text-slate-600">
-                {filteredCandidats.length} candidat(s) trouvé(s)
+            </div>
+            {/* Boutons de filtre par statut et recherche sur la même ligne */}
+            <div className="flex justify-between items-center gap-4">
+              {/* Boutons de filtre à gauche */}
+              <div className="flex gap-3">
+                <Button
+                  variant={statusFilter === "all" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setStatusFilter("all")}
+                  className={`rounded-none hover:bg-primary ${statusFilter === "all" ? (isAcademique ? "bg-primary" : "bg-secondary") : ""}`}
+                >
+                  <Users className="h-4 w-4 mr-2" />
+                  Tous ({listResult.filter(c => getCurrentPortails().map(p => p.nomPortail).includes(c.portail)).length})
+                </Button>
+                <Button
+                  variant={statusFilter === "selected" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setStatusFilter("selected")}
+                  className={`rounded-none ${statusFilter === "selected" ? "bg-primary hover:bg-primary" : "border-primary text-slate-700 hover:bg-primary"}`}
+                >
+                  <CheckCircle2 className="h-4 w-4 mr-2" />
+                  Sélectionné(e)s ({listResult.filter(c => getCurrentPortails().map(p => p.nomPortail).includes(c.portail) && c.statut === "Sélectionné(e)").length})
+                </Button>
+                <Button
+                  variant={statusFilter === "waiting" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setStatusFilter("waiting")}
+                  className={`rounded-none ${statusFilter === "waiting" ? "bg-red-600 hover:bg-orange-700" : "border-orange-600 text-orange-600 hover:bg-red-500"}`}
+                >
+                  <Calendar className="h-4 w-4 mr-2" />
+                  En attente ({listResult.filter(c => getCurrentPortails().map(p => p.nomPortail).includes(c.portail) && c.statut !== "Sélectionné(e)").length})
+                </Button>
+              </div>
+              
+              {/* Barre de recherche à droite */}
+              <div className="flex gap-2 items-center">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input 
+                    placeholder="N° BAC, nom ou prénom..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 w-80 border-slate-300 focus:border-purple-500 focus:ring-purple-500"
+                    disabled={loading}
+                  />
+                </div>
+                 {/* <Button 
+                className="rounded-none bg-primary" 
+                disabled={loading}
+              >
+                <Search className="h-4 w-4 mr-2" />
+                {loading ? "Recherche..." : `${filteredCandidats.length} résultat(s)`}
+              </Button> */}
               </div>
             </div>
-            <CardDescription>
+            {/* <CardDescription>
               {selectedPortail !== "all" 
                 ? `Portail sélectionné : ${getPortailNameById(parseInt(selectedPortail))}` 
-                : `Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'} - Candidats validés uniquement`}
+                : `Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`}
               {searchTerm && ` • Recherche : "${searchTerm}"`}
-            </CardDescription>
+            </CardDescription> */}
           </CardHeader>
           <CardContent className="p-0">
-            {filteredCandidats.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-slate-100 border-b-2 border-slate-200">
-                    <tr>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Bac</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Année Bac</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Rang</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200">
-                    {filteredCandidats.map((candidat, idx) => (
-                      <tr key={candidat.id || idx} className={`transition-colors duration-200 ${hoverClass}`}>
-                        <td className="px-6 py-4">
-                          <span className={`font-mono text-sm font-medium ${numeroColor}`}>
-                            {candidat.bacNumber}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="font-medium text-slate-800">
-                            {candidat.prenom}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
-                            <Badge variant="outline" className="text-xs w-fit">
-                              {candidat.abrevi}
-                            </Badge>
-                            <span className="text-xs text-slate-500">
-                              {candidat.portail}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className="text-sm text-slate-600">{candidat.anneeBacc}</span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className="text-sm font-semibold text-slate-700">#{candidat.rang}</span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-2 text-sm text-slate-600">
-                            <Calendar className="h-4 w-4" />
-                            {candidat.date}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            {loading ? (
+              <div className="p-8 text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                <p className="text-slate-600">Chargement des résultats...</p>
               </div>
+            ) : filteredCandidats.length > 0 ? (
+              <>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-slate-100 border-b-2 border-slate-200">
+                      <tr>
+                          <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Rang</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Bac</th>
+                          <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Année Bac</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
+                        {/* <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th> */}
+                      
+                      
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Status</th>
+                        {/* <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Date</th> */}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                      {filteredCandidats.map((candidat, idx) => (
+                        <tr key={candidat.id || idx} className={`transition-colors duration-200 ${hoverClass}`}>
+                          <td className="px-6 py-4">
+                            <span className="font-mono text-sm font-medium">
+                              {candidat.rang}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className={`font-medium ${numeroColor}`}>
+                              {candidat.bacNumber}
+                            </div>
+                          </td>
+                          {/* <td className="px-6 py-4">
+                            <div className="flex flex-col gap-1">
+                              <Badge variant="outline" className="text-xs w-fit">
+                                {candidat.abrevi}
+                              </Badge>
+                              <span className="text-xs text-slate-500">
+                                {candidat.portail}
+                              </span>
+                            </div>
+                          </td> */}
+                          <td className="px-6 py-4">
+                            <span className="text-sm text-slate-600">{candidat.anneeBacc}</span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className="text-sm font-semibold text-slate-700">{candidat.prenom}</span>
+                          </td>
+                          <td className="px-6 py-4">
+                            {candidat.statut === "Sélectionné(e)" ? (
+                              <span className="text-sm font-semibold text-green-700">{candidat.statut}</span>
+                            ) : (
+                              <span className="text-sm font-semibold text-red-700">{candidat.statut}</span>
+                            )}
+                          </td>
+                          {/* <td className="px-6 py-4">
+                            <div className="flex items-center gap-2 text-sm text-slate-600">
+                              <Calendar className="h-4 w-4" />
+                              {candidat.date}
+                            </div>
+                          </td> */}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                
+                {/* Pagination */}
+                <PaginationControls />
+              </>
             ) : (
               <div className="p-8 text-center">
                 <Users className="h-12 w-12 mx-auto mb-4 text-slate-400" />
@@ -457,7 +754,11 @@ export default function CandidatsPreinscrits() {
             )}
           </CardContent>
           <CardHeader className={`rounded-none bg-${gradientClass} mt-4 border-t`}>
-            <Button className={`rounded-none bg- ${isAcademique ? "bg-primary" : "bg-secondary hover:bg-secondary "}`}>
+            <Button 
+              className={`rounded-none ${isAcademique ? "bg-primary" : "bg-secondary hover:bg-secondary"}`}
+              onClick={handleDownloadPDF}
+              disabled={loading || filteredCandidats.length === 0}
+            >
               <Download className="h-4 w-4 mr-2" />
               Exporter en PDF
             </Button>
@@ -474,8 +775,8 @@ export default function CandidatsPreinscrits() {
                 </div>
               </div>
               <div>
-                <h3 className={`font-semibold ${isAcademique ? "text-gray-900" : "text-gray-900"} mb-2`}>Information importante</h3>
-                <p className={`text-sm ${isAcademique ? "text-gray-800" : "text-gray-800"} leading-relaxed`}>
+                <h3 className="font-semibold text-gray-900 mb-2">Information importante</h3>
+                <p className="text-sm text-gray-800 leading-relaxed">
                   Cette liste présente tous les candidats ayant effectué leur préinscription. La validation du dossier ne garantit pas l'admission définitive. 
                   Les résultats finaux de la sélection seront publiés après l'étude approfondie de tous les dossiers.
                 </p>
@@ -483,78 +784,6 @@ export default function CandidatsPreinscrits() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Calendrier et informations */}
-        {/* <div className="mt-10 grid md:grid-cols-2 gap-6">
-          <Card className="rounded-none border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-slate-50 to-purple-50">
-              <CardTitle className="flex items-center gap-2 text-slate-800">
-                <Calendar className="h-5 w-5 text-purple-600" />
-                Calendrier de Sélection
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-green-100 flex items-center justify-center flex-shrink-0 rounded-full">
-                  <CheckCircle2 className="h-6 w-6 text-green-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-800">Clôture des inscriptions</div>
-                  <div className="text-sm text-slate-600">15 Decembre 2025</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-100 flex items-center justify-center flex-shrink-0 rounded-full">
-                  <Clock className="h-6 w-6 text-blue-600 animate-pulse" />
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-800">Étude des dossiers</div>
-                  <div className="text-sm text-slate-600">1 - 14 Novembre 2024</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-purple-100 flex items-center justify-center flex-shrink-0 rounded-full">
-                  <FileText className="h-6 w-6 text-purple-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-slate-800">Publication des résultats</div>
-                  <div className="text-sm text-slate-600">15 Novembre 2024</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-none border-none shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-slate-50 to-indigo-50">
-              <CardTitle className="flex items-center gap-2 text-slate-800">
-                <Users className="h-5 w-5 text-indigo-600" />
-                Besoin d'aide ?
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-4">
-              <p className="text-slate-600 leading-relaxed">
-                Pour toute question concernant votre candidature ou le processus de sélection, n'hésitez pas à nous contacter.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    📧
-                  </div>
-                  <span className="text-slate-700">admission@faculte-sciences.mg</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                    📞
-                  </div>
-                  <span className="text-slate-700">+261 34 XX XXX XX</span>
-                </div>
-              </div>
-              <Button className="rounded-none w-full bg-primary hover:from-indigo-700 hover:to-purple-700 mt-4">
-                Contacter le service des admissions
-              </Button>
-            </CardContent>
-          </Card>
-        </div> */}
       </div>
     </div>
   )

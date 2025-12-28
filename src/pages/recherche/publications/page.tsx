@@ -55,7 +55,7 @@ export default function PublicationsPage() {
   ];
 
   // Années disponibles
-  const years = ["all", "2024", "2023", "2022", "2021","2025"];
+  const years = ["all", "2021", "2022", "2023", "2024","2025"];
 
   // Fetch des publications depuis l'API
   useEffect(() => {
