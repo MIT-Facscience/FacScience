@@ -353,11 +353,11 @@ export default function Navigation() {
                       base: "/actualites",
                     },
                     // Ajout conditionnel de Résultats
-                    ...(showResults ? [{
+                    {
                       name: t("results"),
                       path: "/resultats",
                       base: "/resultats",
-                    }] : []),
+                    },
                     {
                       name: t("contact"),
                       path: "/contact",

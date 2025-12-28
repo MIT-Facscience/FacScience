@@ -366,9 +366,9 @@ const handleResetFilters = () => {
     }
 
     return (
-      <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-white">
+      <div className="flex flex-col md:flex-row items-center justify-between px-6 py-4 border-t border-slate-200 bg-white gap-4 md:gap-0">
         {/* Info gauche */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <span className="text-sm text-slate-600">
             Affichage de <span className="font-semibold">{startItem}</span> à{' '}
             <span className="font-semibold">{endItem}</span> sur{' '}
@@ -400,13 +400,12 @@ const handleResetFilters = () => {
             size="sm"
             onClick={() => handlePageChange(1)}
             disabled={!paginationInfo.hasPrevious || loading}
-            className="rounded-none"
+            className="rounded-none hidden sm:inline-flex"
           >
             <span className="sr-only">Première page</span>
            Première page
           </Button>
 
-          {/* Bouton Précédent */}
           <Button
             variant="outline"
             size="sm"
@@ -418,7 +417,13 @@ const handleResetFilters = () => {
             Précédent
           </Button>
 
-          {/* Numéros de pages */}
+          {/* Indicateur mobile */}
+          <span className="text-sm font-medium sm:hidden">
+            Page {currentPage} / {paginationInfo.totalPages}
+          </span>
+          
+          {/* Numéros de pages (Desktop uniquement) */}
+          <div className="hidden sm:flex items-center gap-1">
           {getPageNumbers().map((page, index) => (
             page === '...' ? (
               <span key={`ellipsis-${index}`} className="px-2 text-slate-400">
@@ -441,6 +446,7 @@ const handleResetFilters = () => {
               </Button>
             )
           ))}
+          </div>
 
           {/* Bouton Suivant */}
           <Button
@@ -460,7 +466,7 @@ const handleResetFilters = () => {
             size="sm"
             onClick={() => handlePageChange(paginationInfo.totalPages)}
             disabled={!paginationInfo.hasNext || loading}
-            className="rounded-none"
+            className="rounded-none hidden sm:inline-flex"
           >
             <span className="sr-only">Dernière page</span>
             Dernière page
@@ -489,7 +495,7 @@ const handleResetFilters = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary mb-6 shadow-lg">
             <Users className="h-10 w-10 text-white" />
           </div>
-          <h1 className="text-5xl font-bold bg-primary bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold bg-primary bg-clip-text text-transparent mb-4">
             Resultat de la selection des dossiers
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
@@ -498,7 +504,7 @@ const handleResetFilters = () => {
         </div>
 
         {/* Statistiques globales */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
           <Card className="rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
             <CardContent className="p-6 text-center">
               <FileText className="h-8 w-8 mx-auto mb-3 opacity-80" />
@@ -538,16 +544,16 @@ const handleResetFilters = () => {
           setActiveTab(value)
           setSelectedPortail("all")
         }} className="space-y-6">
-          <TabsList className="rounded-none grid w-full grid-cols-2 bg-white shadow-md p-1">
+          <TabsList className="rounded-none grid w-full grid-cols-1 sm:grid-cols-2 bg-white shadow-md p-1 h-auto">
             <TabsTrigger 
               value="academique" 
-              className="rounded-none data-[state=active]:bg-primary data-[state=active]:text-white"
+              className="rounded-none data-[state=active]:bg-primary data-[state=active]:text-white py-3 sm:py-2"
             >
               Académique ({portailsAcademiques.length} portails)
             </TabsTrigger>
             <TabsTrigger 
               value="professionalisante" 
-              className="rounded-none data-[state=active]:bg-secondary data-[state=active]:text-white"
+              className="rounded-none data-[state=active]:bg-secondary data-[state=active]:text-white py-3 sm:py-2"
             >
               Professionalisante ({portailsProfessionalisants.length} portails)
             </TabsTrigger>
@@ -611,9 +617,9 @@ const handleResetFilters = () => {
               </CardTitle>
             </div>
             {/* Boutons de filtre par statut et recherche sur la même ligne */}
-            <div className="flex justify-between items-center gap-4">
+            <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
               {/* Boutons de filtre à gauche */}
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 <Button
                   variant={statusFilter === "all" ? "default" : "outline"}
                   size="sm"
@@ -644,16 +650,16 @@ const handleResetFilters = () => {
               </div>
               
               {/* Barre de recherche à droite */}
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center w-full md:w-auto">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                  <Input 
-                    placeholder="N° BAC, nom ou prénom..." 
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 w-80 border-slate-300 focus:border-purple-500 focus:ring-purple-500"
-                    disabled={loading}
-                  />
+                    <Input 
+                      placeholder="N° BAC, nom ou prénom..." 
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 w-full md:w-80 border-slate-300 focus:border-purple-500 focus:ring-purple-500"
+                      disabled={loading}
+                    />
                 </div>
                  {/* <Button 
                 className="rounded-none bg-primary" 
@@ -679,7 +685,7 @@ const handleResetFilters = () => {
               </div>
             ) : filteredCandidats.length > 0 ? (
               <>
-                <div className="overflow-x-auto">
+                <div className="hidden md:block overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-slate-100 border-b-2 border-slate-200">
                       <tr>
@@ -741,6 +747,34 @@ const handleResetFilters = () => {
                     </tbody>
                   </table>
                 </div>
+
+                {/* Vue Mobile (Cartes) */}
+                <div className="md:hidden space-y-4 px-4 pb-4 pt-2">
+                  {filteredCandidats.map((candidat, idx) => (
+                    <div key={candidat.id || idx} className={`p-4 bg-white border border-slate-100 rounded-lg shadow-sm border-l-4 ${isAcademique ? "border-l-primary" : "border-l-secondary"}`}>
+                        <div className="flex justify-between items-start mb-2">
+                            <span className="font-bold text-lg text-slate-800">Rang #{candidat.rang}</span>
+                            {candidat.statut === "Sélectionné(e)" ? (
+                                <span className="px-2 py-1 text-xs font-semibold text-green-700 bg-green-50 rounded-full">{candidat.statut}</span>
+                            ) : (
+                                <span className="px-2 py-1 text-xs font-semibold text-red-700 bg-red-50 rounded-full">{candidat.statut}</span>
+                            )}
+                        </div>
+                        <div className="text-sm text-slate-600 mb-1 flex justify-between">
+                          <span className="font-semibold">N° Bac:</span> 
+                          <span className={`font-medium ${numeroColor}`}>{candidat.bacNumber}</span>
+                        </div>
+                        <div className="text-sm text-slate-600 mb-1">
+                          <span className="font-semibold block">Nom:</span> 
+                          {candidat.prenom} {candidat.nom ? " " + candidat.nom : ""}
+                        </div>
+                        <div className="text-sm text-slate-600 flex justify-between">
+                          <span className="font-semibold">Année:</span> 
+                          {candidat.anneeBacc}
+                        </div>
+                    </div>
+                  ))}
+                </div>
                 
                 {/* Pagination */}
                 <PaginationControls />
@@ -768,7 +802,7 @@ const handleResetFilters = () => {
         {/* Note importante */}
         <Card className={`rounded-none border-${isAcademique ? "purple" : "amber"}-200 bg-${isAcademique ? "purple" : "amber"}-50 mb-10`}>
           <CardContent className="p-6">
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <div className="flex-shrink-0">
                 <div className={`w-10 h-10 rounded-full bg-${isAcademique ? "purple" : "amber"}-600 flex items-center justify-center`}>
                   {isAcademique ? <FileText className="h-5 w-5 text-white" /> : <GraduationCap className="h-5 w-5 text-white" />}
