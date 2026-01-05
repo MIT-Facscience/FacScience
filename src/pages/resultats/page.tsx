@@ -40,6 +40,7 @@ type PaginatedResultType = {
   hasPrevious: boolean;
   hasNext: boolean;
 }
+
 export default function CandidatsPreinscrits() {
   const [listPort, setListPort] = useState<PortalType[]>([])
   const [listResult, setListResult] = useState<ListResultatType[]>([])
@@ -202,7 +203,7 @@ useEffect(() => {
 
  useEffect(() => {
   fetchResults(selectedPortail, debouncedSearchTerm, currentPage, pageSize)
-}, [])
+}, [selectedPortail, debouncedSearchTerm, currentPage, pageSize])
 
 useEffect(() => {
   setCurrentPage(1) // Reset à la page 1
@@ -211,7 +212,7 @@ useEffect(() => {
 // Recharger quand la page change
 useEffect(() => {
   fetchResults(selectedPortail, debouncedSearchTerm, currentPage, pageSize)
-}, [currentPage])
+}, [currentPage, selectedPortail, debouncedSearchTerm, pageSize])
   // Filtrer les portails par type
   const portailsAcademiques = listPort.filter(p => p.estAcademique === true)
   const portailsProfessionalisants = listPort.filter(p => p.estAcademique === false)
@@ -290,14 +291,14 @@ const handleResetFilters = () => {
     }
     doc.text(subtitle, 14, 30)
 
-    const tableColumn = ["Rang","N° Bac", "Année Bac", "Nom et Prénom"]
+    const tableColumn = ["Rang","N° Bac",  "Nom et Prénom"]
     const tableRows: (string | number)[][] = []
 
     filteredCandidats.forEach(candidat => {
       const candidateData = [
         candidat.rang,
         candidat.bacNumber,
-        candidat.anneeBacc,
+       
         candidat.prenom + (candidat.nom ? " " + candidat.nom : "")
       ]
       tableRows.push(candidateData)
@@ -655,7 +656,7 @@ const handleResetFilters = () => {
                       <tr>
                           <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Rang</th>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Bac</th>
-                          <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Année Bac</th>
+                          {/* <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Année Bac</th> */}
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
                         {/* <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th> */}
                       
@@ -687,9 +688,9 @@ const handleResetFilters = () => {
                               </span>
                             </div>
                           </td> */}
-                          <td className="px-6 py-4">
+                          {/* <td className="px-6 py-4">
                             <span className="text-sm text-slate-600">{candidat.anneeBacc}</span>
-                          </td>
+                          </td> */}
                           <td className="px-6 py-4">
                             <span className="text-sm font-semibold text-slate-700">{candidat.prenom}</span>
                           </td>
