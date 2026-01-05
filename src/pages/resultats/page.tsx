@@ -43,7 +43,7 @@ type PaginatedResultType = {
 export default function CandidatsPreinscrits() {
   const [listPort, setListPort] = useState<PortalType[]>([])
   const [listResult, setListResult] = useState<ListResultatType[]>([])
-  const [allResultsForStats, setAllResultsForStats] = useState<ListResultatType[]>([]) // Données complètes pour les statistiques
+  // const [allResultsForStats, setAllResultsForStats] = useState<ListResultatType[]>([]) // Données complètes pour les statistiques
   const [searchTerm, setSearchTerm] = useState("")
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
   const [selectedPortail, setSelectedPortail] = useState("all")
@@ -170,7 +170,7 @@ const fetchAllResultsForStats = () => {
     .then((paginatedResult) => {
       if (paginatedResult) {
         console.log(`Données complètes pour statistiques: ${paginatedResult.data.length} résultats`)
-        setAllResultsForStats(paginatedResult.data || [])
+        // setAllResultsForStats(paginatedResult.data || [])
       }
     })
     .catch((error) => {
