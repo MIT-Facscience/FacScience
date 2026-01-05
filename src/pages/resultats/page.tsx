@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { BACKEND_PREINSCRIPTION_URL } from "@/lib/api"
+// import { t } from "node_modules/i18next"
 
 type PortalType = {
   idPortail: number;
@@ -53,11 +54,11 @@ export default function CandidatsPreinscrits() {
   currentPage: 1,
   totalPages: 1,
   totalItems: 0,
-  pageSize: 50,
+  pageSize: 5,
   hasPrevious: false,
   hasNext: false
 })
-const [pageSize, setPageSize] = useState(50)
+const [pageSize, setPageSize] = useState(5)
 const [currentPage, setCurrentPage] = useState(1)
   // Debounce pour la recherche
   useEffect(() => {
@@ -72,11 +73,18 @@ const fetchResults = (
   portailId: string = "all", 
   search: string = "", 
   page: number = 1,
-  size: number = 50
+  size: number = 5
 ) => {
   setLoading(true)
   
-  const requestBody: any = {
+  type RequestBody = {
+    pageNumber: number;
+    pageSize: number;
+    idPortail?: number;
+    searchTerm?: string;
+  }
+
+  const requestBody: RequestBody = {
     pageNumber: page,
     pageSize: size
   }
@@ -157,6 +165,7 @@ const fetchAllResultsForStats = () => {
         return null
       }
       return JSON.parse(text) as PaginatedResultType
+     // console.log(t)
     })
     .then((paginatedResult) => {
       if (paginatedResult) {
@@ -228,24 +237,6 @@ const handleResetFilters = () => {
   const getCurrentPortails = () => 
     activeTab === "academique" ? portailsAcademiques : portailsProfessionalisants
 
-  // Statistiques globales (indépendantes des filtres) - basées sur TOUTES les données
-  const getGlobalTotalAcademique = () => {
-    const nomsPortails = portailsAcademiques.map(p => p.nomPortail)
-    return allResultsForStats.filter(r => nomsPortails.includes(r.portail)).length
-  }
-
-  const getGlobalTotalProfessionalisante = () => {
-    const nomsPortails = portailsProfessionalisants.map(p => p.nomPortail)
-    return allResultsForStats.filter(r => nomsPortails.includes(r.portail)).length
-  }
-
-  const getGlobalTotalCandidatures = () => {
-    return allResultsForStats.length
-  }
-
-  const getGlobalTotalPortails = () => {
-    return listPort.length
-  }
 
   // Filtrer les candidats (simplifié car le filtrage est fait côté backend)
   const getFilteredCandidats = () => {
@@ -384,6 +375,7 @@ const handleResetFilters = () => {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="5">5 par page</SelectItem>
               <SelectItem value="10">10 par page</SelectItem>
               <SelectItem value="25">25 par page</SelectItem>
               <SelectItem value="50">50 par page</SelectItem>
@@ -495,71 +487,62 @@ const handleResetFilters = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary mb-6 shadow-lg">
             <Users className="h-10 w-10 text-white" />
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold bg-primary bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold bg-primary bg-clip-text text-transparent mb-4">
             Resultat de la selection des dossiers
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Consultez la liste des candidats qui ont été selectionnés en Licence 1 - Année Académique 2025-2026
           </p>
         </div>
 
-        {/* Statistiques globales */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
-          <Card className="rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
-            <CardContent className="p-6 text-center">
-              <FileText className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{getGlobalTotalCandidatures()}</div>
-              <div className="text-sm font-medium opacity-90">Candidatures Totales</div>
-            </CardContent>
-          </Card>
+            {/* Barre de recherche à droite */}
+              <div className="flex gap-2 items-center w-full mb-3">
+                <div className="relative flex-grow">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                    <Input 
+                      placeholder="N° BAC, nom ou prénom..." 
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 w-full border-slate-300 focus:border-purple-500 focus:ring-purple-500 rounded-none"
+                      disabled={loading}
+                    />
+                </div>
+                 <Button 
+                className="rounded-none bg-primary" 
+                disabled={loading}
+                 >
+                <Search className="h-4 w-4 mr-2" />
+                {loading ? "Recherche..." : `Rechercher`}
+              </Button>
+              </div>
 
-          <Card className="rounded-none border-none shadow-lg bg-purple-50 text-primary transform hover:scale-105 transition-transform duration-300">
-            <CardContent className="p-6 text-center">
-              <Users className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{getGlobalTotalAcademique()}</div>
-              <div className="text-sm font-medium opacity-90">Inscrits Académiques</div>
-              <div className="text-xs opacity-70 mt-1">({portailsAcademiques.length} portails)</div>
-            </CardContent>
-          </Card>
+   
 
-          <Card className="rounded-none border-none shadow-lg bg-gray-50 text-gray-800 transform hover:scale-105 transition-transform duration-300">
-            <CardContent className="p-6 text-center">
-              <GraduationCap className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{getGlobalTotalProfessionalisante()}</div>
-              <div className="text-sm font-medium opacity-90">Inscrits Professionalisants</div>
-              <div className="text-xs opacity-70 mt-1">({portailsProfessionalisants.length} portails)</div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none rounded-none shadow-lg bg-purple-50 text-primary transform hover:scale-105 transition-transform duration-300">
-            <CardContent className="p-6 text-center">
-              <CheckCircle2 className="h-8 w-8 mx-auto mb-3 opacity-80" />
-              <div className="text-4xl font-bold mb-2">{getGlobalTotalPortails()}</div>
-              <div className="text-sm font-medium opacity-90">Portails Disponibles</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Tabs value={activeTab} onValueChange={(value) => {
+     <Tabs value={activeTab} onValueChange={(value) => {
           setActiveTab(value)
           setSelectedPortail("all")
         }} className="space-y-6">
-          <TabsList className="rounded-none grid w-full grid-cols-1 sm:grid-cols-2 bg-white shadow-md p-1 h-auto">
+          <TabsList className="rounded-none grid w-full grid-cols-2 bg-white shadow-md p-2 h-auto gap-2">
             <TabsTrigger 
               value="academique" 
-              className="rounded-none data-[state=active]:bg-primary data-[state=active]:text-white py-3 sm:py-2"
+              className="rounded-none data-[state=active]:bg-primary data-[state=active]:text-white py-3 px-2 text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight min-h-[50px] flex items-center justify-center"
             >
-              Académique ({portailsAcademiques.length} portails)
+              <span className="text-center">
+                Académique<br className="sm:hidden" />
+                <span className="sm:ml-1">({portailsAcademiques.length} portails)</span>
+              </span>
             </TabsTrigger>
             <TabsTrigger 
               value="professionalisante" 
-              className="rounded-none data-[state=active]:bg-secondary data-[state=active]:text-white py-3 sm:py-2"
+              className="rounded-none data-[state=active]:bg-secondary data-[state=active]:text-white py-3 px-2 text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight min-h-[50px] flex items-center justify-center"
             >
-              Professionalisante ({portailsProfessionalisants.length} portails)
+              <span className="text-center">
+                Professionalisante<br className="sm:hidden" />
+                <span className="sm:ml-1">({portailsProfessionalisants.length} portails)</span>
+              </span>
             </TabsTrigger>
           </TabsList>
         </Tabs>
-
         {/* Outils de recherche */}
         <Card className="rounded-none mb-8 border-none shadow-xl mt-8">
           <CardHeader className="bg-purple-50">
@@ -649,26 +632,7 @@ const handleResetFilters = () => {
                 </Button>
               </div>
               
-              {/* Barre de recherche à droite */}
-              <div className="flex gap-2 items-center w-full md:w-auto">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                    <Input 
-                      placeholder="N° BAC, nom ou prénom..." 
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 w-full md:w-80 border-slate-300 focus:border-purple-500 focus:ring-purple-500"
-                      disabled={loading}
-                    />
-                </div>
-                 {/* <Button 
-                className="rounded-none bg-primary" 
-                disabled={loading}
-              >
-                <Search className="h-4 w-4 mr-2" />
-                {loading ? "Recherche..." : `${filteredCandidats.length} résultat(s)`}
-              </Button> */}
-              </div>
+          
             </div>
             {/* <CardDescription>
               {selectedPortail !== "all" 
