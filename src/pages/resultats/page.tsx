@@ -1,10 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Search, Download, Users, FileText, Calendar, CheckCircle2, GraduationCap, Filter } from "lucide-react"
+import { Search, Download, Users, FileText, Calendar, CheckCircle2, GraduationCap } from "lucide-react"
 import { useEffect, useState } from "react"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
@@ -126,7 +126,7 @@ export default function CandidatsPreinscrits() {
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [searchTerm])
+  }, [searchTerm,debouncedSearchTerm])
 
   const fetchResults = (
     portailId: string = "all", 
@@ -266,14 +266,14 @@ export default function CandidatsPreinscrits() {
     if (!loading) {
       fetchResults(selectedPortail, debouncedSearchTerm, currentPage, pageSize)
     }
-  }, [selectedPortail, debouncedSearchTerm, currentPage, pageSize])
+  }, [selectedPortail, debouncedSearchTerm, currentPage, pageSize,loading])
 
   useEffect(() => {
     if (!loading) {
       setCurrentPage(1)
       fetchResults(selectedPortail, debouncedSearchTerm, 1, pageSize)
     }
-  }, [selectedPortail, debouncedSearchTerm, pageSize])
+  }, [selectedPortail, debouncedSearchTerm, pageSize,loading])
 
   const portailsAcademiques = listPort.filter(p => p.estAcademique === true)
   const portailsProfessionalisants = listPort.filter(p => p.estAcademique === false)
@@ -290,11 +290,11 @@ export default function CandidatsPreinscrits() {
     setCurrentPage(1)
   }
 
-  const handleResetFilters = () => {
-    setSearchTerm("")
-    setSelectedPortail("all")
-    setCurrentPage(1)
-  }
+  // const handleResetFilters = () => {
+  //   setSearchTerm("")
+  //   setSelectedPortail("all")
+  //   setCurrentPage(1)
+ // }
 
   const getCurrentPortails = () => 
     activeTab === "academique" ? portailsAcademiques : portailsProfessionalisants
@@ -536,6 +536,32 @@ export default function CandidatsPreinscrits() {
         </div>
 
         <div className="flex gap-2 items-center w-full mb-3">
+           <CardContent className="p-0">
+            <div className="grid md:grid-cols-1 gap-4">
+              <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={isSearching}>
+                <SelectTrigger className="border-slate-300">
+                  <SelectValue placeholder={`Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tous les portails {isAcademique ? 'académiques' : 'professionalisants'}</SelectItem>
+                  {getCurrentPortails().map((portail) => (
+                    <SelectItem key={portail.idPortail} value={portail.idPortail.toString()}>
+                      {portail.nomPortail} ({portail.abbreviation})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {/* <Button 
+                variant="outline" 
+                className="rounded-none hover:bg-primary"
+                onClick={handleResetFilters}
+                disabled={isSearching}
+              >
+                <Filter className="h-4 w-4 mr-2" />
+                Réinitialiser
+              </Button> */}
+            </div>
+          </CardContent>
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
             <Input 
@@ -543,7 +569,7 @@ export default function CandidatsPreinscrits() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 w-full border-slate-300 focus:border-purple-500 focus:ring-purple-500 rounded-none"
-              disabled={isSearching}
+              
             />
             {isSearching && (
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -553,7 +579,7 @@ export default function CandidatsPreinscrits() {
           </div>
           <Button 
             className="rounded-none bg-primary" 
-            disabled={isSearching}
+            
           >
             <Search className="h-4 w-4 mr-2" />
             {isSearching ? "Recherche..." : "Rechercher"}
@@ -720,44 +746,7 @@ export default function CandidatsPreinscrits() {
           </CardHeader>
         </Card>
 
-        <Card className="rounded-none mb-8 border-none shadow-xl mt-8">
-          <CardHeader className="bg-purple-50">
-            <CardTitle className="flex items-center gap-2 text-slate-800">
-              <Filter className="h-5 w-5 text-purple-600" />
-              Rechercher un Candidat
-            </CardTitle>
-            <CardDescription>
-              Utilisez les filtres ci-dessous pour trouver rapidement un candidat
-              {isSearching && <span className="ml-2 text-blue-600">• Recherche en cours...</span>}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 gap-2">
-              <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={isSearching}>
-                <SelectTrigger className="border-slate-300">
-                  <SelectValue placeholder={`Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tous les portails {isAcademique ? 'académiques' : 'professionalisants'}</SelectItem>
-                  {getCurrentPortails().map((portail) => (
-                    <SelectItem key={portail.idPortail} value={portail.idPortail.toString()}>
-                      {portail.nomPortail} ({portail.abbreviation})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Button 
-                variant="outline" 
-                className="rounded-none hover:bg-primary"
-                onClick={handleResetFilters}
-                disabled={isSearching}
-              >
-                <Filter className="h-4 w-4 mr-2" />
-                Réinitialiser
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        
 
         <Card className={`rounded-none border-${isAcademique ? "purple" : "amber"}-200 bg-${isAcademique ? "purple" : "amber"}-50 mb-10`}>
           <CardContent className="p-6">
