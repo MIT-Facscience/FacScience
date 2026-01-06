@@ -107,3 +107,50 @@
   // const getGlobalTotalPortails = () => {
   //   return listPort.length
   // }
+   {/* Outils de recherche */}
+        // <Card className="rounded-none mb-8 border-none shadow-xl mt-8">
+        //   <CardHeader className="bg-purple-50">
+        //     <CardTitle className="flex items-center gap-2 text-slate-800">
+        //       <Filter className="h-5 w-5 text-purple-600" />
+        //       Rechercher un Candidat
+        //     </CardTitle>
+        //     <CardDescription>
+        //       Utilisez les filtres ci-dessous pour trouver rapidement un candidat
+        //       {loading && <span className="ml-2 text-blue-600">• Recherche en cours...</span>}
+        //     </CardDescription>
+        //   </CardHeader>
+        //   <CardContent className="p-6">
+        //     <div className="grid md:grid-cols-2 gap-2">
+        //       {/* <Input 
+        //         placeholder="N° BAC, nom ou prénom..." 
+        //         value={searchTerm}
+        //         onChange={(e) => setSearchTerm(e.target.value)}
+        //         className="border-slate-300 focus:border-purple-500 focus:ring-purple-500"
+        //         disabled={loading}
+        //       /> */}
+        //       <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={loading}>
+        //         <SelectTrigger className="border-slate-300">
+        //           <SelectValue placeholder={`Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`} />
+        //         </SelectTrigger>
+        //         <SelectContent>
+        //           <SelectItem value="all">Tous les portails {isAcademique ? 'académiques' : 'professionalisants'}</SelectItem>
+        //           {getCurrentPortails().map((portail) => (
+        //             <SelectItem key={portail.idPortail} value={portail.idPortail.toString()}>
+        //               {portail.nomPortail} ({portail.abbreviation})
+        //             </SelectItem>
+        //           ))}
+        //         </SelectContent>
+        //       </Select>
+        //       <Button 
+        //         variant="outline" 
+        //         className="rounded-none hover:bg-primary"
+        //         onClick={handleResetFilters}
+        //         disabled={loading}
+        //       >
+        //         <Filter className="h-4 w-4 mr-2" />
+        //         Réinitialiser
+        //       </Button>
+             
+        //     </div>
+        //   </CardContent>
+        // </Card>

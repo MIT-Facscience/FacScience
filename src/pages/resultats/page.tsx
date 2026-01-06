@@ -1,9 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Search, Download, Filter, Users, FileText, Calendar, CheckCircle2, GraduationCap } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Search, Download, Users, FileText, Calendar, CheckCircle2, GraduationCap } from "lucide-react"
 import { useEffect, useState } from "react"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
@@ -229,11 +230,11 @@ const handlePageSizeChange = (newSize: number) => {
   setCurrentPage(1) // Reset à la page 1
 }
 
-const handleResetFilters = () => {
-  setSearchTerm("")
-  setSelectedPortail("all")
-  setCurrentPage(1)
-}
+// const handleResetFilters = () => {
+//   setSearchTerm("")
+//   setSelectedPortail("all")
+//   setCurrentPage(1)
+// }
   // Obtenir les portails actuels selon l'onglet actif
   const getCurrentPortails = () => 
     activeTab === "academique" ? portailsAcademiques : portailsProfessionalisants
@@ -523,7 +524,7 @@ const handleResetFilters = () => {
           setActiveTab(value)
           setSelectedPortail("all")
         }} className="space-y-6">
-          <TabsList className="rounded-none grid w-full grid-cols-2 bg-white shadow-md p-2 h-auto gap-2">
+          <TabsList className="rounded-none grid w-full grid-cols-1 bg-white shadow-md p-2 h-auto gap-2">
             <TabsTrigger 
               value="academique" 
               className="rounded-none data-[state=active]:bg-primary data-[state=active]:text-white py-3 px-2 text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight min-h-[50px] flex items-center justify-center"
@@ -533,7 +534,7 @@ const handleResetFilters = () => {
                 <span className="sm:ml-1">({portailsAcademiques.length} portails)</span>
               </span>
             </TabsTrigger>
-            <TabsTrigger 
+            {/* <TabsTrigger 
               value="professionalisante" 
               className="rounded-none data-[state=active]:bg-secondary data-[state=active]:text-white py-3 px-2 text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight min-h-[50px] flex items-center justify-center"
             >
@@ -541,56 +542,10 @@ const handleResetFilters = () => {
                 Professionalisante<br className="sm:hidden" />
                 <span className="sm:ml-1">({portailsProfessionalisants.length} portails)</span>
               </span>
-            </TabsTrigger>
+            </TabsTrigger> */}
           </TabsList>
         </Tabs>
-        {/* Outils de recherche */}
-        <Card className="rounded-none mb-8 border-none shadow-xl mt-8">
-          <CardHeader className="bg-purple-50">
-            <CardTitle className="flex items-center gap-2 text-slate-800">
-              <Filter className="h-5 w-5 text-purple-600" />
-              Rechercher un Candidat
-            </CardTitle>
-            <CardDescription>
-              Utilisez les filtres ci-dessous pour trouver rapidement un candidat
-              {loading && <span className="ml-2 text-blue-600">• Recherche en cours...</span>}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 gap-2">
-              {/* <Input 
-                placeholder="N° BAC, nom ou prénom..." 
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="border-slate-300 focus:border-purple-500 focus:ring-purple-500"
-                disabled={loading}
-              /> */}
-              <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={loading}>
-                <SelectTrigger className="border-slate-300">
-                  <SelectValue placeholder={`Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tous les portails {isAcademique ? 'académiques' : 'professionalisants'}</SelectItem>
-                  {getCurrentPortails().map((portail) => (
-                    <SelectItem key={portail.idPortail} value={portail.idPortail.toString()}>
-                      {portail.nomPortail} ({portail.abbreviation})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Button 
-                variant="outline" 
-                className="rounded-none hover:bg-primary"
-                onClick={handleResetFilters}
-                disabled={loading}
-              >
-                <Filter className="h-4 w-4 mr-2" />
-                Réinitialiser
-              </Button>
-             
-            </div>
-          </CardContent>
-        </Card>
+     
 
         {/* Liste des candidats */}
         <Card className="rounded-none mb-8 border-none shadow-xl">
@@ -658,7 +613,7 @@ const handleResetFilters = () => {
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Bac</th>
                           {/* <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Année Bac</th> */}
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
-                        {/* <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th> */}
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th>
                       
                       
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Status</th>
@@ -678,7 +633,7 @@ const handleResetFilters = () => {
                               {candidat.bacNumber}
                             </div>
                           </td>
-                          {/* <td className="px-6 py-4">
+                          <td className="px-6 py-4">
                             <div className="flex flex-col gap-1">
                               <Badge variant="outline" className="text-xs w-fit">
                                 {candidat.abrevi}
@@ -687,7 +642,7 @@ const handleResetFilters = () => {
                                 {candidat.portail}
                               </span>
                             </div>
-                          </td> */}
+                          </td>
                           {/* <td className="px-6 py-4">
                             <span className="text-sm text-slate-600">{candidat.anneeBacc}</span>
                           </td> */}
