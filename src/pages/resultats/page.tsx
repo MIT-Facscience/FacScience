@@ -1,10 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Search, Download, Users, FileText, Calendar, CheckCircle2, GraduationCap } from "lucide-react"
+import { Search, Download, Users, FileText, Calendar, CheckCircle2, GraduationCap, Filter } from "lucide-react"
 import { useEffect, useState } from "react"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
@@ -230,11 +230,11 @@ const handlePageSizeChange = (newSize: number) => {
   setCurrentPage(1) // Reset à la page 1
 }
 
-// const handleResetFilters = () => {
-//   setSearchTerm("")
-//   setSelectedPortail("all")
-//   setCurrentPage(1)
-// }
+const handleResetFilters = () => {
+  setSearchTerm("")
+  setSelectedPortail("all")
+  setCurrentPage(1)
+}
   // Obtenir les portails actuels selon l'onglet actif
   const getCurrentPortails = () => 
     activeTab === "academique" ? portailsAcademiques : portailsProfessionalisants
@@ -669,12 +669,59 @@ const handlePageSizeChange = (newSize: number) => {
                   </table>
                 </div>
 
+            <Card className="rounded-none mb-8 border-none shadow-xl mt-8">
+          <CardHeader className="bg-purple-50">
+            <CardTitle className="flex items-center gap-2 text-slate-800">
+              <Filter className="h-5 w-5 text-purple-600" />
+              Rechercher un Candidat
+            </CardTitle>
+            <CardDescription>
+              Utilisez les filtres ci-dessous pour trouver rapidement un candidat
+              {loading && <span className="ml-2 text-blue-600">• Recherche en cours...</span>}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="grid md:grid-cols-2 gap-2">
+              {/* <Input 
+                placeholder="N° BAC, nom ou prénom..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="border-slate-300 focus:border-purple-500 focus:ring-purple-500"
+                disabled={loading}
+              /> */}
+              <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={loading}>
+                <SelectTrigger className="border-slate-300">
+                  <SelectValue placeholder={`Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tous les portails {isAcademique ? 'académiques' : 'professionalisants'}</SelectItem>
+                  {getCurrentPortails().map((portail) => (
+                    <SelectItem key={portail.idPortail} value={portail.idPortail.toString()}>
+                      {portail.nomPortail} ({portail.abbreviation})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button 
+                variant="outline" 
+                className="rounded-none hover:bg-primary"
+                onClick={handleResetFilters}
+                disabled={loading}
+              >
+                <Filter className="h-4 w-4 mr-2" />
+                Réinitialiser
+              </Button>
+             
+            </div>
+          </CardContent>
+        </Card>
+
                 {/* Vue Mobile (Cartes) */}
                 <div className="md:hidden space-y-4 px-4 pb-4 pt-2">
                   {filteredCandidats.map((candidat, idx) => (
                     <div key={candidat.id || idx} className={`p-4 bg-white border border-slate-100 rounded-lg shadow-sm border-l-4 ${isAcademique ? "border-l-primary" : "border-l-secondary"}`}>
                         <div className="flex justify-between items-start mb-2">
-                            <span className="font-bold text-lg text-slate-800">Rang #{candidat.rang}</span>
+                            <span className="font-bold text-lg text-slate-800">Rang {candidat.rang}</span>
                             {candidat.statut === "Sélectionné(e)" ? (
                                 <span className="px-2 py-1 text-xs font-semibold text-green-700 bg-green-50 rounded-full">{candidat.statut}</span>
                             ) : (
@@ -690,8 +737,8 @@ const handlePageSizeChange = (newSize: number) => {
                           {candidat.prenom} {candidat.nom ? " " + candidat.nom : ""}
                         </div>
                         <div className="text-sm text-slate-600 flex justify-between">
-                          <span className="font-semibold">Année:</span> 
-                          {candidat.anneeBacc}
+                          <span className="font-semibold">Portail:</span> 
+                          {candidat.portail}
                         </div>
                     </div>
                   ))}
