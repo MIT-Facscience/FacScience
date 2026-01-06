@@ -107,11 +107,11 @@ export default function CandidatsPreinscrits() {
     currentPage: 1,
     totalPages: 1,
     totalItems: 0,
-    pageSize: 5,
+    pageSize: 10,
     hasPrevious: false,
     hasNext: false
   })
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
   // Debounce pour la recherche
@@ -132,7 +132,7 @@ export default function CandidatsPreinscrits() {
     portailId: string = "all", 
     search: string = "", 
     page: number = 1,
-    size: number = 5,
+    size: number = 10,
     isInitialLoad: boolean = false
   ) => {
     if (isInitialLoad) {
@@ -259,7 +259,7 @@ export default function CandidatsPreinscrits() {
       })
     
     fetchAllResultsForStats()
-    fetchResults("all", "", 1, 5, true) // Initial load
+    fetchResults("all", "", 1, 10, true) // Initial load
   }, [])
 
   useEffect(() => {
@@ -531,7 +531,7 @@ export default function CandidatsPreinscrits() {
             Resultat de la selection des dossiers
           </h1>
           <p className="text-base md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed px-4">
-            Consultez la liste des candidats qui ont été selectionnés en Licence 1 - Année Académique 2025-2026
+           Liste des candidats sélectionnés pour l'année universitaire 2025-2026
           </p>
         </div>
 
@@ -621,7 +621,7 @@ export default function CandidatsPreinscrits() {
                   className={`rounded-none hover:bg-primary ${statusFilter === "all" ? (isAcademique ? "bg-primary" : "bg-secondary") : ""}`}
                 >
                   <Users className="h-4 w-4 mr-2" />
-                  Tous ({listResult.filter(c => getCurrentPortails().map(p => p.nomPortail).includes(c.portail)).length})
+                  Tous 
                 </Button>
                 <Button
                   variant={statusFilter === "selected" ? "default" : "outline"}
@@ -630,7 +630,7 @@ export default function CandidatsPreinscrits() {
                   className={`rounded-none ${statusFilter === "selected" ? "bg-primary hover:bg-primary" : "border-primary text-slate-700 hover:bg-primary"}`}
                 >
                   <CheckCircle2 className="h-4 w-4 mr-2" />
-                  Sélectionné(e)s ({listResult.filter(c => getCurrentPortails().map(p => p.nomPortail).includes(c.portail) && c.statut === "Sélectionné(e)").length})
+                  Sélectionné(e)s
                 </Button>
                 <Button
                   variant={statusFilter === "waiting" ? "default" : "outline"}
@@ -639,7 +639,7 @@ export default function CandidatsPreinscrits() {
                   className={`rounded-none ${statusFilter === "waiting" ? "bg-red-600 hover:bg-orange-700" : "border-orange-600 text-orange-600 hover:bg-red-500"}`}
                 >
                   <Calendar className="h-4 w-4 mr-2" />
-                  Non Admis ({listResult.filter(c => getCurrentPortails().map(p => p.nomPortail).includes(c.portail) && c.statut !== "Sélectionné(e)").length})
+                  Non Admis 
                 </Button>
               </div>
             </div>
@@ -710,15 +710,15 @@ export default function CandidatsPreinscrits() {
                           <span className="px-2 py-1 text-xs font-semibold text-red-700 bg-red-50 rounded-full">{candidat.statut}</span>
                         )}
                       </div>
-                      <div className="text-sm text-slate-600 mb-1 flex justify-between">
+                      <div className="text-sm text-slate-600 mb-1 flex gap-1">
                         <span className="font-semibold">N° Bac:</span> 
                         <span className={`font-medium ${numeroColor}`}>{candidat.bacNumber}</span>
                       </div>
                       <div className="text-sm text-slate-600 mb-1">
-                        <span className="font-semibold block">Nom:</span> 
-                        {candidat.prenom} {candidat.nom ? " " + candidat.nom : ""}
+                        <span className="font-semibold block">Nom: <span className="font-normal p-2">{candidat.prenom} {candidat.nom ? " " + candidat.nom : ""}</span></span>
+                        
                       </div>
-                      <div className="text-sm text-slate-600 flex justify-between">
+                      <div className="text-sm text-slate-600 flex gap-1">
                         <span className="font-semibold">Portail:</span> 
                         {candidat.portail}
                       </div>
