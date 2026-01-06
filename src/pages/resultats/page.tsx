@@ -540,13 +540,13 @@ export default function CandidatsPreinscrits() {
             <div className="grid md:grid-cols-1 gap-4">
               <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={isSearching}>
                 <SelectTrigger className="border-slate-300">
-                  <SelectValue placeholder={`Tous les portails ${isAcademique ? 'académiques' : 'professionalisants'}`} />
+                  <SelectValue placeholder={`Tous portails`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Tous les portails {isAcademique ? 'académiques' : 'professionalisants'}</SelectItem>
+                  <SelectItem value="all">Tous portails</SelectItem>
                   {getCurrentPortails().map((portail) => (
                     <SelectItem key={portail.idPortail} value={portail.idPortail.toString()}>
-                      {portail.nomPortail} ({portail.abbreviation})
+                      {portail.abbreviation}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -562,28 +562,30 @@ export default function CandidatsPreinscrits() {
               </Button> */}
             </div>
           </CardContent>
-          <div className="relative flex-grow">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-            <Input 
-              placeholder="N° BAC, nom ou prénom..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 w-full border-slate-300 focus:border-purple-500 focus:ring-purple-500 rounded-none"
-              
-            />
-            {isSearching && (
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
-              </div>
-            )}
-          </div>
-          <Button 
+         <div className="relative flex-grow sm:w-full">
+  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+
+  <Input 
+    placeholder="N° BAC, nom ou prénom..." 
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    className="pl-10 w-full border-slate-300 focus:border-purple-500 focus:ring-purple-500 rounded-none"
+  />
+
+  {isSearching && (
+    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+    </div>
+  )}
+</div>
+
+          {/* <Button 
             className="rounded-none bg-primary" 
             
           >
             <Search className="h-4 w-4 mr-2" />
             {isSearching ? "Recherche..." : "Rechercher"}
-          </Button>
+          </Button> */}
         </div>
 
         <Tabs value={activeTab} onValueChange={(value) => {
