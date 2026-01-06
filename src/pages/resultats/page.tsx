@@ -8,7 +8,7 @@ import { Search, Download, Users, FileText, Calendar, CheckCircle2, GraduationCa
 import { useEffect, useState } from "react"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
-import { BACKEND_PREINSCRIPTION_URL } from "@/lib/api"
+// import { BACKEND_PREINSCRIPTION_URL } from "@/lib/api"
 // import { t } from "node_modules/i18next"
 
 type PortalType = {
@@ -101,7 +101,7 @@ const fetchResults = (
   
   console.log('Requête avec pagination:', requestBody)
   
-  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-result`, {
+  fetch(`https://siansa.univ-antananarivo.mg/admin/api/Selection/list-result`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -149,8 +149,8 @@ const fetchAllResultsForStats = () => {
     pageNumber: 1,
     pageSize: 10000 // Récupérer toutes les données
   }
-  
-  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-result`, {
+
+  fetch(`https://siansa.univ-antananarivo.mg/admin/api/Selection/list-result`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ const fetchAllResultsForStats = () => {
 
 // Récupération des portails (une seule fois)
 useEffect(() => {
-  fetch(`${BACKEND_PREINSCRIPTION_URL}/api/Selection/list-portail`, {
+  fetch(`https://siansa.univ-antananarivo.mg/admin/api/Selection/list-portail`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
