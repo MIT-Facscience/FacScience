@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ResultsContext } from './ResultatContext';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://siansa.univ-antananarivo.mg:5175';
+const API_URL = import.meta.env.VITE_API_URL || 'https://siansa.univ-antananarivo.mg/admin';
 
 export function ResultsProvider({ children }: { children: React.ReactNode }) {
   const [showResults, setShowResults] = useState(false);
