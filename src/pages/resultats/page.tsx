@@ -612,8 +612,9 @@ const handlePageSizeChange = (newSize: number) => {
                           <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Rang</th>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Bac</th>
                           {/* <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Année Bac</th> */}
+                           <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th>
+                       
                       
                       
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Status</th>
