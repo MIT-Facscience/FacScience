@@ -1,4 +1,4 @@
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Footer } from "./components/footer";
 import Navigation from "./components/navigation";
 import ActualitesPage from "./pages/actualites/page";
@@ -27,17 +27,18 @@ import INTAdmissionPage from "./pages/admission/int-modalite/page";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
 import ResultatsPage from "./pages/resultats/page";
 import ListesAdmisPage from "./pages/resultats/listes-admis/page";
+import InscriptionPage from "./pages/inscription/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 import { ResultsProvider } from "@/pages/resultats/ResultsProvider";
 
 export default function App() {
- // const location = useLocation();
+  // const location = useLocation();
 
   // Liste des pages où on cache le header/footer
   //const hideLayoutRoutes = ["/"]; 
 
   // Vérifie si la route actuelle est dans la liste
- // const hideLayout = hideLayoutRoutes.includes(location.pathname);
+  // const hideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
     <ResultsProvider>
@@ -46,29 +47,29 @@ export default function App() {
         {/* Header caché sur certaines routes */}
         <Navigation />
 
-      <Routes>
-        {/* <Route path="/" element={<ConstructionPage />} /> */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/formation" element={<FormationPage />} />
-        <Route path="/recherche" element={<RecherchePage />} />
-        <Route path="/recherche/ecole-doctorale" element={<EcoleDoctoralePage />} />
-        <Route path="/recherche/laboratoires" element={<LaboratoiresPage />} />
-        <Route path="/recherche/publications" element={<PublicationsPage />} />
-        <Route path="/presentation" element={<PresentationPage />} />
-        <Route path="/actualites" element={<ActualitesPage />} />
-        <Route path="/actualites/:id" element={<ActualiteDetail />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/formation/detail" element={<FormationItems />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/resultats" element={<ResultatsPage />} />
-        <Route path="/resultats" element={<NotFound />} />
-        <Route path="/presentation/histoire" element={<HistoirePage />} />
-        <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
-        <Route path="/presentation/vision" element={<VisionPage />} />
-        <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
-        <Route path="/resultats/listes-admis" element={<NotFound />} />
-        <Route path="/formation/detailparcours" element={<ParcourDetail />} />
-        <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
+        <Routes>
+          {/* <Route path="/" element={<ConstructionPage />} /> */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/formation" element={<FormationPage />} />
+          <Route path="/recherche" element={<RecherchePage />} />
+          <Route path="/recherche/ecole-doctorale" element={<EcoleDoctoralePage />} />
+          <Route path="/recherche/laboratoires" element={<LaboratoiresPage />} />
+          <Route path="/recherche/publications" element={<PublicationsPage />} />
+          <Route path="/presentation" element={<PresentationPage />} />
+          <Route path="/actualites" element={<ActualitesPage />} />
+          <Route path="/actualites/:id" element={<ActualiteDetail />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/formation/detail" element={<FormationItems />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/resultats" element={<ResultatsPage />} />
+          <Route path="/resultats" element={<NotFound />} />
+          <Route path="/presentation/histoire" element={<HistoirePage />} />
+          <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
+          <Route path="/presentation/vision" element={<VisionPage />} />
+          <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
+          <Route path="/resultats/listes-admis" element={<NotFound />} />
+          <Route path="/formation/detailparcours" element={<ParcourDetail />} />
+          <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
 
           {/* <Route path="/admission/modalite" element={<AdmissionPage />}/>
           <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
@@ -76,11 +77,12 @@ export default function App() {
 
           {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
 
-        {/* <Route path="" element={<AllMention />} /> */}
-        <Route path="/admission/modalite" element={<AdmissionPage />} />
-        <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
-        <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
-        <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
+          {/* <Route path="" element={<AllMention />} /> */}
+          <Route path="/admission/modalite" element={<AdmissionPage />} />
+          <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
+          <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
+          <Route path="/admission/inscription" element={<InscriptionPage />} />
+          <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
 
           {/* Route "catch-all" */}
           <Route path="*" element={<NotFound />} />
@@ -91,6 +93,6 @@ export default function App() {
       </div>
 
     </ResultsProvider>
-    
+
   );
 }
