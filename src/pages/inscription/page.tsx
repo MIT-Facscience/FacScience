@@ -11,7 +11,8 @@ import {
     Smartphone,
     Upload,
     Image as ImageIcon,
-    Maximize2
+    Maximize2,
+    CreditCard
 } from 'lucide-react';
 import Webcam from 'react-webcam';
 import Cropper from 'react-easy-crop';
@@ -45,24 +46,46 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const studentSchema = z.object({
-    nom: z.string().min(2, "Le nom est requis"),
+    nom: z.string({
+        required_error: "Le nom est requis",
+        invalid_type_error: "Le nom est requis"
+    }).min(2, "Le nom est requis"),
     prenom: z.string().optional(),
-    sexe: z.string({ required_error: "Le sexe est requis" }),
-    dateNaissance: z.string().min(1, "La date de naissance est requise"),
-    lieuNaissance: z.string().min(2, "Le lieu de naissance est requis"),
+    sexe: z.string({
+        required_error: "Le sexe est requis",
+        invalid_type_error: "Le sexe est requis"
+    }),
+    dateNaissance: z.string({
+        required_error: "La date de naissance est requise",
+        invalid_type_error: "La date de naissance est requise"
+    }).min(1, "La date de naissance est requise"),
+    lieuNaissance: z.string({
+        required_error: "Le lieu de naissance est requis",
+        invalid_type_error: "Le lieu de naissance est requis"
+    }).min(2, "Le lieu de naissance est requis"),
 
     cin: z.string().min(12, "Numéro CIN invalide").max(12, "Numéro CIN invalide").optional().or(z.literal('')),
     dateDelivrance: z.string().optional(),
 
-    adresse: z.string().min(5, "L'adresse est requise"),
-    ville: z.string().min(2, "La ville est requise"),
-    telephone: z.string().min(10, "Numéro de téléphone invalide"),
-    email: z.string().email("Email invalide"),
+    adresse: z.string({
+        required_error: "L'adresse est requise",
+        invalid_type_error: "L'adresse est requise"
+    }).min(5, "L'adresse est requise"),
+    telephone: z.string({
+        required_error: "Le téléphone est requis",
+        invalid_type_error: "Le téléphone est requis"
+    }).min(10, "Numéro de téléphone invalide"),
+    email: z.string().email("Email invalide").optional().or(z.literal('')),
+    referenceBancaire: z.string({
+        required_error: "La référence bancaire est requise",
+        invalid_type_error: "La référence bancaire est requise"
+    }).min(5, "La référence bancaire est trop courte (min 5 caractères)")
+        .max(20, "La référence bancaire est trop longue (max 20 caractères)"),
 });
 
 type StudentFormValues = z.infer<typeof studentSchema>;
 
-type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'portal-selection' | 'photo-capture' | 'student-info';
+type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'portal-selection' | 'photo-capture' | 'bank-reference' | 'student-info';
 
 interface EligiblePortal {
     idPortail: number;
@@ -74,9 +97,8 @@ interface EligiblePortal {
 
 const formSteps = [
     { id: 'identity', title: 'Identité', fields: ['nom', 'prenom', 'sexe'] },
-    { id: 'birth', title: 'Naissance', fields: ['dateNaissance', 'lieuNaissance'] },
+    { id: 'birth_location', title: 'Naissance & Localisations', fields: ['dateNaissance', 'lieuNaissance', 'adresse'] },
     { id: 'cin', title: 'C.I.N', fields: ['cin', 'dateDelivrance'] },
-    { id: 'location', title: 'Localisation', fields: ['adresse', 'ville'] },
     { id: 'contact', title: 'Contact', fields: ['telephone', 'email'] }
 ];
 
@@ -112,15 +134,47 @@ const InscriptionPage: React.FC = () => {
     const form = useForm<StudentFormValues>({
         resolver: zodResolver(studentSchema),
         defaultValues: {
+            nom: "",
+            prenom: "",
             sexe: "M",
+            dateNaissance: "",
+            lieuNaissance: "",
+            cin: "",
+            dateDelivrance: "",
+            adresse: "",
+            telephone: "",
+            email: "",
+            referenceBancaire: "",
         }
     });
 
+    const dateNaissanceValue = form.watch("dateNaissance");
+
+    const isMajor = React.useMemo(() => {
+        if (!dateNaissanceValue) return false;
+        try {
+            const birth = new Date(dateNaissanceValue);
+            const today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age >= 18;
+        } catch (e) {
+            return false;
+        }
+    }, [dateNaissanceValue]);
+
+    const activeSteps = React.useMemo(() => {
+        return formSteps.filter(step => step.id !== 'cin' || isMajor);
+    }, [isMajor]);
+
     const nextFormStep = async () => {
-        const fields = formSteps[formStep].fields as any[];
+        const fields = activeSteps[formStep].fields as any[];
         const output = await form.trigger(fields);
         if (output) {
-            setFormStep(s => Math.min(s + 1, formSteps.length - 1));
+            setFormStep(s => Math.min(s + 1, activeSteps.length - 1));
         }
     };
 
@@ -134,9 +188,10 @@ const InscriptionPage: React.FC = () => {
                 prevFormStep();
                 return;
             }
+            setStep('bank-reference');
+        } else if (step === 'bank-reference') {
             setStep('photo-capture');
             setMode('choice');
-            setPhoto(null);
         } else if (step === 'photo-capture') {
             if (mode === 'crop') {
                 setMode('choice');
@@ -145,7 +200,6 @@ const InscriptionPage: React.FC = () => {
                 setMode('choice');
             } else {
                 setStep('portal-selection');
-                setPhoto(null);
             }
         } else if (step === 'portal-selection') {
             setStep('l1-form');
@@ -181,7 +235,7 @@ const InscriptionPage: React.FC = () => {
                     setPhoto(croppedImage);
                     setRawPhoto(null);
                     setMode('choice');
-                    setStep('student-info');
+                    setStep('bank-reference');
                 }
             } catch (e) {
                 console.error(e);
@@ -190,6 +244,11 @@ const InscriptionPage: React.FC = () => {
     };
 
     const onStudentInfoSubmit = async (data: StudentFormValues) => {
+        // Double check we are on the last step
+        if (formStep !== activeSteps.length - 1) {
+            return;
+        }
+
         setIsLoading(true);
         try {
             const payload = {
@@ -217,9 +276,11 @@ const InscriptionPage: React.FC = () => {
 
                 // Contact
                 adresse: data.adresse,
-                ville: data.ville,
                 telephone: data.telephone,
                 email: data.email,
+
+                // Bank Ref
+                referenceBancaire: data.referenceBancaire,
 
                 anneeUniversitaire: "2025-2026"
             };
@@ -242,7 +303,7 @@ const InscriptionPage: React.FC = () => {
             window.location.reload();
 
         } catch (error: any) {
-            console.error("Submission Error:", error);
+            console.error("Erreur de soumission :", error);
             alert("Erreur: " + error.message);
         } finally {
             setIsLoading(false);
@@ -274,6 +335,45 @@ const InscriptionPage: React.FC = () => {
         cameraInputRef.current?.click();
     };
 
+    const compressImage = async (base64Str: string, maxSizeKB: number = 300): Promise<string> => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = base64Str;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                // Maintain aspect ratio
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+
+                let quality = 0.9;
+                let compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+
+                // Iteratively reduce quality if still over size
+                while (compressedBase64.length / 1024 > maxSizeKB && quality > 0.1) {
+                    quality -= 0.1;
+                    compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                }
+
+                resolve(compressedBase64);
+            };
+        });
+    };
+
+    // Background compression when photo is set
+    React.useEffect(() => {
+        if (photo && photo.length / 1024 > 300) {
+            compressImage(photo).then(compressed => {
+                setPhoto(compressed);
+            });
+        }
+    }, [photo]);
+
     const handleL1Submit = async () => {
         if (!l1Data.baccNum || !l1Data.baccYear) {
             setError("Veuillez remplir tous les champs.");
@@ -294,7 +394,27 @@ const InscriptionPage: React.FC = () => {
             }
 
             const data = await response.json();
-            setEligiblePortals(data);
+            // The API now returns { portals: [], studentInfo: { ... } }
+            setEligiblePortals(data.portals || []);
+
+            if (data.studentInfo) {
+                const { nomPrenom, sexe, dateNaissance, lieuNaissance, email, tel } = data.studentInfo;
+
+                // Simple split: first word as Nom, the rest as Prenom
+                const nameParts = (nomPrenom || "").trim().split(/\s+/);
+                const nom = nameParts[0] || "";
+                const prenom = nameParts.slice(1).join(" ") || "";
+
+                form.setValue("nom", nom);
+                form.setValue("prenom", prenom);
+                form.setValue("sexe", sexe || "M");
+                form.setValue("dateNaissance", dateNaissance || "");
+                form.setValue("lieuNaissance", lieuNaissance || "");
+                const finalEmail = (email && email.toLowerCase() === "scitechscolarite@gmail.com") ? "" : (email || "");
+                form.setValue("email", finalEmail);
+                form.setValue("telephone", tel || "");
+            }
+
             setStep('portal-selection');
         } catch (err: any) {
             setError(err.message);
@@ -389,7 +509,7 @@ const InscriptionPage: React.FC = () => {
                                     <ChevronLeft className="w-3 h-3 mr-1" /> RETOUR
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
-                                    {step === 'l1-form' ? "Identification L1" : "Identification Réinscription"}
+                                    Identification
                                 </h1>
                                 {error && (
                                     <div className="mt-4 p-3 bg-red-50 border border-red-100 rounded-lg flex items-start gap-3 text-red-600 text-xs animate-in fade-in slide-in-from-top-1">
@@ -498,7 +618,7 @@ const InscriptionPage: React.FC = () => {
                                                 <div className="flex items-center gap-1.5 mt-0.5">
                                                     <CheckCircle2 className="w-3 h-3 text-emerald-500" />
                                                     <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-tighter">
-                                                        {portal.statut}
+                                                        {portal.statut.toLowerCase().includes('admissible') ? 'Admissible' : portal.statut}
                                                     </span>
                                                 </div>
                                             </div>
@@ -595,7 +715,7 @@ const InscriptionPage: React.FC = () => {
                                                                 facingMode: "user"
                                                             }}
                                                             onUserMediaError={(err) => {
-                                                                console.error("Webcam error:", err);
+                                                                console.error("Erreur caméra :", err);
                                                                 // Extract error name or message
                                                                 const errorMessage = typeof err === 'string' ? err : (err as any).name || (err as any).message || "Erreur inconnue";
                                                                 setCameraError(errorMessage); // We'll need to change setCameraError type or state
@@ -676,15 +796,72 @@ const InscriptionPage: React.FC = () => {
                                                 Changer
                                             </Button>
                                             <Button
-                                                onClick={() => alert("Inscription terminée!")}
+                                                onClick={() => setStep('bank-reference')}
                                                 className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white h-11 rounded-xl font-bold shadow-md shadow-indigo-100"
                                             >
                                                 <CheckCircle2 className="w-5 h-5 mr-2" />
-                                                Terminer
+                                                Continuer
                                             </Button>
                                         </div>
                                     </div>
                                 )}
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* Bank Reference Step - Concis */}
+                    {step === 'bank-reference' && (
+                        <motion.div
+                            key="bank-reference"
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                            variants={containerVariants}
+                            className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden"
+                        >
+                            <div className="p-6 sm:p-8 text-center sm:text-left">
+                                <button
+                                    onClick={handleBack}
+                                    className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
+                                >
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> PHOTO
+                                </button>
+                                <h1 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
+                                    Référence de Paiement
+                                </h1>
+                                <p className="text-slate-400 text-xs mb-8">
+                                    Saisissez le numéro sur votre reçu de versement.
+                                </p>
+
+                                <div className="space-y-6">
+                                    <div className="space-y-2">
+                                        <Label className="text-xs font-bold text-slate-700">Numéro de Référence *</Label>
+                                        <div className="relative">
+                                            <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                            <Input
+                                                placeholder="ABCDEF/CUK"
+                                                className="pl-10 h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-xl text-slate-600 placeholder:text-slate-400/50"
+                                                value={form.watch("referenceBancaire")}
+                                                onChange={(e) => form.setValue("referenceBancaire", e.target.value)}
+                                            />
+                                        </div>
+                                        {form.formState.errors.referenceBancaire && (
+                                            <p className="text-red-500 text-[10px] font-medium mt-1">
+                                                {form.formState.errors.referenceBancaire.message}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    <Button
+                                        onClick={async () => {
+                                            const isValid = await form.trigger("referenceBancaire");
+                                            if (isValid) setStep('student-info');
+                                        }}
+                                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]"
+                                    >
+                                        Continuer <ArrowRight className="w-4 h-4 ml-2" />
+                                    </Button>
+                                </div>
                             </div>
                         </motion.div>
                     )}
@@ -703,30 +880,46 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> {formStep === 0 ? 'PHOTO' : 'RETOUR'}
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> RETOUR
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
-                                    {formSteps[formStep].title}
+                                    {activeSteps[formStep].title}
                                 </h1>
                                 <p className="text-slate-400 text-xs mt-1">
-                                    Étape {formStep + 1} sur {formSteps.length}
+                                    Étape {formStep + 1} sur {activeSteps.length}
                                 </p>
 
                                 {/* Progress Bar */}
                                 <div className="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden">
                                     <div
                                         className="h-full bg-indigo-500 transition-all duration-300 ease-out"
-                                        style={{ width: `${((formStep + 1) / formSteps.length) * 100}%` }}
+                                        style={{ width: `${((formStep + 1) / activeSteps.length) * 100}%` }}
                                     />
                                 </div>
                             </div>
 
                             <ScrollArea className="h-[50vh] pr-4 -mr-4">
                                 <Form {...form}>
-                                    <form onSubmit={form.handleSubmit(onStudentInfoSubmit)} className="space-y-6">
+                                    <form
+                                        onSubmit={(e) => {
+                                            e.preventDefault();
+                                            // Real submission is handled by onClick to avoid premature triggers
+                                        }}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                if (formStep < activeSteps.length - 1) {
+                                                    nextFormStep();
+                                                } else {
+                                                    form.handleSubmit(onStudentInfoSubmit)();
+                                                }
+                                            }
+                                        }}
+                                        className="space-y-6"
+                                    >
 
                                         {/* Identité */}
-                                        {formStep === 0 && (
+                                        {activeSteps[formStep].id === 'identity' && (
                                             <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
                                                     <UserPlus className="w-4 h-4" /> Identité
@@ -739,7 +932,7 @@ const InscriptionPage: React.FC = () => {
                                                             <FormItem>
                                                                 <FormLabel className="text-xs">Nom *</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Nom" {...field} className="bg-slate-50 border-slate-200" />
+                                                                    <Input placeholder="Nom" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -752,7 +945,7 @@ const InscriptionPage: React.FC = () => {
                                                             <FormItem>
                                                                 <FormLabel className="text-xs">Prénoms</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Prénoms" {...field} className="bg-slate-50 border-slate-200" />
+                                                                    <Input placeholder="Prénoms" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -783,13 +976,13 @@ const InscriptionPage: React.FC = () => {
                                             </div>
                                         )}
 
-                                        {/* Naissance */}
-                                        {formStep === 1 && (
+                                        {/* Naissance & Localisation */}
+                                        {activeSteps[formStep].id === 'birth_location' && (
                                             <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
-                                                    <UserPlus className="w-4 h-4" /> Naissance
+                                                    <UserPlus className="w-4 h-4" /> Naissance & Localisation
                                                 </h3>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-b border-slate-50 pb-4">
                                                     <FormField
                                                         control={form.control}
                                                         name="dateNaissance"
@@ -810,7 +1003,26 @@ const InscriptionPage: React.FC = () => {
                                                             <FormItem>
                                                                 <FormLabel className="text-xs">Lieu de naissance *</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="Ville / Commune" {...field} className="bg-slate-50 border-slate-200" />
+                                                                    <Input placeholder="Ville / Commune" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="adresse"
+                                                        render={({ field }) => (
+                                                            <FormItem className="sm:col-span-2">
+                                                                <FormLabel className="text-xs">Adresse actuelle *</FormLabel>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        placeholder="Lot / Logement"
+                                                                        {...field}
+                                                                        className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50"
+                                                                    />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -821,7 +1033,7 @@ const InscriptionPage: React.FC = () => {
                                         )}
 
                                         {/* CIN */}
-                                        {formStep === 2 && (
+                                        {activeSteps[formStep].id === 'cin' && (
                                             <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
                                                     <AlertCircle className="w-4 h-4" /> C.I.N
@@ -837,7 +1049,7 @@ const InscriptionPage: React.FC = () => {
                                                             <FormItem className="sm:col-span-2">
                                                                 <FormLabel className="text-xs">Numéro CIN</FormLabel>
                                                                 <FormControl>
-                                                                    <Input placeholder="12 Chiffres" maxLength={12} {...field} className="bg-slate-50 border-slate-200" />
+                                                                    <Input placeholder="12 Chiffres" maxLength={12} {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -860,45 +1072,9 @@ const InscriptionPage: React.FC = () => {
                                             </div>
                                         )}
 
-                                        {/* Localisation */}
-                                        {formStep === 3 && (
-                                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-                                                <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
-                                                    <Smartphone className="w-4 h-4" /> Localisation
-                                                </h3>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="adresse"
-                                                        render={({ field }) => (
-                                                            <FormItem className="sm:col-span-2">
-                                                                <FormLabel className="text-xs">Adresse actuelle *</FormLabel>
-                                                                <FormControl>
-                                                                    <Input placeholder="Lot / Logement" {...field} className="bg-slate-50 border-slate-200" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="ville"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Ville *</FormLabel>
-                                                                <FormControl>
-                                                                    <Input placeholder="Ville de résidence" {...field} className="bg-slate-50 border-slate-200" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                </div>
-                                            </div>
-                                        )}
 
                                         {/* Contact */}
-                                        {formStep === 4 && (
+                                        {activeSteps[formStep].id === 'contact' && (
                                             <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
                                                     <Smartphone className="w-4 h-4" /> Contact
@@ -911,7 +1087,7 @@ const InscriptionPage: React.FC = () => {
                                                             <FormItem>
                                                                 <FormLabel className="text-xs">Téléphone Personnel *</FormLabel>
                                                                 <FormControl>
-                                                                    <Input type="tel" placeholder="03x xx xxx xx" {...field} className="bg-slate-50 border-slate-200" />
+                                                                    <Input type="tel" placeholder="03x xx xxx xx" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -922,9 +1098,9 @@ const InscriptionPage: React.FC = () => {
                                                         name="email"
                                                         render={({ field }) => (
                                                             <FormItem className="sm:col-span-2">
-                                                                <FormLabel className="text-xs">Email Personnel *</FormLabel>
+                                                                <FormLabel className="text-xs">Email Personnel</FormLabel>
                                                                 <FormControl>
-                                                                    <Input type="email" placeholder="exemple@gmail.com" {...field} className="bg-slate-50 border-slate-200" />
+                                                                    <Input type="email" placeholder="exemple@gmail.com" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
                                                                 </FormControl>
                                                                 <FormMessage />
                                                             </FormItem>
@@ -935,9 +1111,10 @@ const InscriptionPage: React.FC = () => {
                                         )}
 
                                         <div className="flex gap-4 pt-4">
-                                            {formStep === formSteps.length - 1 ? (
+                                            {formStep === activeSteps.length - 1 ? (
                                                 <Button
-                                                    type="submit"
+                                                    type="button"
+                                                    onClick={() => form.handleSubmit(onStudentInfoSubmit)()}
                                                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-lg shadow-lg shadow-indigo-200"
                                                 >
                                                     <CheckCircle2 className="w-5 h-5 mr-2" />
@@ -946,7 +1123,10 @@ const InscriptionPage: React.FC = () => {
                                             ) : (
                                                 <Button
                                                     type="button"
-                                                    onClick={nextFormStep}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        nextFormStep();
+                                                    }}
                                                     className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold h-12 rounded-lg"
                                                 >
                                                     Étape Suivante <ArrowRight className="w-4 h-4 ml-2" />
