@@ -9,7 +9,6 @@ import {
     AlertCircle,
     Camera,
     Smartphone,
-    Upload,
     Image as ImageIcon,
     Maximize2,
     CreditCard
@@ -19,6 +18,7 @@ import Cropper from 'react-easy-crop';
 import { Slider } from "@/components/ui/slider";
 import getCroppedImg from '@/lib/imageUtils';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -46,46 +46,26 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const studentSchema = z.object({
-    nom: z.string({
-        required_error: "Le nom est requis",
-        invalid_type_error: "Le nom est requis"
-    }).min(2, "Le nom est requis"),
+    nom: z.string().min(2, "Le nom est requis"),
     prenom: z.string().optional(),
-    sexe: z.string({
-        required_error: "Le sexe est requis",
-        invalid_type_error: "Le sexe est requis"
-    }),
-    dateNaissance: z.string({
-        required_error: "La date de naissance est requise",
-        invalid_type_error: "La date de naissance est requise"
-    }).min(1, "La date de naissance est requise"),
-    lieuNaissance: z.string({
-        required_error: "Le lieu de naissance est requis",
-        invalid_type_error: "Le lieu de naissance est requis"
-    }).min(2, "Le lieu de naissance est requis"),
+    sexe: z.string().min(1, "Le sexe est requis"),
+    dateNaissance: z.string().min(1, "La date de naissance est requise"),
+    lieuNaissance: z.string().min(2, "Le lieu de naissance est requis"),
 
-    cin: z.string().min(12, "Numéro CIN invalide").max(12, "Numéro CIN invalide").optional().or(z.literal('')),
+    cin: z.string().min(10, "Numéro CIN invalide").max(20, "Numéro CIN invalide").optional().or(z.literal('')),
     dateDelivrance: z.string().optional(),
 
-    adresse: z.string({
-        required_error: "L'adresse est requise",
-        invalid_type_error: "L'adresse est requise"
-    }).min(5, "L'adresse est requise"),
-    telephone: z.string({
-        required_error: "Le téléphone est requis",
-        invalid_type_error: "Le téléphone est requis"
-    }).min(10, "Numéro de téléphone invalide"),
+    adresse: z.string().min(5, "L'adresse est requise"),
+    telephone: z.string().min(10, "Numéro de téléphone invalide"),
     email: z.string().email("Email invalide").optional().or(z.literal('')),
-    referenceBancaire: z.string({
-        required_error: "La référence bancaire est requise",
-        invalid_type_error: "La référence bancaire est requise"
-    }).min(5, "La référence bancaire est trop courte (min 5 caractères)")
+    referenceBancaire: z.string()
+        .min(5, "La référence bancaire est trop courte (min 5 caractères)")
         .max(20, "La référence bancaire est trop longue (max 20 caractères)"),
 });
 
 type StudentFormValues = z.infer<typeof studentSchema>;
 
-type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'portal-selection' | 'photo-capture' | 'bank-reference' | 'student-info';
+type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'portal-selection' | 'photo-capture' | 'bank-reference' | 'student-info' | 'success';
 
 interface EligiblePortal {
     idPortail: number;
@@ -110,6 +90,7 @@ const InscriptionPage: React.FC = () => {
     const [selectedPortal, setSelectedPortal] = useState<EligiblePortal | null>(null);
     const [photo, setPhoto] = useState<string | null>(null); // Final cropped photo
     const [rawPhoto, setRawPhoto] = useState<string | null>(null); // Original photo for cropping
+    const [enrollmentResult, setEnrollmentResult] = useState<{ numInscription: string, nomPortail?: string } | null>(null);
 
     // Crop state
     const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -127,6 +108,7 @@ const InscriptionPage: React.FC = () => {
     // Form states
     const [l1Data, setL1Data] = useState({ baccNum: '', baccYear: '' });
     const [othersData, setOthersData] = useState({ inscriptionNum: '' });
+    const [reenrollmentData, setReenrollmentData] = useState<{ idEtudiant: number, idMpn: number } | null>(null);
 
     // Multi-step form state
     const [formStep, setFormStep] = useState(0);
@@ -223,7 +205,7 @@ const InscriptionPage: React.FC = () => {
         }
     }, [webcamRef]);
 
-    const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
+    const onCropComplete = (_croppedArea: any, croppedAreaPixels: any) => {
         setCroppedAreaPixels(croppedAreaPixels);
     };
 
@@ -282,7 +264,9 @@ const InscriptionPage: React.FC = () => {
                 // Bank Ref
                 referenceBancaire: data.referenceBancaire,
 
-                anneeUniversitaire: "2025-2026"
+                anneeUniversitaire: "2025-2026",
+                idEtudiant: reenrollmentData?.idEtudiant,
+                idMpn: reenrollmentData?.idMpn
             };
 
             const response = await fetch(`${BACKEND_URL}/api/inscription/create`, {
@@ -294,17 +278,38 @@ const InscriptionPage: React.FC = () => {
             });
 
             if (!response.ok) {
-                const errorText = await response.text(); // Use text() as some errors might not be JSON
+                const errorText = await response.text();
+
+                // Handle duplicate enrollment
+                if (response.status === 409) {
+                    try {
+                        const conflictData = JSON.parse(errorText);
+                        setEnrollmentResult({
+                            numInscription: conflictData.numInscription,
+                            nomPortail: conflictData.nomPortail
+                        });
+                        setStep('success');
+                        return;
+                    } catch (e) {
+                        // fallback to generic error if JSON parse fails
+                    }
+                }
+
                 throw new Error(errorText || "Erreur lors de l'inscription");
             }
 
             const result = await response.json();
-            alert("Inscription réussie !");
-            window.location.reload();
+            setEnrollmentResult({
+                numInscription: result.numInscription,
+                nomPortail: result.nomPortail
+            });
+            setStep('success');
 
         } catch (error: any) {
             console.error("Erreur de soumission :", error);
-            alert("Erreur: " + error.message);
+            setError(error.message);
+            // Move back to first form step to show error
+            setFormStep(0);
         } finally {
             setIsLoading(false);
         }
@@ -387,6 +392,15 @@ const InscriptionPage: React.FC = () => {
             const response = await fetch(`${BACKEND_URL}/api/Inscription/verify-l1?numBacc=${l1Data.baccNum}&anneeBacc=${l1Data.baccYear}`);
 
             if (!response.ok) {
+                if (response.status === 409) {
+                    const conflictData = await response.json();
+                    setEnrollmentResult({
+                        numInscription: conflictData.numInscription,
+                        nomPortail: conflictData.nomPortail
+                    });
+                    setStep('success');
+                    return;
+                }
                 if (response.status === 404) {
                     throw new Error("Aucune sélection trouvée pour ces informations. Vérifiez votre numéro et année de Bacc.");
                 }
@@ -423,7 +437,67 @@ const InscriptionPage: React.FC = () => {
         }
     };
 
-    const containerVariants = {
+    const handleOthersSubmit = async () => {
+        if (!othersData.inscriptionNum) {
+            setError("Veuillez entrer votre numéro d'inscription 2024-2025.");
+            return;
+        }
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/Inscription/verify-reinscription?numInscription=${encodeURIComponent(othersData.inscriptionNum)}`);
+            if (!response.ok) {
+                if (response.status === 409) {
+                    const conflictData = await response.json();
+                    setEnrollmentResult({
+                        numInscription: conflictData.numInscription,
+                        nomPortail: conflictData.nomPortail
+                    });
+                    setStep('success');
+                    return;
+                }
+                const errorText = await response.text();
+                throw new Error(errorText || "Numéro d'inscription non reconnu ou non autorisé pour 2025-2026.");
+            }
+            const data = await response.json();
+            const { studentInfo, authorizedPortal } = data;
+            form.setValue("nom", studentInfo.nom || "");
+            form.setValue("prenom", studentInfo.prenom || "");
+            form.setValue("sexe", studentInfo.sexe || "M");
+            form.setValue("dateNaissance", studentInfo.dateNaissance || "");
+            form.setValue("lieuNaissance", studentInfo.lieuNaissance || "");
+            form.setValue("cin", studentInfo.cin || "");
+            form.setValue("dateDelivrance", studentInfo.dateDelivrance || "");
+            form.setValue("email", studentInfo.email || "");
+            form.setValue("telephone", studentInfo.tel || "");
+            form.setValue("adresse", studentInfo.adresse || "");
+            if (studentInfo.photoBase64) {
+                setPhoto(studentInfo.photoBase64);
+            }
+            setReenrollmentData({
+                idEtudiant: studentInfo.idEtudiant,
+                idMpn: authorizedPortal.idMpn
+            });
+            setSelectedPortal({
+                idPortail: 0,
+                nomPortail: authorizedPortal.nomPortail,
+                abbreviation: authorizedPortal.abbreviation,
+                idPreinscription: 0,
+                statut: authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire"
+            });
+            if (studentInfo.photoBase64) {
+                setStep('bank-reference');
+            } else {
+                setStep('photo-capture');
+            }
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const containerVariants: Variants = {
         hidden: { opacity: 0, y: 10 },
         visible: {
             opacity: 1,
@@ -557,7 +631,7 @@ const InscriptionPage: React.FC = () => {
                                 )}
 
                                 <Button
-                                    onClick={step === 'l1-form' ? handleL1Submit : undefined}
+                                    onClick={step === 'l1-form' ? handleL1Submit : handleOthersSubmit}
                                     disabled={isLoading}
                                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 transition-all rounded-lg shadow-md shadow-indigo-100 mt-2 sm:mt-4"
                                 >
@@ -734,7 +808,7 @@ const InscriptionPage: React.FC = () => {
                                                 </div>
                                                 <Button
                                                     onClick={capture}
-                                                    disabled={cameraError}
+                                                    disabled={!!cameraError}
                                                     className="w-full max-w-xs bg-indigo-600 hover:bg-indigo-700 text-white h-12 rounded-xl font-bold transition-all shadow-lg shadow-indigo-200"
                                                 >
                                                     <Camera className="w-5 h-5 mr-2" />
@@ -1114,11 +1188,21 @@ const InscriptionPage: React.FC = () => {
                                             {formStep === activeSteps.length - 1 ? (
                                                 <Button
                                                     type="button"
+                                                    disabled={isLoading}
                                                     onClick={() => form.handleSubmit(onStudentInfoSubmit)()}
                                                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-lg shadow-lg shadow-indigo-200"
                                                 >
-                                                    <CheckCircle2 className="w-5 h-5 mr-2" />
-                                                    Terminer l'inscription
+                                                    {isLoading ? (
+                                                        <>
+                                                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                                            Traitement...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <CheckCircle2 className="w-5 h-5 mr-2" />
+                                                            Terminer l'inscription
+                                                        </>
+                                                    )}
                                                 </Button>
                                             ) : (
                                                 <Button
@@ -1136,6 +1220,61 @@ const InscriptionPage: React.FC = () => {
                                     </form>
                                 </Form>
                             </ScrollArea>
+                        </motion.div>
+                    )}
+
+                    {step === 'success' && (
+                        <motion.div
+                            key="success"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            className="w-full sm:bg-white sm:rounded-xl sm:shadow-[0_10px_40px_rgba(0,0,0,0.08)] sm:border sm:border-slate-100 p-6 sm:p-10 text-center"
+                        >
+                            <div className="flex justify-center mb-6">
+                                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 animate-bounce">
+                                    <CheckCircle2 className="w-10 h-10" />
+                                </div>
+                            </div>
+
+                            <h1 className="text-2xl font-bold text-slate-800 mb-2">
+                                Inscription Terminée !
+                            </h1>
+                            <p className="text-slate-500 text-sm mb-8">
+                                Votre dossier a été enregistré avec succès pour l'année universitaire 2025-2026.
+                            </p>
+
+                            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 mb-8">
+                                <div className="mb-4">
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Portail</p>
+                                    <p className="font-bold text-slate-700">{enrollmentResult?.nomPortail || selectedPortal?.nomPortail}</p>
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Votre Numéro d'Inscription</p>
+                                    <div className="text-2xl font-black text-indigo-600 tracking-tight break-all">
+                                        {enrollmentResult?.numInscription}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4 text-left bg-indigo-50/50 p-6 rounded-xl border border-indigo-100/50 mb-8">
+                                <h3 className="text-sm font-bold text-indigo-700 flex items-center gap-2">
+                                    <AlertCircle className="w-4 h-4" /> Prochaines étapes
+                                </h3>
+                                <ul className="text-xs text-indigo-900/70 space-y-2 list-disc pl-4">
+                                    <li>Conservez précieusement votre <strong>numéro d'inscription</strong>.</li>
+                                    <li>Ce numéro est indispensable pour récupérer votre <strong>carte d'étudiant</strong>.</li>
+                                </ul>
+                            </div>
+
+                            <Button
+                                onClick={() => window.location.reload()}
+                                variant="outline"
+                                className="w-full border-slate-200 hover:bg-slate-50 text-slate-600 font-bold h-12 rounded-xl"
+                            >
+                                Retour à l'accueil
+                            </Button>
                         </motion.div>
                     )}
                 </AnimatePresence>
