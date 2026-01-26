@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { BACKEND_URL } from '@/lib/api';
+import { BACKEND_ADMIN_URL } from '@/lib/api';
 import { useIsMobile } from "@/components/ui/use-mobile";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -269,7 +269,7 @@ const InscriptionPage: React.FC = () => {
                 idMpn: reenrollmentData?.idMpn
             };
 
-            const response = await fetch(`${BACKEND_URL}/api/inscription/create`, {
+            const response = await fetch(`${BACKEND_ADMIN_URL}/api/inscription/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -389,7 +389,7 @@ const InscriptionPage: React.FC = () => {
         setError(null);
 
         try {
-            const response = await fetch(`${BACKEND_URL}/api/Inscription/verify-l1?numBacc=${l1Data.baccNum}&anneeBacc=${l1Data.baccYear}`);
+            const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/verify-l1?numBacc=${l1Data.baccNum}&anneeBacc=${l1Data.baccYear}`);
 
             if (!response.ok) {
                 if (response.status === 409) {
@@ -445,7 +445,7 @@ const InscriptionPage: React.FC = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`${BACKEND_URL}/api/Inscription/verify-reinscription?numInscription=${encodeURIComponent(othersData.inscriptionNum)}`);
+            const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/verify-reinscription?numInscription=${encodeURIComponent(othersData.inscriptionNum)}`);
             if (!response.ok) {
                 if (response.status === 409) {
                     const conflictData = await response.json();
