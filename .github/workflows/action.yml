@@ -27,6 +27,7 @@ jobs:
           echo "VITE_BACKEND_PREINSCRIPTION=${{ secrets.VITE_BACKEND_PREINSCRIPTION }}" >> .env
           echo "VITE_BACKEND_FACSCIENCES=${{ secrets.VITE_BACKEND_FACSCIENCES }}" >> .env
           echo "VITE_BACKEND_WEBSERVICES=${{ secrets.VITE_BACKEND_WEBSERVICES }}" >> .env
+          echo "VITE_BACKEND_ADMIN=${{ secrets.VITE_BACKEND_ADMIN }}" >> .env
 
       # Installer les dépendances
       - name: Install dependencies
