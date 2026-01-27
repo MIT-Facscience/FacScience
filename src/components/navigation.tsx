@@ -31,11 +31,15 @@ const admissionItems = [
   { key: "preRegistration", to: "/admission/preinscription" },
 ];
 
+const resultItems = [
+  { key: "Admission L1", to: "/resultats/" },
+  { key: "Licence et Master", to: "/resultats/LicenceEtMaster" }
+];
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { i18n, t } = useTranslation("navigation");
-  const { showResults } = useResults(); // Récupère l'état
 
   const isActive = (path: string) => location.pathname === path;
   const isActiveParent = (base: string) => location.pathname.startsWith(base);
@@ -194,7 +198,7 @@ export default function Navigation() {
                 </a>
 
                 {/* Resultats - Affiché conditionnellement */}
-                {showResults && (
+                {/* {showResults && (
                   <a
                     href="/resultats"
                     className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
@@ -206,7 +210,38 @@ export default function Navigation() {
                     {t("results")}
                     <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                   </a>
-                )}
+                )} */}
+
+                <div className="relative group">
+                  <button
+                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
+                      isActiveParent("/resultats")
+                        ? "text-primary bg-accent-foreground"
+                        : "text-sidebar-primary hover:text-ring"
+                    }`}
+                  >
+                    <span>{t("resultats")}</span>
+                    <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <div className="p-6 space-y-1">
+                      {resultItems.map((item, index) => (
+                        <a
+                          key={item.to}
+                          href={item.to}
+                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
+                            isActive(item.to)
+                              ? "bg-purple-100 text-focus border-focus"
+                              : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
+                          }`}
+                          style={{ transitionDelay: `${index * 50}ms` }}
+                        >
+                          {item.key}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
                 {/* Language Selector */}
                 <Select value={i18n.language} onValueChange={changeLanguage}>

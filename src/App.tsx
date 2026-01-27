@@ -26,7 +26,7 @@ import NotFound from "./components/not-found";
 import INTAdmissionPage from "./pages/admission/int-modalite/page";
 import INTFormulaire from "./pages/admission/int-formulaire/page";
 import ResultatsPage from "./pages/resultats/page";
-import ListesAdmisPage from "./pages/resultats/listes-admis/page";
+import ListesAdmisPage from "./pages/resultats/LicenceEtMaster/page";
 import InscriptionPage from "./pages/inscription/page";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 import { ResultsProvider } from "@/pages/resultats/ResultsProvider";
@@ -66,7 +66,7 @@ export default function App() {
           <Route path="/presentation/histoire" element={<HistoirePage />} />
           <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
           <Route path="/presentation/vision" element={<VisionPage />} />
-          <Route path="/resultats/listes-admis" element={<ListesAdmisPage />} />
+          <Route path="/resultats/LicenceEtMaster" element={<ListesAdmisPage />} />
           <Route path="/resultats/listes-admis" element={<NotFound />} />
           <Route path="/formation/detailparcours" element={<ParcourDetail />} />
           <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
