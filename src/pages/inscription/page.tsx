@@ -90,7 +90,7 @@ const InscriptionPage: React.FC = () => {
     const [selectedPortal, setSelectedPortal] = useState<EligiblePortal | null>(null);
     const [photo, setPhoto] = useState<string | null>(null); // Final cropped photo
     const [rawPhoto, setRawPhoto] = useState<string | null>(null); // Original photo for cropping
-    const [enrollmentResult, setEnrollmentResult] = useState<{ numInscription: string, nomPortail?: string } | null>(null);
+    const [enrollmentResult, setEnrollmentResult] = useState<{ numInscription: string, nomPortail?: string, statut?: string } | null>(null);
 
     // Crop state
     const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -108,7 +108,7 @@ const InscriptionPage: React.FC = () => {
     // Form states
     const [l1Data, setL1Data] = useState({ baccNum: '', baccYear: '' });
     const [othersData, setOthersData] = useState({ inscriptionNum: '' });
-    const [reenrollmentData, setReenrollmentData] = useState<{ idEtudiant: number, idMpn: number } | null>(null);
+    const [reenrollmentData, setReenrollmentData] = useState<{ idEtudiant: number, idMpn: number, codeRedoublement?: string } | null>(null);
 
     // Multi-step form state
     const [formStep, setFormStep] = useState(0);
@@ -266,7 +266,8 @@ const InscriptionPage: React.FC = () => {
 
                 anneeUniversitaire: "2025-2026",
                 idEtudiant: reenrollmentData?.idEtudiant,
-                idMpn: reenrollmentData?.idMpn
+                idMpn: reenrollmentData?.idMpn,
+                codeRedoublement: reenrollmentData?.codeRedoublement
             };
 
             const response = await fetch(`${BACKEND_ADMIN_URL}/api/inscription/create`, {
@@ -301,7 +302,8 @@ const InscriptionPage: React.FC = () => {
             const result = await response.json();
             setEnrollmentResult({
                 numInscription: result.numInscription,
-                nomPortail: result.nomPortail
+                nomPortail: result.nomPortail,
+                statut: result.statut
             });
             setStep('success');
 
@@ -476,14 +478,15 @@ const InscriptionPage: React.FC = () => {
             }
             setReenrollmentData({
                 idEtudiant: studentInfo.idEtudiant,
-                idMpn: authorizedPortal.idMpn
+                idMpn: authorizedPortal.idMpn,
+                codeRedoublement: authorizedPortal.nextCode
             });
             setSelectedPortal({
                 idPortail: 0,
                 nomPortail: authorizedPortal.nomPortail,
                 abbreviation: authorizedPortal.abbreviation,
                 idPreinscription: 0,
-                statut: authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire"
+                statut: authorizedPortal.statusLibelle || (authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire")
             });
             if (studentInfo.photoBase64) {
                 setStep('bank-reference');
@@ -1246,9 +1249,19 @@ const InscriptionPage: React.FC = () => {
                             </p>
 
                             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 mb-8">
-                                <div className="mb-4">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Portail</p>
-                                    <p className="font-bold text-slate-700">{enrollmentResult?.nomPortail || selectedPortal?.nomPortail}</p>
+                                <div className="space-y-3 mb-6">
+                                    <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
+                                        <span className="text-slate-500 font-medium">Portail</span>
+                                        <span className="text-slate-800 font-bold">{enrollmentResult?.nomPortail || selectedPortal?.nomPortail}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
+                                        <span className="text-slate-500 font-medium">Statut</span>
+                                        <span className="text-emerald-600 font-black uppercase tracking-wider text-[11px]">{enrollmentResult?.statut || "---"}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
+                                        <span className="text-slate-500 font-medium">Année Universitaire</span>
+                                        <span className="text-slate-800 font-bold">2025-2026</span>
+                                    </div>
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Votre Numéro d'Inscription</p>
