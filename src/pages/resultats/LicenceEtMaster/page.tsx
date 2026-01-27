@@ -122,7 +122,7 @@ export default function StudentResults() {
           </div>
           
           <h1 className="text-3xl font-bold text-center text-purple-900 mb-2">
-            Résultat Informatique et Technologie
+            Résultat des Étudiants
           </h1>
           <p className="text-center text-purple-600 mb-8">
             Année universitaire 2024-2025

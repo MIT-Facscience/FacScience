@@ -30,6 +30,11 @@ const admissionItems = [
   { key: "preRegistration", to: "/admission/preinscription" },
 ];
 
+const resultatsItems = [
+  { key: "Admission L1", to: "/resultats/" },
+  { key: "Licence et Master", to: "/resultats/LicenceEtMaster" }
+];;
+
 const resultItems = [
   { key: "Admission L1", to: "/resultats/" },
   { key: "Licence et Master", to: "/resultats/LicenceEtMaster" }
@@ -196,20 +201,6 @@ export default function Navigation() {
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
                 </a>
 
-                {/* Resultats - Affiché conditionnellement */}
-                {/* {showResults && (
-                  <a
-                    href="/resultats"
-                    className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
-                      isActive("/resultats")
-                        ? "text-primary bg-purple-50/70"
-                        : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
-                    }`}
-                  >
-                    {t("results")}
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
-                  </a>
-                )} */}
 
                 <div className="relative group">
                   <button
@@ -343,6 +334,12 @@ export default function Navigation() {
                     base: "/admission",
                     namespace: "admissionItems"
                   },
+                  {
+                    title: t("resultats"),
+                    items: resultatsItems,
+                    base: "/resultats",
+                    namespace: "resultatsItems"
+                  }
                 ].map((section) => (
                   <div key={section.title} className="space-y-3">
                     <h3
@@ -366,7 +363,7 @@ export default function Navigation() {
                           }`}
                           onClick={() => setIsOpen(false)}
                         >
-                          {t(`${section.namespace}.${item.key}`)}
+                          {item.key}
                         </a>
                       ))}
                     </div>
@@ -385,12 +382,6 @@ export default function Navigation() {
                       name: t("news"),
                       path: "/actualites",
                       base: "/actualites",
-                    },
-                    // Ajout conditionnel de Résultats
-                    {
-                      name: t("results"),
-                      path: "/resultats",
-                      base: "/resultats",
                     },
                     {
                       name: t("contact"),
