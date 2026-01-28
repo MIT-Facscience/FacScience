@@ -30,13 +30,8 @@ const admissionItems = [
   { key: "preRegistration", to: "/admission/preinscription" },
 ];
 
-const resultatsItems = [
-  { key: "Admission L1", to: "/resultats/" },
-  { key: "Licence et Master", to: "/resultats/LicenceEtMaster" }
-];;
-
 const resultItems = [
-  { key: "Admission L1", to: "/resultats/" },
+  { key: "Admission L1", to: "/resultats/selection" },
   { key: "Licence et Master", to: "/resultats/LicenceEtMaster" }
 ];
 
@@ -210,7 +205,7 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    <span>{t("resultats")}</span>
+                    <span>{t("Résultats")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -336,7 +331,7 @@ export default function Navigation() {
                   },
                   {
                     title: t("resultats"),
-                    items: resultatsItems,
+                    items: resultItems,
                     base: "/resultats",
                     namespace: "resultatsItems"
                   }
@@ -363,7 +358,7 @@ export default function Navigation() {
                           }`}
                           onClick={() => setIsOpen(false)}
                         >
-                          {item.key}
+                          {t(`${section.namespace}.${item.key}`)}
                         </a>
                       ))}
                     </div>
