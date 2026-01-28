@@ -6,8 +6,12 @@
     "research": "Recherche",
     "admission": "Admission", 
     "training": "Formation",
+    "results":"Résultats",
     "news": "Actualités",
-    "results": "Résultats",
+    "resultsItems": {
+        "selection": "Admission L1",
+        "licenceAndMaster": "Licence et Master"
+    },
     "contact": "Contact",
     "language": "Langue",
     "aboutItems": {

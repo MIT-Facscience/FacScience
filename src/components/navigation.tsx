@@ -31,8 +31,8 @@ const admissionItems = [
 ];
 
 const resultItems = [
-  { key: "Admission L1", to: "/resultats/selection" },
-  { key: "Licence et Master", to: "/resultats/LicenceEtMaster" }
+  { key: "selection", to: "/resultats/selection" },
+  { key: "licenceAndMaster", to: "/resultats/LicenceEtMaster" }
 ];
 
 export default function Navigation() {
@@ -205,7 +205,8 @@ export default function Navigation() {
                         : "text-sidebar-primary hover:text-ring"
                     }`}
                   >
-                    <span>{t("Résultats")}</span>
+                    <span>{t("results")}</span>
+                    {/* <p>ici reg</p> */}
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
@@ -221,7 +222,7 @@ export default function Navigation() {
                           }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
-                          {item.key}
+                          {t(`resultsItems.${item.key}`)}
                         </a>
                       ))}
                     </div>
@@ -330,10 +331,10 @@ export default function Navigation() {
                     namespace: "admissionItems"
                   },
                   {
-                    title: t("resultats"),
+                    title: t("results"),
                     items: resultItems,
                     base: "/resultats",
-                    namespace: "resultatsItems"
+                    namespace: "resultsItems"
                   }
                 ].map((section) => (
                   <div key={section.title} className="space-y-3">

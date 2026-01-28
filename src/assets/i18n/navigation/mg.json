@@ -6,8 +6,12 @@
     "research": "Fikarohana",
     "admission": "Fidirana",
     "training": "Famiofana",
-    "news": "Vaovao",
-    "results": "Vokatra", 
+    "results":"Vokatra",    
+    "news": "Vaovao",   
+    "resultsItems": {
+        "selection": "Tafiditra L1",
+        "licenceAndMaster": "Licence et Master"
+    }, 
     "contact": "Fifandraisana",
     "language": "Fiteny",
     "aboutItems": {

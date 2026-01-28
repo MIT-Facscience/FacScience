@@ -6,8 +6,12 @@
     "research": "Research", 
     "admission": "Admission",
     "training": "Training",
+    "results":"Results",
     "news": "News",
-    "results": "Results",
+    "resultsItems": {
+        "selection": "Admission L1",
+        "licenceAndMaster": "Licence and Master"
+    },
     "contact": "Contact",
     "language": "Language",
     "aboutItems": {
