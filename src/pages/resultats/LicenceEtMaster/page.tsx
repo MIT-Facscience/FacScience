@@ -36,9 +36,8 @@ export default function StudentResults() {
 
       const data: StudentData = await response.json();
       setStudent(data);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Une erreur est survenue lors de la recherche.';
-      setError(errorMessage);
+    } catch  {
+      setError("Aucun résultat trouvé pour cet étudiant.");
     } finally {
       setLoading(false);
     }
