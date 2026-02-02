@@ -1251,12 +1251,8 @@ const InscriptionPage: React.FC = () => {
                             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 mb-8">
                                 <div className="space-y-3 mb-6">
                                     <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
-                                        <span className="text-slate-500 font-medium">Portail</span>
+                                        <span className="text-slate-500 font-medium">Parcours</span>
                                         <span className="text-slate-800 font-bold">{enrollmentResult?.nomPortail || selectedPortal?.nomPortail}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
-                                        <span className="text-slate-500 font-medium">Statut</span>
-                                        <span className="text-emerald-600 font-black uppercase tracking-wider text-[11px]">{enrollmentResult?.statut || "---"}</span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
                                         <span className="text-slate-500 font-medium">Année Universitaire</span>
