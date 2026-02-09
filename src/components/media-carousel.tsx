@@ -6,10 +6,12 @@ export function MediaCarousel({
   media,
   title,
   autoPlayInterval = 5000,
+  baseUrl = "",
 }: {
   media: { type: string; url?: string }[];
   title?: string;
   autoPlayInterval?: number;
+  baseUrl?: string;
 }) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -52,14 +54,14 @@ export function MediaCarousel({
     return m.type === "Image" ? (
       <div className='flex justify-center w-full h-full'>
         <img
-          src={m.url || "/placeholder.svg"}
+          src={m.url ? `${baseUrl}${m.url}` : "/placeholder.svg"}
           alt={title}
           className="h-full object-cover"
         />
       </div>
     ) : (
       <div className='flex relative justify-center w-full h-full'>
-        <VideoPlayer 
+        <VideoPlayer
           src={"Kpop.mp4"}
           poster={m.url}
           className="w-[90%] h-full"
@@ -69,7 +71,7 @@ export function MediaCarousel({
   }
 
   return (
-    <div 
+    <div
       className="relative w-full h-full group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -79,25 +81,24 @@ export function MediaCarousel({
         {media.map((m, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-all duration-500 ease-in-out ${
-              index === currentIndex
+            className={`absolute inset-0 transition-all duration-500 ease-in-out ${index === currentIndex
                 ? 'opacity-100 translate-x-0 z-10'
                 : index < currentIndex
-                ? 'opacity-0 -translate-x-full z-0'
-                : 'opacity-0 translate-x-full z-0'
-            }`}
+                  ? 'opacity-0 -translate-x-full z-0'
+                  : 'opacity-0 translate-x-full z-0'
+              }`}
           >
             {m.type === "Image" ? (
               <div className='flex justify-center w-full h-full'>
                 <img
-                  src={m.url || "/placeholder.svg"}
+                  src={m.url ? `${baseUrl}${m.url}` : "/placeholder.svg"}
                   alt={title}
                   className="w-full h-full object-contain"
                 />
               </div>
             ) : (
               <div className='flex justify-center items-center w-full h-full relative z-30'>
-                <VideoPlayer 
+                <VideoPlayer
                   src={"Kpop.mp4"}
                   poster={m.url}
                   className="w-full h-full"
@@ -148,11 +149,10 @@ export function MediaCarousel({
                   e.stopPropagation();
                   goToSlide(index);
                 }}
-                className={`transition-all duration-300 rounded-full ${
-                  index === currentIndex
+                className={`transition-all duration-300 rounded-full ${index === currentIndex
                     ? 'w-6 h-2 bg-white'
                     : 'w-2 h-2 bg-white/60 hover:bg-white/80'
-                }`}
+                  }`}
                 aria-label={`Aller à la diapositive ${index + 1}`}
               />
             ))}
