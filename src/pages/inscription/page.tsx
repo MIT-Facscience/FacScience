@@ -58,14 +58,26 @@ const studentSchema = z.object({
     adresse: z.string().min(5, "L'adresse est requise"),
     telephone: z.string().min(10, "Numéro de téléphone invalide"),
     email: z.string().email("Email invalide").optional().or(z.literal('')),
-    referenceBancaire: z.string()
-        .min(5, "La référence bancaire est trop courte (min 5 caractères)")
-        .max(20, "La référence bancaire est trop longue (max 20 caractères)"),
+    referenceAdmin: z.string().optional(),
+    referencePedago: z.string().optional(),
+    referenceMixte: z.string().optional(),
+    referenceBancaire: z.string().optional(), // Keep for legacy if needed, or remove
+}).superRefine((data, ctx) => {
+    const hasAdmin = !!data.referenceAdmin && data.referenceAdmin.length >= 3;
+    const hasMixte = !!data.referenceMixte && data.referenceMixte.length >= 3;
+
+    if (!hasAdmin && !hasMixte) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "La référence Administrative (ou Mixte) est obligatoire.",
+            path: ["referenceAdmin"],
+        });
+    }
 });
 
 type StudentFormValues = z.infer<typeof studentSchema>;
 
-type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'portal-selection' | 'photo-capture' | 'bank-reference' | 'student-info' | 'success';
+type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'portal-selection' | 'bank-reference' | 'photo-capture' | 'identity-documents' | 'student-info' | 'success';
 
 interface EligiblePortal {
     idPortail: number;
@@ -91,6 +103,12 @@ const InscriptionPage: React.FC = () => {
     const [photo, setPhoto] = useState<string | null>(null); // Final cropped photo
     const [rawPhoto, setRawPhoto] = useState<string | null>(null); // Original photo for cropping
     const [enrollmentResult, setEnrollmentResult] = useState<{ numInscription: string, nomPortail?: string, statut?: string } | null>(null);
+
+    // Identity document state
+    const [cinRectoImage, setCinRectoImage] = useState<string | null>(null);
+    const [cinVersoImage, setCinVersoImage] = useState<string | null>(null);
+    const [acteNaissanceImage, setActeNaissanceImage] = useState<string | null>(null);
+    const [hasNoCin, setHasNoCin] = useState(false);
 
     // Crop state
     const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -126,6 +144,9 @@ const InscriptionPage: React.FC = () => {
             adresse: "",
             telephone: "",
             email: "",
+            referenceAdmin: "",
+            referencePedago: "",
+            referenceMixte: "",
             referenceBancaire: "",
         }
     });
@@ -170,8 +191,8 @@ const InscriptionPage: React.FC = () => {
                 prevFormStep();
                 return;
             }
-            setStep('bank-reference');
-        } else if (step === 'bank-reference') {
+            setStep('identity-documents');
+        } else if (step === 'identity-documents') {
             setStep('photo-capture');
             setMode('choice');
         } else if (step === 'photo-capture') {
@@ -181,8 +202,10 @@ const InscriptionPage: React.FC = () => {
             } else if (mode === 'camera') {
                 setMode('choice');
             } else {
-                setStep('portal-selection');
+                setStep('bank-reference');
             }
+        } else if (step === 'bank-reference') {
+            setStep('portal-selection');
         } else if (step === 'portal-selection') {
             setStep('l1-form');
         } else {
@@ -193,8 +216,7 @@ const InscriptionPage: React.FC = () => {
 
     const handlePortalSelect = (portal: EligiblePortal) => {
         setSelectedPortal(portal);
-        setStep('photo-capture');
-        setMode('choice');
+        setStep('bank-reference');
     };
 
     const capture = React.useCallback(() => {
@@ -217,7 +239,7 @@ const InscriptionPage: React.FC = () => {
                     setPhoto(croppedImage);
                     setRawPhoto(null);
                     setMode('choice');
-                    setStep('bank-reference');
+                    setStep('identity-documents');
                 }
             } catch (e) {
                 console.error(e);
@@ -256,12 +278,20 @@ const InscriptionPage: React.FC = () => {
                 cin: data.cin || undefined,
                 dateDelivrance: data.dateDelivrance || undefined,
 
+                // Identity Documents
+                cinRectoBase64: (!hasNoCin && isMajor) ? cinRectoImage : undefined,
+                cinVersoBase64: (!hasNoCin && isMajor) ? cinVersoImage : undefined,
+                acteNaissanceBase64: (hasNoCin || !isMajor) ? acteNaissanceImage : undefined,
+
                 // Contact
                 adresse: data.adresse,
                 telephone: data.telephone,
                 email: data.email,
 
                 // Bank Ref
+                referenceAdmin: data.referenceAdmin,
+                referencePedago: data.referencePedago,
+                referenceMixte: data.referenceMixte,
                 referenceBancaire: data.referenceBancaire,
 
                 anneeUniversitaire: "2025-2026",
@@ -873,7 +903,7 @@ const InscriptionPage: React.FC = () => {
                                                 Changer
                                             </Button>
                                             <Button
-                                                onClick={() => setStep('bank-reference')}
+                                                onClick={() => setStep('identity-documents')}
                                                 className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white h-11 rounded-xl font-bold shadow-md shadow-indigo-100"
                                             >
                                                 <CheckCircle2 className="w-5 h-5 mr-2" />
@@ -894,14 +924,14 @@ const InscriptionPage: React.FC = () => {
                             animate="visible"
                             exit="hidden"
                             variants={containerVariants}
-                            className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden"
+                            className="w-full sm:bg-white sm:rounded-2xl sm:shadow-xl sm:shadow-slate-200/60 sm:border sm:border-slate-100 border-0 shadow-none overflow-hidden"
                         >
                             <div className="p-6 sm:p-8 text-center sm:text-left">
                                 <button
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> PHOTO
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> PORTAILS
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
                                     Référence de Paiement
@@ -911,35 +941,300 @@ const InscriptionPage: React.FC = () => {
                                 </p>
 
                                 <div className="space-y-6">
-                                    <div className="space-y-2">
-                                        <Label className="text-xs font-bold text-slate-700">Numéro de Référence *</Label>
-                                        <div className="relative">
-                                            <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                            <Input
-                                                placeholder="ABCDEF/CUK"
-                                                className="pl-10 h-12 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-xl text-slate-600 placeholder:text-slate-400/50"
-                                                value={form.watch("referenceBancaire")}
-                                                onChange={(e) => form.setValue("referenceBancaire", e.target.value)}
-                                            />
+                                    <div className="space-y-4">
+                                        {/* Reference Administrative */}
+                                        <div className="space-y-2">
+                                            <Label className="text-xs font-bold text-slate-700">Référence Droit Administratif *</Label>
+                                            <div className="relative">
+                                                <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                                <Input
+                                                    placeholder="Réf. Administrative"
+                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light"
+                                                    value={form.watch("referenceAdmin")}
+                                                    onChange={(e) => form.setValue("referenceAdmin", e.target.value)}
+                                                />
+                                            </div>
+                                            {form.formState.errors.referenceAdmin && (
+                                                <p className="text-red-500 text-[10px] font-medium mt-1">
+                                                    {form.formState.errors.referenceAdmin.message}
+                                                </p>
+                                            )}
                                         </div>
-                                        {form.formState.errors.referenceBancaire && (
-                                            <p className="text-red-500 text-[10px] font-medium mt-1">
-                                                {form.formState.errors.referenceBancaire.message}
+
+                                        {/* Reference Pedagogique */}
+                                        <div className="space-y-2">
+                                            <Label className="text-xs font-bold text-slate-700">Référence Droit Pédagogique</Label>
+                                            <div className="relative">
+                                                <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                                <Input
+                                                    placeholder="Réf. Pédagogique (Optionnel)"
+                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light"
+                                                    value={form.watch("referencePedago")}
+                                                    onChange={(e) => form.setValue("referencePedago", e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Separator */}
+                                        <div className="relative py-2">
+                                            <div className="absolute inset-0 flex items-center">
+                                                <span className="w-full border-t border-slate-100" />
+                                            </div>
+                                            <div className="relative flex justify-center text-xs uppercase">
+                                                <span className="bg-white px-2 text-slate-300 font-bold tracking-widest">OU</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Reference Mixte */}
+                                        <div className="space-y-2">
+                                            <Label className="text-xs font-bold text-slate-700">Référence Droit Administratif et Pédagogique</Label>
+                                            <div className="relative">
+                                                <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                                <Input
+                                                    placeholder="Réf. Mixte (Couvre les deux)"
+                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light"
+                                                    value={form.watch("referenceMixte")}
+                                                    onChange={(e) => form.setValue("referenceMixte", e.target.value)}
+                                                />
+                                            </div>
+                                            <p className="text-[10px] text-slate-400 italic">
+                                                Si vous avez un reçu unique couvrant les droits administratifs et pédagogiques.
                                             </p>
-                                        )}
+                                        </div>
                                     </div>
 
                                     <Button
                                         onClick={async () => {
-                                            const isValid = await form.trigger("referenceBancaire");
-                                            if (isValid) setStep('student-info');
+                                            const isValid = await form.trigger(["referenceAdmin", "referencePedago", "referenceMixte"]);
+                                            // Manual check for global validation issues (superRefine)
+                                            if (isValid) {
+                                                const values = form.getValues();
+                                                const hasAdmin = !!values.referenceAdmin && values.referenceAdmin.length >= 3;
+                                                const hasMixte = !!values.referenceMixte && values.referenceMixte.length >= 3;
+
+                                                if (hasAdmin || hasMixte) {
+                                                    setStep('photo-capture');
+                                                    setMode('choice');
+                                                } else {
+                                                    form.setError("referenceAdmin", { message: "La référence Administrative (ou Mixte) est obligatoire." });
+                                                }
+                                            }
                                         }}
+
                                         className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]"
                                     >
                                         Continuer <ArrowRight className="w-4 h-4 ml-2" />
                                     </Button>
                                 </div>
                             </div>
+                        </motion.div>
+                    )}
+
+                    {/* Identity Documents Step */}
+                    {step === 'identity-documents' && (
+                        <motion.div
+                            key="identity-documents"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            className="w-full sm:bg-white sm:rounded-xl sm:shadow-[0_10px_40px_rgba(0,0,0,0.08)] sm:border sm:border-slate-100 p-4 sm:p-10"
+                        >
+                            <div className="mb-6 sm:mb-8 text-center sm:text-left">
+                                <button
+                                    onClick={handleBack}
+                                    className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
+                                >
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> PHOTO
+                                </button>
+                                <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
+                                    {isMajor ? "Pièce d'Identité" : "Acte de Naissance"}
+                                </h1>
+                                <p className="text-slate-400 text-xs mt-1">
+                                    {isMajor
+                                        ? "Uploadez le recto et verso de votre Carte d'Identité Nationale"
+                                        : "Uploadez une photo de votre acte de naissance"}
+                                </p>
+                            </div>
+
+                            {/* For adults: CIN upload or birth certificate if no CIN */}
+                            {isMajor ? (
+                                <div className="space-y-6">
+                                    {/* No CIN checkbox */}
+                                    <label className="flex items-center gap-3 p-4 bg-amber-50 border border-amber-100 rounded-xl cursor-pointer hover:bg-amber-100 transition-colors">
+                                        <input
+                                            type="checkbox"
+                                            checked={hasNoCin}
+                                            onChange={(e) => setHasNoCin(e.target.checked)}
+                                            className="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500"
+                                        />
+                                        <span className="text-sm font-medium text-amber-800">
+                                            Je n'ai pas encore de CIN
+                                        </span>
+                                    </label>
+
+                                    {!hasNoCin ? (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            {/* CIN Recto */}
+                                            <div className="space-y-2">
+                                                <Label className="text-xs font-bold text-slate-700">CIN - Recto *</Label>
+                                                <div
+                                                    className={`relative border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all ${cinRectoImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
+                                                        }`}
+                                                    onClick={() => {
+                                                        const input = document.createElement('input');
+                                                        input.type = 'file';
+                                                        input.accept = 'image/*';
+                                                        input.onchange = (e: any) => {
+                                                            const file = e.target?.files?.[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.onload = () => setCinRectoImage(reader.result as string);
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        };
+                                                        input.click();
+                                                    }}
+                                                >
+                                                    {cinRectoImage ? (
+                                                        <img src={cinRectoImage} alt="CIN Recto" className="max-h-32 rounded-lg object-contain" />
+                                                    ) : (
+                                                        <>
+                                                            <ImageIcon className="w-8 h-8 text-slate-400 mb-2" />
+                                                            <span className="text-xs text-slate-500 font-medium">Cliquez pour uploader</span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* CIN Verso */}
+                                            <div className="space-y-2">
+                                                <Label className="text-xs font-bold text-slate-700">CIN - Verso *</Label>
+                                                <div
+                                                    className={`relative border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all ${cinVersoImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
+                                                        }`}
+                                                    onClick={() => {
+                                                        const input = document.createElement('input');
+                                                        input.type = 'file';
+                                                        input.accept = 'image/*';
+                                                        input.onchange = (e: any) => {
+                                                            const file = e.target?.files?.[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.onload = () => setCinVersoImage(reader.result as string);
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        };
+                                                        input.click();
+                                                    }}
+                                                >
+                                                    {cinVersoImage ? (
+                                                        <img src={cinVersoImage} alt="CIN Verso" className="max-h-32 rounded-lg object-contain" />
+                                                    ) : (
+                                                        <>
+                                                            <ImageIcon className="w-8 h-8 text-slate-400 mb-2" />
+                                                            <span className="text-xs text-slate-500 font-medium">Cliquez pour uploader</span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        /* Birth certificate for adults without CIN */
+                                        <div className="space-y-2">
+                                            <Label className="text-xs font-bold text-slate-700">Acte de Naissance *</Label>
+                                            <div
+                                                className={`relative border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all ${acteNaissanceImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
+                                                    }`}
+                                                onClick={() => {
+                                                    const input = document.createElement('input');
+                                                    input.type = 'file';
+                                                    input.accept = 'image/*';
+                                                    input.onchange = (e: any) => {
+                                                        const file = e.target?.files?.[0];
+                                                        if (file) {
+                                                            const reader = new FileReader();
+                                                            reader.onload = () => setActeNaissanceImage(reader.result as string);
+                                                            reader.readAsDataURL(file);
+                                                        }
+                                                    };
+                                                    input.click();
+                                                }}
+                                            >
+                                                {acteNaissanceImage ? (
+                                                    <img src={acteNaissanceImage} alt="Acte de Naissance" className="max-h-40 rounded-lg object-contain" />
+                                                ) : (
+                                                    <>
+                                                        <ImageIcon className="w-10 h-10 text-slate-400 mb-2" />
+                                                        <span className="text-sm text-slate-500 font-medium">Cliquez pour uploader</span>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                /* For minors: only birth certificate */
+                                <div className="space-y-2">
+                                    <Label className="text-xs font-bold text-slate-700">Acte de Naissance *</Label>
+                                    <div
+                                        className={`relative border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all ${acteNaissanceImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
+                                            }`}
+                                        onClick={() => {
+                                            const input = document.createElement('input');
+                                            input.type = 'file';
+                                            input.accept = 'image/*';
+                                            input.onchange = (e: any) => {
+                                                const file = e.target?.files?.[0];
+                                                if (file) {
+                                                    const reader = new FileReader();
+                                                    reader.onload = () => setActeNaissanceImage(reader.result as string);
+                                                    reader.readAsDataURL(file);
+                                                }
+                                            };
+                                            input.click();
+                                        }}
+                                    >
+                                        {acteNaissanceImage ? (
+                                            <img src={acteNaissanceImage} alt="Acte de Naissance" className="max-h-40 rounded-lg object-contain" />
+                                        ) : (
+                                            <>
+                                                <ImageIcon className="w-10 h-10 text-slate-400 mb-2" />
+                                                <span className="text-sm text-slate-500 font-medium">Cliquez pour uploader</span>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            <Button
+                                onClick={() => {
+                                    // Validate that required documents are uploaded
+                                    if (isMajor && !hasNoCin) {
+                                        if (!cinRectoImage || !cinVersoImage) {
+                                            setError("Veuillez uploader le recto et verso de votre CIN");
+                                            return;
+                                        }
+                                    } else {
+                                        if (!acteNaissanceImage) {
+                                            setError("Veuillez uploader votre acte de naissance");
+                                            return;
+                                        }
+                                    }
+                                    setError(null);
+                                    setStep('student-info');
+                                }}
+                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98] mt-6"
+                            >
+                                Continuer <ArrowRight className="w-4 h-4 ml-2" />
+                            </Button>
+
+                            {error && (
+                                <div className="mt-4 p-3 bg-red-50 border border-red-100 rounded-lg flex items-start gap-3 text-red-600 text-xs">
+                                    <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                                    <p>{error}</p>
+                                </div>
+                            )}
                         </motion.div>
                     )}
 
@@ -1288,7 +1583,7 @@ const InscriptionPage: React.FC = () => {
                     )}
                 </AnimatePresence>
             </div>
-        </div>
+        </div >
     );
 };
 

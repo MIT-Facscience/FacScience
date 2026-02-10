@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Calendar, User, Share2, Clock, Eye, MapPin } from "lucide-react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { ArrowLeft, Calendar, User, Share2, Eye, MapPin } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { BACKEND_ADMIN_URL } from "@/lib/api";
