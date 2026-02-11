@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 import { BACKEND_ADMIN_URL } from '@/lib/api';
 import { useIsMobile } from "@/components/ui/use-mobile";
 import { useForm } from "react-hook-form";
@@ -254,6 +255,7 @@ const InscriptionPage: React.FC = () => {
         }
 
         setIsLoading(true);
+        setError(null);
         try {
             const payload = {
                 // L1 / Others
@@ -319,6 +321,7 @@ const InscriptionPage: React.FC = () => {
                             numInscription: conflictData.numInscription,
                             nomPortail: conflictData.nomPortail
                         });
+                        toast.success("Vous êtes déjà inscrit !");
                         setStep('success');
                         return;
                     } catch (e) {
@@ -335,13 +338,17 @@ const InscriptionPage: React.FC = () => {
                 nomPortail: result.nomPortail,
                 statut: result.statut
             });
+            toast.success("Inscription réussie !");
             setStep('success');
 
         } catch (error: any) {
             console.error("Erreur de soumission :", error);
-            setError(error.message);
-            // Move back to first form step to show error
-            setFormStep(0);
+            const msg = error.message || "Une erreur est survenue lors de la soumission.";
+            setError(msg);
+            toast.error(msg);
+            // Move back to first form step if error on fields might be there, 
+            // but for now let's stay on current step to show the error message.
+            // setFormStep(0); 
         } finally {
             setIsLoading(false);
         }
@@ -370,6 +377,34 @@ const InscriptionPage: React.FC = () => {
 
     const triggerNativeCamera = () => {
         cameraInputRef.current?.click();
+    };
+
+    const triggerFileUpload = (onFileRead: (result: string) => void) => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.style.display = 'none';
+
+        const handleChange = (e: Event) => {
+            const target = e.target as HTMLInputElement;
+            const file = target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    onFileRead(reader.result as string);
+                };
+                reader.readAsDataURL(file);
+            }
+            // Cleanup: remove from DOM and remove listener
+            input.removeEventListener('change', handleChange);
+            if (document.body.contains(input)) {
+                document.body.removeChild(input);
+            }
+        };
+
+        input.addEventListener('change', handleChange);
+        document.body.appendChild(input);
+        input.click();
     };
 
     const compressImage = async (base64Str: string, maxSizeKB: number = 300): Promise<string> => {
@@ -421,7 +456,7 @@ const InscriptionPage: React.FC = () => {
         setError(null);
 
         try {
-            const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/verify-l1?numBacc=${l1Data.baccNum}&anneeBacc=${l1Data.baccYear}`);
+            const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/verify-l1?numBacc=${encodeURIComponent(l1Data.baccNum)}&anneeBacc=${encodeURIComponent(l1Data.baccYear)}`);
 
             if (!response.ok) {
                 if (response.status === 409) {
@@ -436,17 +471,21 @@ const InscriptionPage: React.FC = () => {
                 if (response.status === 404) {
                     throw new Error("Aucune sélection trouvée pour ces informations. Vérifiez votre numéro et année de Bacc.");
                 }
-                throw new Error("Une erreur est survenue lors de la vérification.");
+                const errorText = await response.text();
+                throw new Error(errorText || "Une erreur est survenue lors de la vérification.");
             }
 
             const data = await response.json();
-            // The API now returns { portals: [], studentInfo: { ... } }
-            setEligiblePortals(data.portals || []);
+
+            if (!data || !data.portals || data.portals.length === 0) {
+                throw new Error("Aucun portail disponible n'a été trouvé pour votre sélection. Veuillez contacter le service de scolarité.");
+            }
+
+            setEligiblePortals(data.portals);
 
             if (data.studentInfo) {
                 const { nomPrenom, sexe, dateNaissance, lieuNaissance, email, tel } = data.studentInfo;
 
-                // Simple split: first word as Nom, the rest as Prenom
                 const nameParts = (nomPrenom || "").trim().split(/\s+/);
                 const nom = nameParts[0] || "";
                 const prenom = nameParts.slice(1).join(" ") || "";
@@ -463,7 +502,8 @@ const InscriptionPage: React.FC = () => {
 
             setStep('portal-selection');
         } catch (err: any) {
-            setError(err.message);
+            console.error("L1 Verification Error:", err);
+            setError(err.message || "Une erreur inattendue est survenue.");
         } finally {
             setIsLoading(false);
         }
@@ -491,7 +531,13 @@ const InscriptionPage: React.FC = () => {
                 const errorText = await response.text();
                 throw new Error(errorText || "Numéro d'inscription non reconnu ou non autorisé pour 2025-2026.");
             }
+
             const data = await response.json();
+
+            if (!data || !data.studentInfo || !data.authorizedPortal) {
+                throw new Error("Données de réinscription incomplètes ou invalides.");
+            }
+
             const { studentInfo, authorizedPortal } = data;
             form.setValue("nom", studentInfo.nom || "");
             form.setValue("prenom", studentInfo.prenom || "");
@@ -503,14 +549,17 @@ const InscriptionPage: React.FC = () => {
             form.setValue("email", studentInfo.email || "");
             form.setValue("telephone", studentInfo.tel || "");
             form.setValue("adresse", studentInfo.adresse || "");
+
             if (studentInfo.photoBase64) {
                 setPhoto(studentInfo.photoBase64);
             }
+
             setReenrollmentData({
                 idEtudiant: studentInfo.idEtudiant,
                 idMpn: authorizedPortal.idMpn,
                 codeRedoublement: authorizedPortal.nextCode
             });
+
             setSelectedPortal({
                 idPortail: 0,
                 nomPortail: authorizedPortal.nomPortail,
@@ -518,13 +567,15 @@ const InscriptionPage: React.FC = () => {
                 idPreinscription: 0,
                 statut: authorizedPortal.statusLibelle || (authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire")
             });
+
             if (studentInfo.photoBase64) {
                 setStep('bank-reference');
             } else {
                 setStep('photo-capture');
             }
         } catch (err: any) {
-            setError(err.message);
+            console.error("Re-enrollment Verification Error:", err);
+            setError(err.message || "Une erreur inattendue est survenue.");
         } finally {
             setIsLoading(false);
         }
@@ -1081,20 +1132,7 @@ const InscriptionPage: React.FC = () => {
                                                 <div
                                                     className={`relative border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all ${cinRectoImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
                                                         }`}
-                                                    onClick={() => {
-                                                        const input = document.createElement('input');
-                                                        input.type = 'file';
-                                                        input.accept = 'image/*';
-                                                        input.onchange = (e: any) => {
-                                                            const file = e.target?.files?.[0];
-                                                            if (file) {
-                                                                const reader = new FileReader();
-                                                                reader.onload = () => setCinRectoImage(reader.result as string);
-                                                                reader.readAsDataURL(file);
-                                                            }
-                                                        };
-                                                        input.click();
-                                                    }}
+                                                    onClick={() => triggerFileUpload(setCinRectoImage)}
                                                 >
                                                     {cinRectoImage ? (
                                                         <img src={cinRectoImage} alt="CIN Recto" className="max-h-32 rounded-lg object-contain" />
@@ -1113,20 +1151,7 @@ const InscriptionPage: React.FC = () => {
                                                 <div
                                                     className={`relative border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition-all ${cinVersoImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
                                                         }`}
-                                                    onClick={() => {
-                                                        const input = document.createElement('input');
-                                                        input.type = 'file';
-                                                        input.accept = 'image/*';
-                                                        input.onchange = (e: any) => {
-                                                            const file = e.target?.files?.[0];
-                                                            if (file) {
-                                                                const reader = new FileReader();
-                                                                reader.onload = () => setCinVersoImage(reader.result as string);
-                                                                reader.readAsDataURL(file);
-                                                            }
-                                                        };
-                                                        input.click();
-                                                    }}
+                                                    onClick={() => triggerFileUpload(setCinVersoImage)}
                                                 >
                                                     {cinVersoImage ? (
                                                         <img src={cinVersoImage} alt="CIN Verso" className="max-h-32 rounded-lg object-contain" />
@@ -1146,20 +1171,7 @@ const InscriptionPage: React.FC = () => {
                                             <div
                                                 className={`relative border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all ${acteNaissanceImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
                                                     }`}
-                                                onClick={() => {
-                                                    const input = document.createElement('input');
-                                                    input.type = 'file';
-                                                    input.accept = 'image/*';
-                                                    input.onchange = (e: any) => {
-                                                        const file = e.target?.files?.[0];
-                                                        if (file) {
-                                                            const reader = new FileReader();
-                                                            reader.onload = () => setActeNaissanceImage(reader.result as string);
-                                                            reader.readAsDataURL(file);
-                                                        }
-                                                    };
-                                                    input.click();
-                                                }}
+                                                onClick={() => triggerFileUpload(setActeNaissanceImage)}
                                             >
                                                 {acteNaissanceImage ? (
                                                     <img src={acteNaissanceImage} alt="Acte de Naissance" className="max-h-40 rounded-lg object-contain" />
@@ -1180,20 +1192,7 @@ const InscriptionPage: React.FC = () => {
                                     <div
                                         className={`relative border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all ${acteNaissanceImage ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50'
                                             }`}
-                                        onClick={() => {
-                                            const input = document.createElement('input');
-                                            input.type = 'file';
-                                            input.accept = 'image/*';
-                                            input.onchange = (e: any) => {
-                                                const file = e.target?.files?.[0];
-                                                if (file) {
-                                                    const reader = new FileReader();
-                                                    reader.onload = () => setActeNaissanceImage(reader.result as string);
-                                                    reader.readAsDataURL(file);
-                                                }
-                                            };
-                                            input.click();
-                                        }}
+                                        onClick={() => triggerFileUpload(setActeNaissanceImage)}
                                     >
                                         {acteNaissanceImage ? (
                                             <img src={acteNaissanceImage} alt="Acte de Naissance" className="max-h-40 rounded-lg object-contain" />
@@ -1482,12 +1481,28 @@ const InscriptionPage: React.FC = () => {
                                             </div>
                                         )}
 
-                                        <div className="flex gap-4 pt-4">
+                                        <div className="flex gap-4 pt-4 flex-col">
+                                            {error && (
+                                                <div className="p-3 bg-red-50 border border-red-100 rounded-lg flex items-start gap-3 text-red-600 text-xs mb-2">
+                                                    <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                                                    <p>{error}</p>
+                                                </div>
+                                            )}
                                             {formStep === activeSteps.length - 1 ? (
                                                 <Button
                                                     type="button"
                                                     disabled={isLoading}
-                                                    onClick={() => form.handleSubmit(onStudentInfoSubmit)()}
+                                                    onClick={() => {
+                                                        form.handleSubmit(onStudentInfoSubmit, (errors) => {
+                                                            console.error("Validation errors:", errors);
+                                                            const firstError = Object.values(errors)[0];
+                                                            if (firstError) {
+                                                                toast.error(`Erreur: ${firstError.message}`);
+                                                            } else {
+                                                                toast.error("Veuillez vérifier les champs du formulaire.");
+                                                            }
+                                                        })();
+                                                    }}
                                                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-lg shadow-lg shadow-indigo-200"
                                                 >
                                                     {isLoading ? (
