@@ -284,8 +284,8 @@ const InscriptionPage: React.FC = () => {
                 lieuNaissance: data.lieuNaissance,
 
                 // CIN
-                cin: data.cin || undefined,
-                dateDelivrance: data.dateDelivrance || undefined,
+                cin: (!hasNoCin && data.cin) ? data.cin : undefined,
+                dateDelivrance: (!hasNoCin && data.dateDelivrance) ? data.dateDelivrance : undefined,
 
                 // Identity Documents
                 cinRectoBase64: (!hasNoCin && isMajor) ? cinRectoImage : undefined,
