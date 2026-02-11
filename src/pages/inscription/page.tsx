@@ -171,8 +171,11 @@ const InscriptionPage: React.FC = () => {
     }, [dateNaissanceValue]);
 
     const activeSteps = React.useMemo(() => {
-        return formSteps.filter(step => step.id !== 'cin' || isMajor);
-    }, [isMajor]);
+        return formSteps.filter(step => {
+            if (step.id === 'cin') return isMajor && !hasNoCin;
+            return true;
+        });
+    }, [isMajor, hasNoCin]);
 
     const nextFormStep = async () => {
         const fields = activeSteps[formStep].fields as any[];
@@ -501,7 +504,11 @@ const InscriptionPage: React.FC = () => {
                 form.setValue("lieuNaissance", lieuNaissance || "");
                 const finalEmail = (email && email.toLowerCase() === "scitechscolarite@gmail.com") ? "" : (email || "");
                 form.setValue("email", finalEmail);
-                form.setValue("telephone", tel || "");
+                const formattedTel = (tel && !tel.startsWith('0')) ? `0${tel}` : (tel || "");
+                form.setValue("telephone", formattedTel);
+                if (data.studentInfo.dateDelivrance) {
+                    form.setValue("dateDelivrance", data.studentInfo.dateDelivrance);
+                }
             }
 
             setStep('portal-selection');
@@ -551,7 +558,8 @@ const InscriptionPage: React.FC = () => {
             form.setValue("cin", studentInfo.cin || "");
             form.setValue("dateDelivrance", studentInfo.dateDelivrance || "");
             form.setValue("email", studentInfo.email || "");
-            form.setValue("telephone", studentInfo.tel || "");
+            const formattedTel = (studentInfo.tel && !studentInfo.tel.startsWith('0')) ? `0${studentInfo.tel}` : (studentInfo.tel || "");
+            form.setValue("telephone", formattedTel);
             form.setValue("adresse", studentInfo.adresse || "");
 
             if (studentInfo.photoBase64) {
