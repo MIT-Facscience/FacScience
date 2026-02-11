@@ -206,7 +206,11 @@ const InscriptionPage: React.FC = () => {
                 setStep('bank-reference');
             }
         } else if (step === 'bank-reference') {
-            setStep('portal-selection');
+            if (reenrollmentData) {
+                setStep('others-form');
+            } else {
+                setStep('portal-selection');
+            }
         } else if (step === 'portal-selection') {
             setStep('l1-form');
         } else {
@@ -568,11 +572,7 @@ const InscriptionPage: React.FC = () => {
                 statut: authorizedPortal.statusLibelle || (authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire")
             });
 
-            if (studentInfo.photoBase64) {
-                setStep('bank-reference');
-            } else {
-                setStep('photo-capture');
-            }
+            setStep('bank-reference');
         } catch (err: any) {
             console.error("Re-enrollment Verification Error:", err);
             setError(err.message || "Une erreur inattendue est survenue.");
