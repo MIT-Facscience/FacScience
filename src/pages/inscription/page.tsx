@@ -1595,13 +1595,44 @@ const InscriptionPage: React.FC = () => {
                                 </ul>
                             </div>
 
-                            <Button
-                                onClick={() => window.location.reload()}
-                                variant="outline"
-                                className="w-full border-slate-200 hover:bg-slate-50 text-slate-600 font-bold h-12 rounded-xl"
-                            >
-                                Retour à l'accueil
-                            </Button>
+                            <div className="flex flex-col gap-3">
+                                <Button
+                                    onClick={() => {
+                                        setStep('selection');
+                                        setIsLoading(false);
+                                        setError(null);
+                                        setEligiblePortals([]);
+                                        setSelectedPortal(null);
+                                        setPhoto(null);
+                                        setRawPhoto(null);
+                                        setEnrollmentResult(null);
+                                        setCinRectoImage(null);
+                                        setCinVersoImage(null);
+                                        setActeNaissanceImage(null);
+                                        setHasNoCin(false);
+                                        setCrop({ x: 0, y: 0 });
+                                        setZoom(1);
+                                        setCroppedAreaPixels(null);
+                                        setMode('choice');
+                                        setCameraError(false);
+                                        setL1Data({ baccNum: '', baccYear: '' });
+                                        setOthersData({ inscriptionNum: '' });
+                                        setReenrollmentData(null);
+                                        setFormStep(0);
+                                        form.reset();
+                                    }}
+                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl"
+                                >
+                                    Nouvelle inscription
+                                </Button>
+                                <Button
+                                    onClick={() => window.location.reload()}
+                                    variant="outline"
+                                    className="w-full border-slate-200 hover:bg-slate-50 text-slate-600 font-bold h-12 rounded-xl"
+                                >
+                                    Retour à l'accueil
+                                </Button>
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
