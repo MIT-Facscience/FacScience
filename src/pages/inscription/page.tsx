@@ -152,6 +152,13 @@ const InscriptionPage: React.FC = () => {
         }
     });
 
+    const referenceAdminValue = form.watch("referenceAdmin");
+    const referencePedagoValue = form.watch("referencePedago");
+    const referenceMixteValue = form.watch("referenceMixte");
+
+    const isMixteDisabled = (!!referenceAdminValue && referenceAdminValue.length > 0) || (!!referencePedagoValue && referencePedagoValue.length > 0);
+    const isSeparateDisabled = !!referenceMixteValue && referenceMixteValue.length > 0;
+
     const dateNaissanceValue = form.watch("dateNaissance");
 
     const isMajor = React.useMemo(() => {
@@ -1008,9 +1015,10 @@ const InscriptionPage: React.FC = () => {
                                                 <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                                 <Input
                                                     placeholder="Réf. Administrative"
-                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light"
+                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light disabled:opacity-50 disabled:bg-slate-100 italic"
                                                     value={form.watch("referenceAdmin")}
                                                     onChange={(e) => form.setValue("referenceAdmin", e.target.value)}
+                                                    disabled={isSeparateDisabled}
                                                 />
                                             </div>
                                             {form.formState.errors.referenceAdmin && (
@@ -1027,9 +1035,10 @@ const InscriptionPage: React.FC = () => {
                                                 <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                                 <Input
                                                     placeholder="Réf. Pédagogique (Optionnel)"
-                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light"
+                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light disabled:opacity-50 disabled:bg-slate-100 italic"
                                                     value={form.watch("referencePedago")}
                                                     onChange={(e) => form.setValue("referencePedago", e.target.value)}
+                                                    disabled={isSeparateDisabled}
                                                 />
                                             </div>
                                         </div>
@@ -1051,9 +1060,10 @@ const InscriptionPage: React.FC = () => {
                                                 <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                                                 <Input
                                                     placeholder="Réf. Mixte (Couvre les deux)"
-                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light"
+                                                    className="pl-10 h-10 bg-slate-50 border-slate-200 focus:bg-white transition-all rounded-lg text-sm placeholder:text-slate-300 placeholder:font-light disabled:opacity-50 disabled:bg-slate-100 italic"
                                                     value={form.watch("referenceMixte")}
                                                     onChange={(e) => form.setValue("referenceMixte", e.target.value)}
+                                                    disabled={isMixteDisabled}
                                                 />
                                             </div>
                                             <p className="text-[10px] text-slate-400 italic">
