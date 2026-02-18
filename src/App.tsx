@@ -28,6 +28,7 @@ import INTFormulaire from "./pages/admission/int-formulaire/page";
 import ResultatsPage from "./pages/resultats/selection/page";
 import ListesAdmisPage from "./pages/resultats/LicenceEtMaster/page";
 import InscriptionPage from "./pages/inscription/page";
+import AuthorizedList from "./pages/inscription/AuthorizedList";
 // import ConstructionPage from "./pages/Construction/ConstructionPage";
 import { ResultsProvider } from "@/pages/resultats/ResultsProvider";
 
@@ -82,6 +83,7 @@ export default function App() {
           <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
           <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
           <Route path="/admission/inscription" element={<InscriptionPage />} />
+          <Route path="/admission/inscription/autorises" element={<AuthorizedList />} />
           <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
 
           {/* Route "catch-all" */}

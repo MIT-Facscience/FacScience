@@ -1,12 +1,11 @@
-
 {
     "title": "Faculté des Sciences",
     "universityName": "Université d'Antananarivo",
     "about": "Présentation",
     "research": "Recherche",
-    "admission": "Admission", 
+    "admission": "Admission",
     "training": "Formation",
-    "results":"Résultats",
+    "results": "Résultats",
     "news": "Actualités",
     "resultsItems": {
         "selection": "Admission L1",
@@ -26,6 +25,7 @@
     },
     "admissionItems": {
         "modalities": "Modalités",
-        "preRegistration": "Préinscription"
+        "preRegistration": "Préinscription",
+        "authorizedList": "Liste des Autorisés"
     }
 }

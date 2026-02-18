@@ -1,4 +1,3 @@
-
 {
     "title": "Fakiolte an'ny siansa",
     "universityName": "Oniversite an'Antananarivo",
@@ -6,12 +5,12 @@
     "research": "Fikarohana",
     "admission": "Fidirana",
     "training": "Famiofana",
-    "results":"Vokatra",    
-    "news": "Vaovao",   
+    "results": "Vokatra",
+    "news": "Vaovao",
     "resultsItems": {
         "selection": "Tafiditra L1",
         "licenceAndMaster": "Licence sy Master"
-    }, 
+    },
     "contact": "Fifandraisana",
     "language": "Fiteny",
     "aboutItems": {
@@ -26,6 +25,7 @@
     },
     "admissionItems": {
         "modalities": "Modalités",
-        "preRegistration": "Préinscription"
+        "preRegistration": "Préinscription",
+        "authorizedList": "Mpianatra nahazo alalana"
     }
 }

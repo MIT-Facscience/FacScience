@@ -28,6 +28,7 @@ const rechercheItems = [
 const admissionItems = [
   { key: "modalities", to: "/admission/modalite" },
   { key: "preRegistration", to: "/admission/preinscription" },
+  { key: "authorizedList", to: "/admission/inscription/autorises" },
 ];
 
 const resultItems = [
@@ -77,11 +78,10 @@ export default function Navigation() {
                 {/* Présentation Dropdown */}
                 <div className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
-                      isActiveParent("/presentation")
+                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/presentation")
                         ? "text-primary bg-accent-foreground"
                         : "text-sidebar-primary hover:text-ring"
-                    }`}
+                      }`}
                   >
                     <span>{t("about")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
@@ -92,11 +92,10 @@ export default function Navigation() {
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
-                            isActive(item.to)
+                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
                               ? "bg-purple-100 text-focus border-focus"
                               : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
-                          }`}
+                            }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
                           {t(`aboutItems.${item.key}`)}
@@ -109,11 +108,10 @@ export default function Navigation() {
                 {/* Recherche Dropdown */}
                 <div className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
-                      isActiveParent("/recherche")
+                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/recherche")
                         ? "text-primary bg-accent-foreground"
                         : "text-sidebar-primary hover:text-ring"
-                    }`}
+                      }`}
                   >
                     <span>{t("research")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
@@ -124,11 +122,10 @@ export default function Navigation() {
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
-                            isActive(item.to)
+                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
                               ? "bg-purple-100 text-focus border-focus"
                               : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
-                          }`}
+                            }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
                           {t(`researchItems.${item.key}`)}
@@ -141,11 +138,10 @@ export default function Navigation() {
                 {/* Admission Dropdown */}
                 <div className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
-                      isActiveParent("/admission")
+                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/admission")
                         ? "text-primary bg-accent-foreground"
                         : "text-sidebar-primary hover:text-ring"
-                    }`}
+                      }`}
                   >
                     <span>{t("admission")}</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
@@ -156,11 +152,10 @@ export default function Navigation() {
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
-                            isActive(item.to)
+                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
                               ? "bg-purple-100 text-focus border-focus"
                               : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
-                          }`}
+                            }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
                           {t(`admissionItems.${item.key}`)}
@@ -173,11 +168,10 @@ export default function Navigation() {
                 {/* Formation */}
                 <a
                   href="/formation"
-                  className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
-                    isActive("/formation")
+                  className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${isActive("/formation")
                       ? "text-primary bg-purple-50/70"
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
-                  }`}
+                    }`}
                 >
                   {t("training")}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
@@ -186,11 +180,10 @@ export default function Navigation() {
                 {/* Actualités */}
                 <a
                   href="/actualites"
-                  className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${
-                    isActive("/actualites")
+                  className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${isActive("/actualites")
                       ? "text-primary bg-purple-50/70"
                       : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
-                  }`}
+                    }`}
                 >
                   {t("news")}
                   <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-300 group-hover:w-8"></div>
@@ -199,11 +192,10 @@ export default function Navigation() {
 
                 <div className="relative group">
                   <button
-                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${
-                      isActiveParent("/resultats")
+                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/resultats")
                         ? "text-primary bg-accent-foreground"
                         : "text-sidebar-primary hover:text-ring"
-                    }`}
+                      }`}
                   >
                     <span>{t("results")}</span>
                     {/* <p>ici reg</p> */}
@@ -215,11 +207,10 @@ export default function Navigation() {
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${
-                            isActive(item.to)
+                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
                               ? "bg-purple-100 text-focus border-focus"
                               : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
-                          }`}
+                            }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
                           {t(`resultsItems.${item.key}`)}
@@ -339,11 +330,10 @@ export default function Navigation() {
                 ].map((section) => (
                   <div key={section.title} className="space-y-3">
                     <h3
-                      className={`font-semibold text-sm tracking-wide uppercase border-b pb-2 ${
-                        isActiveParent(section.base)
+                      className={`font-semibold text-sm tracking-wide uppercase border-b pb-2 ${isActiveParent(section.base)
                           ? "text-primary"
                           : "text-sidebar-primary border-focus"
-                      }`}
+                        }`}
                     >
                       {section.title}
                     </h3>
@@ -352,11 +342,10 @@ export default function Navigation() {
                         <a
                           key={item.to}
                           href={item.to}
-                          className={`block py-2 text-sm font-medium transition-all duration-200 ${
-                            isActive(item.to)
+                          className={`block py-2 text-sm font-medium transition-all duration-200 ${isActive(item.to)
                               ? "text-secondary border-l-1 font-semibold pl-2 border-chart-4"
                               : "text-muted-foreground hover:text-primary hover:pl-2"
-                          }`}
+                            }`}
                           onClick={() => setIsOpen(false)}
                         >
                           {t(`${section.namespace}.${item.key}`)}
@@ -389,13 +378,12 @@ export default function Navigation() {
                     <a
                       key={link.name}
                       href={link.path}
-                      className={`block p-4 rounded-xl transition-all duration-200 font-medium border ${
-                        isActive(link.path)
+                      className={`block p-4 rounded-xl transition-all duration-200 font-medium border ${isActive(link.path)
                           ? "bg-purple-100 text-primary border-ring"
                           : link.special
-                          ? "bg-gradient-to-r from-border to-primary text-white border-primary hover:from-purple-500 hover:to-purple-600"
-                          : "bg-gradient-to-r from-purple-50 to-purple-100 text-slate-800 border-border hover:from-purple-100 hover:to-purple-200"
-                      }`}
+                            ? "bg-gradient-to-r from-border to-primary text-white border-primary hover:from-purple-500 hover:to-purple-600"
+                            : "bg-gradient-to-r from-purple-50 to-purple-100 text-slate-800 border-border hover:from-purple-100 hover:to-purple-200"
+                        }`}
                       onClick={() => setIsOpen(false)}
                     >
                       {link.name}
