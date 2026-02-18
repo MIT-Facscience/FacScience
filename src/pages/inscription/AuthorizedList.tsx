@@ -6,7 +6,6 @@ import {
     ChevronRight,
     AlertCircle,
     GraduationCap,
-    BookOpen,
     UserCheck,
     RefreshCw
 } from 'lucide-react';
