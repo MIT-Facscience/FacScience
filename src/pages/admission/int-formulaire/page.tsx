@@ -528,8 +528,8 @@ export default function INTForm() {
       case 4:
         return (
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
-              {t("intForm.steps.applicationFee")}
+            <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2 flex gap-2">
+              {t("intForm.steps.applicationFee")} <p className="text-red-500">(Pas encore obligatoire)</p>
             </h3>
             <div className="grid sm:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
