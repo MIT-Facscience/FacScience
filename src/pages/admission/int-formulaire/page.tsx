@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Upload, User, FileText, CheckCircle, GraduationCap, UserRoundPen, AlertCircle, ArrowLeft, ArrowRight, Mail, Phone } from "lucide-react";
+import { Upload, FileText, CheckCircle, GraduationCap, UserRoundPen, AlertCircle, ArrowLeft, ArrowRight, Mail, Phone } from "lucide-react";
 import { BACKEND_URL } from "@/lib/api";
 import { useTranslation } from "react-i18next";
 
