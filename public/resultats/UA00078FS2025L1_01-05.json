@@ -1,0 +1,29 @@
+{
+  "numero_inscription": "UA00078FS2025L1/01-05",
+  "nom": "ASANDRATRINIAVO",
+  "prenom": "MIALITSOA FANANTENANA TIFFANIE",
+  "verdicte": "Vous êtes autorisé(e) à s'inscrire en L2 IT",
+  "L1": {
+    "RANG": 20,
+    "S1": "V",
+    "S2": "V",
+    "L1": "V"
+  },
+  "S1": {
+    "BASE DE LA PROGRAMMATION": "V",
+    "PRISE EN MAIN UNIX/LINUX": "V",
+    "PHYSIQUE": "V",
+    "TECHNIQUE DE COMMUNICATION": "V",
+    "MATHÉMATIQUES GÉNÉRALES": "V",
+    "VALIDATION S1": "V"
+  },
+  "S2": {
+    "LINUX": "V",
+    "LANGAGE C": "V",
+    "ELECTROMÉCANIQUE": "V",
+    "COMMUNICATION": "V",
+    "MATHÉMATIQUES APPLIQUÉES POUR L’INFORMATIQUE": "V",
+    "COMBINATOIRE ET PROBABILITÉ": "V",
+    "VALIDATION S2": "V"
+  }
+}

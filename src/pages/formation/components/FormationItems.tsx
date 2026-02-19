@@ -12,13 +12,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import ErrorComp from "@/components/Home/error";
 import Loader from "@/components/Home/loading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BACKEND_URL } from "@/lib/api";
+import { BACKEND_ADMIN_URL } from "@/lib/api";
 import { useEffect, useState } from "react";
 import Parcours from "./Parcour";
 
 interface Mention {
   nomMention: string;
-  responsable?: {nom: string; prenom: string};
+  responsable?: { nom: string; prenom: string };
   imagePath?: string;
   logoPath?: string;
 }
@@ -43,22 +43,22 @@ export default function FormationItems() {
   // const image = getImageMention(id);
   const icon = [<Users />, <BookOpen />, <Clock />, <Award />];
 
-  const [ mention, setMention ] = useState<Mention | null>();
-  const [ parcours, setParcours ] = useState<Parcours[] | null>();
-  const [ parcoursPro, setParcoursPro ] = useState<ParcoursProfessionnalisante[] | null>();
-  const [ loading, setLoading ] = useState(true);
-  const [ error, setError ] = useState<string | null>(null);
+  const [mention, setMention] = useState<Mention | null>();
+  const [parcours, setParcours] = useState<Parcours[] | null>();
+  const [parcoursPro, setParcoursPro] = useState<ParcoursProfessionnalisante[] | null>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  
+
 
   useEffect(() => {
     const fetchParcours = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/Mention/${id}/parcours`);
+        const response = await fetch(`${BACKEND_ADMIN_URL}/api/Mention/${id}/parcours`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         console.log(json)
-      
+
         setParcours(json.pn);
         setParcoursPro(json.pp);
       } catch (err) {
@@ -74,7 +74,7 @@ export default function FormationItems() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/Mention/${id}`);
+        const response = await fetch(`${BACKEND_ADMIN_URL}/api/Mention/${id}`);
         if (!response.ok) throw new Error("Erreur réseau");
         const json = await response.json();
         console.log(json)
@@ -98,7 +98,7 @@ export default function FormationItems() {
     getData()
   }, [id]);
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
   if (error) return <ErrorComp>{error}</ErrorComp>;
   return (
     <>
@@ -145,7 +145,7 @@ export default function FormationItems() {
                     onError={(e) => {
                       e.currentTarget.src = "/fac-science.jpg";
                     }}
-                     alt="" className="w-30 md:w-40 h-auto" />
+                    alt="" className="w-30 md:w-40 h-auto" />
                   <h1 className="text-center">{mention?.nomMention}</h1>
                 </CardHeader>
                 <CardContent className="flex justify-center text-slate-500 font-medium">
@@ -183,22 +183,22 @@ export default function FormationItems() {
                 ))}
             </div>
 
-            
+
             <Tabs defaultValue="normal">
               <TabsList className="w-full h-10 sm:h-12 mt-5 rounded-none">
                 {parcours && parcours.length > 0 && (<TabsTrigger
-                    value="normal"
-                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
-                  >
-                    <span className="hidden sm:flex">Académique</span>
-                  </TabsTrigger>
+                  value="normal"
+                  className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
+                >
+                  <span className="hidden sm:flex">Académique</span>
+                </TabsTrigger>
                 )}
                 {parcoursPro && parcoursPro.length > 0 && (<TabsTrigger
-                    value="professionalisante"
-                    className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
-                  >
-                    <span className="hidden sm:flex">Professionnalisante</span>
-                  </TabsTrigger>
+                  value="professionalisante"
+                  className=" font-bold text-slate-600 text-sm sm:text-base cursor-pointer data-[state=active]:text-white data-[state=active]:bg-primary rounded-none"
+                >
+                  <span className="hidden sm:flex">Professionnalisante</span>
+                </TabsTrigger>
                 )}
               </TabsList>
               <TabsContent value="normal">

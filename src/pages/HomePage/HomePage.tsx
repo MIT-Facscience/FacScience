@@ -4,8 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PrimaryButton from "@/components/ui/PrimaryButton";
-import { BACKEND_URL } from "@/lib/api";
-import { motion} from "framer-motion";
+import { BACKEND_ADMIN_URL, BACKEND_URL } from "@/lib/api";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -16,11 +16,15 @@ import {
   MapPin,
   Microscope,
   Users,
+  User,
+  AlertCircle,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import type { Actuality } from "@/lib/types";
+
 interface ResearchCenter {
   title: string;
   backgroundColor: string;
@@ -32,11 +36,29 @@ export default function HomePage() {
   const [nbEnseignants, setNbEnseignants] = useState(200);
   const [nbMentions, setNbMentions] = useState(14);
   const [nbLabo, setNbLabo] = useState(30);
+  const [latestNews, setLatestNews] = useState<Actuality[]>([]);
   const { t } = useTranslation("home");
 
   useEffect(() => {
+    fetch(`${BACKEND_ADMIN_URL}/api/Actualite/latest`)
+      .then((response) => {
+        if (!response.ok) throw new Error("Erreur de chargement des actualités");
+        return response.json();
+      })
+      .then((data) => {
+        setLatestNews(data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des actualités :", error);
+      });
+  }, []);
+
+  useEffect(() => {
     fetch(`${BACKEND_URL}/api/stat/enseignant`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Erreur de chargement des enseignants");
+        return response.json();
+      })
       .then((data) => {
         setNbEnseignants(data.length);
       })
@@ -47,7 +69,10 @@ export default function HomePage() {
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/stat/mention`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Erreur de chargement des mentions");
+        return response.json();
+      })
       .then((data) => {
         setNbMentions(data.length);
       })
@@ -58,7 +83,10 @@ export default function HomePage() {
 
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/stat/labo`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Erreur de chargement des labos");
+        return response.json();
+      })
       .then((data) => {
         setNbLabo(data.length);
       })
@@ -87,42 +115,6 @@ export default function HomePage() {
       number: nbLabo,
       label: t("home.stats.laboratories"),
       icon: <Microscope className="h-6 w-6" />,
-    },
-  ];
-
-  const latestNews = [
-    {
-      id: 1,
-      type: "event",
-      title: t("home.news.items.event1.title"),
-      date: t("home.news.items.event1.date"),
-      time: t("home.news.items.event1.time"),
-      location: t("home.news.items.event1.location"),
-      description: t("home.news.items.event1.description"),
-      urgent: true,
-      icon: <Users className="h-4 w-4" />,
-    },
-    {
-      id: 2,
-      type: "inscription",
-      title: t("home.news.items.inscription1.title"),
-      date: t("home.news.items.inscription1.date"),
-      time: t("home.news.items.inscription1.time"),
-      location: t("home.news.items.inscription1.location"),
-      description: t("home.news.items.inscription1.description"),
-      urgent: true,
-      icon: <Calendar className="h-4 w-4" />,
-    },
-    {
-      id: 3,
-      type: "info",
-      title: t("home.news.items.info1.title"),
-      date: t("home.news.items.info1.date"),
-      time: t("home.news.items.info1.time"),
-      location: t("home.news.items.info1.location"),
-      description: t("home.news.items.info1.description"),
-      urgent: false,
-      icon: <MapPin className="h-4 w-4" />,
     },
   ];
 
@@ -173,69 +165,95 @@ export default function HomePage() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {latestNews.map((news) => (
-                    <Card
+                    <motion.div
                       key={news.id}
-                      className="relative border-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card/90 backdrop-blur-sm"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5 }}
                     >
-                      {news.urgent && (
-                        <div className="bg-[gent-clip-path] z-40 absolute top-3 -right-1.5 bg-gradient-to-r from-destructive to-destructive text-destructive-foreground pl-5 pr-3 py-1 text-xs font-semibold">
-                          {t("home.news.urgent")}
-                          <span className="right-0 top-full z-50 bg-red-400 absolute w-1.5 h-1.5 triangle" />
-                        </div>
-                      )}
+                      <Card className="relative border-0 t-0 p-0 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-card/90 backdrop-blur-sm h-full overflow-hidden">
+                        <Link to={`/actualites/${news.id}`}>
+                          <div className="relative w-full h-48 overflow-hidden flex items-start">
+                            {news.media && news.media.length > 0 ? (
+                              <img
+                                src={`${BACKEND_ADMIN_URL}${news.media[0].url}`}
+                                alt={news.title}
+                                className="w-full h-auto"
+                              />
+                            ) : (
+                              <div className="w-full h-40 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                <Calendar className="h-10 w-10 text-slate-300" />
+                              </div>
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                            <div className="absolute z-20 top-4 left-4 flex gap-2">
+                              <Badge className="bg-primary/90 text-white px-3 py-1 border-0 rounded-full shadow-sm text-[10px] font-bold uppercase tracking-wider">
+                                {news.category}
+                              </Badge>
+                              {news.isUrgent && (
+                                <Badge variant="destructive" className="px-3 py-1 border-0 rounded-full flex items-center gap-1 shadow-sm animate-pulse text-[10px] font-bold uppercase tracking-wider">
+                                  <AlertCircle className="h-3 w-3" />
+                                  Urgent
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="absolute z-20 bottom-5 left-5 right-5">
+                              <h3 className="text-sm text-white leading-tight font-bold drop-shadow-md line-clamp-2">
+                                {news.title}
+                              </h3>
+                            </div>
+                          </div>
 
-                      <CardContent className="p-6">
-                        <div className="flex items-start space-x-3 mb-4">
-                          <div
-                            className={`p-2 rounded-none aspect-square ${
-                              news.type === "event"
-                                ? "bg-primary/10 text-primary"
-                                : news.type === "inscription"
-                                ? "bg-secondary/10 text-secondary-foreground"
-                                : "bg-destructive/10 text-foreground"
-                            }`}
-                          >
-                            {news.icon}
-                          </div>
-                          <div className="flex-1">
-                            <Badge
-                              variant="secondary"
-                              className={`mb-2 ${
-                                news.type === "event"
-                                  ? "bg-primary/10 text-primary"
-                                  : news.type === "inscription"
-                                  ? "bg-secondary/10 text-secondary-foreground"
-                                  : "bg-destructive/10 text-foreground"
-                              }`}
-                            >
-                              {t(`home.news.types.${news.type}`)}
-                            </Badge>
-                            <h3 className="font-semibold text-card-foreground text-lg leading-tight mb-2">
-                              {news.title}
-                            </h3>
-                          </div>
-                        </div>
-
-                        <div className="space-y-2 mb-4">
-                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <Calendar className="h-4 w-4" />
-                            <span className="font-medium">{news.date}</span>
-                          </div>
-                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <Clock className="h-4 w-4" />
-                            <span>{news.time}</span>
-                          </div>
-                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <MapPin className="h-4 w-4" />
-                            <span>{news.location}</span>
-                          </div>
-                        </div>
-
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {news.description}
-                        </p>
-                      </CardContent>
-                    </Card>
+                          <CardContent className="p-5">
+                            <div className="flex flex-col gap-2.5 mb-4">
+                              <div className="flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                                {news.beginedAt && (
+                                  <div className="flex items-center gap-1.5 bg-slate-100/50 dark:bg-slate-800/50 px-2 py-1 rounded-lg">
+                                    <Calendar className="h-3 w-3 text-primary" />
+                                    <span>{new Date(news.beginedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                                    <span className="mx-1 text-slate-300">|</span>
+                                    <Clock className="h-3 w-3 text-primary" />
+                                    <span>{new Date(news.beginedAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                                  </div>
+                                )}
+                                {news.finishAt && (
+                                  <div className="flex items-center gap-1.5 bg-primary/5 text-primary px-2 py-1 rounded-lg border border-primary/10">
+                                    <span className="text-[9px] opacity-70">AU</span>
+                                    <span>{new Date(news.finishAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</span>
+                                    <span className="mx-1 opacity-20">|</span>
+                                    <span>{new Date(news.finishAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                                  </div>
+                                )}
+                              </div>
+                              {news.location && (
+                                <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-emerald-700 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400 w-fit px-2.5 py-1 rounded-full border border-emerald-100 dark:border-emerald-800/30">
+                                  <MapPin className="h-3 w-3 text-emerald-600" />
+                                  <span className="truncate max-w-[150px]">{news.location}</span>
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 mb-5">
+                              {news.description}
+                            </p>
+                            <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+                              <span className="text-slate-400 font-bold text-[9px] uppercase tracking-[0.2em] flex items-center gap-2">
+                                <User className="h-3 w-3 opacity-50" />
+                                Fac Science
+                              </span>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-[10px] font-bold uppercase tracking-wider text-primary hover:bg-primary/10 group h-8 rounded-full px-4"
+                              >
+                                {t("home.news.seeAll")}
+                                <ArrowRight className="ml-2 h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Link>
+                      </Card>
+                    </motion.div>
                   ))}
                 </div>
 
@@ -315,7 +333,7 @@ export default function HomePage() {
             className="mb-24 py-12 px-4 sm:px-6 lg:px-8"
           >
             <div className="text-center mb-16">
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
@@ -323,7 +341,7 @@ export default function HomePage() {
               >
                 {t("home.portals.title")}
               </motion.h2>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
@@ -360,7 +378,7 @@ export default function HomePage() {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.div>
               ))}
@@ -391,7 +409,7 @@ export default function HomePage() {
                         </div>
                       </div>
                       <div className="text-3xl font-bold text-foreground mb-2">
-                       <CountUp end={parseInt(String(stat.number))} duration={4} delay={1} />
+                        <CountUp end={parseInt(String(stat.number))} duration={4} delay={1} />
                       </div>
                       <div className="text-sm text-muted-foreground font-medium">
                         {stat.label}

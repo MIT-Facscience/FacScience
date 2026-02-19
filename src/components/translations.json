@@ -6,7 +6,9 @@
     "admission":"Admission",
     "new":"Actualité",
     "result":"Résultat",
-    "contact": "Contact"
+    "contact": "Contact",
+    "Admission L1" : "Admission L1",
+    "Licence and Master" : "Licence et Master"
   },
   "en": {
     "home": "Home",
@@ -16,6 +18,8 @@
     "new":"News",
     "search":"Research",
     "result":"Result",
-    "contact": "Contact"
+    "contact": "Contact",
+    "Admission L1" :"Admission L1",
+    "Licence et Master" : "Licence and Master"
   }
 }
