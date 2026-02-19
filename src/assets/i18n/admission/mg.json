@@ -153,7 +153,8 @@
             "baccalaureateTranscript": "Mari-pahaizana mirakitra naoty bakalorea",
             "transcripts": "Naoty (3 taona farany)",
             "paymentProof": "Porofo fandoavam-bola",
-            "paymentReference": "Reference fandoavam-bola"
+            "paymentReference": "Reference fandoavam-bola",
+            "demande": "Fangatahana fidirana"
         },
         "placeholders": {
             "enterLastName": "Ampidiro ny anaranao",
@@ -190,7 +191,7 @@
         },
         "success": {
             "title": "Nalefan'ny fahombiazana ny fangatahana!",
-            "message": "Nalefa ny mailaka fanamarinana tany amin'ny <strong>{email}</strong>.",
+            "message": "Nalefa ny mailaka fanamarinana tany amin'ny",
             "details": "Nalefan'ny fahombiazana ny antontan-taratasinao."
         },
         "summary": {
@@ -211,6 +212,7 @@
             "paymentProof": "Porofo fandoavam-bola",
             "paymentReference": "Reference fandoavam-bola",
             "notSpecified": "Tsy voafaritra",
+            "demande": "Fangatahana fidirana",
             "year": "Taona {number}"
         },
         "fileNames": {

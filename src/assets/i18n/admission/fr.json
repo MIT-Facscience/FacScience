@@ -94,7 +94,8 @@
             "baccalaureateTranscript": "Relevé de notes du Baccalauréat",
             "transcripts": "Relevés de notes (3 dernières années)",
             "paymentProof": "Justificatif de paiement",
-            "paymentReference": "Référence du paiement"
+            "paymentReference": "Référence du paiement",
+            "demande": "Demande d'admission"
         },
         "placeholders": {
             "enterLastName": "Entrez votre nom",
@@ -131,7 +132,7 @@
         },
         "success": {
             "title": "Candidature déposée avec succès !",
-            "message": "Un email de confirmation a été envoyé à <strong>{email}</strong>.",
+            "message": "Un email de confirmation a été envoyé à",
             "details": "Votre dossier a été soumis avec succès."
         },
         "summary": {
@@ -151,6 +152,7 @@
             "transcripts": "Relevés de notes",
             "paymentProof": "Justificatif de paiement",
             "paymentReference": "Référence du paiement",
+            "demande": "Demande d'admission",
             "notSpecified": "Non spécifié",
             "year": "Année {number}"
         },

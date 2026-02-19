@@ -23,6 +23,7 @@ interface FormData {
   justificatifPaiement: File | null;
   baccalaureat: File | null;
   notes: (File | null)[];
+  demande: (File | null);
 }
 
 interface FormErrors {
@@ -39,6 +40,7 @@ interface FormErrors {
   baccalaureat?: string;
   notes?: string[];
   form?: string;
+  demande?: string;
 }
 
 export default function INTForm() {
@@ -56,6 +58,7 @@ export default function INTForm() {
     justificatifPaiement: null,
     baccalaureat: null,
     notes: [null, null, null],
+    demande: null
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -78,7 +81,7 @@ export default function INTForm() {
 
   const validateStep = (step: number): FormErrors => {
     const newErrors: FormErrors = {};
-    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    const maxFileSize = 10 * 1024 * 1024; // 5MB
     
     if (step === 1) {
       if (!formData.master) newErrors.master = t("intForm.errors.required");
@@ -104,11 +107,14 @@ export default function INTForm() {
         newErrors.grade = t("intForm.errors.l3NotAllowedForM2");
       }
       if (!formData.cv) newErrors.cv = t("intForm.errors.fileRequired");
+      if (!formData.demande) newErrors.demande = t("intForm.errors.fileRequired");
       if (!formData.baccalaureat) newErrors.baccalaureat = t("intForm.errors.fileRequired");
-      const notesErrors = formData.notes.map((note, index) => 
-        !note ? t("intForm.errors.yearTranscriptRequired", { year: index + 1 }) : null
-      ).filter(Boolean) as string[];
-      if (notesErrors.length > 0) newErrors.notes = notesErrors;
+      
+      // const notesErrors = formData.notes.map((note, index) => 
+      //   !note ? t("intForm.errors.yearTranscriptRequired", { year: index + 1 }) : null
+      // ).filter(Boolean) as string[];
+
+      // if (notesErrors.length > 0) newErrors.notes = notesErrors;
       
       if (formData.cv && formData.cv.size > maxFileSize) {
         newErrors.cv = t("intForm.errors.fileTooLarge");
@@ -116,20 +122,23 @@ export default function INTForm() {
       if (formData.baccalaureat && formData.baccalaureat.size > maxFileSize) {
         newErrors.baccalaureat = t("intForm.errors.fileTooLarge");
       }
-      formData.notes.forEach((note, index) => {
-        if (note && note.size > maxFileSize) {
-          if (!newErrors.notes) newErrors.notes = [];
-          newErrors.notes[index] = t("intForm.errors.fileTooLarge");
-        }
-      });
-    }
-    if (step === 4) {
-      if (!formData.referencePaiement.trim()) newErrors.referencePaiement = t("intForm.errors.required");
-      if (!formData.justificatifPaiement) newErrors.justificatifPaiement = t("intForm.errors.fileRequired");
-      if (formData.justificatifPaiement && formData.justificatifPaiement.size > maxFileSize) {
-        newErrors.justificatifPaiement = t("intForm.errors.fileTooLarge");
+      if (formData.demande && formData.demande.size > maxFileSize) {
+        newErrors.demande = t("intForm.errors.fileTooLarge");
       }
+      // formData.notes.forEach((note, index) => {
+      //   if (note && note.size > maxFileSize) {
+      //     if (!newErrors.notes) newErrors.notes = [];
+      //     newErrors.notes[index] = t("intForm.errors.fileTooLarge");
+      //   }
+      // });
     }
+    // if (step === 4) {
+    //   if (!formData.referencePaiement.trim()) newErrors.referencePaiement = t("intForm.errors.required");
+    //   if (!formData.justificatifPaiement) newErrors.justificatifPaiement = t("intForm.errors.fileRequired");
+    //   if (formData.justificatifPaiement && formData.justificatifPaiement.size > maxFileSize) {
+    //     newErrors.justificatifPaiement = t("intForm.errors.fileTooLarge");
+    //   }
+    // }
 
     return newErrors;
   };
@@ -203,7 +212,7 @@ export default function INTForm() {
     formData.notes.forEach((note) => {
       if (note) fd.append("Notes", note);
     });
-
+    if (formData.demande) fd.append("Demande", formData.demande);
     try {
       const response = await fetch(`${BACKEND_URL}/api/Parcours/int-application`, {
         method: "POST",
@@ -255,6 +264,7 @@ export default function INTForm() {
       justificatifPaiement: null,
       baccalaureat: null,
       notes: [null, null, null],
+      demande: null
     });
     setErrors({});
     setCurrentStep(1);
@@ -281,7 +291,7 @@ export default function INTForm() {
             {t("intForm.success.title")}
           </h3>
           <p className="text-base text-gray-700">
-            {renderHTML(t("intForm.success.message", { email: formData.email }))}
+            {renderHTML(t("intForm.success.message"))} {formData.email}
           </p>
           <p className="text-gray-600">
             {t("intForm.success.details")}
@@ -472,7 +482,24 @@ export default function INTForm() {
                 <p className="text-xs text-red-500 mt-1">{errors.baccalaureat}</p>
               )}
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="baccalaureat" className="flex items-center gap-2">
+                <Upload className="h-4 w-4 text-primary" /> {t("intForm.labels.demande")}
+              </Label>
+              <Input
+                id="demande"
+                name="demande"
+                type="file"
+                accept="image/*,.pdf"
+                onChange={handleChange}
+                className={`cursor-pointer ${errors.baccalaureat ? 'border-red-500' : ''}`}
+              />
+              <p className="text-xs text-muted-foreground mt-1">{renderFileName(formData.demande)}</p>
+              {errors.baccalaureat && (
+                <p className="text-xs text-red-500 mt-1">{errors.demande}</p>
+              )}
+            </div>
+            {/* <div className="flex flex-col">
               <Label className="flex items-center gap-2 mb-2">
                 <User className="h-4 w-4 text-primary" /> {t("intForm.labels.transcripts")}
               </Label>
@@ -495,7 +522,7 @@ export default function INTForm() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         );
       case 4:
@@ -563,12 +590,13 @@ export default function INTForm() {
                 <p><strong>{t("intForm.summary.levelAndGrade")}:</strong> {formData.grade || t("intForm.summary.notSpecified")}</p>
                 <p><strong>{t("intForm.summary.cv")}:</strong> {renderFileName(formData.cv)}</p>
                 <p><strong>{t("intForm.summary.baccalaureateTranscript")}:</strong> {renderFileName(formData.baccalaureat)}</p>
-                <p><strong>{t("intForm.summary.transcripts")}:</strong></p>
-                <ul className="list-disc pl-5">
+                <p><strong>{t("intForm.summary.demande")}:</strong> {renderFileName(formData.demande)}</p>
+                {/* <p><strong>{t("intForm.summary.transcripts")}:</strong></p> */}
+                {/* <ul className="list-disc pl-5">
                   {formData.notes.map((note, index) => (
                     <li key={index}>{renderFileName(note)} ({t("intForm.summary.year", { number: index + 1 })})</li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
               <div>
                 <h4 className="font-medium text-indigo-700">{t("intForm.summary.applicationFee")}</h4>

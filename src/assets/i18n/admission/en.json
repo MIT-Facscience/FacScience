@@ -94,7 +94,8 @@
             "baccalaureateTranscript": "Baccalaureate Transcript",
             "transcripts": "Transcripts (last 3 years)",
             "paymentProof": "Payment Proof",
-            "paymentReference": "Payment Reference"
+            "paymentReference": "Payment Reference",
+            "demande": "Application for admission"
         },
         "placeholders": {
             "enterLastName": "Enter your last name",
@@ -119,7 +120,7 @@
             "invalidPhone": "Invalid phone number (10-15 digits)",
             "l3NotAllowedForM2": "For Master 2, Bachelor 3 is not allowed",
             "fileRequired": "File is required",
-            "fileTooLarge": "File must not exceed 5MB",
+            "fileTooLarge": "File must not exceed 10MB",
             "yearTranscriptRequired": "Transcript for year {year} is required"
         },
         "buttons": {
@@ -131,7 +132,7 @@
         },
         "success": {
             "title": "Application submitted successfully!",
-            "message": "A confirmation email has been sent to <strong>{email}</strong>.",
+            "message": "A confirmation email has been sent to",
             "details": "Your application has been successfully submitted."
         },
         "summary": {
@@ -151,6 +152,7 @@
             "transcripts": "Transcripts",
             "paymentProof": "Payment Proof",
             "paymentReference": "Payment Reference",
+            "demande": "Application for admission",
             "notSpecified": "Not specified",
             "year": "Year {number}"
         },
