@@ -78,7 +78,7 @@ const studentSchema = z.object({
 
 type StudentFormValues = z.infer<typeof studentSchema>;
 
-type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'portal-selection' | 'bank-reference' | 'photo-capture' | 'identity-documents' | 'student-info' | 'success';
+type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'others-portal-selection' | 'portal-selection' | 'bank-reference' | 'photo-capture' | 'identity-documents' | 'student-info' | 'success';
 
 interface EligiblePortal {
     idPortail: number;
@@ -100,6 +100,7 @@ const InscriptionPage: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [eligiblePortals, setEligiblePortals] = useState<EligiblePortal[]>([]);
+    const [authorizedPortals, setAuthorizedPortals] = useState<any[]>([]);
     const [selectedPortal, setSelectedPortal] = useState<EligiblePortal | null>(null);
     const [photo, setPhoto] = useState<string | null>(null); // Final cropped photo
     const [rawPhoto, setRawPhoto] = useState<string | null>(null); // Original photo for cropping
@@ -221,16 +222,24 @@ const InscriptionPage: React.FC = () => {
             } else {
                 setStep('portal-selection');
             }
-        } else if (step === 'portal-selection') {
-            setStep('l1-form');
+        } else if (step === 'portal-selection' || step === 'others-portal-selection') {
+            if (step === 'portal-selection') setStep('l1-form');
+            else setStep('others-form');
         } else {
             setStep('selection');
         }
         setError(null);
     };
 
-    const handlePortalSelect = (portal: EligiblePortal) => {
+    const handlePortalSelect = (portal: EligiblePortal | any) => {
         setSelectedPortal(portal);
+        if (portal.idMpn) {
+            setReenrollmentData({
+                idEtudiant: reenrollmentData?.idEtudiant || 0,
+                idMpn: portal.idMpn,
+                codeRedoublement: portal.nextCode
+            });
+        }
         setStep('bank-reference');
     };
 
@@ -552,11 +561,7 @@ const InscriptionPage: React.FC = () => {
 
             const data = await response.json();
 
-            if (!data || !data.studentInfo || !data.authorizedPortal) {
-                throw new Error("Données de réinscription incomplètes ou invalides.");
-            }
-
-            const { studentInfo, authorizedPortal } = data;
+            const { studentInfo, authorizedPortals: portals } = data;
             form.setValue("nom", studentInfo.nom || "");
             form.setValue("prenom", studentInfo.prenom || "");
             form.setValue("sexe", studentInfo.sexe || "M");
@@ -573,21 +578,28 @@ const InscriptionPage: React.FC = () => {
                 setPhoto(studentInfo.photoBase64);
             }
 
+            setAuthorizedPortals(portals);
+
+            // Re-enrollment data structure (temp storage until portal chosen)
             setReenrollmentData({
                 idEtudiant: studentInfo.idEtudiant,
-                idMpn: authorizedPortal.idMpn,
-                codeRedoublement: authorizedPortal.nextCode
+                idMpn: portals[0].idMpn, // Default
+                codeRedoublement: portals[0].nextCode
             });
 
-            setSelectedPortal({
-                idPortail: 0,
-                nomPortail: authorizedPortal.nomPortail,
-                abbreviation: authorizedPortal.abbreviation,
-                idPreinscription: 0,
-                statut: authorizedPortal.statusLibelle || (authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire")
-            });
-
-            setStep('bank-reference');
+            if (portals.length > 1) {
+                setStep('others-portal-selection');
+            } else {
+                const authorizedPortal = portals[0];
+                setSelectedPortal({
+                    idPortail: 0,
+                    nomPortail: authorizedPortal.nomPortail,
+                    abbreviation: authorizedPortal.abbreviation,
+                    idPreinscription: 0,
+                    statut: authorizedPortal.statusLibelle || (authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire")
+                });
+                setStep('bank-reference');
+            }
         } catch (err: any) {
             console.error("Re-enrollment Verification Error:", err);
             setError(err.message || "Une erreur inattendue est survenue.");
@@ -804,6 +816,83 @@ const InscriptionPage: React.FC = () => {
                             <div className="mt-8 pt-6 border-t border-slate-50">
                                 <p className="text-[11px] text-slate-400 text-center leading-relaxed italic">
                                     Sélectionnez un portail pour continuer vers le formulaire d'inscription détaillé.
+                                </p>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {step === 'others-portal-selection' && (
+                        <motion.div
+                            key="others-portal-selection"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            className="w-full sm:bg-white sm:rounded-xl sm:shadow-[0_10px_40px_rgba(0,0,0,0.08)] sm:border sm:border-slate-100 p-4 sm:p-10"
+                        >
+                            <div className="mb-6 sm:mb-8 text-center sm:text-left">
+                                <button
+                                    onClick={handleBack}
+                                    className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
+                                >
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> MODIFIER
+                                </button>
+                                <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
+                                    Vos Autorisations
+                                </h1>
+                                <p className="text-slate-400 text-xs mt-1">
+                                    Vous êtes autorisé à vous inscrire dans plusieurs parcours. Veuillez choisir l'un d'entre eux :
+                                </p>
+                            </div>
+
+                            <div className="space-y-4">
+                                {authorizedPortals.map((portal, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => handlePortalSelect(portal)}
+                                        className="w-full group text-left p-5 rounded-2xl border border-slate-100 bg-slate-50/30 hover:bg-white hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex items-center justify-between relative overflow-hidden"
+                                    >
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-indigo-500/10 transition-colors" />
+
+                                        <div className="flex flex-col gap-2 relative z-10 w-full pr-8">
+                                            <div className="flex items-center gap-2">
+                                                <span className="px-2 py-0.5 rounded-md text-[9px] font-black bg-indigo-50 text-indigo-600 uppercase tracking-widest">
+                                                    {portal.abbreviation || "PORTAIL"}
+                                                </span>
+                                                <span className="px-2 py-0.5 rounded-md text-[9px] font-black bg-slate-100 text-slate-500 uppercase tracking-widest">
+                                                    {portal.niveau}
+                                                </span>
+                                            </div>
+
+                                            <div className="font-bold text-slate-800 text-sm sm:text-base leading-tight">
+                                                {portal.nomPortail}
+                                            </div>
+
+                                            <div className="flex items-center gap-2">
+                                                <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border ${portal.estRedoublant
+                                                        ? 'bg-amber-50 border-amber-100 text-amber-700 shadow-sm shadow-amber-100/50'
+                                                        : 'bg-emerald-50 border-emerald-100 text-emerald-700 shadow-sm shadow-emerald-100/50'
+                                                    }`}>
+                                                    <div className={`w-1.5 h-1.5 rounded-full ${portal.estRedoublant ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse`} />
+                                                    <span className="text-[10px] font-bold uppercase tracking-tight">
+                                                        {portal.statusLibelle}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex-shrink-0 relative z-10">
+                                            <div className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center group-hover:border-indigo-200 group-hover:scale-110 transition-all shadow-sm shadow-slate-200/50">
+                                                <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-indigo-500 transition-colors" />
+                                            </div>
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="mt-8 pt-6 border-t border-slate-50">
+                                <p className="text-[11px] text-slate-400 text-center leading-relaxed italic">
+                                    Choisissez le parcours que vous souhaitez suivre pour l'année académique 2025-2026.
                                 </p>
                             </div>
                         </motion.div>
