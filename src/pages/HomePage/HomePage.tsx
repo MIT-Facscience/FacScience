@@ -151,6 +151,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-card to-muted">
+
       <HeroSection />
 
       <main className="py-16">

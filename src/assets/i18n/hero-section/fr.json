@@ -1,28 +1,32 @@
 {
     "heroSection": {
         "slides": {
-            "slide1": {
+
+              "slide1": {
+                "alt": "INT",
+                "title": "Innovation et Technologies",
+                "description": "Deposez votre candidature dans le nouveau parcours de la MIT(Mention Informatique et Technologies)",
+                "buttonText": "Selection INT"
+            },
+             "slide2": {
                 "alt": "Campus principal de la Faculté des Sciences",
                 "title": "Campus Moderne",
                 "description": "Un environnement d'apprentissage exceptionnel",
                 "buttonText": "Découvrir nos formations"
             },
-            "slide2": {
+          
+            "slide3": {
                 "alt": "Environnement d'apprentissage",
                 "title": "Environnement d'apprentissage",
                 "description": "Ressources documentaires complètes",
                 "buttonText": "Découvrir nos formations"
-            },
-            "slide3": {
-                "alt": "INT",
-                "title": "Innovation et Technologies",
-                "description": "Inscrivez-vous au parcours INT de la mention Informatique et Technologies",
-                "buttonText": "Inscription INT"
             }
+           
+          
         },
         "mainTitle": {
             "default": "Faculté des Sciences",
-            "int": "Inscription INT"
+            "int": "Inscription INT "
         },
         "learnMore": "En savoir plus",
         "controls": {

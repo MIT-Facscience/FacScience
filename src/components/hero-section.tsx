@@ -19,16 +19,18 @@ export function HeroSection(): JSX.Element {
   const { t } = useTranslation("hero-section");
 
   const campusImages: CampusImage[] = [
+   
+   
     {
-      src: "/fs_facade_2.jpg",
+      src: "/mit.jpeg",
       translationKey: "slide1",
-      backgroundColor: "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
-      buttonLinkForm: "/formation",
-      buttonLinkInfo: "/presentation",
+      backgroundColor: "from-red-600 to-red-700 hover:from-red-700 hover:to-red-800",
+      buttonLinkForm: "/admission/int-formulaire",
+      buttonLinkInfo: "/admission/int-modalite",
       buttonIcon: null,
     },
-    {
-      src: "/fs_amphi.jpg",
+     {
+      src: "/fs_facade_2.jpg",
       translationKey: "slide2",
       backgroundColor: "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
       buttonLinkForm: "/formation",
@@ -36,13 +38,15 @@ export function HeroSection(): JSX.Element {
       buttonIcon: null,
     },
     {
-      src: "/mit.jpeg",
+      src: "/fs_amphi.jpg",
       translationKey: "slide3",
-      backgroundColor: "from-red-600 to-red-700 hover:from-red-700 hover:to-red-800",
-      buttonLinkForm: "/admission/int-formulaire",
-      buttonLinkInfo: "/admission/int-modalite",
+      backgroundColor: "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
+      buttonLinkForm: "/formation",
+      buttonLinkInfo: "/presentation",
       buttonIcon: <ArrowRight/>,
     },
+   
+   
   ];
 
   // Generate squares for animation
@@ -96,10 +100,10 @@ export function HeroSection(): JSX.Element {
       setTimeout(() => {
         setIsTransitioning(false);
       }, 1200);
-    }, 6000);
+    }, currentSlide === 0 ? 10000 : 6000);  
     
     return () => clearInterval(timer);
-  }, [campusImages.length]);
+  }, [campusImages.length,currentSlide]);
 
   const nextSlide = (): void => {
     const next: number = (currentSlide + 1) % campusImages.length;
@@ -143,7 +147,8 @@ export function HeroSection(): JSX.Element {
                       style={{
                         color: 'white'
                       }}>
-                    {index === 2 ? t("heroSection.mainTitle.int") : t("heroSection.mainTitle.default")}
+                    {index === 0 ? t("heroSection.mainTitle.int") : t("heroSection.mainTitle.default")}
+
                   </h1>
                   
                   {/* Contenu dynamique qui change avec les slides */}
