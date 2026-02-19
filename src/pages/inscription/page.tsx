@@ -163,7 +163,7 @@ const InscriptionPage: React.FC = () => {
     const dateNaissanceValue = form.watch("dateNaissance");
 
     const isMajor = React.useMemo(() => {
-        if (!dateNaissanceValue) return false;
+        if (!dateNaissanceValue) return true;
         try {
             const birth = new Date(dateNaissanceValue);
             const today = new Date();
@@ -870,8 +870,8 @@ const InscriptionPage: React.FC = () => {
 
                                             <div className="flex items-center gap-2">
                                                 <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border ${portal.estRedoublant
-                                                        ? 'bg-amber-50 border-amber-100 text-amber-700 shadow-sm shadow-amber-100/50'
-                                                        : 'bg-emerald-50 border-emerald-100 text-emerald-700 shadow-sm shadow-emerald-100/50'
+                                                    ? 'bg-amber-50 border-amber-100 text-amber-700 shadow-sm shadow-amber-100/50'
+                                                    : 'bg-emerald-50 border-emerald-100 text-emerald-700 shadow-sm shadow-emerald-100/50'
                                                     }`}>
                                                     <div className={`w-1.5 h-1.5 rounded-full ${portal.estRedoublant ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse`} />
                                                     <span className="text-[10px] font-bold uppercase tracking-tight">
