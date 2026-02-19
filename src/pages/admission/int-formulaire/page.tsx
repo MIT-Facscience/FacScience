@@ -495,7 +495,7 @@ export default function INTForm() {
                 className={`cursor-pointer ${errors.baccalaureat ? 'border-red-500' : ''}`}
               />
               <p className="text-xs text-muted-foreground mt-1">{renderFileName(formData.demande)}</p>
-              {errors.baccalaureat && (
+              {errors.demande && (
                 <p className="text-xs text-red-500 mt-1">{errors.demande}</p>
               )}
             </div>
