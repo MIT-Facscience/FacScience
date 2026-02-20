@@ -70,7 +70,7 @@ export default function INTForm() {
     t("intForm.steps.applicationInfo"),
     t("intForm.steps.personalInfo"),
     t("intForm.steps.academicFile"),
-    t("intForm.steps.applicationFee"),
+    // t("intForm.steps.applicationFee"),
     t("intForm.steps.summary")
   ];
 
@@ -525,48 +525,48 @@ export default function INTForm() {
             </div> */}
           </div>
         );
+      // case 4:
+      //   return (
+      //     <div className="space-y-4">
+      //       <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2 flex gap-2">
+      //         {t("intForm.steps.applicationFee")} <p className="text-red-500">(Pas encore obligatoire)</p>
+      //       </h3>
+      //       <div className="grid sm:grid-cols-2 gap-6">
+      //         <div className="flex flex-col gap-2">
+      //           <Label htmlFor="justificatifPaiement" className="flex items-center gap-2">
+      //             <Upload className="h-4 w-4 text-primary" /> {t("intForm.labels.paymentProof")}
+      //           </Label>
+      //           <Input
+      //             id="justificatifPaiement"
+      //             name="justificatifPaiement"
+      //             type="file"
+      //             accept="image/*,.pdf"
+      //             onChange={handleChange}
+      //             className={`cursor-pointer ${errors.justificatifPaiement ? 'border-red-500' : ''}`}
+      //           />
+      //           <p className="text-xs text-muted-foreground mt-1">{renderFileName(formData.justificatifPaiement)}</p>
+      //           {errors.justificatifPaiement && (
+      //             <p className="text-xs text-red-500 mt-1">{errors.justificatifPaiement}</p>
+      //           )}
+      //         </div>
+      //         <div className="flex flex-col gap-2">
+      //           <Label htmlFor="referencePaiement">{t("intForm.labels.paymentReference")}</Label>
+      //           <Input
+      //             id="referencePaiement"
+      //             name="referencePaiement"
+      //             placeholder={t("intForm.placeholders.enterPaymentReference")}
+      //             value={formData.referencePaiement}
+      //             onChange={handleChange}
+      //             className={errors.referencePaiement ? 'border-red-500' : ''}
+      //           />
+      //           {errors.referencePaiement && (
+      //             <p className="text-xs text-red-500 mt-1">{errors.referencePaiement}</p>
+      //           )}
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
       case 4:
-        return (
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2 flex gap-2">
-              {t("intForm.steps.applicationFee")} <p className="text-red-500">(Pas encore obligatoire)</p>
-            </h3>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="justificatifPaiement" className="flex items-center gap-2">
-                  <Upload className="h-4 w-4 text-primary" /> {t("intForm.labels.paymentProof")}
-                </Label>
-                <Input
-                  id="justificatifPaiement"
-                  name="justificatifPaiement"
-                  type="file"
-                  accept="image/*,.pdf"
-                  onChange={handleChange}
-                  className={`cursor-pointer ${errors.justificatifPaiement ? 'border-red-500' : ''}`}
-                />
-                <p className="text-xs text-muted-foreground mt-1">{renderFileName(formData.justificatifPaiement)}</p>
-                {errors.justificatifPaiement && (
-                  <p className="text-xs text-red-500 mt-1">{errors.justificatifPaiement}</p>
-                )}
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="referencePaiement">{t("intForm.labels.paymentReference")}</Label>
-                <Input
-                  id="referencePaiement"
-                  name="referencePaiement"
-                  placeholder={t("intForm.placeholders.enterPaymentReference")}
-                  value={formData.referencePaiement}
-                  onChange={handleChange}
-                  className={errors.referencePaiement ? 'border-red-500' : ''}
-                />
-                {errors.referencePaiement && (
-                  <p className="text-xs text-red-500 mt-1">{errors.referencePaiement}</p>
-                )}
-              </div>
-            </div>
-          </div>
-        );
-      case 5:
         return (
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-indigo-800 border-b pb-2">
@@ -598,11 +598,11 @@ export default function INTForm() {
                   ))}
                 </ul> */}
               </div>
-              <div>
+              {/* <div>
                 <h4 className="font-medium text-indigo-700">{t("intForm.summary.applicationFee")}</h4>
                 <p><strong>{t("intForm.summary.paymentProof")}:</strong> {renderFileName(formData.justificatifPaiement)}</p>
                 <p><strong>{t("intForm.summary.paymentReference")}:</strong> {formData.referencePaiement || t("intForm.summary.notSpecified")}</p>
-              </div>
+              </div> */}
             </div>
           </div>
         );
