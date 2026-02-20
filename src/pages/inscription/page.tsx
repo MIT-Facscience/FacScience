@@ -1025,7 +1025,7 @@ const InscriptionPage: React.FC = () => {
                                     Photo d'identité
                                 </h1>
                                 <p className="text-slate-400 text-xs mt-1">
-                                    Prenez une photo pour la carte d'étudiant du candidat au portail <span className="font-bold text-indigo-600">{selectedPortal?.abbreviation}</span>
+                                    Prenez une photo pour la carte d'étudiant du candidat au portail <span className="font-bold text-indigo-600">{selectedPortal?.nomPortail}</span>
                                 </p>
                             </div>
 
