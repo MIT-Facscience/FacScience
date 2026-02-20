@@ -146,11 +146,13 @@ export default function CandidatsPreinscrits() {
       pageSize: number;
       idPortail?: number;
       searchTerm?: string;
+      estAcademique?: boolean;
     }
 
     const requestBody: RequestBody = {
       pageNumber: page,
-      pageSize: size
+      pageSize: size,
+      estAcademique: activeTab === "academique"
     }
 
     if (portailId !== "all") {
@@ -266,7 +268,7 @@ export default function CandidatsPreinscrits() {
     if (!loading) {
       fetchResults(selectedPortail, debouncedSearchTerm, currentPage, pageSize)
     }
-  }, [selectedPortail, debouncedSearchTerm, currentPage, pageSize, loading])
+  }, [selectedPortail, debouncedSearchTerm, currentPage, pageSize, loading, activeTab])
 
   useEffect(() => {
     if (!loading) {
@@ -347,15 +349,23 @@ export default function CandidatsPreinscrits() {
     }
     doc.text(subtitle, 14, 30)
 
-    const tableColumn = ["Rang", "N° Bac", "Nom et Prénom"]
+    const tableColumn = isAcademique
+      ? ["Rang", "N° Bac", "Nom et Prénom"]
+      : ["N° Bac", "Année Bac", "Nom et Prénom"]
     const tableRows: (string | number)[][] = []
 
     filteredCandidats.forEach(candidat => {
-      const candidateData = [
-        candidat.rang,
-        candidat.bacNumber,
-        candidat.prenom + (candidat.nom ? " " + candidat.nom : "")
-      ]
+      const candidateData = isAcademique
+        ? [
+          candidat.rang,
+          candidat.bacNumber,
+          candidat.prenom + (candidat.nom ? " " + candidat.nom : "")
+        ]
+        : [
+          candidat.bacNumber,
+          candidat.anneeBacc,
+          candidat.prenom + (candidat.nom ? " " + candidat.nom : "")
+        ]
       tableRows.push(candidateData)
     })
 
@@ -473,8 +483,8 @@ export default function CandidatsPreinscrits() {
                   onClick={() => handlePageChange(page as number)}
                   disabled={isSearching}
                   className={`rounded-none min-w-[40px] ${currentPage === page
-                      ? "bg-primary text-white"
-                      : "hover:bg-secondary"
+                    ? "bg-primary text-white"
+                    : "hover:bg-secondary"
                     }`}
                 >
                   {page}
@@ -667,26 +677,36 @@ export default function CandidatsPreinscrits() {
                   <table className="w-full">
                     <thead className="bg-slate-100 border-b-2 border-slate-200">
                       <tr>
-                        <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Rang</th>
+                        {isAcademique && <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Rang</th>}
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">N° Bac</th>
+                        {!isAcademique && <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Année Bac</th>}
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Portail</th>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Nom et Prénom</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Status</th>
+                        {isAcademique && <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Status</th>}
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200">
                       {filteredCandidats.map((candidat, idx) => (
                         <tr key={candidat.id || idx} className={`transition-colors duration-200 ${hoverClass}`}>
+                          {isAcademique && (
+                            <td className="px-6 py-4">
+                              <span className="font-mono text-sm font-medium">
+                                {candidat.rang}
+                              </span>
+                            </td>
+                          )}
                           <td className="px-6 py-4">
-                            <span className="font-mono text-sm font-medium">
-                              {candidat.rang}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4">
-                            <div className={`font-medium ${numeroColor}`}>
+                            <code className={`px-2 py-1 rounded bg-slate-100 font-mono text-sm font-bold ${numeroColor}`}>
                               {candidat.bacNumber}
-                            </div>
+                            </code>
                           </td>
+                          {!isAcademique && (
+                            <td className="px-6 py-4">
+                              <span className="text-sm font-semibold text-slate-600">
+                                {candidat.anneeBacc}
+                              </span>
+                            </td>
+                          )}
                           <td className="px-6 py-4">
                             <div className="flex flex-col gap-1">
                               <Badge variant="outline" className="text-xs w-fit">
@@ -698,15 +718,24 @@ export default function CandidatsPreinscrits() {
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <span className="text-sm font-semibold text-slate-700">{candidat.prenom}</span>
+                            <div className="flex items-center gap-3">
+                              {!isAcademique && (
+                                <div className={`h-8 w-8 rounded-full ${isAcademique ? "bg-primary/10 text-primary" : "bg-amber-100 text-amber-600"} flex items-center justify-center font-bold text-xs ring-1 ${isAcademique ? "ring-primary/20" : "ring-amber-200"}`}>
+                                  {candidat.prenom?.[0]?.toUpperCase() || "?"}
+                                </div>
+                              )}
+                              <span className="text-sm font-semibold text-slate-700">{candidat.prenom}</span>
+                            </div>
                           </td>
-                          <td className="px-6 py-4">
-                            {candidat.statut === "Sélectionné(e)" ? (
-                              <span className="text-sm font-semibold text-green-700">{candidat.statut}</span>
-                            ) : (
-                              <span className="text-sm font-semibold text-red-700">{candidat.statut}</span>
-                            )}
-                          </td>
+                          {isAcademique && (
+                            <td className="px-6 py-4">
+                              {candidat.statut === "Sélectionné(e)" ? (
+                                <span className="text-sm font-semibold text-green-700">{candidat.statut}</span>
+                              ) : (
+                                <span className="text-sm font-semibold text-red-700">{candidat.statut}</span>
+                              )}
+                            </td>
+                          )}
                         </tr>
                       ))}
                     </tbody>
@@ -717,25 +746,55 @@ export default function CandidatsPreinscrits() {
                   {filteredCandidats.map((candidat, idx) => (
                     <div key={candidat.id || idx} className={`p-4 bg-white border border-slate-100 rounded-lg shadow-sm border-l-4 ${isAcademique ? "border-l-primary" : "border-l-secondary"}`}>
                       <div className="flex justify-between items-start mb-2">
-                        <span className="font-bold text-lg text-slate-800">Rang {candidat.rang}</span>
-                        {candidat.statut === "Sélectionné(e)" ? (
-                          <span className="px-2 py-1 text-xs font-semibold text-green-700 bg-green-50 rounded-full">{candidat.statut}</span>
+                        {isAcademique ? (
+                          <span className="font-bold text-lg text-slate-800">Rang {candidat.rang}</span>
                         ) : (
-                          <span className="px-2 py-1 text-xs font-semibold text-red-700 bg-red-50 rounded-full">{candidat.statut}</span>
+                          <div className="flex items-center gap-2">
+                            <div className="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs ring-1 ring-amber-200">
+                              {candidat.prenom?.[0]?.toUpperCase() || "?"}
+                            </div>
+                            <span className="font-bold text-base text-slate-800">{candidat.prenom}</span>
+                          </div>
+                        )}
+                        {isAcademique && (
+                          candidat.statut === "Sélectionné(e)" ? (
+                            <span className="px-2 py-1 text-xs font-semibold text-green-700 bg-green-50 rounded-full">{candidat.statut}</span>
+                          ) : (
+                            <span className="px-2 py-1 text-xs font-semibold text-red-700 bg-red-50 rounded-full">{candidat.statut}</span>
+                          )
                         )}
                       </div>
-                      <div className="text-sm text-slate-600 mb-1 flex gap-1">
-                        <span className="font-semibold">N° Bac:</span>
-                        <span className={`font-medium ${numeroColor}`}>{candidat.bacNumber}</span>
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        <div className="text-xs text-slate-500 flex flex-col gap-1">
+                          <span className="font-semibold uppercase tracking-wider">N° Bac</span>
+                          <code className={`font-mono font-bold text-sm ${numeroColor}`}>{candidat.bacNumber}</code>
+                        </div>
+                        {!isAcademique && (
+                          <div className="text-xs text-slate-500 flex flex-col gap-1">
+                            <span className="font-semibold uppercase tracking-wider">Année Bac</span>
+                            <span className="font-bold text-sm text-slate-700">{candidat.anneeBacc}</span>
+                          </div>
+                        )}
                       </div>
                       <div className="text-sm text-slate-600 mb-1">
-                        <span className="font-semibold block">Nom: <span className="font-normal p-2">{candidat.prenom} {candidat.nom ? " " + candidat.nom : ""}</span></span>
-
+                        {isAcademique ? (
+                          <span className="font-semibold block">Nom: <span className="font-normal p-2">{candidat.prenom} {candidat.nom ? " " + candidat.nom : ""}</span></span>
+                        ) : (
+                          <div className="flex flex-col gap-1">
+                            <span className="font-semibold text-xs uppercase tracking-wider text-slate-500">Portail</span>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline" className="text-[10px]">{candidat.abrevi}</Badge>
+                              <span className="text-xs">{candidat.portail}</span>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                      <div className="text-sm text-slate-600 flex gap-1">
-                        <span className="font-semibold">Portail:</span>
-                        {candidat.portail}
-                      </div>
+                      {isAcademique && (
+                        <div className="text-sm text-slate-600 flex gap-1">
+                          <span className="font-semibold">Portail:</span>
+                          {candidat.portail}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
