@@ -84,6 +84,7 @@ interface EligiblePortal {
     idPortail: number;
     nomPortail: string;
     abbreviation: string;
+    mention?: string;
     idPreinscription: number;
     statut: string;
 }
@@ -99,6 +100,7 @@ const InscriptionPage: React.FC = () => {
     const [step, setStep] = useState<InscriptionStep>('selection');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isProfessional, setIsProfessional] = useState(false);
     const [eligiblePortals, setEligiblePortals] = useState<EligiblePortal[]>([]);
     const [authorizedPortals, setAuthorizedPortals] = useState<any[]>([]);
     const [selectedPortal, setSelectedPortal] = useState<EligiblePortal | null>(null);
@@ -217,23 +219,15 @@ const InscriptionPage: React.FC = () => {
                 setStep('bank-reference');
             }
         } else if (step === 'bank-reference') {
-            if (reenrollmentData) {
-                setStep('others-form');
+            if (othersData.inscriptionNum) {
+                setStep(authorizedPortals.length > 1 ? 'others-portal-selection' : 'others-form');
             } else {
                 setStep('portal-selection');
             }
-        } else if (step === 'portal-selection' || step === 'others-portal-selection') {
-            if (step === 'portal-selection') {
-                if (l1Data.baccNum) {
-                    // This could be from l1-form or l1-pro-form
-                    // We check if it was pro by looking at l1Data if we had a flag, 
-                    // or just return to the main selection if unsure.
-                    setStep('selection');
-                } else {
-                    setStep('l1-form');
-                }
-            }
-            else setStep('others-form');
+        } else if (step === 'portal-selection') {
+            setStep(isProfessional ? 'l1-pro-form' : 'l1-form');
+        } else if (step === 'others-portal-selection') {
+            setStep('others-form');
         } else {
             setStep('selection');
         }
@@ -479,6 +473,7 @@ const InscriptionPage: React.FC = () => {
     }, [photo]);
 
     const handleL1Submit = async () => {
+        setIsProfessional(false);
         if (!l1Data.baccNum || !l1Data.baccYear) {
             setError("Veuillez remplir tous les champs.");
             return;
@@ -546,6 +541,7 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handleL1ProSubmit = async () => {
+        setIsProfessional(true);
         if (!l1Data.baccNum || !l1Data.baccYear) {
             setError("Veuillez remplir tous les champs.");
             return;
@@ -586,6 +582,7 @@ const InscriptionPage: React.FC = () => {
                 idMpn: p.idMpn,
                 nomPortail: p.nomPortail,
                 abbreviation: p.abbreviation,
+                mention: p.mention,
                 idPreinscription: 0,
                 statut: p.statut
             }));
@@ -621,6 +618,7 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handleOthersSubmit = async () => {
+        setIsProfessional(false);
         if (!othersData.inscriptionNum) {
             setError("Veuillez entrer votre numéro d'inscription 2024-2025.");
             return;
@@ -791,7 +789,7 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> RETOUR
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> CHOIX ADMISSION
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
                                     Identification
@@ -881,13 +879,13 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> MODIFIER
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> IDENTIFICATION
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
-                                    Portails Disponibles
+                                    {isProfessional ? "Parcours Disponibles" : "Portails Disponibles"}
                                 </h1>
                                 <p className="text-slate-400 text-xs mt-1">
-                                    Choisissez le portail pour votre inscription
+                                    {isProfessional ? "Choisissez votre parcours pour votre inscription" : "Choisissez le portail pour votre inscription"}
                                 </p>
                             </div>
 
@@ -898,15 +896,19 @@ const InscriptionPage: React.FC = () => {
                                         onClick={() => handlePortalSelect(portal)}
                                         className="w-full group text-left p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-50/50 transition-all duration-300 flex items-center justify-between"
                                     >
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">
-                                                {portal.abbreviation}
-                                            </div>
-                                            <div>
-                                                <div className="font-bold text-slate-700 text-sm">{portal.nomPortail}</div>
-                                                <div className="flex items-center gap-1.5 mt-0.5">
+                                        <div className="flex items-center gap-4 flex-1 min-w-0">
+                                            <div className="flex-1 min-w-0">
+                                                {isProfessional && portal.mention && (
+                                                    <div className="text-[10px] font-black text-indigo-400/70 uppercase tracking-widest leading-none mb-1 group-hover:text-indigo-500 transition-colors">
+                                                        {portal.mention}
+                                                    </div>
+                                                )}
+                                                <div className="font-bold text-slate-700 text-sm leading-tight group-hover:text-indigo-900 transition-colors truncate">
+                                                    {portal.nomPortail}
+                                                </div>
+                                                <div className="flex items-center gap-1.5 mt-1.5">
                                                     <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-                                                    <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-tighter">
+                                                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">
                                                         {portal.statut.toLowerCase().includes('admissible') ? 'Admissible' : portal.statut}
                                                     </span>
                                                 </div>
@@ -939,7 +941,7 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> MODIFIER
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> IDENTIFICATION
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
                                     Vos Autorisations
@@ -1016,7 +1018,7 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> RETOUR
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> PAIEMENT
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
                                     Photo d'identité
@@ -1190,7 +1192,7 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> PORTAILS
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> CHOIX PARCOURS
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
                                     Référence de Paiement
@@ -1307,7 +1309,7 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> PHOTO
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> PHOTO D'IDENTITÉ
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
                                     {isMajor ? "Pièce d'Identité" : "Acte de Naissance"}
@@ -1462,7 +1464,7 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> RETOUR
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> {formStep > 0 ? "ÉTAPES PRÉCÉDENTE" : "DOCUMENTS D'IDENTITÉ"}
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
                                     {activeSteps[formStep].title}
