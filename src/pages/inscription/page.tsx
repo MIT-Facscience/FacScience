@@ -78,7 +78,7 @@ const studentSchema = z.object({
 
 type StudentFormValues = z.infer<typeof studentSchema>;
 
-type InscriptionStep = 'selection' | 'l1-form' | 'others-form' | 'others-portal-selection' | 'portal-selection' | 'bank-reference' | 'photo-capture' | 'identity-documents' | 'student-info' | 'success';
+type InscriptionStep = 'selection' | 'l1-form' | 'l1-pro-form' | 'others-form' | 'others-portal-selection' | 'portal-selection' | 'bank-reference' | 'photo-capture' | 'identity-documents' | 'student-info' | 'success';
 
 interface EligiblePortal {
     idPortail: number;
@@ -223,7 +223,16 @@ const InscriptionPage: React.FC = () => {
                 setStep('portal-selection');
             }
         } else if (step === 'portal-selection' || step === 'others-portal-selection') {
-            if (step === 'portal-selection') setStep('l1-form');
+            if (step === 'portal-selection') {
+                if (l1Data.baccNum) {
+                    // This could be from l1-form or l1-pro-form
+                    // We check if it was pro by looking at l1Data if we had a flag, 
+                    // or just return to the main selection if unsure.
+                    setStep('selection');
+                } else {
+                    setStep('l1-form');
+                }
+            }
             else setStep('others-form');
         } else {
             setStep('selection');
@@ -536,6 +545,81 @@ const InscriptionPage: React.FC = () => {
         }
     };
 
+    const handleL1ProSubmit = async () => {
+        if (!l1Data.baccNum || !l1Data.baccYear) {
+            setError("Veuillez remplir tous les champs.");
+            return;
+        }
+
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/verify-l1-pro?numBacc=${encodeURIComponent(l1Data.baccNum)}&anneeBacc=${encodeURIComponent(l1Data.baccYear)}`);
+
+            if (!response.ok) {
+                if (response.status === 409) {
+                    const conflictData = await response.json();
+                    setEnrollmentResult({
+                        numInscription: conflictData.numInscription,
+                        nomPortail: conflictData.nomPortail
+                    });
+                    setStep('success');
+                    return;
+                }
+                if (response.status === 404) {
+                    throw new Error("Aucune autorisation professionnelle trouvée pour ces informations. Vérifiez votre numéro et année de Bacc.");
+                }
+                const errorText = await response.text();
+                throw new Error(errorText || "Une erreur est survenue lors de la vérification.");
+            }
+
+            const data = await response.json();
+
+            if (!data || !data.portals || data.portals.length === 0) {
+                throw new Error("Aucun parcours disponible n'a été trouvé pour votre autorisation.");
+            }
+
+            // Map portals to Match the selection step
+            const mappedPortals = data.portals.map((p: any) => ({
+                idPortail: 0, // Not strictly needed for pro if we use idMpn
+                idMpn: p.idMpn,
+                nomPortail: p.nomPortail,
+                abbreviation: p.abbreviation,
+                idPreinscription: 0,
+                statut: p.statut
+            }));
+
+            setEligiblePortals(mappedPortals);
+
+            if (data.studentInfo) {
+                const { nomPrenom, sexe, dateNaissance, lieuNaissance, idEtudiant } = data.studentInfo;
+
+                const nameParts = (nomPrenom || "").trim().split(/\s+/);
+                const nom = nameParts[0] || "";
+                const prenom = nameParts.slice(1).join(" ") || "";
+
+                form.setValue("nom", nom);
+                form.setValue("prenom", prenom);
+                form.setValue("sexe", sexe || "M");
+                form.setValue("dateNaissance", dateNaissance || "");
+                form.setValue("lieuNaissance", lieuNaissance || "");
+
+                setReenrollmentData({
+                    idEtudiant: idEtudiant,
+                    idMpn: 0, // Will be set on portal selection
+                });
+            }
+
+            setStep('portal-selection');
+        } catch (err: any) {
+            console.error("L1 Pro Verification Error:", err);
+            setError(err.message || "Une erreur inattendue est survenue.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const handleOthersSubmit = async () => {
         if (!othersData.inscriptionNum) {
             setError("Veuillez entrer votre numéro d'inscription 2024-2025.");
@@ -651,11 +735,27 @@ const InscriptionPage: React.FC = () => {
                                             <UserPlus className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <div className="font-bold text-slate-700">Admission L1</div>
-                                            <div className="text-xs text-slate-400 font-medium">Nouveaux séléctionnés</div>
+                                            <div className="font-bold text-slate-700">L1 Académique</div>
+                                            <div className="text-xs text-slate-400 font-medium">Bacheliers séléctionnés</div>
                                         </div>
                                     </div>
                                     <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
+                                </button>
+
+                                <button
+                                    onClick={() => setStep('l1-pro-form')}
+                                    className="w-full flex items-center justify-between p-5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-amber-50 hover:border-amber-200 transition-all group text-left"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-2.5 bg-amber-500 rounded-md text-white font-bold group-hover:scale-110 transition-transform shadow-md shadow-amber-100">
+                                            <UserPlus className="w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <div className="font-bold text-slate-700">L1 Professionalisante</div>
+                                            <div className="text-xs text-slate-400 font-medium">Parcours professionnels</div>
+                                        </div>
+                                    </div>
+                                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
                                 </button>
 
                                 <button
@@ -677,7 +777,7 @@ const InscriptionPage: React.FC = () => {
                         </motion.div>
                     )}
 
-                    {(step === 'l1-form' || step === 'others-form') && (
+                    {(step === 'l1-form' || step === 'l1-pro-form' || step === 'others-form') && (
                         <motion.div
                             key="form"
                             variants={containerVariants}
@@ -705,7 +805,7 @@ const InscriptionPage: React.FC = () => {
                             </div>
 
                             <div className="space-y-6">
-                                {step === 'l1-form' ? (
+                                {(step === 'l1-form' || step === 'l1-pro-form') ? (
                                     <>
                                         <div className="space-y-2">
                                             <Label htmlFor="baccNum" className="text-[11px] uppercase font-bold text-slate-400 tracking-wider ml-1">Numéro Bacc</Label>
@@ -742,7 +842,11 @@ const InscriptionPage: React.FC = () => {
                                 )}
 
                                 <Button
-                                    onClick={step === 'l1-form' ? handleL1Submit : handleOthersSubmit}
+                                    onClick={() => {
+                                        if (step === 'l1-form') handleL1Submit();
+                                        else if (step === 'l1-pro-form') handleL1ProSubmit();
+                                        else handleOthersSubmit();
+                                    }}
                                     disabled={isLoading}
                                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 transition-all rounded-lg shadow-md shadow-indigo-100 mt-2 sm:mt-4"
                                 >
