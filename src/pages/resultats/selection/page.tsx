@@ -306,10 +306,7 @@ export default function CandidatsPreinscrits() {
       return []
     }
 
-    const portailsActuels = getCurrentPortails()
-    const nomsPortails = portailsActuels.map(p => p.nomPortail)
-
-    let filtered = listResult.filter(c => nomsPortails.includes(c.portail))
+    let filtered = [...listResult]
 
     if (statusFilter === "selected") {
       filtered = filtered.filter(c => c.statut === "Sélectionné(e)")
