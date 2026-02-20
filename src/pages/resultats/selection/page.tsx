@@ -73,7 +73,7 @@ const TableSkeleton = () => (
         </tbody>
       </table>
     </div>
-    
+
     {/* Skeleton Mobile */}
     <div className="md:hidden space-y-4 px-4 pb-4 pt-2">
       {[...Array(3)].map((_, idx) => (
@@ -119,18 +119,18 @@ export default function CandidatsPreinscrits() {
     if (searchTerm !== debouncedSearchTerm) {
       setIsSearching(true)
     }
-    
+
     const timer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm)
       setIsSearching(false)
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [searchTerm,debouncedSearchTerm])
+  }, [searchTerm, debouncedSearchTerm])
 
   const fetchResults = (
-    portailId: string = "all", 
-    search: string = "", 
+    portailId: string = "all",
+    search: string = "",
     page: number = 1,
     size: number = 10,
     isInitialLoad: boolean = false
@@ -140,7 +140,7 @@ export default function CandidatsPreinscrits() {
     } else {
       setIsSearching(true)
     }
-    
+
     type RequestBody = {
       pageNumber: number;
       pageSize: number;
@@ -152,17 +152,17 @@ export default function CandidatsPreinscrits() {
       pageNumber: page,
       pageSize: size
     }
-    
+
     if (portailId !== "all") {
       requestBody.idPortail = parseInt(portailId)
     }
-    
+
     if (search.trim()) {
       requestBody.searchTerm = search.trim()
     }
-    
+
     console.log('Requête avec pagination:', requestBody)
-    
+
     fetch(`https://siansa.univ-antananarivo.mg/admin/api/Selection/list-result`, {
       method: 'POST',
       headers: {
@@ -257,7 +257,7 @@ export default function CandidatsPreinscrits() {
         console.error("Erreur lors de la récupération des portails:", error)
         setListPort([])
       })
-    
+
     fetchAllResultsForStats()
     fetchResults("all", "", 1, 10, true) // Initial load
   }, [])
@@ -266,14 +266,14 @@ export default function CandidatsPreinscrits() {
     if (!loading) {
       fetchResults(selectedPortail, debouncedSearchTerm, currentPage, pageSize)
     }
-  }, [selectedPortail, debouncedSearchTerm, currentPage, pageSize,loading])
+  }, [selectedPortail, debouncedSearchTerm, currentPage, pageSize, loading])
 
   useEffect(() => {
     if (!loading) {
       setCurrentPage(1)
       fetchResults(selectedPortail, debouncedSearchTerm, 1, pageSize)
     }
-  }, [selectedPortail, debouncedSearchTerm, pageSize,loading])
+  }, [selectedPortail, debouncedSearchTerm, pageSize, loading])
 
   const portailsAcademiques = listPort.filter(p => p.estAcademique === true)
   const portailsProfessionalisants = listPort.filter(p => p.estAcademique === false)
@@ -294,27 +294,27 @@ export default function CandidatsPreinscrits() {
   //   setSearchTerm("")
   //   setSelectedPortail("all")
   //   setCurrentPage(1)
- // }
+  // }
 
-  const getCurrentPortails = () => 
+  const getCurrentPortails = () =>
     activeTab === "academique" ? portailsAcademiques : portailsProfessionalisants
 
   const getFilteredCandidats = () => {
     if (!Array.isArray(listResult) || listResult.length === 0) {
       return []
     }
-    
+
     const portailsActuels = getCurrentPortails()
     const nomsPortails = portailsActuels.map(p => p.nomPortail)
-    
+
     let filtered = listResult.filter(c => nomsPortails.includes(c.portail))
-    
+
     if (statusFilter === "selected") {
       filtered = filtered.filter(c => c.statut === "Sélectionné(e)")
     } else if (statusFilter === "waiting") {
       filtered = filtered.filter(c => c.statut !== "Sélectionné(e)")
     }
-    
+
     return filtered
   }
 
@@ -322,7 +322,7 @@ export default function CandidatsPreinscrits() {
   const isAcademique = activeTab === "academique"
   const gradientClass = isAcademique ? "purple-50" : "amber-50"
   const hoverClass = isAcademique ? "hover:bg-blue-50" : "hover:bg-green-50"
-  const numeroColor = isAcademique ? "text-primary" : "text-secondary"
+  const numeroColor = isAcademique ? "text-primary" : "text-amber-600"
 
   const getPortailNameById = (idPortail: number) => {
     const portail = listPort.find(p => p.idPortail === idPortail)
@@ -334,7 +334,7 @@ export default function CandidatsPreinscrits() {
 
     doc.setFontSize(18)
     doc.text("Résultat de la selection des dossiers", 14, 22)
-    
+
     doc.setFontSize(11)
     let subtitle = `Total candidats: ${filteredCandidats.length}`
     if (selectedPortail !== "all") {
@@ -347,7 +347,7 @@ export default function CandidatsPreinscrits() {
     }
     doc.text(subtitle, 14, 30)
 
-    const tableColumn = ["Rang","N° Bac",  "Nom et Prénom"]
+    const tableColumn = ["Rang", "N° Bac", "Nom et Prénom"]
     const tableRows: (string | number)[][] = []
 
     filteredCandidats.forEach(candidat => {
@@ -371,14 +371,14 @@ export default function CandidatsPreinscrits() {
   const PaginationControls = () => {
     const startItem = (paginationInfo.currentPage - 1) * paginationInfo.pageSize + 1
     const endItem = Math.min(
-      paginationInfo.currentPage * paginationInfo.pageSize, 
+      paginationInfo.currentPage * paginationInfo.pageSize,
       paginationInfo.totalItems
     )
 
     const getPageNumbers = () => {
       const pages: (number | string)[] = []
       const maxVisible = 5
-      
+
       if (paginationInfo.totalPages <= maxVisible) {
         for (let i = 1; i <= paginationInfo.totalPages; i++) {
           pages.push(i)
@@ -404,7 +404,7 @@ export default function CandidatsPreinscrits() {
           pages.push(paginationInfo.totalPages)
         }
       }
-      
+
       return pages
     }
 
@@ -416,9 +416,9 @@ export default function CandidatsPreinscrits() {
             <span className="font-semibold">{endItem}</span> sur{' '}
             <span className="font-semibold">{paginationInfo.totalItems}</span> résultats
           </span>
-          
-          <Select 
-            value={pageSize.toString()} 
+
+          <Select
+            value={pageSize.toString()}
             onValueChange={(value) => handlePageSizeChange(parseInt(value))}
           >
             <SelectTrigger className="w-32">
@@ -458,7 +458,7 @@ export default function CandidatsPreinscrits() {
           <span className="text-sm font-medium sm:hidden">
             Page {currentPage} / {paginationInfo.totalPages}
           </span>
-          
+
           <div className="hidden sm:flex items-center gap-1">
             {getPageNumbers().map((page, index) => (
               page === '...' ? (
@@ -472,11 +472,10 @@ export default function CandidatsPreinscrits() {
                   size="sm"
                   onClick={() => handlePageChange(page as number)}
                   disabled={isSearching}
-                  className={`rounded-none min-w-[40px] ${
-                    currentPage === page 
-                      ? "bg-primary text-white" 
+                  className={`rounded-none min-w-[40px] ${currentPage === page
+                      ? "bg-primary text-white"
                       : "hover:bg-secondary"
-                  }`}
+                    }`}
                 >
                   {page}
                 </Button>
@@ -531,12 +530,12 @@ export default function CandidatsPreinscrits() {
             Resultat de la selection des dossiers
           </h1>
           <p className="text-base md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed px-4">
-           Liste des candidats sélectionnés pour l'année universitaire 2025-2026
+            Liste des candidats sélectionnés pour l'année universitaire 2025-2026
           </p>
         </div>
 
         <div className="flex gap-2 items-center w-full mb-3">
-           <CardContent className="p-0">
+          <CardContent className="p-0">
             <div className="grid md:grid-cols-1 gap-4">
               <Select value={selectedPortail} onValueChange={setSelectedPortail} disabled={isSearching}>
                 <SelectTrigger className="border-slate-300">
@@ -562,22 +561,22 @@ export default function CandidatsPreinscrits() {
               </Button> */}
             </div>
           </CardContent>
-         <div className="relative flex-grow sm:w-full">
-  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <div className="relative flex-grow sm:w-full">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
 
-  <Input 
-    placeholder="N° BAC, nom ou prénom..." 
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-    className="pl-10 w-full border-slate-300 focus:border-purple-500 focus:ring-purple-500 rounded-none"
-  />
+            <Input
+              placeholder="N° BAC, nom ou prénom..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 w-full border-slate-300 focus:border-purple-500 focus:ring-purple-500 rounded-none"
+            />
 
-  {isSearching && (
-    <div className="absolute right-3 top-1/2 -translate-y-1/2">
-      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
-    </div>
-  )}
-</div>
+            {isSearching && (
+              <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+              </div>
+            )}
+          </div>
 
           {/* <Button 
             className="rounded-none bg-primary" 
@@ -592,14 +591,29 @@ export default function CandidatsPreinscrits() {
           setActiveTab(value)
           setSelectedPortail("all")
         }} className="space-y-6">
-          <TabsList className="rounded-none grid w-full grid-cols-1 bg-white shadow-md p-2 h-auto gap-2">
-            <TabsTrigger 
-              value="academique" 
+          <TabsList className="rounded-none grid w-full grid-cols-2 bg-white shadow-md p-2 h-auto gap-2">
+            <TabsTrigger
+              value="academique"
               className="rounded-none data-[state=active]:bg-primary data-[state=active]:text-white py-3 px-2 text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight min-h-[50px] flex items-center justify-center"
             >
-              <span className="text-center">
-                Académique<br className="sm:hidden" />
-                <span className="sm:ml-1">({portailsAcademiques.length} portails)</span>
+              <span className="text-center flex items-center gap-2">
+                <GraduationCap className="h-4 w-4" />
+                <span>
+                  Académique<br className="sm:hidden" />
+                  <span className="sm:ml-1">({portailsAcademiques.length})</span>
+                </span>
+              </span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="professionalisante"
+              className="rounded-none data-[state=active]:bg-secondary data-[state=active]:text-white py-3 px-2 text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight min-h-[50px] flex items-center justify-center"
+            >
+              <span className="text-center flex items-center gap-2">
+                <Users className="h-4 w-4" />
+                <span>
+                  Professionnalisante<br className="sm:hidden" />
+                  <span className="sm:ml-1">({portailsProfessionalisants.length})</span>
+                </span>
               </span>
             </TabsTrigger>
           </TabsList>
@@ -621,7 +635,7 @@ export default function CandidatsPreinscrits() {
                   className={`rounded-none hover:bg-primary ${statusFilter === "all" ? (isAcademique ? "bg-primary" : "bg-secondary") : ""}`}
                 >
                   <Users className="h-4 w-4 mr-2" />
-                  Tous 
+                  Tous
                 </Button>
                 <Button
                   variant={statusFilter === "selected" ? "default" : "outline"}
@@ -639,7 +653,7 @@ export default function CandidatsPreinscrits() {
                   className={`rounded-none ${statusFilter === "waiting" ? "bg-red-600 hover:bg-orange-700" : "border-orange-600 text-orange-600 hover:bg-red-500"}`}
                 >
                   <Calendar className="h-4 w-4 mr-2" />
-                  Non Admis 
+                  Non Admis
                 </Button>
               </div>
             </div>
@@ -711,21 +725,21 @@ export default function CandidatsPreinscrits() {
                         )}
                       </div>
                       <div className="text-sm text-slate-600 mb-1 flex gap-1">
-                        <span className="font-semibold">N° Bac:</span> 
+                        <span className="font-semibold">N° Bac:</span>
                         <span className={`font-medium ${numeroColor}`}>{candidat.bacNumber}</span>
                       </div>
                       <div className="text-sm text-slate-600 mb-1">
                         <span className="font-semibold block">Nom: <span className="font-normal p-2">{candidat.prenom} {candidat.nom ? " " + candidat.nom : ""}</span></span>
-                        
+
                       </div>
                       <div className="text-sm text-slate-600 flex gap-1">
-                        <span className="font-semibold">Portail:</span> 
+                        <span className="font-semibold">Portail:</span>
                         {candidat.portail}
                       </div>
                     </div>
                   ))}
                 </div>
-                
+
                 <PaginationControls />
               </>
             ) : (
@@ -737,7 +751,7 @@ export default function CandidatsPreinscrits() {
             )}
           </CardContent>
           <CardHeader className={`rounded-none bg-${gradientClass} mt-4 border-t`}>
-            <Button 
+            <Button
               className={`rounded-none ${isAcademique ? "bg-primary" : "bg-secondary hover:bg-secondary"}`}
               onClick={handleDownloadPDF}
               disabled={isSearching || filteredCandidats.length === 0}
@@ -748,7 +762,7 @@ export default function CandidatsPreinscrits() {
           </CardHeader>
         </Card>
 
-        
+
 
         <Card className={`rounded-none border-${isAcademique ? "purple" : "amber"}-200 bg-${isAcademique ? "purple" : "amber"}-50 mb-10`}>
           <CardContent className="p-6">
@@ -761,7 +775,7 @@ export default function CandidatsPreinscrits() {
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Information importante</h3>
                 <p className="text-sm text-gray-800 leading-relaxed">
-                  Cette liste présente tous les candidats ayant effectué leur préinscription. La validation du dossier ne garantit pas l'admission définitive. 
+                  Cette liste présente tous les candidats ayant effectué leur préinscription. La validation du dossier ne garantit pas l'admission définitive.
                   Les résultats finaux de la sélection seront publiés après l'étude approfondie de tous les dossiers.
                 </p>
               </div>

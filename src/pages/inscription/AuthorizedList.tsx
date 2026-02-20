@@ -93,12 +93,6 @@ const AuthorizedList: React.FC = () => {
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
-                    <Link
-                        to="/admission/inscription"
-                        className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center tracking-widest uppercase mb-4 transition-colors"
-                    >
-                        <ChevronLeft className="w-4 h-4 mr-1" /> Retour à l'inscription
-                    </Link>
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                         <div>
                             <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
