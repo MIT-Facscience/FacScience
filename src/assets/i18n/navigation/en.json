@@ -25,7 +25,6 @@
     },
     "admissionItems": {
         "modalities": "Procedures",
-        "preRegistration": "Pre-registration",
         "authorizedList": "Authorized List"
     }
 }

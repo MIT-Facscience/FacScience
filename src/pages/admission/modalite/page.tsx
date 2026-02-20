@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -27,13 +26,13 @@ export default function AdmissionPage() {
   const handleDownloadFiche = async (): Promise<void> => {
     try {
       const url: string = '/Fiche/FicheFS.pdf';
-      
+
       const response: Response = await fetch(url);
-      
+
       if (!response.ok) {
         throw new Error(`Erreur ${response.status}: ${response.statusText}`);
       }
-      
+
       const blob: Blob = await response.blob();
       const blobUrl: string = URL.createObjectURL(blob);
       const lien: HTMLAnchorElement = document.createElement('a');
@@ -43,7 +42,7 @@ export default function AdmissionPage() {
       lien.click();
       document.body.removeChild(lien);
       URL.revokeObjectURL(blobUrl);
-      
+
     } catch (error: unknown) {
       console.error('Erreur de téléchargement:', error);
       window.open('/Fiche/FicheFS.pdf', '_blank');
@@ -347,26 +346,6 @@ export default function AdmissionPage() {
                     </CardContent>
                   </Card>
 
-                  {/* Call to Action */}
-                  <Card className="bg-primary text-primary-foreground rounded-none">
-                    <CardHeader>
-                      <CardTitle>{t("readytoapply")}</CardTitle>
-                      <CardDescription className="text-primary-foreground/80">
-                        {t("ensuredocuments")}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button
-                        variant="secondary"
-                        className="w-full rounded-none"
-                        onClick={() =>
-                          (window.location.href = "/admission/preinscription")
-                        }
-                      >
-                        {t("startregistration")}
-                      </Button>
-                    </CardContent>
-                  </Card>
                 </div>
               </div>
             </div>

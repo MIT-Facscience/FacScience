@@ -27,7 +27,6 @@ const rechercheItems = [
 
 const admissionItems = [
   { key: "modalities", to: "/admission/modalite" },
-  { key: "preRegistration", to: "/admission/preinscription" },
   { key: "authorizedList", to: "/admission/inscription/autorises" },
 ];
 
@@ -79,8 +78,8 @@ export default function Navigation() {
                 <div className="relative group">
                   <button
                     className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/presentation")
-                        ? "text-primary bg-accent-foreground"
-                        : "text-sidebar-primary hover:text-ring"
+                      ? "text-primary bg-accent-foreground"
+                      : "text-sidebar-primary hover:text-ring"
                       }`}
                   >
                     <span>{t("about")}</span>
@@ -93,8 +92,8 @@ export default function Navigation() {
                           key={item.to}
                           href={item.to}
                           className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
-                              ? "bg-purple-100 text-focus border-focus"
-                              : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
+                            ? "bg-purple-100 text-focus border-focus"
+                            : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
                             }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
@@ -109,8 +108,8 @@ export default function Navigation() {
                 <div className="relative group">
                   <button
                     className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/recherche")
-                        ? "text-primary bg-accent-foreground"
-                        : "text-sidebar-primary hover:text-ring"
+                      ? "text-primary bg-accent-foreground"
+                      : "text-sidebar-primary hover:text-ring"
                       }`}
                   >
                     <span>{t("research")}</span>
@@ -123,8 +122,8 @@ export default function Navigation() {
                           key={item.to}
                           href={item.to}
                           className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
-                              ? "bg-purple-100 text-focus border-focus"
-                              : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
+                            ? "bg-purple-100 text-focus border-focus"
+                            : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
                             }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
@@ -139,8 +138,8 @@ export default function Navigation() {
                 <div className="relative group">
                   <button
                     className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/admission")
-                        ? "text-primary bg-accent-foreground"
-                        : "text-sidebar-primary hover:text-ring"
+                      ? "text-primary bg-accent-foreground"
+                      : "text-sidebar-primary hover:text-ring"
                       }`}
                   >
                     <span>{t("admission")}</span>
@@ -153,8 +152,8 @@ export default function Navigation() {
                           key={item.to}
                           href={item.to}
                           className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
-                              ? "bg-purple-100 text-focus border-focus"
-                              : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
+                            ? "bg-purple-100 text-focus border-focus"
+                            : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
                             }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
@@ -169,8 +168,8 @@ export default function Navigation() {
                 <a
                   href="/formation"
                   className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${isActive("/formation")
-                      ? "text-primary bg-purple-50/70"
-                      : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
+                    ? "text-primary bg-purple-50/70"
+                    : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
                     }`}
                 >
                   {t("training")}
@@ -181,8 +180,8 @@ export default function Navigation() {
                 <a
                   href="/actualites"
                   className={`px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 relative group ${isActive("/actualites")
-                      ? "text-primary bg-purple-50/70"
-                      : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
+                    ? "text-primary bg-purple-50/70"
+                    : "text-slate-700 hover:text-primary hover:bg-purple-50/50"
                     }`}
                 >
                   {t("news")}
@@ -193,8 +192,8 @@ export default function Navigation() {
                 <div className="relative group">
                   <button
                     className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/resultats")
-                        ? "text-primary bg-accent-foreground"
-                        : "text-sidebar-primary hover:text-ring"
+                      ? "text-primary bg-accent-foreground"
+                      : "text-sidebar-primary hover:text-ring"
                       }`}
                   >
                     <span>{t("results")}</span>
@@ -208,8 +207,8 @@ export default function Navigation() {
                           key={item.to}
                           href={item.to}
                           className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
-                              ? "bg-purple-100 text-focus border-focus"
-                              : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
+                            ? "bg-purple-100 text-focus border-focus"
+                            : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
                             }`}
                           style={{ transitionDelay: `${index * 50}ms` }}
                         >
@@ -331,8 +330,8 @@ export default function Navigation() {
                   <div key={section.title} className="space-y-3">
                     <h3
                       className={`font-semibold text-sm tracking-wide uppercase border-b pb-2 ${isActiveParent(section.base)
-                          ? "text-primary"
-                          : "text-sidebar-primary border-focus"
+                        ? "text-primary"
+                        : "text-sidebar-primary border-focus"
                         }`}
                     >
                       {section.title}
@@ -343,8 +342,8 @@ export default function Navigation() {
                           key={item.to}
                           href={item.to}
                           className={`block py-2 text-sm font-medium transition-all duration-200 ${isActive(item.to)
-                              ? "text-secondary border-l-1 font-semibold pl-2 border-chart-4"
-                              : "text-muted-foreground hover:text-primary hover:pl-2"
+                            ? "text-secondary border-l-1 font-semibold pl-2 border-chart-4"
+                            : "text-muted-foreground hover:text-primary hover:pl-2"
                             }`}
                           onClick={() => setIsOpen(false)}
                         >
@@ -379,10 +378,10 @@ export default function Navigation() {
                       key={link.name}
                       href={link.path}
                       className={`block p-4 rounded-xl transition-all duration-200 font-medium border ${isActive(link.path)
-                          ? "bg-purple-100 text-primary border-ring"
-                          : link.special
-                            ? "bg-gradient-to-r from-border to-primary text-white border-primary hover:from-purple-500 hover:to-purple-600"
-                            : "bg-gradient-to-r from-purple-50 to-purple-100 text-slate-800 border-border hover:from-purple-100 hover:to-purple-200"
+                        ? "bg-purple-100 text-primary border-ring"
+                        : link.special
+                          ? "bg-gradient-to-r from-border to-primary text-white border-primary hover:from-purple-500 hover:to-purple-600"
+                          : "bg-gradient-to-r from-purple-50 to-purple-100 text-slate-800 border-border hover:from-purple-100 hover:to-purple-200"
                         }`}
                       onClick={() => setIsOpen(false)}
                     >

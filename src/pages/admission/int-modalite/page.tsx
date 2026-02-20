@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -27,13 +26,13 @@ export default function INTAdmissionPage() {
   const handleDownloadFiche = async (): Promise<void> => {
     try {
       const url: string = '/Fiche/FicheFS.pdf';
-      
+
       const response: Response = await fetch(url);
-      
+
       if (!response.ok) {
         throw new Error(`Erreur ${response.status}: ${response.statusText}`);
       }
-      
+
       const blob: Blob = await response.blob();
       const blobUrl: string = URL.createObjectURL(blob);
       const lien: HTMLAnchorElement = document.createElement('a');
@@ -43,7 +42,7 @@ export default function INTAdmissionPage() {
       lien.click();
       document.body.removeChild(lien);
       URL.revokeObjectURL(blobUrl);
-      
+
     } catch (error: unknown) {
       console.error('Erreur de téléchargement:', error);
       window.open('/Fiche/FicheFS.pdf', '_blank');
@@ -214,7 +213,7 @@ export default function INTAdmissionPage() {
                         <ol className="space-y-2 text-sm">
                           {[
                             t("intStep1"),
-                            t("intStep2"), 
+                            t("intStep2"),
                             t("intStep3"),
                             t("intStep4"),
                             t("intStep5"),
@@ -273,7 +272,7 @@ export default function INTAdmissionPage() {
                             className="flex items-start gap-2 p-3 bg-muted/50 border-l-2 border-primary/30"
                           >
                             <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                            <div className="flex-1"> 
+                            <div className="flex-1">
                               <span className="text-sm block">{item.text}</span>
                               {item.hasDownload && (
                                 <button
@@ -366,26 +365,6 @@ export default function INTAdmissionPage() {
                     </CardContent>
                   </Card>
 
-                  {/* Call to Action */}
-                  <Card className="bg-primary text-primary-foreground rounded-none">
-                    <CardHeader>
-                      <CardTitle>{t("intReadyToApply")}</CardTitle>
-                      <CardDescription className="text-primary-foreground/80">
-                        {t("intEnsureDocuments")}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button
-                        variant="secondary"
-                        className="w-full rounded-none cursor-pointer"
-                        onClick={() =>
-                          (window.location.href = "/admission/int-formulaire")
-                        }
-                      >
-                        {t("intStartApplication")}
-                      </Button>
-                    </CardContent>
-                  </Card>
                 </div>
               </div>
             </div>
