@@ -100,7 +100,7 @@ const InscriptionPage: React.FC = () => {
     const [step, setStep] = useState<InscriptionStep>('selection');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [isProfessional, setIsProfessional] = useState(false);
+    const [flow, setFlow] = useState<'l1-acad' | 'l1-pro' | 'others' | null>(null);
     const [eligiblePortals, setEligiblePortals] = useState<EligiblePortal[]>([]);
     const [authorizedPortals, setAuthorizedPortals] = useState<any[]>([]);
     const [selectedPortal, setSelectedPortal] = useState<EligiblePortal | null>(null);
@@ -219,17 +219,18 @@ const InscriptionPage: React.FC = () => {
                 setStep('bank-reference');
             }
         } else if (step === 'bank-reference') {
-            if (othersData.inscriptionNum) {
+            if (flow === 'others') {
                 setStep(authorizedPortals.length > 1 ? 'others-portal-selection' : 'others-form');
             } else {
                 setStep('portal-selection');
             }
         } else if (step === 'portal-selection') {
-            setStep(isProfessional ? 'l1-pro-form' : 'l1-form');
+            setStep(flow === 'l1-pro' ? 'l1-pro-form' : 'l1-form');
         } else if (step === 'others-portal-selection') {
             setStep('others-form');
         } else {
             setStep('selection');
+            setFlow(null);
         }
         setError(null);
     };
@@ -473,7 +474,7 @@ const InscriptionPage: React.FC = () => {
     }, [photo]);
 
     const handleL1Submit = async () => {
-        setIsProfessional(false);
+        setFlow('l1-acad');
         if (!l1Data.baccNum || !l1Data.baccYear) {
             setError("Veuillez remplir tous les champs.");
             return;
@@ -541,7 +542,7 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handleL1ProSubmit = async () => {
-        setIsProfessional(true);
+        setFlow('l1-pro');
         if (!l1Data.baccNum || !l1Data.baccYear) {
             setError("Veuillez remplir tous les champs.");
             return;
@@ -618,7 +619,7 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handleOthersSubmit = async () => {
-        setIsProfessional(false);
+        setFlow('others');
         if (!othersData.inscriptionNum) {
             setError("Veuillez entrer votre numéro d'inscription 2024-2025.");
             return;
@@ -725,7 +726,7 @@ const InscriptionPage: React.FC = () => {
 
                             <div className="space-y-4">
                                 <button
-                                    onClick={() => setStep('l1-form')}
+                                    onClick={() => { setStep('l1-form'); setFlow('l1-acad'); }}
                                     className="w-full flex items-center justify-between p-5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 transition-all group text-left"
                                 >
                                     <div className="flex items-center gap-4">
@@ -741,7 +742,7 @@ const InscriptionPage: React.FC = () => {
                                 </button>
 
                                 <button
-                                    onClick={() => setStep('l1-pro-form')}
+                                    onClick={() => { setStep('l1-pro-form'); setFlow('l1-pro'); }}
                                     className="w-full flex items-center justify-between p-5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-amber-50 hover:border-amber-200 transition-all group text-left"
                                 >
                                     <div className="flex items-center gap-4">
@@ -757,7 +758,7 @@ const InscriptionPage: React.FC = () => {
                                 </button>
 
                                 <button
-                                    onClick={() => setStep('others-form')}
+                                    onClick={() => { setStep('others-form'); setFlow('others'); }}
                                     className="w-full flex items-center justify-between p-5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-all group text-left"
                                 >
                                     <div className="flex items-center gap-4">
@@ -882,10 +883,10 @@ const InscriptionPage: React.FC = () => {
                                     <ChevronLeft className="w-3 h-3 mr-1" /> IDENTIFICATION
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
-                                    {isProfessional ? "Parcours Disponibles" : "Portails Disponibles"}
+                                    {flow === 'l1-pro' ? "Parcours Disponibles" : "Portails Disponibles"}
                                 </h1>
                                 <p className="text-slate-400 text-xs mt-1">
-                                    {isProfessional ? "Choisissez votre parcours pour votre inscription" : "Choisissez le portail pour votre inscription"}
+                                    {flow === 'l1-pro' ? "Choisissez votre parcours pour votre inscription" : "Choisissez le portail pour votre inscription"}
                                 </p>
                             </div>
 
@@ -898,7 +899,7 @@ const InscriptionPage: React.FC = () => {
                                     >
                                         <div className="flex items-center gap-4 flex-1 min-w-0">
                                             <div className="flex-1 min-w-0">
-                                                {isProfessional && portal.mention && (
+                                                {flow === 'l1-pro' && portal.mention && (
                                                     <div className="text-[10px] font-black text-indigo-400/70 uppercase tracking-widest leading-none mb-1 group-hover:text-indigo-500 transition-colors">
                                                         {portal.mention}
                                                     </div>
@@ -1464,7 +1465,7 @@ const InscriptionPage: React.FC = () => {
                                     onClick={handleBack}
                                     className="text-[10px] text-indigo-500 hover:text-indigo-600 flex items-center font-black tracking-widest mb-4 sm:mb-6 transition-colors mx-auto sm:mx-0"
                                 >
-                                    <ChevronLeft className="w-3 h-3 mr-1" /> {formStep > 0 ? "ÉTAPES PRÉCÉDENTE" : "DOCUMENTS D'IDENTITÉ"}
+                                    <ChevronLeft className="w-3 h-3 mr-1" /> {formStep > 0 ? "ÉTAPE PRÉCÉDENTE" : "DOCUMENTS D'IDENTITÉ"}
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
                                     {activeSteps[formStep].title}
