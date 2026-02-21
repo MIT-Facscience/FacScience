@@ -308,6 +308,22 @@ export default function CandidatsPreinscrits() {
 
     let filtered = [...listResult]
 
+    // Filtre local pour la recherche combinée Nom + Prénom si le serveur ne le gère pas parfaitement
+    if (debouncedSearchTerm.trim()) {
+      const search = debouncedSearchTerm.toLowerCase().trim()
+      filtered = filtered.filter(c => {
+        const nom = c.nom || ""
+        const prenom = c.prenom || ""
+        const fullName = `${nom} ${prenom}`.toLowerCase()
+        const reverseFullName = `${prenom} ${nom}`.toLowerCase()
+        const bac = c.bacNumber.toLowerCase()
+
+        return fullName.includes(search) ||
+          reverseFullName.includes(search) ||
+          bac.includes(search)
+      })
+    }
+
     if (statusFilter === "selected") {
       filtered = filtered.filter(c => c.statut === "Sélectionné(e)")
     } else if (statusFilter === "waiting") {
@@ -356,12 +372,12 @@ export default function CandidatsPreinscrits() {
         ? [
           candidat.rang,
           candidat.bacNumber,
-          candidat.prenom + (candidat.nom ? " " + candidat.nom : "")
+          (candidat.nom ? candidat.nom + " " : "") + candidat.prenom
         ]
         : [
           candidat.bacNumber,
           candidat.anneeBacc,
-          candidat.prenom + (candidat.nom ? " " + candidat.nom : "")
+          (candidat.nom ? candidat.nom + " " : "") + candidat.prenom
         ]
       tableRows.push(candidateData)
     })
@@ -721,7 +737,9 @@ export default function CandidatsPreinscrits() {
                                   {candidat.prenom?.[0]?.toUpperCase() || "?"}
                                 </div>
                               )}
-                              <span className="text-sm font-semibold text-slate-700">{candidat.prenom}</span>
+                              <span className="text-sm font-semibold text-slate-700">
+                                {candidat.nom ? `${candidat.nom} ` : ""}{candidat.prenom}
+                              </span>
                             </div>
                           </td>
                           {isAcademique && (
@@ -750,7 +768,9 @@ export default function CandidatsPreinscrits() {
                             <div className="h-8 w-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs ring-1 ring-amber-200">
                               {candidat.prenom?.[0]?.toUpperCase() || "?"}
                             </div>
-                            <span className="font-bold text-base text-slate-800">{candidat.prenom}</span>
+                            <span className="font-bold text-base text-slate-800">
+                              {candidat.nom ? `${candidat.nom} ` : ""}{candidat.prenom}
+                            </span>
                           </div>
                         )}
                         {isAcademique && (

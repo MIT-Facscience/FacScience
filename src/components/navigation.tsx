@@ -27,6 +27,7 @@ const rechercheItems = [
 
 const admissionItems = [
   { key: "modalities", to: "/admission/modalite" },
+  { key: "inscription2025", to: "/admission/inscription-2025-2026" },
   { key: "authorizedList", to: "/admission/inscription/autorises" },
 ];
 

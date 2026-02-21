@@ -25,6 +25,7 @@
     },
     "admissionItems": {
         "modalities": "Modalités",
+        "inscription2025": "Inscription 2025-2026",
         "authorizedList": "Liste des Autorisés"
     }
 }
