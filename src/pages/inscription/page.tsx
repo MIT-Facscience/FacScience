@@ -605,7 +605,7 @@ const InscriptionPage: React.FC = () => {
             setEligiblePortals(mappedPortals);
 
             if (data.studentInfo) {
-                const { nomPrenom, sexe, dateNaissance, lieuNaissance, idEtudiant } = data.studentInfo;
+                const { nomPrenom, sexe, dateNaissance, lieuNaissance, idEtudiant, email, tel } = data.studentInfo;
 
                 const nameParts = (nomPrenom || "").trim().split(/\s+/);
                 const nom = nameParts[0] || "";
@@ -616,6 +616,11 @@ const InscriptionPage: React.FC = () => {
                 form.setValue("sexe", sexe || "M");
                 form.setValue("dateNaissance", formatDateForInput(dateNaissance));
                 form.setValue("lieuNaissance", lieuNaissance || "");
+
+                const finalEmail = (email && email.toLowerCase() === "scitechscolarite@gmail.com") ? "" : (email || "");
+                form.setValue("email", finalEmail);
+                const formattedTel = (tel && !tel.startsWith('0')) ? `0${tel}` : (tel || "");
+                form.setValue("telephone", formattedTel);
 
                 if (data.studentInfo.cin) {
                     form.setValue("cin", data.studentInfo.cin);
