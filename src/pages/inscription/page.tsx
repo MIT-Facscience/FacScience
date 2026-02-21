@@ -135,6 +135,17 @@ const InscriptionPage: React.FC = () => {
     // Multi-step form state
     const [formStep, setFormStep] = useState(0);
 
+    const formatDateForInput = (dateStr: string | null | undefined) => {
+        if (!dateStr) return "";
+        try {
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) return "";
+            return d.toISOString().split('T')[0];
+        } catch (e) {
+            return "";
+        }
+    };
+
     const form = useForm<StudentFormValues>({
         resolver: zodResolver(studentSchema),
         defaultValues: {
@@ -521,14 +532,17 @@ const InscriptionPage: React.FC = () => {
                 form.setValue("nom", nom);
                 form.setValue("prenom", prenom);
                 form.setValue("sexe", sexe || "M");
-                form.setValue("dateNaissance", dateNaissance || "");
+                form.setValue("dateNaissance", formatDateForInput(dateNaissance));
                 form.setValue("lieuNaissance", lieuNaissance || "");
                 const finalEmail = (email && email.toLowerCase() === "scitechscolarite@gmail.com") ? "" : (email || "");
                 form.setValue("email", finalEmail);
                 const formattedTel = (tel && !tel.startsWith('0')) ? `0${tel}` : (tel || "");
                 form.setValue("telephone", formattedTel);
+                if (data.studentInfo.cin) {
+                    form.setValue("cin", data.studentInfo.cin);
+                }
                 if (data.studentInfo.dateDelivrance) {
-                    form.setValue("dateDelivrance", data.studentInfo.dateDelivrance);
+                    form.setValue("dateDelivrance", formatDateForInput(data.studentInfo.dateDelivrance));
                 }
             }
 
@@ -600,8 +614,15 @@ const InscriptionPage: React.FC = () => {
                 form.setValue("nom", nom);
                 form.setValue("prenom", prenom);
                 form.setValue("sexe", sexe || "M");
-                form.setValue("dateNaissance", dateNaissance || "");
+                form.setValue("dateNaissance", formatDateForInput(dateNaissance));
                 form.setValue("lieuNaissance", lieuNaissance || "");
+
+                if (data.studentInfo.cin) {
+                    form.setValue("cin", data.studentInfo.cin);
+                }
+                if (data.studentInfo.dateDelivrance) {
+                    form.setValue("dateDelivrance", formatDateForInput(data.studentInfo.dateDelivrance));
+                }
 
                 setReenrollmentData({
                     idEtudiant: idEtudiant,
@@ -648,10 +669,10 @@ const InscriptionPage: React.FC = () => {
             form.setValue("nom", studentInfo.nom || "");
             form.setValue("prenom", studentInfo.prenom || "");
             form.setValue("sexe", studentInfo.sexe || "M");
-            form.setValue("dateNaissance", studentInfo.dateNaissance || "");
+            form.setValue("dateNaissance", formatDateForInput(studentInfo.dateNaissance));
             form.setValue("lieuNaissance", studentInfo.lieuNaissance || "");
             form.setValue("cin", studentInfo.cin || "");
-            form.setValue("dateDelivrance", studentInfo.dateDelivrance || "");
+            form.setValue("dateDelivrance", formatDateForInput(studentInfo.dateDelivrance));
             form.setValue("email", studentInfo.email || "");
             const formattedTel = (studentInfo.tel && !studentInfo.tel.startsWith('0')) ? `0${studentInfo.tel}` : (studentInfo.tel || "");
             form.setValue("telephone", formattedTel);
