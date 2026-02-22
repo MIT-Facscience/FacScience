@@ -138,6 +138,77 @@ const InscriptionPage: React.FC = () => {
     // Multi-step form state
     const [formStep, setFormStep] = useState(0);
     const scrollAreaRef = React.useRef<HTMLDivElement>(null);
+    const isNavigatingBack = React.useRef(false);
+    const currentStepRef = React.useRef<InscriptionStep>(step);
+
+    // Keep ref in sync for the popstate listener closure
+    React.useEffect(() => {
+        currentStepRef.current = step;
+    }, [step]);
+
+    // Initial history state synchronization
+    React.useEffect(() => {
+        // Replace initial state with current values to ensure we have a state object
+        window.history.replaceState({ step, formStep, mode, flow }, "");
+    }, []);
+
+    // Listen for back button / popstate events
+    React.useEffect(() => {
+        const handleBrowserBack = (event: PopStateEvent) => {
+            if (event.state) {
+                isNavigatingBack.current = true;
+                let { step: s, formStep: fs, mode: m, flow: f } = event.state;
+
+                // Special case: if we are on the success page, back button should go to selection
+                if (currentStepRef.current === 'success') {
+                    s = 'selection';
+                    fs = 0;
+                    m = 'choice';
+                    f = null;
+                    // Replace the state in history to effectively "clear" the path on future backs/forwards
+                    window.history.replaceState({ step: 'selection', formStep: 0, mode: 'choice', flow: null }, "");
+                }
+
+                // Sync all relevant states
+                setStep(s);
+                setFormStep(fs);
+                setMode(m);
+                setFlow(f);
+
+                // Cleanup photo states if moving out of crop mode
+                if (m !== 'crop') {
+                    setRawPhoto(null);
+                }
+
+                setError(null);
+
+                // Small delay to ensure React processes updates before allowing new pushStates
+                setTimeout(() => {
+                    isNavigatingBack.current = false;
+                }, 100);
+            }
+        };
+
+        window.addEventListener('popstate', handleBrowserBack);
+        return () => window.removeEventListener('popstate', handleBrowserBack);
+    }, []);
+
+    // Push new state captured locally when navigating forward
+    React.useEffect(() => {
+        if (isNavigatingBack.current) return;
+
+        // Skip pushing if the state is identical to avoid cluttering history
+        const currentState = window.history.state;
+        if (currentState &&
+            currentState.step === step &&
+            currentState.formStep === formStep &&
+            currentState.mode === mode &&
+            currentState.flow === flow) {
+            return;
+        }
+
+        window.history.pushState({ step, formStep, mode, flow }, "");
+    }, [step, formStep, mode, flow]);
 
     const formatDateForInput = (dateStr: string | null | undefined) => {
         if (!dateStr) return "";
@@ -223,39 +294,11 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handleBack = () => {
-        if (step === 'student-info') {
-            if (formStep > 0) {
-                prevFormStep();
-                return;
-            }
-            setStep('identity-documents');
-        } else if (step === 'identity-documents') {
-            setStep('photo-capture');
-            setMode('choice');
-        } else if (step === 'photo-capture') {
-            if (mode === 'crop') {
-                setMode('choice');
-                setRawPhoto(null);
-            } else if (mode === 'camera') {
-                setMode('choice');
-            } else {
-                setStep('bank-reference');
-            }
-        } else if (step === 'bank-reference') {
-            if (flow === 'others') {
-                setStep(authorizedPortals.length > 1 ? 'others-portal-selection' : 'others-form');
-            } else {
-                setStep('portal-selection');
-            }
-        } else if (step === 'portal-selection') {
-            setStep(flow === 'l1-pro' ? 'l1-pro-form' : 'l1-form');
-        } else if (step === 'others-portal-selection') {
-            setStep('others-form');
-        } else {
-            setStep('selection');
-            setFlow(null);
+        if (step === 'selection') {
+            // If at the beginning, we shouldn't really go "back" within the app
+            return;
         }
-        setError(null);
+        window.history.back();
     };
 
     const handlePortalSelect = (portal: EligiblePortal | any) => {
@@ -1833,17 +1876,17 @@ const InscriptionPage: React.FC = () => {
                                     <div className="flex flex-col items-center mb-6">
                                         <div className="relative mb-4">
                                             {photo ? (
-                                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-indigo-100 p-1 bg-white shadow-sm overflow-hidden">
+                                                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-2 border-indigo-100 p-1 bg-white shadow-sm overflow-hidden">
                                                     <img
                                                         src={photo}
                                                         alt="Profil"
-                                                        className="w-full h-full object-cover rounded-full"
+                                                        className="w-full h-full object-cover rounded-xl"
                                                     />
                                                 </div>
                                             ) : (
-                                                <div className="w-20 h-20 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center">
-                                                    <div className="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600">
-                                                        <UserPlus className="w-6 h-6" />
+                                                <div className="w-28 h-28 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center">
+                                                    <div className="w-16 h-16 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                                        <UserPlus className="w-8 h-8" />
                                                     </div>
                                                 </div>
                                             )}
@@ -1864,7 +1907,6 @@ const InscriptionPage: React.FC = () => {
 
                                     {/* Path Info - Grouped Level + Program */}
                                     <div className="text-center mb-6 px-2">
-                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">Parcours académique</p>
                                         <p className="text-xs sm:text-sm font-bold text-slate-700 leading-snug">
                                             <span className="text-indigo-600 px-1.5 py-0.5 bg-indigo-50 rounded font-black mr-1">{enrollmentResult?.niveau || 'N/A'}</span>
                                             en {enrollmentResult?.nomPortail || selectedPortal?.nomPortail || 'N/A'}
