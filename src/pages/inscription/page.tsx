@@ -11,7 +11,8 @@ import {
     Smartphone,
     Image as ImageIcon,
     Maximize2,
-    CreditCard
+    CreditCard,
+    ShieldCheck
 } from 'lucide-react';
 import Webcam from 'react-webcam';
 import Cropper from 'react-easy-crop';
@@ -45,12 +46,13 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import ScienceLoader from '@/components/ScienceLoader';
 
 const studentSchema = z.object({
     nom: z.string().min(2, "Le nom est requis"),
     prenom: z.string().optional(),
     sexe: z.string().min(1, "Le sexe est requis"),
-    dateNaissance: z.string().min(1, "La date de naissance est requise"),
+    dateNaissance: z.string().min(1, "La date de naissance est obligatoire"),
     lieuNaissance: z.string().min(2, "Le lieu de naissance est requis"),
 
     cin: z.string().min(10, "Numéro CIN invalide").max(20, "Numéro CIN invalide").optional().or(z.literal('')),
@@ -59,9 +61,9 @@ const studentSchema = z.object({
     adresse: z.string().min(5, "L'adresse est requise"),
     telephone: z.string().min(10, "Numéro de téléphone invalide"),
     email: z.string().email("Email invalide").optional().or(z.literal('')),
-    referenceAdmin: z.string().optional(),
-    referencePedago: z.string().optional(),
-    referenceMixte: z.string().optional(),
+    referenceAdmin: z.string().max(20, "La référence ne peut pas dépasser 20 caractères").optional(),
+    referencePedago: z.string().max(20, "La référence ne peut pas dépasser 20 caractères").optional(),
+    referenceMixte: z.string().max(20, "La référence ne peut pas dépasser 20 caractères").optional(),
     referenceBancaire: z.string().optional(), // Keep for legacy if needed, or remove
 }).superRefine((data, ctx) => {
     const hasAdmin = !!data.referenceAdmin && data.referenceAdmin.length >= 3;
@@ -99,6 +101,7 @@ const formSteps = [
 const InscriptionPage: React.FC = () => {
     const [step, setStep] = useState<InscriptionStep>('selection');
     const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [flow, setFlow] = useState<'l1-acad' | 'l1-pro' | 'others' | null>(null);
     const [eligiblePortals, setEligiblePortals] = useState<EligiblePortal[]>([]);
@@ -106,7 +109,7 @@ const InscriptionPage: React.FC = () => {
     const [selectedPortal, setSelectedPortal] = useState<EligiblePortal | null>(null);
     const [photo, setPhoto] = useState<string | null>(null); // Final cropped photo
     const [rawPhoto, setRawPhoto] = useState<string | null>(null); // Original photo for cropping
-    const [enrollmentResult, setEnrollmentResult] = useState<{ numInscription: string, nomPortail?: string, statut?: string } | null>(null);
+    const [enrollmentResult, setEnrollmentResult] = useState<{ numInscription: string, nomPortail?: string, statut?: string, niveau?: string, nom?: string, prenom?: string } | null>(null);
 
     // Identity document state
     const [cinRectoImage, setCinRectoImage] = useState<string | null>(null);
@@ -134,6 +137,78 @@ const InscriptionPage: React.FC = () => {
 
     // Multi-step form state
     const [formStep, setFormStep] = useState(0);
+    const scrollAreaRef = React.useRef<HTMLDivElement>(null);
+    const isNavigatingBack = React.useRef(false);
+    const currentStepRef = React.useRef<InscriptionStep>(step);
+
+    // Keep ref in sync for the popstate listener closure
+    React.useEffect(() => {
+        currentStepRef.current = step;
+    }, [step]);
+
+    // Initial history state synchronization
+    React.useEffect(() => {
+        // Replace initial state with current values to ensure we have a state object
+        window.history.replaceState({ step, formStep, mode, flow }, "");
+    }, []);
+
+    // Listen for back button / popstate events
+    React.useEffect(() => {
+        const handleBrowserBack = (event: PopStateEvent) => {
+            if (event.state) {
+                isNavigatingBack.current = true;
+                let { step: s, formStep: fs, mode: m, flow: f } = event.state;
+
+                // Special case: if we are on the success page, back button should go to selection
+                if (currentStepRef.current === 'success') {
+                    s = 'selection';
+                    fs = 0;
+                    m = 'choice';
+                    f = null;
+                    // Replace the state in history to effectively "clear" the path on future backs/forwards
+                    window.history.replaceState({ step: 'selection', formStep: 0, mode: 'choice', flow: null }, "");
+                }
+
+                // Sync all relevant states
+                setStep(s);
+                setFormStep(fs);
+                setMode(m);
+                setFlow(f);
+
+                // Cleanup photo states if moving out of crop mode
+                if (m !== 'crop') {
+                    setRawPhoto(null);
+                }
+
+                setError(null);
+
+                // Small delay to ensure React processes updates before allowing new pushStates
+                setTimeout(() => {
+                    isNavigatingBack.current = false;
+                }, 100);
+            }
+        };
+
+        window.addEventListener('popstate', handleBrowserBack);
+        return () => window.removeEventListener('popstate', handleBrowserBack);
+    }, []);
+
+    // Push new state captured locally when navigating forward
+    React.useEffect(() => {
+        if (isNavigatingBack.current) return;
+
+        // Skip pushing if the state is identical to avoid cluttering history
+        const currentState = window.history.state;
+        if (currentState &&
+            currentState.step === step &&
+            currentState.formStep === formStep &&
+            currentState.mode === mode &&
+            currentState.flow === flow) {
+            return;
+        }
+
+        window.history.pushState({ step, formStep, mode, flow }, "");
+    }, [step, formStep, mode, flow]);
 
     const formatDateForInput = (dateStr: string | null | undefined) => {
         if (!dateStr) return "";
@@ -198,6 +273,14 @@ const InscriptionPage: React.FC = () => {
         });
     }, [isMajor, hasNoCin]);
 
+    // Scroll to top on step changes
+    React.useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (scrollAreaRef.current) {
+            scrollAreaRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, [step, formStep]);
+
     const nextFormStep = async () => {
         const fields = activeSteps[formStep].fields as any[];
         const output = await form.trigger(fields);
@@ -211,39 +294,11 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handleBack = () => {
-        if (step === 'student-info') {
-            if (formStep > 0) {
-                prevFormStep();
-                return;
-            }
-            setStep('identity-documents');
-        } else if (step === 'identity-documents') {
-            setStep('photo-capture');
-            setMode('choice');
-        } else if (step === 'photo-capture') {
-            if (mode === 'crop') {
-                setMode('choice');
-                setRawPhoto(null);
-            } else if (mode === 'camera') {
-                setMode('choice');
-            } else {
-                setStep('bank-reference');
-            }
-        } else if (step === 'bank-reference') {
-            if (flow === 'others') {
-                setStep(authorizedPortals.length > 1 ? 'others-portal-selection' : 'others-form');
-            } else {
-                setStep('portal-selection');
-            }
-        } else if (step === 'portal-selection') {
-            setStep(flow === 'l1-pro' ? 'l1-pro-form' : 'l1-form');
-        } else if (step === 'others-portal-selection') {
-            setStep('others-form');
-        } else {
-            setStep('selection');
-            setFlow(null);
+        if (step === 'selection') {
+            // If at the beginning, we shouldn't really go "back" within the app
+            return;
         }
-        setError(null);
+        window.history.back();
     };
 
     const handlePortalSelect = (portal: EligiblePortal | any) => {
@@ -292,7 +347,7 @@ const InscriptionPage: React.FC = () => {
             return;
         }
 
-        setIsLoading(true);
+        setIsSubmitting(true);
         setError(null);
         try {
             const payload = {
@@ -355,9 +410,18 @@ const InscriptionPage: React.FC = () => {
                 if (response.status === 409) {
                     try {
                         const conflictData = JSON.parse(errorText);
+                        const formValues = form.getValues();
+
+                        if (conflictData.photoBase64) {
+                            setPhoto(conflictData.photoBase64);
+                        }
                         setEnrollmentResult({
                             numInscription: conflictData.numInscription,
-                            nomPortail: conflictData.nomPortail
+                            nomPortail: conflictData.nomPortail,
+                            statut: conflictData.statut || "En attente de validation",
+                            niveau: conflictData.niveau || (flow === 'others' && selectedPortal ? (selectedPortal as any).niveau : 'L1'),
+                            nom: conflictData.nom || formValues.nom,
+                            prenom: conflictData.prenom || formValues.prenom
                         });
                         toast.success("Vous êtes déjà inscrit !");
                         setStep('success');
@@ -371,10 +435,18 @@ const InscriptionPage: React.FC = () => {
             }
 
             const result = await response.json();
+            const formValues = form.getValues();
+
+            if (result.photoBase64) {
+                setPhoto(result.photoBase64);
+            }
             setEnrollmentResult({
                 numInscription: result.numInscription,
                 nomPortail: result.nomPortail,
-                statut: result.statut
+                statut: result.statut || "En attente de validation",
+                niveau: result.niveau || (flow === 'others' && selectedPortal ? (selectedPortal as any).niveau : 'L1'),
+                nom: result.nom || formValues.nom,
+                prenom: result.prenom || formValues.prenom
             });
             toast.success("Inscription réussie !");
             setStep('success');
@@ -388,7 +460,7 @@ const InscriptionPage: React.FC = () => {
             // but for now let's stay on current step to show the error message.
             // setFormStep(0); 
         } finally {
-            setIsLoading(false);
+            setIsSubmitting(false);
         }
     };
 
@@ -445,44 +517,6 @@ const InscriptionPage: React.FC = () => {
         input.click();
     };
 
-    const compressImage = async (base64Str: string, maxSizeKB: number = 300): Promise<string> => {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.src = base64Str;
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                let width = img.width;
-                let height = img.height;
-
-                // Maintain aspect ratio
-                canvas.width = width;
-                canvas.height = height;
-
-                const ctx = canvas.getContext('2d');
-                ctx?.drawImage(img, 0, 0, width, height);
-
-                let quality = 0.9;
-                let compressedBase64 = canvas.toDataURL('image/jpeg', quality);
-
-                // Iteratively reduce quality if still over size
-                while (compressedBase64.length / 1024 > maxSizeKB && quality > 0.1) {
-                    quality -= 0.1;
-                    compressedBase64 = canvas.toDataURL('image/jpeg', quality);
-                }
-
-                resolve(compressedBase64);
-            };
-        });
-    };
-
-    // Background compression when photo is set
-    React.useEffect(() => {
-        if (photo && photo.length / 1024 > 300) {
-            compressImage(photo).then(compressed => {
-                setPhoto(compressed);
-            });
-        }
-    }, [photo]);
 
     const handleL1Submit = async () => {
         setFlow('l1-acad');
@@ -500,9 +534,16 @@ const InscriptionPage: React.FC = () => {
             if (!response.ok) {
                 if (response.status === 409) {
                     const conflictData = await response.json();
+                    if (conflictData.photoBase64) {
+                        setPhoto(conflictData.photoBase64);
+                    }
                     setEnrollmentResult({
                         numInscription: conflictData.numInscription,
-                        nomPortail: conflictData.nomPortail
+                        nomPortail: conflictData.nomPortail,
+                        statut: conflictData.statut || "En attente de validation",
+                        niveau: conflictData.niveau || "L1",
+                        nom: conflictData.nom,
+                        prenom: conflictData.prenom
                     });
                     setStep('success');
                     return;
@@ -571,9 +612,16 @@ const InscriptionPage: React.FC = () => {
             if (!response.ok) {
                 if (response.status === 409) {
                     const conflictData = await response.json();
+                    if (conflictData.photoBase64) {
+                        setPhoto(conflictData.photoBase64);
+                    }
                     setEnrollmentResult({
                         numInscription: conflictData.numInscription,
-                        nomPortail: conflictData.nomPortail
+                        nomPortail: conflictData.nomPortail,
+                        statut: conflictData.statut || "En attente de validation",
+                        niveau: conflictData.niveau || "L1 Pro",
+                        nom: conflictData.nom,
+                        prenom: conflictData.prenom
                     });
                     setStep('success');
                     return;
@@ -605,7 +653,7 @@ const InscriptionPage: React.FC = () => {
             setEligiblePortals(mappedPortals);
 
             if (data.studentInfo) {
-                const { nomPrenom, sexe, dateNaissance, lieuNaissance, idEtudiant } = data.studentInfo;
+                const { nomPrenom, sexe, dateNaissance, lieuNaissance, idEtudiant, email, tel } = data.studentInfo;
 
                 const nameParts = (nomPrenom || "").trim().split(/\s+/);
                 const nom = nameParts[0] || "";
@@ -616,6 +664,11 @@ const InscriptionPage: React.FC = () => {
                 form.setValue("sexe", sexe || "M");
                 form.setValue("dateNaissance", formatDateForInput(dateNaissance));
                 form.setValue("lieuNaissance", lieuNaissance || "");
+
+                const finalEmail = (email && email.toLowerCase() === "scitechscolarite@gmail.com") ? "" : (email || "");
+                form.setValue("email", finalEmail);
+                const formattedTel = (tel && !tel.startsWith('0')) ? `0${tel}` : (tel || "");
+                form.setValue("telephone", formattedTel);
 
                 if (data.studentInfo.cin) {
                     form.setValue("cin", data.studentInfo.cin);
@@ -652,9 +705,16 @@ const InscriptionPage: React.FC = () => {
             if (!response.ok) {
                 if (response.status === 409) {
                     const conflictData = await response.json();
+                    if (conflictData.photoBase64) {
+                        setPhoto(conflictData.photoBase64);
+                    }
                     setEnrollmentResult({
                         numInscription: conflictData.numInscription,
-                        nomPortail: conflictData.nomPortail
+                        nomPortail: conflictData.nomPortail,
+                        statut: conflictData.statut || "En attente de validation",
+                        niveau: conflictData.niveau || "Réinscription",
+                        nom: conflictData.nom,
+                        prenom: conflictData.prenom
                     });
                     setStep('success');
                     return;
@@ -713,19 +773,28 @@ const InscriptionPage: React.FC = () => {
     };
 
     const containerVariants: Variants = {
-        hidden: { opacity: 0, y: 10 },
+        hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            y: 0,
-            transition: { duration: 0.2, ease: "easeOut" }
+            transition: { duration: 0.1, ease: "easeOut" }
         },
-        exit: { opacity: 0, y: -10, transition: { duration: 0.1 } }
+        exit: { opacity: 0, transition: { duration: 0.1 } }
     };
+
+    if (isSubmitting) {
+        return (
+            <div className="min-h-screen bg-white flex flex-col items-center pt-8 sm:pt-12 px-4">
+                <div className="w-full max-w-[480px]">
+                    <ScienceLoader />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={cn(
-            "min-h-screen bg-white flex flex-col items-center pb-12 px-4 md:px-0 font-sans transition-all duration-300",
-            step === 'selection' ? "pt-24" : "pt-4 sm:pt-24"
+            "min-h-screen bg-white flex flex-col items-center pb-12 px-4 md:px-0 font-sans transition-all duration-100",
+            step === 'selection' ? "pt-8 sm:pt-12" : "pt-4 sm:pt-8"
         )}>
             <div className="w-full max-w-[480px] relative z-10">
                 <AnimatePresence mode="wait">
@@ -736,7 +805,7 @@ const InscriptionPage: React.FC = () => {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="bg-white rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-slate-100 p-8 md:p-10 text-center"
+                            className="sm:bg-white sm:rounded-xl sm:shadow-[0_10px_40px_rgba(0,0,0,0.08)] sm:border sm:border-slate-100 p-8 md:p-10 text-center"
                         >
                             <h1 className="text-3xl font-bold text-slate-800 mb-2">
                                 Inscription Universitaire
@@ -748,7 +817,7 @@ const InscriptionPage: React.FC = () => {
                             <div className="space-y-4">
                                 <button
                                     onClick={() => { setStep('l1-form'); setFlow('l1-acad'); }}
-                                    className="w-full flex items-center justify-between p-5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 transition-all group text-left"
+                                    className="w-full flex items-center justify-between p-5 rounded-lg sm:border sm:border-slate-100 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 transition-all group text-left"
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="p-2.5 bg-indigo-500 rounded-md text-white font-bold group-hover:scale-110 transition-transform shadow-md shadow-indigo-100">
@@ -764,7 +833,7 @@ const InscriptionPage: React.FC = () => {
 
                                 <button
                                     onClick={() => { setStep('l1-pro-form'); setFlow('l1-pro'); }}
-                                    className="w-full flex items-center justify-between p-5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-amber-50 hover:border-amber-200 transition-all group text-left"
+                                    className="w-full flex items-center justify-between p-5 rounded-lg sm:border sm:border-slate-100 bg-slate-50 hover:bg-amber-50 hover:border-amber-200 transition-all group text-left"
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="p-2.5 bg-amber-500 rounded-md text-white font-bold group-hover:scale-110 transition-transform shadow-md shadow-amber-100">
@@ -780,7 +849,7 @@ const InscriptionPage: React.FC = () => {
 
                                 <button
                                     onClick={() => { setStep('others-form'); setFlow('others'); }}
-                                    className="w-full flex items-center justify-between p-5 rounded-lg border border-slate-100 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-all group text-left"
+                                    className="w-full flex items-center justify-between p-5 rounded-lg sm:border sm:border-slate-100 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-all group text-left"
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="p-2.5 bg-emerald-500 rounded-md text-white font-bold group-hover:scale-110 transition-transform shadow-md shadow-emerald-100">
@@ -817,7 +886,7 @@ const InscriptionPage: React.FC = () => {
                                     Identification
                                 </h1>
                                 {error && (
-                                    <div className="mt-4 p-3 bg-red-50 border border-red-100 rounded-lg flex items-start gap-3 text-red-600 text-xs animate-in fade-in slide-in-from-top-1">
+                                    <div className="mt-4 p-3 bg-red-50 border border-red-100 rounded-lg flex items-start gap-3 text-red-600 text-xs animate-in fade-in duration-100">
                                         <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                                         <p>{error}</p>
                                     </div>
@@ -916,7 +985,7 @@ const InscriptionPage: React.FC = () => {
                                     <button
                                         key={portal.idPortail}
                                         onClick={() => handlePortalSelect(portal)}
-                                        className="w-full group text-left p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-50/50 transition-all duration-300 flex items-center justify-between"
+                                        className="w-full group text-left p-4 rounded-xl sm:border sm:border-slate-100 bg-slate-50/50 hover:bg-white hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-50/50 transition-all duration-300 flex items-center justify-between"
                                     >
                                         <div className="flex items-center gap-4 flex-1 min-w-0">
                                             <div className="flex-1 min-w-0">
@@ -978,7 +1047,7 @@ const InscriptionPage: React.FC = () => {
                                     <button
                                         key={idx}
                                         onClick={() => handlePortalSelect(portal)}
-                                        className="w-full group text-left p-5 rounded-2xl border border-slate-100 bg-slate-50/30 hover:bg-white hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex items-center justify-between relative overflow-hidden"
+                                        className="w-full group text-left p-5 rounded-2xl sm:border sm:border-slate-100 bg-slate-50/30 hover:bg-white hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex items-center justify-between relative overflow-hidden"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-indigo-500/10 transition-colors" />
 
@@ -1043,11 +1112,18 @@ const InscriptionPage: React.FC = () => {
                                     <ChevronLeft className="w-3 h-3 mr-1" /> PAIEMENT
                                 </button>
                                 <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
-                                    Photo d'identité
+                                    Votre photo
                                 </h1>
                                 <p className="text-slate-400 text-xs mt-1">
-                                    Prenez une photo pour la carte d'étudiant du candidat au portail <span className="font-bold text-indigo-600">{selectedPortal?.nomPortail}</span>
+                                    Photo de votre visage à mettre sur votre carte d'étudiant
                                 </p>
+
+                                <div className="mt-4 p-3 bg-amber-50 border border-amber-100 rounded-xl flex items-center gap-3 text-amber-700 max-w-md mx-auto sm:mx-0">
+                                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                                    <p className="text-xs font-bold leading-tight">
+                                        Faites en sorte que votre visage soit bien visible.
+                                    </p>
+                                </div>
                             </div>
 
                             <div className="flex flex-col items-center justify-center min-h-[400px]">
@@ -1236,6 +1312,7 @@ const InscriptionPage: React.FC = () => {
                                                     value={form.watch("referenceAdmin")}
                                                     onChange={(e) => form.setValue("referenceAdmin", e.target.value)}
                                                     disabled={isSeparateDisabled}
+                                                    maxLength={20}
                                                 />
                                             </div>
                                             {form.formState.errors.referenceAdmin && (
@@ -1256,6 +1333,7 @@ const InscriptionPage: React.FC = () => {
                                                     value={form.watch("referencePedago")}
                                                     onChange={(e) => form.setValue("referencePedago", e.target.value)}
                                                     disabled={isSeparateDisabled}
+                                                    maxLength={20}
                                                 />
                                             </div>
                                         </div>
@@ -1281,6 +1359,7 @@ const InscriptionPage: React.FC = () => {
                                                     value={form.watch("referenceMixte")}
                                                     onChange={(e) => form.setValue("referenceMixte", e.target.value)}
                                                     disabled={isMixteDisabled}
+                                                    maxLength={20}
                                                 />
                                             </div>
                                             <p className="text-[10px] text-slate-400 italic">
@@ -1498,13 +1577,13 @@ const InscriptionPage: React.FC = () => {
                                 {/* Progress Bar */}
                                 <div className="w-full bg-slate-100 h-1 mt-4 rounded-full overflow-hidden">
                                     <div
-                                        className="h-full bg-indigo-500 transition-all duration-300 ease-out"
+                                        className="h-full bg-indigo-500 transition-all duration-100 ease-out"
                                         style={{ width: `${((formStep + 1) / activeSteps.length) * 100}%` }}
                                     />
                                 </div>
                             </div>
 
-                            <ScrollArea className="h-[50vh] pr-4 -mr-4">
+                            <ScrollArea ref={scrollAreaRef} className="h-[50vh] pr-4 -mr-4">
                                 <Form {...form}>
                                     <form
                                         onSubmit={(e) => {
@@ -1526,7 +1605,7 @@ const InscriptionPage: React.FC = () => {
 
                                         {/* Identité */}
                                         {activeSteps[formStep].id === 'identity' && (
-                                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                                            <div className="space-y-4 animate-in fade-in duration-100">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
                                                     <UserPlus className="w-4 h-4" /> Identité
                                                 </h3>
@@ -1584,7 +1663,7 @@ const InscriptionPage: React.FC = () => {
 
                                         {/* Naissance & Localisation */}
                                         {activeSteps[formStep].id === 'birth_location' && (
-                                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                                            <div className="space-y-4 animate-in fade-in duration-100">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
                                                     <UserPlus className="w-4 h-4" /> Naissance & Localisation
                                                 </h3>
@@ -1640,7 +1719,7 @@ const InscriptionPage: React.FC = () => {
 
                                         {/* CIN */}
                                         {activeSteps[formStep].id === 'cin' && (
-                                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                                            <div className="space-y-4 animate-in fade-in duration-100">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
                                                     <AlertCircle className="w-4 h-4" /> C.I.N
                                                 </h3>
@@ -1681,7 +1760,7 @@ const InscriptionPage: React.FC = () => {
 
                                         {/* Contact */}
                                         {activeSteps[formStep].id === 'contact' && (
-                                            <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                                            <div className="space-y-4 animate-in fade-in duration-100">
                                                 <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
                                                     <Smartphone className="w-4 h-4" /> Contact
                                                 </h3>
@@ -1726,7 +1805,7 @@ const InscriptionPage: React.FC = () => {
                                             {formStep === activeSteps.length - 1 ? (
                                                 <Button
                                                     type="button"
-                                                    disabled={isLoading}
+                                                    disabled={isLoading || isSubmitting}
                                                     onClick={() => {
                                                         form.handleSubmit(onStudentInfoSubmit, (errors) => {
                                                             console.error("Validation errors:", errors);
@@ -1740,7 +1819,7 @@ const InscriptionPage: React.FC = () => {
                                                     }}
                                                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-lg shadow-lg shadow-indigo-200"
                                                 >
-                                                    {isLoading ? (
+                                                    {isSubmitting ? (
                                                         <>
                                                             <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                                                             Traitement...
@@ -1780,46 +1859,99 @@ const InscriptionPage: React.FC = () => {
                             exit="exit"
                             className="w-full sm:bg-white sm:rounded-xl sm:shadow-[0_10px_40px_rgba(0,0,0,0.08)] sm:border sm:border-slate-100 p-6 sm:p-10 text-center"
                         >
-                            <div className="flex justify-center mb-6">
-                                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 animate-bounce">
-                                    <CheckCircle2 className="w-10 h-10" />
+                            <div className="text-center mb-5 sm:mb-6">
+                                <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-1">
+                                    Inscription Confirmée
+                                </h1>
+                                <p className="text-slate-400 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+                                    Année Académique 2025-2026
+                                </p>
+                            </div>
+
+                            <div className="relative bg-white rounded-2xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden mb-6">
+                                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-500 to-purple-500" />
+
+                                <div className="p-5 sm:p-8">
+                                    {/* User Identification Summary with Photo */}
+                                    <div className="flex flex-col items-center mb-6">
+                                        <div className="relative mb-4">
+                                            {photo ? (
+                                                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-2 border-indigo-100 p-1 bg-white shadow-sm overflow-hidden">
+                                                    <img
+                                                        src={photo}
+                                                        alt="Profil"
+                                                        className="w-full h-full object-cover rounded-xl"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="w-28 h-28 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center">
+                                                    <div className="w-16 h-16 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                                        <UserPlus className="w-8 h-8" />
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <div className="absolute -bottom-1 -right-1 bg-emerald-500 text-white p-1 rounded-full border-2 border-white shadow-sm">
+                                                <CheckCircle2 className="w-3 h-3" />
+                                            </div>
+                                        </div>
+
+                                        <div className="text-center">
+                                            <h2 className="text-lg sm:text-xl font-black text-slate-800 leading-tight uppercase">
+                                                {enrollmentResult?.nom || form.getValues().nom}
+                                            </h2>
+                                            <h3 className="text-base sm:text-lg font-bold text-slate-600 leading-tight">
+                                                {enrollmentResult?.prenom || form.getValues().prenom}
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    {/* Path Info - Grouped Level + Program */}
+                                    <div className="text-center mb-6 px-2">
+                                        <p className="text-xs sm:text-sm font-bold text-slate-700 leading-snug">
+                                            <span className="text-indigo-600 px-1.5 py-0.5 bg-indigo-50 rounded font-black mr-1">{enrollmentResult?.niveau || 'N/A'}</span>
+                                            en {enrollmentResult?.nomPortail || selectedPortal?.nomPortail || 'N/A'}
+                                        </p>
+                                    </div>
+
+                                    {/* Status Section */}
+                                    <div className="flex items-center justify-center gap-3 py-3 px-4 bg-slate-50/80 rounded-xl mb-6 border border-slate-100/50">
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Statut Dossier</span>
+                                        {enrollmentResult?.statut?.toLowerCase().includes('attente') ? (
+                                            <span className="inline-flex items-center gap-1.5 text-amber-600 font-black text-xs uppercase tracking-tight">
+                                                <AlertCircle className="w-4 h-4" />
+                                                {enrollmentResult.statut}
+                                            </span>
+                                        ) : enrollmentResult?.statut?.toLowerCase().includes('valid') ? (
+                                            <span className="inline-flex items-center gap-1.5 text-emerald-600 font-black text-xs uppercase tracking-tight">
+                                                <ShieldCheck className="w-4 h-4" />
+                                                {enrollmentResult.statut}
+                                            </span>
+                                        ) : (
+                                            <span className="inline-flex items-center gap-1.5 text-slate-600 font-black text-xs uppercase tracking-tight">
+                                                <CheckCircle2 className="w-4 h-4" />
+                                                {enrollmentResult?.statut || "Inconnu"}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {/* Inscription Number */}
+                                    <div className="bg-indigo-600 rounded-xl p-4 sm:p-5 text-white shadow-lg shadow-indigo-100 text-center relative overflow-hidden group">
+                                        <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:scale-110 transition-transform">
+                                            <CreditCard className="w-8 h-8" />
+                                        </div>
+                                        <p className="text-[9px] font-black text-indigo-100 uppercase tracking-[0.2em] mb-1.5 relative z-10">Numéro d'Inscription</p>
+                                        <div className="text-xl sm:text-2xl font-mono font-black tracking-[0.2em] text-white relative z-10">
+                                            {enrollmentResult?.numInscription || 'N/A'}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <h1 className="text-2xl font-bold text-slate-800 mb-2">
-                                Inscription Terminée !
-                            </h1>
-                            <p className="text-slate-500 text-sm mb-8">
-                                Votre dossier a été enregistré avec succès pour l'année universitaire 2025-2026.
-                            </p>
-
-                            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 mb-8">
-                                <div className="space-y-3 mb-6">
-                                    <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
-                                        <span className="text-slate-500 font-medium">Parcours</span>
-                                        <span className="text-slate-800 font-bold">{enrollmentResult?.nomPortail || selectedPortal?.nomPortail}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
-                                        <span className="text-slate-500 font-medium">Année Universitaire</span>
-                                        <span className="text-slate-800 font-bold">2025-2026</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Votre Numéro d'Inscription</p>
-                                    <div className="text-2xl font-black text-indigo-600 tracking-tight break-all">
-                                        {enrollmentResult?.numInscription}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="space-y-4 text-left bg-indigo-50/50 p-6 rounded-xl border border-indigo-100/50 mb-8">
-                                <h3 className="text-sm font-bold text-indigo-700 flex items-center gap-2">
-                                    <AlertCircle className="w-4 h-4" /> Prochaines étapes
-                                </h3>
-                                <ul className="text-xs text-indigo-900/70 space-y-2 list-disc pl-4">
-                                    <li>Conservez précieusement votre <strong>numéro d'inscription</strong>.</li>
-                                    <li>Ce numéro est indispensable pour récupérer votre <strong>carte d'étudiant</strong>.</li>
-                                </ul>
+                            <div className="flex items-start gap-3 p-3 sm:p-4 bg-amber-50/50 rounded-xl border border-amber-100/50 mb-6 text-left">
+                                <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                                <p className="text-[10px] sm:text-xs text-amber-800 leading-relaxed">
+                                    <strong>Important :</strong> Ce numéro est indispensable pour récupérer votre carte d'étudiant. Notez-le soigneusement.
+                                </p>
                             </div>
 
                             <div className="flex flex-col gap-3">
