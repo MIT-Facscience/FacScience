@@ -128,7 +128,7 @@ export default function ActualiteDetail() {
                 {actualite.title}
               </h1>
 
-              <p className="text-xl text-white/90 mb-8 max-w-2xl leading-relaxed">
+              <p className="text-xl text-white/90 mb-8 max-w-2xl leading-relaxed whitespace-pre-line">
                 {actualite.description}
               </p>
 
@@ -208,7 +208,7 @@ export default function ActualiteDetail() {
             <Card className="border-0 shadow-lg bg-white">
               <CardHeader className="pb-8">
                 <div className="flex items-center justify-between mb-6">
-                  <p className="text-xl text-slate-600 leading-relaxed">
+                  <p className="text-xl text-slate-600 leading-relaxed whitespace-pre-line">
                     {actualite.description}
                   </p>
                   <Button variant="outline" size="sm">
@@ -222,7 +222,7 @@ export default function ActualiteDetail() {
                   {actualite.content?.split("\n\n").map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-slate-700 leading-relaxed mb-6"
+                      className="text-slate-700 leading-relaxed mb-6 whitespace-pre-line"
                     >
                       {paragraph}
                     </p>
