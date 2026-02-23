@@ -289,9 +289,7 @@ const InscriptionPage: React.FC = () => {
         }
     };
 
-    const prevFormStep = () => {
-        setFormStep(s => Math.max(s - 1, 0));
-    };
+
 
     const handleBack = () => {
         if (step === 'selection') {
