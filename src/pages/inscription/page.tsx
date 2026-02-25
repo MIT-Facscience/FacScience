@@ -87,6 +87,7 @@ interface EligiblePortal {
     nomPortail: string;
     abbreviation: string;
     mention?: string;
+    niveau?: string;
     idPreinscription: number;
     statut: string;
 }
@@ -300,7 +301,10 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handlePortalSelect = (portal: EligiblePortal | any) => {
-        setSelectedPortal(portal);
+        setSelectedPortal({
+            ...portal,
+            niveau: portal.niveau || portal.Niveau
+        });
         if (portal.idMpn) {
             setReenrollmentData({
                 idEtudiant: reenrollmentData?.idEtudiant || 0,
@@ -757,6 +761,7 @@ const InscriptionPage: React.FC = () => {
                     idPortail: 0,
                     nomPortail: authorizedPortal.nomPortail,
                     abbreviation: authorizedPortal.abbreviation,
+                    niveau: authorizedPortal.niveau,
                     idPreinscription: 0,
                     statut: authorizedPortal.statusLibelle || (authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire")
                 });
@@ -1363,31 +1368,37 @@ const InscriptionPage: React.FC = () => {
                                             <p className="text-[10px] text-slate-400 italic">
                                                 Si vous avez un reçu unique couvrant les droits administratifs et pédagogiques.
                                             </p>
+                                            <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-100 rounded-lg text-amber-800 text-[10px] leading-relaxed animate-in fade-in duration-300">
+                                                <AlertCircle className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                                                <p>
+                                                    Si paiement par borne, entrez le <strong>N° de transaction</strong>.
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <Button
-                                        onClick={async () => {
-                                            const isValid = await form.trigger(["referenceAdmin", "referencePedago", "referenceMixte"]);
-                                            // Manual check for global validation issues (superRefine)
-                                            if (isValid) {
-                                                const values = form.getValues();
-                                                const hasAdmin = !!values.referenceAdmin && values.referenceAdmin.length >= 3;
-                                                const hasMixte = !!values.referenceMixte && values.referenceMixte.length >= 3;
+                                        <Button
+                                            onClick={async () => {
+                                                const isValid = await form.trigger(["referenceAdmin", "referencePedago", "referenceMixte"]);
+                                                // Manual check for global validation issues (superRefine)
+                                                if (isValid) {
+                                                    const values = form.getValues();
+                                                    const hasAdmin = !!values.referenceAdmin && values.referenceAdmin.length >= 3;
+                                                    const hasMixte = !!values.referenceMixte && values.referenceMixte.length >= 3;
 
-                                                if (hasAdmin || hasMixte) {
-                                                    setStep('photo-capture');
-                                                    setMode('choice');
-                                                } else {
-                                                    form.setError("referenceAdmin", { message: "La référence Administrative (ou Mixte) est obligatoire." });
+                                                    if (hasAdmin || hasMixte) {
+                                                        setStep('photo-capture');
+                                                        setMode('choice');
+                                                    } else {
+                                                        form.setError("referenceAdmin", { message: "La référence Administrative (ou Mixte) est obligatoire." });
+                                                    }
                                                 }
-                                            }
-                                        }}
+                                            }}
 
-                                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]"
-                                    >
-                                        Continuer <ArrowRight className="w-4 h-4 ml-2" />
-                                    </Button>
+                                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]"
+                                        >
+                                            Continuer <ArrowRight className="w-4 h-4 ml-2" />
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -1602,196 +1613,188 @@ const InscriptionPage: React.FC = () => {
                                     >
 
                                         {/* Identité */}
-                                        {activeSteps[formStep].id === 'identity' && (
-                                            <div className="space-y-4 animate-in fade-in duration-100">
-                                                <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
-                                                    <UserPlus className="w-4 h-4" /> Identité
-                                                </h3>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="nom"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Nom *</FormLabel>
+                                        <div className={activeSteps[formStep].id === 'identity' ? "space-y-4 animate-in fade-in duration-100" : "hidden"}>
+                                            <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
+                                                <UserPlus className="w-4 h-4" /> Identité
+                                            </h3>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="nom"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-xs">Nom *</FormLabel>
+                                                            <FormControl>
+                                                                <Input placeholder="Nom" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="prenom"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-xs">Prénoms</FormLabel>
+                                                            <FormControl>
+                                                                <Input placeholder="Prénoms" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="sexe"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-xs">Sexe *</FormLabel>
+                                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                                 <FormControl>
-                                                                    <Input placeholder="Nom" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                                    <SelectTrigger className="bg-slate-50 border-slate-200">
+                                                                        <SelectValue placeholder="Séléctionner" />
+                                                                    </SelectTrigger>
                                                                 </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="prenom"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Prénoms</FormLabel>
-                                                                <FormControl>
-                                                                    <Input placeholder="Prénoms" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="sexe"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Sexe *</FormLabel>
-                                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                                    <FormControl>
-                                                                        <SelectTrigger className="bg-slate-50 border-slate-200">
-                                                                            <SelectValue placeholder="Séléctionner" />
-                                                                        </SelectTrigger>
-                                                                    </FormControl>
-                                                                    <SelectContent>
-                                                                        <SelectItem value="M">Masculin</SelectItem>
-                                                                        <SelectItem value="F">Féminin</SelectItem>
-                                                                    </SelectContent>
-                                                                </Select>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                </div>
+                                                                <SelectContent>
+                                                                    <SelectItem value="M">Masculin</SelectItem>
+                                                                    <SelectItem value="F">Féminin</SelectItem>
+                                                                </SelectContent>
+                                                            </Select>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
                                             </div>
-                                        )}
+                                        </div>
 
                                         {/* Naissance & Localisation */}
-                                        {activeSteps[formStep].id === 'birth_location' && (
-                                            <div className="space-y-4 animate-in fade-in duration-100">
-                                                <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
-                                                    <UserPlus className="w-4 h-4" /> Naissance & Localisation
-                                                </h3>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-b border-slate-50 pb-4">
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="dateNaissance"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Date de naissance *</FormLabel>
-                                                                <FormControl>
-                                                                    <Input type="date" {...field} className="bg-slate-50 border-slate-200" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="lieuNaissance"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Lieu de naissance *</FormLabel>
-                                                                <FormControl>
-                                                                    <Input placeholder="Ville / Commune" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                </div>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="adresse"
-                                                        render={({ field }) => (
-                                                            <FormItem className="sm:col-span-2">
-                                                                <FormLabel className="text-xs">Adresse actuelle *</FormLabel>
-                                                                <FormControl>
-                                                                    <Input
-                                                                        placeholder="Lot / Logement"
-                                                                        {...field}
-                                                                        className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50"
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                </div>
+                                        <div className={activeSteps[formStep].id === 'birth_location' ? "space-y-4 animate-in fade-in duration-100" : "hidden"}>
+                                            <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
+                                                <UserPlus className="w-4 h-4" /> Naissance & Localisation
+                                            </h3>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-b border-slate-50 pb-4">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="dateNaissance"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-xs">Date de naissance *</FormLabel>
+                                                            <FormControl>
+                                                                <Input type="date" {...field} className="bg-slate-50 border-slate-200" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="lieuNaissance"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-xs">Lieu de naissance *</FormLabel>
+                                                            <FormControl>
+                                                                <Input placeholder="Ville / Commune" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
                                             </div>
-                                        )}
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="adresse"
+                                                    render={({ field }) => (
+                                                        <FormItem className="sm:col-span-2">
+                                                            <FormLabel className="text-xs">Adresse actuelle *</FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder="Lot / Logement"
+                                                                    {...field}
+                                                                    className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50"
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </div>
+                                        </div>
 
                                         {/* CIN */}
-                                        {activeSteps[formStep].id === 'cin' && (
-                                            <div className="space-y-4 animate-in fade-in duration-100">
-                                                <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
-                                                    <AlertCircle className="w-4 h-4" /> C.I.N
-                                                </h3>
-                                                <div className="p-4 bg-blue-50 text-blue-700 text-xs rounded-lg mb-4">
-                                                    Le numéro CIN est obligatoire pour les étudiants majeurs.
-                                                </div>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="cin"
-                                                        render={({ field }) => (
-                                                            <FormItem className="sm:col-span-2">
-                                                                <FormLabel className="text-xs">Numéro CIN</FormLabel>
-                                                                <FormControl>
-                                                                    <Input placeholder="12 Chiffres" maxLength={12} {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="dateDelivrance"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Délivré le</FormLabel>
-                                                                <FormControl>
-                                                                    <Input type="date" {...field} className="bg-slate-50 border-slate-200" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                </div>
+                                        <div className={activeSteps[formStep].id === 'cin' ? "space-y-4 animate-in fade-in duration-100" : "hidden"}>
+                                            <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
+                                                <AlertCircle className="w-4 h-4" /> C.I.N
+                                            </h3>
+                                            <div className="p-4 bg-blue-50 text-blue-700 text-xs rounded-lg mb-4">
+                                                Le numéro CIN est obligatoire pour les étudiants majeurs.
                                             </div>
-                                        )}
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="cin"
+                                                    render={({ field }) => (
+                                                        <FormItem className="sm:col-span-2">
+                                                            <FormLabel className="text-xs">Numéro CIN</FormLabel>
+                                                            <FormControl>
+                                                                <Input placeholder="12 Chiffres" maxLength={12} {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="dateDelivrance"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-xs">Délivré le</FormLabel>
+                                                            <FormControl>
+                                                                <Input type="date" {...field} className="bg-slate-50 border-slate-200" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </div>
+                                        </div>
 
 
                                         {/* Contact */}
-                                        {activeSteps[formStep].id === 'contact' && (
-                                            <div className="space-y-4 animate-in fade-in duration-100">
-                                                <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
-                                                    <Smartphone className="w-4 h-4" /> Contact
-                                                </h3>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="telephone"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel className="text-xs">Téléphone Personnel *</FormLabel>
-                                                                <FormControl>
-                                                                    <Input type="tel" placeholder="03x xx xxx xx" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                    <FormField
-                                                        control={form.control}
-                                                        name="email"
-                                                        render={({ field }) => (
-                                                            <FormItem className="sm:col-span-2">
-                                                                <FormLabel className="text-xs">Email Personnel</FormLabel>
-                                                                <FormControl>
-                                                                    <Input type="email" placeholder="exemple@gmail.com" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-                                                </div>
+                                        <div className={activeSteps[formStep].id === 'contact' ? "space-y-4 animate-in fade-in duration-100" : "hidden"}>
+                                            <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2">
+                                                <Smartphone className="w-4 h-4" /> Contact
+                                            </h3>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <FormField
+                                                    control={form.control}
+                                                    name="telephone"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel className="text-xs">Téléphone Personnel *</FormLabel>
+                                                            <FormControl>
+                                                                <Input type="tel" placeholder="03x xx xxx xx" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="email"
+                                                    render={({ field }) => (
+                                                        <FormItem className="sm:col-span-2">
+                                                            <FormLabel className="text-xs">Email Personnel</FormLabel>
+                                                            <FormControl>
+                                                                <Input type="email" placeholder="exemple@gmail.com" {...field} className="bg-slate-50 border-slate-200 placeholder:text-slate-400/50" />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
                                             </div>
-                                        )}
+                                        </div>
 
                                         <div className="flex gap-4 pt-4 flex-col">
                                             {error && (
@@ -1938,7 +1941,7 @@ const InscriptionPage: React.FC = () => {
                                             <CreditCard className="w-8 h-8" />
                                         </div>
                                         <p className="text-[9px] font-black text-indigo-100 uppercase tracking-[0.2em] mb-1.5 relative z-10">Numéro d'Inscription</p>
-                                        <div className="text-xl sm:text-2xl font-mono font-black tracking-[0.2em] text-white relative z-10">
+                                        <div className="text-sm sm:text-2xl font-mono font-black tracking-[0.1em] sm:tracking-[0.2em] text-white relative z-10 break-all sm:break-normal">
                                             {enrollmentResult?.numInscription || 'N/A'}
                                         </div>
                                     </div>
