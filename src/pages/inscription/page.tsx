@@ -87,6 +87,7 @@ interface EligiblePortal {
     nomPortail: string;
     abbreviation: string;
     mention?: string;
+    niveau?: string;
     idPreinscription: number;
     statut: string;
 }
@@ -300,7 +301,10 @@ const InscriptionPage: React.FC = () => {
     };
 
     const handlePortalSelect = (portal: EligiblePortal | any) => {
-        setSelectedPortal(portal);
+        setSelectedPortal({
+            ...portal,
+            niveau: portal.niveau || portal.Niveau
+        });
         if (portal.idMpn) {
             setReenrollmentData({
                 idEtudiant: reenrollmentData?.idEtudiant || 0,
@@ -757,6 +761,7 @@ const InscriptionPage: React.FC = () => {
                     idPortail: 0,
                     nomPortail: authorizedPortal.nomPortail,
                     abbreviation: authorizedPortal.abbreviation,
+                    niveau: authorizedPortal.niveau,
                     idPreinscription: 0,
                     statut: authorizedPortal.statusLibelle || (authorizedPortal.estRedoublant ? "Autorisé à redoubler" : "Autorisé à s'inscrire")
                 });
