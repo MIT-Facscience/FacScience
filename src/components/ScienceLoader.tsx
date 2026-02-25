@@ -124,7 +124,7 @@ const ScienceLoader: React.FC = () => {
                             N'actualisez pas la page
                         </p>
                         <p className="text-[12px] text-rose-600/80 font-medium leading-snug">
-                            ಡ_ಡ
+                            L'envoi peut prendre quelques minutes ...
                         </p>
                     </div>
                 </div>
