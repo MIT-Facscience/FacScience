@@ -1363,31 +1363,37 @@ const InscriptionPage: React.FC = () => {
                                             <p className="text-[10px] text-slate-400 italic">
                                                 Si vous avez un reçu unique couvrant les droits administratifs et pédagogiques.
                                             </p>
+                                            <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-100 rounded-lg text-amber-800 text-[10px] leading-relaxed animate-in fade-in duration-300">
+                                                <AlertCircle className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
+                                                <p>
+                                                    Si paiement par borne, entrez le <strong>N° de transaction</strong>.
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <Button
-                                        onClick={async () => {
-                                            const isValid = await form.trigger(["referenceAdmin", "referencePedago", "referenceMixte"]);
-                                            // Manual check for global validation issues (superRefine)
-                                            if (isValid) {
-                                                const values = form.getValues();
-                                                const hasAdmin = !!values.referenceAdmin && values.referenceAdmin.length >= 3;
-                                                const hasMixte = !!values.referenceMixte && values.referenceMixte.length >= 3;
+                                        <Button
+                                            onClick={async () => {
+                                                const isValid = await form.trigger(["referenceAdmin", "referencePedago", "referenceMixte"]);
+                                                // Manual check for global validation issues (superRefine)
+                                                if (isValid) {
+                                                    const values = form.getValues();
+                                                    const hasAdmin = !!values.referenceAdmin && values.referenceAdmin.length >= 3;
+                                                    const hasMixte = !!values.referenceMixte && values.referenceMixte.length >= 3;
 
-                                                if (hasAdmin || hasMixte) {
-                                                    setStep('photo-capture');
-                                                    setMode('choice');
-                                                } else {
-                                                    form.setError("referenceAdmin", { message: "La référence Administrative (ou Mixte) est obligatoire." });
+                                                    if (hasAdmin || hasMixte) {
+                                                        setStep('photo-capture');
+                                                        setMode('choice');
+                                                    } else {
+                                                        form.setError("referenceAdmin", { message: "La référence Administrative (ou Mixte) est obligatoire." });
+                                                    }
                                                 }
-                                            }
-                                        }}
+                                            }}
 
-                                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]"
-                                    >
-                                        Continuer <ArrowRight className="w-4 h-4 ml-2" />
-                                    </Button>
+                                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-12 rounded-xl shadow-lg shadow-indigo-100 transition-all active:scale-[0.98]"
+                                        >
+                                            Continuer <ArrowRight className="w-4 h-4 ml-2" />
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -1930,7 +1936,7 @@ const InscriptionPage: React.FC = () => {
                                             <CreditCard className="w-8 h-8" />
                                         </div>
                                         <p className="text-[9px] font-black text-indigo-100 uppercase tracking-[0.2em] mb-1.5 relative z-10">Numéro d'Inscription</p>
-                                        <div className="text-xl sm:text-2xl font-mono font-black tracking-[0.2em] text-white relative z-10">
+                                        <div className="text-sm sm:text-2xl font-mono font-black tracking-[0.1em] sm:tracking-[0.2em] text-white relative z-10 break-all sm:break-normal">
                                             {enrollmentResult?.numInscription || 'N/A'}
                                         </div>
                                     </div>
