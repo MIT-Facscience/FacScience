@@ -1,30 +1,21 @@
 {
     "heroSection": {
         "slides": {
-            "slide1": {
-                "alt": "INT",
-                "title": "Innovation and Technologies",
-                "description": "Apply now to the new MIT track (Computer Science and Technologies major)",
-                "buttonText": "INT Selection"
-            },
             "slide2": {
-                
-                 "alt": "Main campus of the Faculty of Sciences",
+                "alt": "Main campus of the Faculty of Sciences",
                 "title": "Modern Campus",
                 "description": "An exceptional learning environment",
                 "buttonText": "Discover our programs"
             },
             "slide3": {
-                 "alt": "Learning environment",
-                "title": "Learning environment", 
+                "alt": "Learning environment",
+                "title": "Learning environment",
                 "description": "Comprehensive documentary resources",
                 "buttonText": "Discover our programs"
-               
             }
         },
         "mainTitle": {
-            "default": "Faculty of Sciences",
-            "int": "Application for admission to INT"
+            "default": "Faculty of Sciences"
         },
         "learnMore": "Learn more",
         "controls": {

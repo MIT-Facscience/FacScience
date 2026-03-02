@@ -23,8 +23,8 @@ import AdmissionPage from "./pages/admission/modalite/page";
 import PreinscriptionWrapper from "./pages/Preinscription/PreinscriptionWrapper";
 import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
-import INTAdmissionPage from "./pages/admission/int-modalite/page";
-import INTFormulaire from "./pages/admission/int-formulaire/page";
+// import INTAdmissionPage from "./pages/admission/int-modalite/page";
+// import INTFormulaire from "./pages/admission/int-formulaire/page";
 import ResultatsPage from "./pages/resultats/selection/page";
 import ListesAdmisPage from "./pages/resultats/LicenceEtMaster/page";
 import InscriptionPage from "./pages/inscription/page";
@@ -80,11 +80,11 @@ export default function App() {
 
           {/* <Route path="" element={<AllMention />} /> */}
           <Route path="/admission/modalite" element={<AdmissionPage />} />
-          <Route path="/admission/int-modalite" element={<INTAdmissionPage />} />
+          {/* <Route path="/admission/int-modalite" element={<INTAdmissionPage />} /> */}
           <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
           <Route path="/admission/inscription-2025-2026" element={<InscriptionPage />} />
           <Route path="/admission/inscription/autorises" element={<AuthorizedList />} />
-          <Route path="/admission/int-formulaire" element={<INTFormulaire />} />
+          {/* <Route path="/admission/int-formulaire" element={<INTFormulaire />} /> */}
 
           {/* Route "catch-all" */}
           <Route path="*" element={<NotFound />} />

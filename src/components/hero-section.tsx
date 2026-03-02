@@ -19,17 +19,9 @@ export function HeroSection(): JSX.Element {
   const { t } = useTranslation("hero-section");
 
   const campusImages: CampusImage[] = [
-   
-   
+
+
     {
-      src: "/mit.jpeg",
-      translationKey: "slide1",
-      backgroundColor: "from-red-600 to-red-700 hover:from-red-700 hover:to-red-800",
-      buttonLinkForm: "/admission/int-formulaire",
-      buttonLinkInfo: "/admission/int-modalite",
-      buttonIcon: null,
-    },
-     {
       src: "/fs_facade_2.jpg",
       translationKey: "slide2",
       backgroundColor: "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
@@ -43,25 +35,25 @@ export function HeroSection(): JSX.Element {
       backgroundColor: "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
       buttonLinkForm: "/formation",
       buttonLinkInfo: "/presentation",
-      buttonIcon: <ArrowRight/>,
+      buttonIcon: <ArrowRight />,
     },
-   
-   
+
+
   ];
+
 
   // Generate squares for animation
   const generateSquares = (): JSX.Element[] => {
     const squares: JSX.Element[] = [];
     const rows: number = 8;
     const cols: number = 12;
-    
+
     for (let i = 0; i < rows * cols; i++) {
       squares.push(
         <div
           key={i}
-          className={`square-transition absolute bg-gradient-to-br from-white/60 to-gray-100/60 opacity-0 ${
-            isTransitioning ? 'animate-square' : ''
-          }`}
+          className={`square-transition absolute bg-gradient-to-br from-white/60 to-gray-100/60 opacity-0 ${isTransitioning ? 'animate-square' : ''
+            }`}
           style={{
             left: `${(i % cols) * (100 / cols)}%`,
             top: `${Math.floor(i / cols) * (100 / rows)}%`,
@@ -77,13 +69,13 @@ export function HeroSection(): JSX.Element {
 
   const changeSlide = (newSlide: number): void => {
     if (newSlide === currentSlide || isTransitioning) return;
-    
+
     setIsTransitioning(true);
-    
+
     setTimeout(() => {
       setCurrentSlide(newSlide);
     }, 600);
-    
+
     setTimeout(() => {
       setIsTransitioning(false);
     }, 1200);
@@ -92,18 +84,18 @@ export function HeroSection(): JSX.Element {
   useEffect(() => {
     const timer: NodeJS.Timeout = setInterval(() => {
       setIsTransitioning(true);
-      
+
       setTimeout(() => {
         setCurrentSlide(prev => (prev + 1) % campusImages.length);
       }, 600);
-      
+
       setTimeout(() => {
         setIsTransitioning(false);
       }, 1200);
-    }, currentSlide === 0 ? 10000 : 6000);  
-    
+    }, currentSlide === 0 ? 10000 : 6000);
+
     return () => clearInterval(timer);
-  }, [campusImages.length,currentSlide]);
+  }, [campusImages.length, currentSlide]);
 
   const nextSlide = (): void => {
     const next: number = (currentSlide + 1) % campusImages.length;
@@ -119,64 +111,59 @@ export function HeroSection(): JSX.Element {
     <>
       <section className="relative h-[700px] overflow-hidden">
         <div className="relative h-full">
-          {campusImages.map((image, index) =>  (
+          {campusImages.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-700 ${
-                index === currentSlide 
-                  ? "opacity-100 scale-100 pointer-events-auto" 
-                  : "opacity-0 scale-105 pointer-events-none"
-              }`}
+              className={`absolute inset-0 transition-all duration-700 ${index === currentSlide
+                ? "opacity-100 scale-100 pointer-events-auto"
+                : "opacity-0 scale-105 pointer-events-none"
+                }`}
             >
               <img
                 src={image.src || "/placeholder.svg"}
                 alt={t(`heroSection.slides.${image.translationKey}.alt`)}
                 className="w-full h-full object-cover"
               />
-              <div className={`absolute inset-0 transition-opacity duration-500 ${
-                isTransitioning 
-                  ? "bg-gradient-to-r from-gray-900/70 via-purple-900/30 to-amber-900/20 opacity-100" 
-                  : "bg-transparent opacity-0"
-              }`} />
-              
+              <div className={`absolute inset-0 transition-opacity duration-500 ${isTransitioning
+                ? "bg-gradient-to-r from-gray-900/70 via-purple-900/30 to-amber-900/20 opacity-100"
+                : "bg-transparent opacity-0"
+                }`} />
+
               {/* Content avec titre fixe et contenu dynamique */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center text-white max-w-4xl px-6">
                   {/* Titre principal fixe qui reste toujours visible - au premier plan */}
                   <h1 className="text-5xl font-bold mb-4 text-balance bg-gradient-to-r from-white via-purple-100 to-amber-100 bg-clip-text text-transparent relative z-50"
-                      style={{
-                        color: 'white'
-                      }}>
-                    {index === 0 ? t("heroSection.mainTitle.int") : t("heroSection.mainTitle.default")}
+                    style={{
+                      color: 'white'
+                    }}>
+                    {t("heroSection.mainTitle.default")}
 
                   </h1>
-                  
+
                   {/* Contenu dynamique qui change avec les slides */}
-                  <div className={`relative z-20 ${
-                    index === currentSlide && !isTransitioning ? 'slide-in-left' : 'opacity-0'
-                  }`}>
+                  <div className={`relative z-20 ${index === currentSlide && !isTransitioning ? 'slide-in-left' : 'opacity-0'
+                    }`}>
                     <h2 className="text-2xl mb-6 font-bold text-balance text-amber-100 relative z-20"
-                        style={{
-                          textShadow: '0 1px 3px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3)'
-                        }}>
+                      style={{
+                        textShadow: '0 1px 3px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.3)'
+                      }}>
                       {t(`heroSection.slides.${image.translationKey}.title`)}
                     </h2>
                   </div>
-                  
-                  <div className={`relative z-20 ${
-                    index === currentSlide && !isTransitioning ? 'slide-in-right' : 'opacity-0'
-                  }`}>
+
+                  <div className={`relative z-20 ${index === currentSlide && !isTransitioning ? 'slide-in-right' : 'opacity-0'
+                    }`}>
                     <p className="text-xl mb-8 text-pretty text-gray-100 relative z-20"
-                       style={{
-                         textShadow: '0 1px 3px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)'
-                       }}>
+                      style={{
+                        textShadow: '0 1px 3px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)'
+                      }}>
                       {t(`heroSection.slides.${image.translationKey}.description`)}
                     </p>
                   </div>
-                  
-                  <div className={`flex items-center justify-center gap-x-6 relative z-20 ${
-                    index === currentSlide && !isTransitioning ? 'slide-in-up' : 'opacity-0'
-                  }`}>
+
+                  <div className={`flex items-center justify-center gap-x-6 relative z-20 ${index === currentSlide && !isTransitioning ? 'slide-in-up' : 'opacity-0'
+                    }`}>
                     <Button
                       asChild
                       size="lg"
@@ -231,11 +218,10 @@ export function HeroSection(): JSX.Element {
                 key={index}
                 onClick={() => changeSlide(index)}
                 disabled={isTransitioning}
-                className={`w-4 h-4 rounded-full transition-all duration-300 transform hover:scale-125 ${
-                  index === currentSlide 
-                    ? "bg-amber-400 shadow-lg shadow-amber-400/50" 
-                    : "bg-white/50 hover:bg-white/70"
-                }`}
+                className={`w-4 h-4 rounded-full transition-all duration-300 transform hover:scale-125 ${index === currentSlide
+                  ? "bg-amber-400 shadow-lg shadow-amber-400/50"
+                  : "bg-white/50 hover:bg-white/70"
+                  }`}
                 aria-label={`${t("heroSection.controls.goTo")} ${index + 1}`}
               />
             ))}
@@ -243,9 +229,9 @@ export function HeroSection(): JSX.Element {
 
           {/* Progress bar */}
           <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20">
-            <div 
+            <div
               className="h-full bg-gradient-to-r from-purple-400 to-amber-400 transition-all duration-100"
-              style={{ 
+              style={{
                 width: `${((Date.now() % 6000) / 6000) * 100}%`,
                 animation: isTransitioning ? 'none' : 'progress 6s linear infinite'
               }}

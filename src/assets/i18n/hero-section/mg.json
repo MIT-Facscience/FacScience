@@ -1,31 +1,21 @@
-
 {
     "heroSection": {
         "slides": {
-            "slide1": {
-                 "alt": "INT",
-                "title": "Innovation et Technologies",
-                "description": "Alefaso ny fangatahanao hiditra ao amin’ny lalam-piofanana vaovao ato amin'ny MIT (Mention Informatique sy Teknolojia)",
-                "buttonText": "Fisoratra anarana INT"
-            },
             "slide2": {
                 "alt": "Campus lehiben'ny Fakiolte an'ny siansa",
                 "title": "Campus Maoderina",
                 "description": "Toeram-pianarana tsara manokana",
                 "buttonText": "Hijery ny fampiofanay"
-              
             },
             "slide3": {
-                  "alt": "Toeram-pianarana",
+                "alt": "Toeram-pianarana",
                 "title": "Toeram-pianarana",
                 "description": "Loharano fanadihadiana feno",
                 "buttonText": "Hijery ny fampiofanay"
-               
             }
         },
         "mainTitle": {
-            "default": "Fakiolte an'ny siansa",
-            "int": "Fisoratra anarana INT"
+            "default": "Fakiolte an'ny siansa"
         },
         "learnMore": "Hianatra bebe kokoa",
         "controls": {

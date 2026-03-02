@@ -1,3 +1,4 @@
-VITE_BACKEND_PREINSCRIPTION=http://localhost:<port>
-VITE_BACKEND_FACSCIENCES=http://localhost:<port>
-VITE_BACKEND_WEBSERVICES=http://localhost:<port>
+VITE_BACKEND_PREINSCRIPTION=http://localhost:5174
+VITE_BACKEND_FACSCIENCES=http://localhost:5174
+VITE_BACKEND_WEBSERVICES=http://localhost:5174
+VITE_BACKEND_ADMIN=http://localhost:5174
