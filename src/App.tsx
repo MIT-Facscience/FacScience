@@ -82,7 +82,7 @@ export default function App() {
           <Route path="/admission/modalite" element={<AdmissionPage />} />
           {/* <Route path="/admission/int-modalite" element={<INTAdmissionPage />} /> */}
           <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
-          <Route path="/admission/inscription-2025-2026" element={<InscriptionPage />} />
+          <Route path="/admission/inscription/6e9f2a8b3d1c4e5g7h8i" element={<InscriptionPage />} />
           <Route path="/admission/inscription/autorises" element={<AuthorizedList />} />
           {/* <Route path="/admission/int-formulaire" element={<INTFormulaire />} /> */}
 
