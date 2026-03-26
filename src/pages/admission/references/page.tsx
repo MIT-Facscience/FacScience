@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BACKEND_URL } from "@/lib/api";
+import { BACKEND_ADMIN_URL } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
@@ -56,7 +56,7 @@ export default function BankReferencesPage() {
     setData(null);
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/Inscription/references/${numInscription.trim()}`);
+      const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/references/${numInscription.trim()}`);
       
       if (response.status === 404) {
         setError("Aucune inscription trouvée pour ce numéro pour l'année 2025-2026.");
@@ -80,7 +80,7 @@ export default function BankReferencesPage() {
 
     setAdding(true);
     try {
-      const response = await fetch(`${BACKEND_URL}/api/Inscription/references`, {
+      const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/references`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -110,7 +110,7 @@ export default function BankReferencesPage() {
 
     setUpdatingId(id);
     try {
-      const response = await fetch(`${BACKEND_URL}/api/Inscription/references/${id}`, {
+      const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/references/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idRb: id, reference: newValue.trim() })
@@ -129,7 +129,7 @@ export default function BankReferencesPage() {
 
   const handleDeleteReference = async (id: number) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/Inscription/references/${id}`, {
+      const response = await fetch(`${BACKEND_ADMIN_URL}/api/Inscription/references/${id}`, {
         method: "DELETE"
       });
 
