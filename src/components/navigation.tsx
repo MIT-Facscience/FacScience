@@ -31,9 +31,6 @@ const resultItems = [
 ];
 
 const admissionItems = [
-  { key: "modalities", to: "/admission/modalite" },
-  { key: "inscription2025", to: "/admission/inscription/6e9f2a8b3d1c4e5g7h8i" },
-  { key: "authorizedList", to: "/admission/inscription/autorises" },
   { key: "bankReferences", to: "/admission/references" },
 ];
 
