@@ -20,6 +20,7 @@ import VisionPage from "./pages/presentation/vision/page";
 import ParcourDetail from "./pages/formation/components/ParcourDetail";
 import AnnuairePage from "./pages/presentation/annuaires/page";
 import AdmissionPage from "./pages/admission/modalite/page";
+import BankReferencesPage from "./pages/admission/references/page";
 import PreinscriptionWrapper from "./pages/Preinscription/PreinscriptionWrapper";
 import NotFound from "./components/not-found";
 // import Annuaire from "./pages/presentation/annuaires/annuaire";
@@ -80,6 +81,7 @@ export default function App() {
 
           {/* <Route path="" element={<AllMention />} /> */}
           <Route path="/admission/modalite" element={<AdmissionPage />} />
+          <Route path="/admission/references" element={<BankReferencesPage />} />
           {/* <Route path="/admission/int-modalite" element={<INTAdmissionPage />} /> */}
           <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
           <Route path="/admission/inscription/6e9f2a8b3d1c4e5g7h8i" element={<InscriptionPage />} />

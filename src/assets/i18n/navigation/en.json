@@ -26,6 +26,7 @@
     "admissionItems": {
         "modalities": "Procedures",
         "inscription2025": "Registration 2025-2026",
-        "authorizedList": "Authorized List"
+        "authorizedList": "Authorized List",
+        "bankReferences": "My References"
     }
 }

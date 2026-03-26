@@ -30,6 +30,13 @@ const resultItems = [
   { key: "licenceAndMaster", to: "/resultats/LicenceEtMaster" }
 ];
 
+const admissionItems = [
+  { key: "modalities", to: "/admission/modalite" },
+  { key: "inscription2025", to: "/admission/inscription/6e9f2a8b3d1c4e5g7h8i" },
+  { key: "authorizedList", to: "/admission/inscription/autorises" },
+  { key: "bankReferences", to: "/admission/references" },
+];
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -184,6 +191,36 @@ export default function Navigation() {
                   </div>
                 </div>
 
+                {/* Admission Dropdown */}
+                <div className="relative group">
+                  <button
+                    className={`flex items-center space-x-1 px-5 py-3 rounded-lg text-sm lg:text-base font-medium tracking-wide transition-all duration-300 group-hover:bg-muted ${isActiveParent("/admission")
+                      ? "text-primary bg-accent-foreground"
+                      : "text-sidebar-primary hover:text-ring"
+                      }`}
+                  >
+                    <span>{t("admission")}</span>
+                    <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-primary" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-1 w-80 bg-card backdrop-blur-xl rounded-2xl shadow-lg border border-purple-200/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <div className="p-6 space-y-1">
+                      {admissionItems.map((item, index) => (
+                        <a
+                          key={item.to}
+                          href={item.to}
+                          className={`block px-4 py-3 rounded-xl text-sm lg:text-base font-medium transition-all duration-200 border-l-2 ${isActive(item.to)
+                            ? "bg-purple-100 text-focus border-focus"
+                            : "text-slate-600 hover:text-primary hover:bg-gradient-to-r hover:from-purple-50 hover:to-amber-50/30 border-transparent hover:border-secondary"
+                            }`}
+                          style={{ transitionDelay: `${index * 50}ms` }}
+                        >
+                          {t(`admissionItems.${item.key}`)}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
                 {/* Language Selector */}
                 <Select value={i18n.language} onValueChange={changeLanguage}>
                   <SelectTrigger className="w-fit h-9 bg-white border border-purple-200 text-sm font-medium text-slate-700 focus:ring-0 focus:outline-none mx-2">
@@ -284,6 +321,12 @@ export default function Navigation() {
                     items: resultItems,
                     base: "/resultats",
                     namespace: "resultsItems"
+                  },
+                  {
+                    title: t("admission"),
+                    items: admissionItems,
+                    base: "/admission",
+                    namespace: "admissionItems"
                   }
                 ].map((section) => (
                   <div key={section.title} className="space-y-3">
