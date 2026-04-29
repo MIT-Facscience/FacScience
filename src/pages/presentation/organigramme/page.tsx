@@ -6,6 +6,8 @@ import { ChevronDown, ChevronUp, Mail } from "lucide-react";
 import type React from "react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import personnelPrincipalData from "@/assets/data/organigramme/personnel.json";
+import membresCofacData from "@/assets/data/organigramme/cofac-members.json";
 
 // Types pour les données
 interface PersonData {
@@ -26,242 +28,11 @@ interface CofacMember {
   photo?: string;
 }
 
-// Données du personnel principal
-const personnelPrincipal: PersonData[] = [
-  {
-    id: 1,
-    nom: "RAZAFINDRANAIVO",
-    prenom: "Victor",
-    responsabilite: "Vice Doyen chargé de la formation",
-    email: "razafv@gmail.com",
-    tel: "034 36 413 54",
-  },
-  {
-    id: 2,
-    nom: "RAKOTOVAO",
-    prenom: "Niry Arinavalona",
-    responsabilite: "Vice Doyen chargé de la Recherche et du Partenariat",
-    email: "arinavalona2025@gmail.com",
-    tel: "034 10 151 51",
-  },
-  {
-    id: 3,
-    nom: "RAKOTONDRAMAVONIRINA",
-    prenom: "Joseph",
-    responsabilite:
-      "Vice Doyen chargé de la base de données et de la digitalisation",
-    email: "radosefaniri@yahoo.fr",
-    tel: "034 36 255 08",
-  },
-  {
-    id: 5,
-    nom: "RABEHARISOA",
-    prenom: "Olivier",
-    responsabilite: "Sec Pal",
-    email: "rabearisoaolivier@gmail.com",
-    tel: "038 77 110 16",
-  },
-  {
-    id: 6,
-    nom: "RAKOTONANAHARY",
-    prenom: "Jacquis Hasina Tahirintsoa",
-    responsabilite: "Chef de service Comptabilité",
-    email: "tahirintsoa4hasina@gmail.com",
-    tel: "034 10 016 46",
-  },
-  {
-    id: 7,
-    nom: "RAKOTONANAHARY",
-    prenom: "Mbolatiana",
-    responsabilite: "Chef de service de la Scolarité",
-    email: "mbolatiana.rakotonanahary@univ-antananarivo.mg",
-    tel: "034 36 146 61",
-  },
-  {
-    id: 8,
-    nom: "RATSIMBARISON",
-    prenom: "Rivoson",
-    responsabilite: "Chef de service des Affaires Générales",
-    email: "",
-    tel: "034 46 976 90",
-  },
-  {
-    id: 9,
-    nom: "FIDINARIVO",
-    prenom: "Thomas",
-    responsabilite: "Chef de service Informatique",
-    email: "toma.fidinarivo@univ-antananarivo.mg",
-    tel: "038 18 673 75",
-  },
-  {
-    id: 10,
-    nom: "RAKOTOMAVO",
-    prenom: "Tantelinirina",
-    responsabilite: "Chef de service du Personnel",
-    email: "rakotomavotantelinirina2@gmail.com",
-    tel: "034 10 535 82",
-  },
-];
+// Données du personnel principal (importées depuis JSON)
+const personnelPrincipal: PersonData[] = personnelPrincipalData;
 
-// Données des membres COFAC
-const membresCofac: CofacMember[] = [
-  {
-    num: 1,
-    nomPrenom: "Mme RALISON LAINGOHARIMIADANA Marie Nambinina",
-    appartenance: "Responsable Mention",
-    email: "laingoharimiadana@gmail.com",
-    photo: "/professional-woman-portrait.png",
-  },
-  {
-    num: 2,
-    nomPrenom: "Mr RAKOTOARINIVO Mijoro",
-    appartenance: "Responsable Mention",
-    email: "rakotoarinivo@outlook.com",
-    photo: "/professional-man-portrait.png",
-  },
-  {
-    num: 3,
-    nomPrenom: "Mr RANDRIAMAMPIANINA Lovarintsoa Judicaël",
-    appartenance: "Responsable Mention",
-    email: "bouba.lova@gmail.com",
-    photo: "/professional-man-portrait.png",
-  },
-  {
-    num: 4,
-    nomPrenom: "Mr RAKOTONIMANANA Rivoniaina Michel Jese",
-    appartenance: "Responsable Mention",
-    email: "jmrivo@gmail.com",
-    photo: "/professional-man-portrait.png",
-  },
-  {
-    num: 5,
-    nomPrenom: "Mr RAZAKARIVONY Andriamarolahy Andrianambinina",
-    appartenance: "Responsable Mention",
-    email: "andri_razakarivony@yahoo.fr",
-    photo: "/professional-man-portrait.png",
-  },
-  {
-    num: 6,
-    nomPrenom: "Mr RAKOTONIRINA Jean Claude",
-    appartenance: "Responsable Mention",
-    email: "jcrakoto25@gmail.com",
-    photo: "/professional-man-portrait.png",
-  },
-  {
-    num: 7,
-    nomPrenom: "Mr LALAHARISON Hanjarivo",
-    appartenance: "Responsable Mention",
-    email: "lalaharisonh@gmail.com",
-    photo: "/professional-man-portrait.png",
-  },
-  {
-    num: 8,
-    nomPrenom: "Mr RANDRIANASOLOHARISOA Dimbimalala",
-    appartenance: "Responsable Mention",
-    email: "randrianasoloharisoa@gmail.com",
-    photo: "/professional-man-portrait.png",
-  },
-  {
-    num: 9,
-    nomPrenom: "Mme ANDRIAMAMPIANINA Tianarilalaina Tantely",
-    appartenance: "Responsable Mention",
-    email: "tantely_lalaina@yahoo.fr",
-    photo: "/placeholder.svg?key=6jv2p",
-  },
-  {
-    num: 10,
-    nomPrenom: "Mr ANDRIAMIADAMANANA Mavintana Dangerfield Christian",
-    appartenance: "Responsable Mention",
-    email: "chriast@yahoo.fr",
-    photo: "/placeholder.svg?key=9qk4z",
-  },
-  {
-    num: 11,
-    nomPrenom: "Mme RAKOTOSAMIZANANY Saholy",
-    appartenance: "Responsable Mention",
-    email: "rakotosa@yahoo.fr",
-    photo: "/placeholder.svg?key=3jv8p",
-  },
-  {
-    num: 12,
-    nomPrenom: "Mr Madame RATSOAVINA Fanomezana Mihaja",
-    appartenance: "Responsable Mention",
-    email: "fanomezanarts@gmail.com",
-    photo: "/placeholder.svg?key=7qk4z",
-  },
-  {
-    num: 13,
-    nomPrenom: "Mr ANDRIAMAROZAKANIAINA Tahiry Zaka Filamatra",
-    appartenance: "Responsable Mention",
-    email: "filamatra@gmail.com",
-    photo: "/placeholder.svg?key=8qk4z",
-  },
-  {
-    num: 14,
-    nomPrenom: "Mme RAMIANDRISOA Njararivelo Louisa",
-    appartenance: "Responsable Mention",
-    email: "lnjara14@gmail.com",
-    photo: "/placeholder.svg?key=9qk4z",
-  },
-  {
-    num: 15,
-    nomPrenom: "Mr RABEHARISOA Rija",
-    appartenance: "Membre extérieur",
-    email: "rijarabeharisoa@gmail.com",
-    telephone: "032 05 039 72",
-    photo: "/placeholder.svg?key=0qk4z",
-  },
-  {
-    num: 16,
-    nomPrenom: "Mr RASAMOELA Henintsoa",
-    appartenance: "Membre extérieur",
-    email: "hentsrasamy@gmail.com",
-    photo: "/placeholder.svg?key=1qk4z",
-  },
-  {
-    num: 17,
-    nomPrenom: "RANDRIANARIVELO Mamy Fetra",
-    appartenance: "Membre extérieur",
-    email: "mamyfetra@gmail.com",
-    telephone: "034 05 185 08",
-    photo: "/placeholder.svg?key=2qk4z",
-  },
-  {
-    num: 18,
-    nomPrenom: "Mr RAKOTONDRAMANGA Maonja Finaritra Sitrakiniavo",
-    appartenance: "Représentant Enseignant",
-    email: "vivimaonja@yahoo.fr",
-    photo: "/placeholder.svg?key=3qk4z",
-  },
-  {
-    num: 19,
-    nomPrenom: "Mme HARIMALALA ANDRIAMBELO Nirina",
-    appartenance: "Représentant Enseignant",
-    email: "nirina.harimalala@univ-antananarivo.mg",
-    photo: "/placeholder.svg?key=4qk4z",
-  },
-  {
-    num: 20,
-    nomPrenom: "Mr FELANA MPANARIVO Michel R.",
-    appartenance: "Représentant PAT",
-    email: "",
-    photo: "/placeholder.svg?key=5qk4z",
-  },
-  {
-    num: 21,
-    nomPrenom: "Mme RANDRIANALISON Onilalaina Ange",
-    appartenance: "Représentant PAT",
-    email: "",
-    photo: "/placeholder.svg?key=6qk4z",
-  },
-  {
-    num: 22,
-    nomPrenom: "ANDRIANOARAMAHERY Hervé",
-    appartenance: "Représentant Etudiant",
-    email: "herverolinho@gmail.com",
-    photo: "/placeholder.svg?key=7qk4z",
-  },
-];
+// Données des membres COFAC (importées depuis JSON)
+const membresCofac: CofacMember[] = membresCofacData;
 
 // Composant pour les membres COFAC (traduit)
 const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
@@ -293,9 +64,10 @@ const CofacMemberCard: React.FC<{ member: CofacMember }> = ({ member }) => {
       <div className="bg-white/90 backdrop-blur-sm px-4 py-3 text-center shadow-lg min-w-[200px] max-w-[250px] -mt-8 relative z-10">
         <div className="pt-8">
           <h4 className="font-bold text-gray-800 text-sm md:text-base leading-tight mb-1">
-            {member.nomPrenom.split(" ").slice(-2).join(" ")}
+            {/* {member.nomPrenom.split(" ").slice(-2).join(" ")} */}
+            {member.nomPrenom}
           </h4>
-          <p className="text-xs md:text-sm text-gray-600 font-medium">
+          <p className="text-xs md:text-sm text-gray-600 font-medium">Membres du COFAC
             {label}
           </p>
 
@@ -454,7 +226,7 @@ export default function Organigramme() {
   const doyen = {
     nom: "DOYEN",
     prenom: "",
-    responsabilite: "Doyen",
+    responsabilite: "",
     email: "",
     tel: "",
     id: 0,

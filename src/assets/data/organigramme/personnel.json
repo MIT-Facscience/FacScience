@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nom": "RAZAFINDRANAIVO",
+    "prenom": "Victor",
+    "responsabilite": "Vice Doyen chargé de la formation",
+    "email": "razafv@gmail.com",
+    "tel": "034 36 413 54"
+  },
+  {
+    "id": 2,
+    "nom": "RAKOTOVAO",
+    "prenom": "Niry Arinavalona",
+    "responsabilite": "Vice Doyen chargé de la Recherche et du Partenariat",
+    "email": "arinavalona2025@gmail.com",
+    "tel": "034 10 151 51"
+  },
+  {
+    "id": 3,
+    "nom": "RAKOTONDRAMAVONIRINA",
+    "prenom": "Joseph",
+    "responsabilite": "Vice Doyen chargé de la base de données et de la digitalisation",
+    "email": "radosefaniri@yahoo.fr",
+    "tel": "034 36 255 08"
+  },
+  {
+    "id": 5,
+    "nom": "RABEHARISOA",
+    "prenom": "Olivier",
+    "responsabilite": "Sec Pal",
+    "email": "rabearisoaolivier@gmail.com",
+    "tel": "038 77 110 16"
+  },
+  {
+    "id": 6,
+    "nom": "RAKOTONANAHARY",
+    "prenom": "Jacquis Hasina Tahirintsoa",
+    "responsabilite": "Chef de service Comptabilité",
+    "email": "tahirintsoa4hasina@gmail.com",
+    "tel": "034 10 016 46"
+  },
+  {
+    "id": 7,
+    "nom": "RAKOTONANAHARY",
+    "prenom": "Mbolatiana",
+    "responsabilite": "Chef de service de la Scolarité",
+    "email": "mbolatiana.rakotonanahary@univ-antananarivo.mg",
+    "tel": "034 36 146 61"
+  },
+  {
+    "id": 8,
+    "nom": "RATSIMBARISON",
+    "prenom": "Rivoson",
+    "responsabilite": "Chef de service des Affaires Générales",
+    "email": "ratsimbarisonrivosoa@mgail.com",
+    "tel": "034 46 976 90"
+  },
+  {
+    "id": 9,
+    "nom": "RANDRIAMIRADO",
+    "prenom": "Mijanirina",
+    "responsabilite": "Chef de service Informatique",
+    "email": "mijanirina@gmail.com",
+    "tel": ""
+  },
+  {
+    "id": 10,
+    "nom": "RAKOTOMAVO",
+    "prenom": "Tantelinirina",
+    "responsabilite": "Chef de service du Personnel",
+    "email": "rakotomavotantelinirina2@gmail.com",
+    "tel": "034 10 535 82"
+  }
+]
