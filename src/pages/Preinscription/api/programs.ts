@@ -1,62 +1,41 @@
-import type { Program } from '../types';
+import { BACKEND_PREINSCRIPTION_URL } from "@/lib/api";
+import type { Program } from "../types";
 
-// export const AVAILABLE_PROGRAMS: Program[] = [
-//   {
-//     id: 'svt',
-//     name: 'Sciences de la Vie et de la Terre',
-//     eligibleSeries: ['S', 'C', 'D'],
-//   },
-//   {
-//     id: 'physics',
-//     name: 'Physique',
-//     eligibleSeries: ['S', 'C', 'D'],
-//   },
-//   {
-//     id: 'chemistry',
-//     name: 'Chimie',
-//     eligibleSeries: ['S', 'C', 'D'],
-//   },
-//   {
-//     id: 'mathematics',
-//     name: 'Mathématiques',
-//     eligibleSeries: ['S', 'C', 'D'],
-//   },
-//   {
-//     id: 'mit',
-//     name: 'Mention Informatique et Technologies',
-//     eligibleSeries: ['S', 'C'],
-//   }
-// ];
+/**
+ * Récupère les portails ouverts à une série de baccalauréat donnée.
+ * Lève une erreur si le serveur répond autre chose que 200, afin que l'étape
+ * "choix du portail" puisse afficher un vrai état d'erreur (et non un vide).
+ */
+export const getProgramsBySeries = async (
+  series: string,
+  academic: boolean,
+  signal?: AbortSignal
+): Promise<Program[]> => {
+  const res = await fetch(
+    `${BACKEND_PREINSCRIPTION_URL}/api/Register/portail/${encodeURIComponent(
+      series
+    )}/${academic}`,
+    { method: "GET", signal }
+  );
 
-export const getProgram = async (series: string, acad: boolean) => {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_BACKEND_PREINSCRIPTION}/api/Register/portail/${series}/${acad}`, {
-      method: "GET"
-    })
-    if (!res.ok) return
-    const data: Program[] = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error(error);
+  if (!res.ok) {
+    throw new Error(`Impossible de charger les portails (${res.status})`);
   }
-  return 
-  // return AVAILABLE_PROGRAMS
-}
 
+  const data = (await res.json()) as Program[];
+  return Array.isArray(data) ? data : [];
+};
 
-export const getPrograms = async () => {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_BACKEND_PREINSCRIPTION}/api/Register/getallportails`, {
-      method: "GET"
-    })
-    if (!res.ok) return
-    const data: Program[] = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error(error);
+export const getPrograms = async (signal?: AbortSignal): Promise<Program[]> => {
+  const res = await fetch(
+    `${BACKEND_PREINSCRIPTION_URL}/api/Register/getallportails`,
+    { method: "GET", signal }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Impossible de charger les portails (${res.status})`);
   }
-  return 
-  // return AVAILABLE_PROGRAMS
-}
+
+  const data = (await res.json()) as Program[];
+  return Array.isArray(data) ? data : [];
+};

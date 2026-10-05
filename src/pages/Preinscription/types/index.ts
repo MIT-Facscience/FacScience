@@ -23,11 +23,11 @@ export interface ApplicationData {
     email: string;
     telephone: string;
   };
+  // Les champs "agence" et "date de paiement" ont été retirés : ils n'étaient
+  // pas exploitables et alourdissaient la saisie du candidat.
   bankInfo: {
     reference: string;
-    dateRef: string;
-    agenceRef: string;
-  }
+  };
 }
 
 export interface CarouselItem {
@@ -66,8 +66,6 @@ export interface ForeignDocuments {
 
 export interface ForeignBankInfo {
   reference: string;
-  agenceRef: string;
-  dateRef: string;
 }
 
 export interface ForeignApplicationData {
@@ -75,10 +73,6 @@ export interface ForeignApplicationData {
   documents: ForeignDocuments;
   bankInfo: ForeignBankInfo;
   selectedProgram: Program | null;
-}
-
-export interface StepStrangerProps {
-  onChangeStep: (currentStep: number) => void;
 }
 
 // Types pour les réponses du contrôleur C#
@@ -102,7 +96,7 @@ export interface PreinscriptionReturn {
   id?: number; // ID de préinscription ajouté
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: ProblemDetails;

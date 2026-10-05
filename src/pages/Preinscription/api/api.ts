@@ -3,17 +3,10 @@ import type { ApplicationData, PreinscriptionReturn, ProblemDetails, ApiResponse
 import type { ResData } from "../types/models";
 import type { ForeignApplicationData } from "./../types/index";
 
-// import { Preinscription, ResData } from '../types/models';
-
-// Simulate API delay
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export const fetchCandidateInfo = async (
   num_bacc: string,
   annee_bacc: number
-) => {
-  await delay(1000); // Simulate network delay
-
+): Promise<ResData> => {
   const res = await fetch(
     `${BACKEND_WEBSERVICES_URL}/api/preinscription/getDataByNumBacc`,
     {
@@ -27,25 +20,14 @@ export const fetchCandidateInfo = async (
   if (!res.ok) {
     throw new Error("request Error");
   }
-  const candidate: ResData = await res.json();
 
-  // const candidate = mockCandidates.find(
-  //   c => c.num_bacc === num_bacc &&
-  //        c.graduationYear === annee_bacc
-  // );
-
-  if (!candidate) {
-    throw new Error("Candidat introuvable avec ces informations");
-  }
-
-  return candidate;
+  return (await res.json()) as ResData;
 };
 
 export const submitApplication = async (applicationData: ApplicationData): Promise<ApiResponse<PreinscriptionReturn>> => {
   try {
     const app: ApplicationData = applicationData;
 
-    console.log("Envoi des données:", app);
     const response = await fetch(
       `${BACKEND_PREINSCRIPTION_URL}/api/Register/RegisterTry`,
       {
@@ -72,7 +54,6 @@ export const submitApplication = async (applicationData: ApplicationData): Promi
 
     // Succès - le serveur retourne un PreinscriptionReturn
     const preinscriptionData: PreinscriptionReturn = responseData;
-    console.log("Préinscription créée avec succès:", preinscriptionData);
 
     return {
       success: true,
@@ -143,6 +124,36 @@ export const submitForeignPreinscription = async (
   }
 };
 
+export interface RegisteredPortal {
+  idPortail: number;
+  idPreinscription: number;
+  datePreinscription: string | null;
+}
+
+/**
+ * Portails déjà préinscrits par le candidat pour l'année universitaire en cours.
+ * Permet de les marquer comme traités dans l'étape "choix du portail".
+ */
+export const fetchRegisteredPortals = async (
+  numBacc: string,
+  anneeBacc: number,
+  signal?: AbortSignal
+): Promise<RegisteredPortal[]> => {
+  const res = await fetch(
+    `${BACKEND_PREINSCRIPTION_URL}/api/Register/${encodeURIComponent(
+      numBacc
+    )}/${anneeBacc}/portails-inscrits`,
+    { method: "GET", signal }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Portails déjà préinscrits indisponibles (${res.status})`);
+  }
+
+  const data = (await res.json()) as RegisteredPortal[];
+  return Array.isArray(data) ? data : [];
+};
+
 export const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email.trim());
@@ -157,7 +168,9 @@ export interface PreinscriptionStatus {
   isClosed: boolean;
 }
 
-export const checkPreinscriptionStatus = async (): Promise<PreinscriptionStatus> => {
+export const checkPreinscriptionStatus = async (
+  signal?: AbortSignal
+): Promise<PreinscriptionStatus> => {
   try {
     const response = await fetch(
       `${BACKEND_PREINSCRIPTION_URL}/api/Register/status`,
@@ -166,6 +179,7 @@ export const checkPreinscriptionStatus = async (): Promise<PreinscriptionStatus>
         headers: {
           "Content-Type": "application/json",
         },
+        signal,
       }
     );
 

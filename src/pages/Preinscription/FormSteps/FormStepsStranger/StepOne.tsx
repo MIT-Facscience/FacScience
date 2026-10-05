@@ -1,4 +1,4 @@
-import { User, Mail, Phone, Globe, Flag, ChevronRight, Ticket, MapPin, HandCoins } from 'lucide-react';
+import { User, Mail, Phone, Globe, Flag, ChevronRight, Ticket } from 'lucide-react';
 import type { ForeignBankInfo, ForeignPersonalInfo } from '../../types';
 import { useTranslation } from 'react-i18next';
 
@@ -26,8 +26,6 @@ export default function StepOne({ personalInfo, bankInfo, errors, setPersonalInf
     if (!personalInfo.bacNationality.trim()) newErrors.bacNationality = t('formulaire.stepOneStranger.fields.bacNationality.error');
     if (!personalInfo.personalNationality.trim()) newErrors.personalNationality = t('formulaire.stepOneStranger.fields.personalNationality.error');
     if (!bankInfo.reference.trim()) newErrors.reference = t('formulaire.stepOneStranger.fields.reference.error');
-    if (!bankInfo.agenceRef.trim()) newErrors.agenceRef = t('formulaire.stepOneStranger.fields.agenceRef.error');
-    if (!bankInfo.dateRef) newErrors.dateRef = t('formulaire.stepOneStranger.fields.dateRef.error');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -130,29 +128,20 @@ export default function StepOne({ personalInfo, bankInfo, errors, setPersonalInf
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
-        {['reference', 'agenceRef', 'dateRef'].map((field) => (
-          <div key={field}>
-            <label className="flex items-center mb-2 text-sm font-medium">
-              {field === 'reference' && <Ticket className="w-4 h-4 text-gray-400 mr-2"/>}
-              {field === 'agenceRef' && <MapPin className="w-4 h-4 text-gray-400 mr-2"/>}
-              {field === 'dateRef' && <HandCoins className="w-4 h-4 text-gray-400 mr-2"/>}
-              {field === 'reference' 
-                ? `${t('formulaire.stepOneStranger.fields.reference.label')} *`
-                : field === 'agenceRef' 
-                ? `${t('formulaire.stepOneStranger.fields.agenceRef.label')} *`
-                : `${t('formulaire.stepOneStranger.fields.dateRef.label')} *`
-              }
-            </label>
-            <input
-              type={field === 'dateRef' ? 'date' : 'text'}
-              value={bankInfo[field as keyof ForeignBankInfo]}
-              onChange={e => setBankInfo(field as keyof ForeignBankInfo, e.target.value)}
-              className={`w-full px-4 py-3 border rounded ${errors[field] ? 'border-red-500' : 'border-gray-300'}`}
-            />
-            {errors[field] && <p className="text-red-500 text-sm">{errors[field]}</p>}
-          </div>
-        ))}
+      <div className="grid gap-4 md:grid-cols-2">
+        <div>
+          <label className="flex items-center mb-2 text-sm font-medium">
+            <Ticket className="w-4 h-4 text-gray-400 mr-2"/>
+            {`${t('formulaire.stepOneStranger.fields.reference.label')} *`}
+          </label>
+          <input
+            type="text"
+            value={bankInfo.reference}
+            onChange={e => setBankInfo('reference', e.target.value)}
+            className={`w-full px-4 py-3 border rounded ${errors.reference ? 'border-red-500' : 'border-gray-300'}`}
+          />
+          {errors.reference && <p className="text-red-500 text-sm">{errors.reference}</p>}
+        </div>
       </div>
 
       <div className="flex justify-end pt-6">

@@ -1,102 +1,154 @@
-import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Footer } from "./components/footer";
 import Navigation from "./components/navigation";
-import ActualitesPage from "./pages/actualites/page";
-import AdminPage from "./pages/admin/page";
-import ContactPage from "./pages/contact/page";
-import FormationPage from "./pages/formation/page";
-import HomePage from "./pages/HomePage/HomePage";
-import PresentationPage from "./pages/presentation/histoire/page";
-import RecherchePage from "./pages/recherche/page";
-import EcoleDoctoralePage from "./pages/recherche/ecole-doctorale/page";
-import LaboratoiresPage from "./pages/recherche/laboratoires/page";
-import PublicationsPage from "./pages/recherche/publications/page";
-import ActualiteDetail from "./pages/actualites/details/page";
-import FormationItems from "./pages/formation/components/FormationItems";
-import HistoirePage from "./pages/presentation/histoire/page";
-import OrganigrammePage from "./pages/presentation/organigramme/page";
-import VisionPage from "./pages/presentation/vision/page";
-// import ListesAdmisPage from "./pages/resultats/listes-admis/page";
-import ParcourDetail from "./pages/formation/components/ParcourDetail";
-import AnnuairePage from "./pages/presentation/annuaires/page";
-import AdmissionPage from "./pages/admission/modalite/page";
-import BankReferencesPage from "./pages/admission/references/page";
-import PreinscriptionWrapper from "./pages/Preinscription/PreinscriptionWrapper";
-import NotFound from "./components/not-found";
-// import Annuaire from "./pages/presentation/annuaires/annuaire";
-// import INTAdmissionPage from "./pages/admission/int-modalite/page";
-// import INTFormulaire from "./pages/admission/int-formulaire/page";
-import ResultatsPage from "./pages/resultats/selection/page";
-import ListesAdmisPage from "./pages/resultats/LicenceEtMaster/page";
-import InscriptionPage from "./pages/inscription/page";
-import AuthorizedList from "./pages/inscription/AuthorizedList";
-// import ConstructionPage from "./pages/Construction/ConstructionPage";
 import { ResultsProvider } from "@/pages/resultats/ResultsProvider";
 
+/**
+ * Parcours de pré-inscription : page de saisie. Sur mobile, le footer du site
+ * occupait plus de la moitié du défilement et détournait du formulaire ;
+ * le contact reste accessible sous le formulaire.
+ */
+const FOCUSED_ROUTES = ["/admission/preinscription"];
+
+// Les pages sont chargées à la demande : le bundle initial ne contient plus
+// tout le site (jsPDF, recharts, webcam, etc.), ce qui accélère fortement le
+// premier affichage, notamment sur /admission/preinscription.
+const ActualitesPage = lazy(() => import("./pages/actualites/page"));
+const AdminPage = lazy(() => import("./pages/admin/page"));
+const ContactPage = lazy(() => import("./pages/contact/page"));
+const FormationPage = lazy(() => import("./pages/formation/page"));
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const HistoirePage = lazy(() => import("./pages/presentation/histoire/page"));
+const RecherchePage = lazy(() => import("./pages/recherche/page"));
+const EcoleDoctoralePage = lazy(
+  () => import("./pages/recherche/ecole-doctorale/page")
+);
+const LaboratoiresPage = lazy(
+  () => import("./pages/recherche/laboratoires/page")
+);
+const PublicationsPage = lazy(
+  () => import("./pages/recherche/publications/page")
+);
+const ActualiteDetail = lazy(() => import("./pages/actualites/details/page"));
+const FormationItems = lazy(
+  () => import("./pages/formation/components/FormationItems")
+);
+const OrganigrammePage = lazy(
+  () => import("./pages/presentation/organigramme/page")
+);
+const VisionPage = lazy(() => import("./pages/presentation/vision/page"));
+const ParcourDetail = lazy(
+  () => import("./pages/formation/components/ParcourDetail")
+);
+const AnnuairePage = lazy(() => import("./pages/presentation/annuaires/page"));
+const AdmissionPage = lazy(() => import("./pages/admission/modalite/page"));
+const BankReferencesPage = lazy(
+  () => import("./pages/admission/references/page")
+);
+const PreinscriptionWrapper = lazy(
+  () => import("./pages/Preinscription/PreinscriptionWrapper")
+);
+const NotFound = lazy(() => import("./components/not-found"));
+const ResultatsPage = lazy(() => import("./pages/resultats/selection/page"));
+const ListesAdmisPage = lazy(
+  () => import("./pages/resultats/LicenceEtMaster/page")
+);
+const InscriptionPage = lazy(() => import("./pages/inscription/page"));
+const AuthorizedList = lazy(() => import("./pages/inscription/AuthorizedList"));
+
+function RouteFallback() {
+  return (
+    <div className="ps-page flex min-h-[100dvh] items-center justify-center">
+      <span
+        className="size-9 animate-spin rounded-full border-2 border-ps-violet-200 border-t-ps-violet-600"
+        role="status"
+        aria-label="Chargement"
+      />
+    </div>
+  );
+}
+
 export default function App() {
-  // const location = useLocation();
-
-  // Liste des pages où on cache le header/footer
-  //const hideLayoutRoutes = ["/"]; 
-
-  // Vérifie si la route actuelle est dans la liste
-  // const hideLayout = hideLayoutRoutes.includes(location.pathname);
+  const { pathname } = useLocation();
+  const isFocusedRoute = FOCUSED_ROUTES.some((route) =>
+    pathname.startsWith(route)
+  );
 
   return (
     <ResultsProvider>
-
       <div className="min-h-screen">
-        {/* Header caché sur certaines routes */}
+        {/* Header */}
         <Navigation />
 
-        <Routes>
-          {/* <Route path="/" element={<ConstructionPage />} /> */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/formation" element={<FormationPage />} />
-          <Route path="/recherche" element={<RecherchePage />} />
-          <Route path="/recherche/ecole-doctorale" element={<EcoleDoctoralePage />} />
-          <Route path="/recherche/laboratoires" element={<LaboratoiresPage />} />
-          <Route path="/recherche/publications" element={<PublicationsPage />} />
-          <Route path="/presentation" element={<PresentationPage />} />
-          <Route path="/actualites" element={<ActualitesPage />} />
-          <Route path="/actualites/:id" element={<ActualiteDetail />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/formation/detail" element={<FormationItems />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/resultats/selection" element={<ResultatsPage />} />
-          <Route path="/resultats" element={<NotFound />} />
-          <Route path="/presentation/histoire" element={<HistoirePage />} />
-          <Route path="/presentation/organigramme" element={<OrganigrammePage />} />
-          <Route path="/presentation/vision" element={<VisionPage />} />
-          <Route path="/resultats/LicenceEtMaster" element={<ListesAdmisPage />} />
-          <Route path="/resultats/listes-admis" element={<NotFound />} />
-          <Route path="/formation/detailparcours" element={<ParcourDetail />} />
-          <Route path="/presentation/annuaires/" element={<AnnuairePage />} />
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/formation" element={<FormationPage />} />
+            <Route path="/recherche" element={<RecherchePage />} />
+            <Route
+              path="/recherche/ecole-doctorale"
+              element={<EcoleDoctoralePage />}
+            />
+            <Route
+              path="/recherche/laboratoires"
+              element={<LaboratoiresPage />}
+            />
+            <Route
+              path="/recherche/publications"
+              element={<PublicationsPage />}
+            />
+            <Route path="/presentation" element={<HistoirePage />} />
+            <Route path="/actualites" element={<ActualitesPage />} />
+            <Route path="/actualites/:id" element={<ActualiteDetail />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/formation/detail" element={<FormationItems />} />
+            <Route path="/admin" element={<AdminPage />} />
+            <Route path="/resultats/selection" element={<ResultatsPage />} />
+            <Route path="/resultats" element={<NotFound />} />
+            <Route path="/presentation/histoire" element={<HistoirePage />} />
+            <Route
+              path="/presentation/organigramme"
+              element={<OrganigrammePage />}
+            />
+            <Route path="/presentation/vision" element={<VisionPage />} />
+            <Route
+              path="/resultats/LicenceEtMaster"
+              element={<ListesAdmisPage />}
+            />
+            <Route path="/resultats/listes-admis" element={<NotFound />} />
+            <Route
+              path="/formation/detailparcours"
+              element={<ParcourDetail />}
+            />
+            <Route path="/presentation/annuaires" element={<AnnuairePage />} />
+            <Route path="/admission/modalite" element={<AdmissionPage />} />
+            <Route
+              path="/admission/references"
+              element={<BankReferencesPage />}
+            />
+            <Route
+              path="/admission/preinscription"
+              element={<PreinscriptionWrapper />}
+            />
+            <Route
+              path="/admission/inscription/6e9f2a8b3d1c4e5g7h8i"
+              element={<InscriptionPage />}
+            />
+            <Route
+              path="/admission/inscription/autorises"
+              element={<AuthorizedList />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
 
-          {/* <Route path="/admission/modalite" element={<AdmissionPage />}/>
-          <Route path="/admission/preinscription" element={<Formulaire/>}/> */}
-          {/* <Route path="/admission/preinscription" element={<NotFound/>}/> */}
-
-          {/* <Route path="/presentation/annuaires/" element={<Annuaire/>}/> */}
-
-          {/* <Route path="" element={<AllMention />} /> */}
-          <Route path="/admission/modalite" element={<AdmissionPage />} />
-          <Route path="/admission/references" element={<BankReferencesPage />} />
-          {/* <Route path="/admission/int-modalite" element={<INTAdmissionPage />} /> */}
-          <Route path="/admission/preinscription" element={<PreinscriptionWrapper />} />
-          <Route path="/admission/inscription/6e9f2a8b3d1c4e5g7h8i" element={<InscriptionPage />} />
-          <Route path="/admission/inscription/autorises" element={<AuthorizedList />} />
-          {/* <Route path="/admission/int-formulaire" element={<INTFormulaire />} /> */}
-
-          {/* Route "catch-all" */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-
-        {/* Footer caché sur certaines routes */}
-        <Footer />
+        {/* Sur mobile, le footer occupait plus de la moitié du défilement de la
+            pré-inscription : il est masqué là, mais conservé sur grand écran. */}
+        <div className={isFocusedRoute ? "hidden md:block" : undefined}>
+          <Footer />
+        </div>
       </div>
-
     </ResultsProvider>
-
   );
 }

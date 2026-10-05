@@ -5,13 +5,17 @@ import type { ForeignPersonalInfo, ForeignDocuments, ForeignBankInfo, Program } 
 import StepThree from './StepThree';
 import { submitForeignPreinscription } from '../../api/api';
 
-export default function StepStranger({setstrangerStep}: {setstrangerStep: (i: number) => void}) {
-  const [currentStep, setCurrentStep] = useState(1);
-  setstrangerStep(currentStep);
+interface StepStrangerProps {
+  /** Étape courante, pilotée par le parent pour synchroniser l'indicateur. */
+  currentStep: number;
+  onStepChange: (step: number) => void;
+}
+
+export default function StepStranger({ currentStep, onStepChange }: StepStrangerProps) {
   const [personalInfo, setPersonalInfoState] = useState<ForeignPersonalInfo>({
     firstName: '', lastName: '', email: '', telephone: '', bacNationality: '', personalNationality: ''
   });
-  const [bankInfo, setBankInfoState] = useState<ForeignBankInfo>({ reference: '', agenceRef: '', dateRef: (new Date()).toDateString() });
+  const [bankInfo, setBankInfoState] = useState<ForeignBankInfo>({ reference: '' });
   const [documents, setDocumentsState] = useState<ForeignDocuments>({ diploma: null });
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -74,7 +78,7 @@ export default function StepStranger({setstrangerStep}: {setstrangerStep: (i: nu
           setPersonalInfo={setPersonalInfo}
           setBankInfo={setBankInfo}
           setErrors={setErrors}
-          onNext={() => setCurrentStep(2)}
+          onNext={() => onStepChange(2)}
         />
       )}
 
@@ -84,8 +88,8 @@ export default function StepStranger({setstrangerStep}: {setstrangerStep: (i: nu
           selectedProgram={selectedProgram}
           setSelectedProgram={setSelectedProgram}
           setDocuments={setDocuments}
-          onNext={() => setCurrentStep(3)}
-          onBack={() => setCurrentStep(1)}
+          onNext={() => onStepChange(3)}
+          onBack={() => onStepChange(1)}
         />
       )}
 
@@ -95,7 +99,7 @@ export default function StepStranger({setstrangerStep}: {setstrangerStep: (i: nu
           bankInfo={bankInfo}
           documents={documents}
           selectedProgram={selectedProgram}
-          onBack={() => setCurrentStep(2)}
+          onBack={() => onStepChange(2)}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
           isSubmitted={isSubmitted}

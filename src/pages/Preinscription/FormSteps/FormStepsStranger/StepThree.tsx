@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, Ticket, MapPin, HandCoins, Loader2, AlertCircle, Download } from 'lucide-react';
+import { CheckCircle, Ticket, Loader2, AlertCircle, Download } from 'lucide-react';
 import type { ForeignPersonalInfo, ForeignBankInfo, ForeignDocuments, Program } from '../../types';
 import { useTranslation } from 'react-i18next';
 
@@ -82,14 +82,6 @@ const StepThree: React.FC<StepThreeProps> = ({
             <div className="flex items-center space-x-2">
               <Ticket className="w-4 h-4 text-gray-600 flex-shrink-0" />
               <span className="font-medium">{bankInfo.reference}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <MapPin className="w-4 h-4 text-gray-600 flex-shrink-0" />
-              <span className="font-medium">{bankInfo.agenceRef}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <HandCoins className="w-4 h-4 text-gray-600 flex-shrink-0" />
-              <span className="font-medium">{bankInfo.dateRef}</span>
             </div>
           </div>
         </div>

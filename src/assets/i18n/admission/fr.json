@@ -218,9 +218,62 @@
         }
     },
     "formulaire": {
+        "hero": {
+            "faculty": "Faculté des Sciences",
+            "university": "Université d'Antananarivo",
+            "badge": "Pré-inscription en ligne"
+        },
+        "progress": {
+            "ariaLabel": "Étapes de la pré-inscription",
+            "goToStep": "Revenir à l'étape {{step}} : {{title}}",
+            "stepCounter": "Étape {{current}} sur {{total}}"
+        },
+        "identity": {
+            "verifiedCandidate": "Candidat vérifié",
+            "unknownName": "Candidat",
+            "series": "Série",
+            "bacNumber": "N° BAC",
+            "bacYear": "Année BAC",
+            "hint": "Ces informations proviennent du registre officiel du baccalauréat."
+        },
+        "stepEligibility": {
+            "badge": "Bac Malagasy",
+            "privacyNote": "Vos données servent uniquement au traitement de votre pré-inscription.",
+            "yearPlaceholder": "Choisir une année"
+        },
+        "stepPortal": {
+            "title": "Choisissez votre portail",
+            "subtitle": "Sélectionnez la mention que vous souhaitez intégrer.",
+            "loadError": "Les portails n'ont pas pu être chargés. Vérifiez votre connexion puis réessayez.",
+            "retry": "Réessayer",
+            "empty": "Aucun portail n'est ouvert pour votre série. Contactez le service des inscriptions.",
+            "selected": "Sélectionné",
+            "alreadyRegistered": "Déjà préinscrit",
+            "registeredHint": "Les portails marqués « Déjà préinscrit » sont déjà validés pour cette année universitaire.",
+            "allRegistered": "Vous êtes déjà préinscrit sur tous les portails de votre série pour cette année universitaire."
+        },
+        "stepBank": {
+            "badge": "Paiement",
+            "subtitle": "Renseignez la référence du reçu de paiement des frais de pré-inscription.",
+            "hint": "Cette référence figure sur le reçu remis par la banque (exemple : YMA7730/COT).",
+            "counter": "{{length}} / {{max}} caractères",
+            "errors": {
+                "required": "La référence bancaire est obligatoire",
+                "tooShort": "Cette référence semble trop courte"
+            }
+        },
+        "stepContact": {
+            "badge": "Confirmation par e-mail",
+            "subtitle": "Ces coordonnées servent à vous envoyer la confirmation et à vous joindre si nécessaire.",
+            "emailHint": "Utilisez une adresse que vous consultez régulièrement.",
+            "emailInvalid": "Format d'adresse e-mail invalide",
+            "privacy": "Vos coordonnées ne sont transmises à aucun tiers."
+        },
         "formationChoice": {
             "title": "Choisissez votre type de formation",
             "subtitle": "Sélectionnez le parcours qui correspond à votre projet",
+            "imageAlt": "Campus de la Faculté des Sciences",
+            "imageCaption": "Université d'Antananarivo",
             "academic": {
                 "title": "Formation Académique",
                 "description": "Parcours orienté vers la recherche et l'approfondissement théorique. Idéal pour poursuivre en master et doctorat.",
@@ -236,6 +289,7 @@
             }
         },
         "bacType": {
+            "label": "Type de baccalauréat",
             "malagasy": "Bacc Malagasy",
             "foreign": "Bacc Étranger"
         },
@@ -247,16 +301,20 @@
             "help": "Besoin d'aide ? Contactez le service des inscriptions :"
         },
         "steps": {
-            "malagasy": ["Informations", "Confirmation"],
+            "malagasy": [
+                "Éligibilité",
+                "Portail",
+                "Paiement",
+                "Contact",
+                "Confirmation"
+            ],
             "stranger": ["Information Personnelle", "Documents et parcours", "Confirmation"]
         },
         "stepOne": {
             "title": "Vérification d'éligibilité",
             "subtitle": "Veuillez saisir vos informations de baccalauréat",
             "bacNumberLabel": "Numéro de baccalauréat",
-            "bacNumberExample": "(Ex:3280151) *",
-            "gradYearLabel": "Année de graduation", 
-            "gradYearExample": "(Ex:2025) *",
+            "gradYearLabel": "Année du baccalauréat",
             "errors": {
                 "requiredFields": "Veuillez remplir tous les champs requis",
                 "invalidYear": "Année de graduation invalide",
@@ -324,7 +382,8 @@
             },
             "submission": {
                 "submitting": "Soumission en cours...",
-                "submit": "Soumettre la demande"
+                "submit": "Soumettre la demande",
+                "submitShort": "Soumettre"
             },
             "success": {
                 "title": "Félicitations !",
@@ -338,10 +397,10 @@
             },
             "nextSteps": {
                 "title": "Prochaines étapes :",
-                "emailConfirmation": "Vous recevrez un email de confirmation à {email}",
                 "documentVerification": "Vos documents seront vérifiés par notre équipe administrative",
+            "selectionDate": "Attendez la date de sélection : le résultat sera affiché après.",
                 "resultsPublication": "Les résultats de pré-sélection seront publiés le 15 septembre 2025",
-                "keepNumber": "Conservez votre numéro de préinscription pour le suivi : {number}"
+                "keepNumber": "Conservez votre numéro de préinscription pour le suivi : {{number}}"
             },
             "help": {
                 "title": "Besoin d'aide ?",
@@ -350,7 +409,9 @@
             },
             "buttons": {
                 "back": "Retour",
+                "receiptTitle": "R\u00e9c\u00e9piss\u00e9 de pr\u00e9-inscription",
                 "printReceipt": "Imprimer le récépissé",
+            "newPortal": "S'inscrire dans un autre portail",
                 "returnHome": "Retourner à l'accueil"
             },
             "errors": {

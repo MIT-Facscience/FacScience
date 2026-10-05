@@ -220,9 +220,62 @@
         }
     },
     "formulaire": {
+        "hero": {
+            "faculty": "Sampam-pianarana Siansa",
+            "university": "Oniversiten'Antananarivo",
+            "badge": "Fisoratana anarana an-tserasera"
+        },
+        "progress": {
+            "ariaLabel": "Dingana amin'ny fisoratana anarana",
+            "goToStep": "Hiverina amin'ny dingana {{step}} : {{title}}",
+            "stepCounter": "Dingana {{current}} amin'ny {{total}}"
+        },
+        "identity": {
+            "verifiedCandidate": "Mpikambana voamarina",
+            "unknownName": "Mpikambana",
+            "series": "Karazana",
+            "bacNumber": "Laharana BAC",
+            "bacYear": "Taonan'ny BAC",
+            "hint": "Ireto filazana ireto dia avy amin'ny rejistra ofisialin'ny bakalorea."
+        },
+        "stepEligibility": {
+            "badge": "Bac Malagasy",
+            "privacyNote": "Ny angonao dia ampiasaina amin'ny fanodinana ny fisoratana anarana ihany.",
+            "yearPlaceholder": "Misafidiana taona"
+        },
+        "stepPortal": {
+            "title": "Safidio ny vavahadinao",
+            "subtitle": "Safidio ny mention tianao idirana.",
+            "loadError": "Tsy afaka naka ny vavahady. Jereo ny fifandraisana ary andramo indray.",
+            "retry": "Andramo indray",
+            "empty": "Tsy misy vavahady misokatra ho an'ny karazanao. Mifandraisa amin'ny service fisoratana anarana.",
+            "selected": "Voafidy",
+            "alreadyRegistered": "Efa voasoratra",
+            "registeredHint": "Ny vavahady misy « Efa voasoratra » dia efa voamarina amin'ity taom-pianarana ity.",
+            "allRegistered": "Efa voasoratra amin'ny vavahady rehetra amin'ny karazanao ianao amin'ity taom-pianarana ity."
+        },
+        "stepBank": {
+            "badge": "Fandoavam-bola",
+            "subtitle": "Ampidiro ny laharan'ny rosia fandoavam-bola.",
+            "hint": "Hita ao amin'ny rosia omen'ny banky io laharan'ny io (ohatra : YMA7730/COT).",
+            "counter": "{{length}} / {{max}} litera",
+            "errors": {
+                "required": "Ilaina ny laharan'ny rosia",
+                "tooShort": "Fohy loatra io laharan'ny io"
+            }
+        },
+        "stepContact": {
+            "badge": "Fanamafisana amin'ny mailaka",
+            "subtitle": "Ireto filazana ireto dia ampiasaina handefasana ny fanamafisana sy hifandraisana aminao raha ilaina.",
+            "emailHint": "Ampiasao ny mailaka jerenao matetika.",
+            "emailInvalid": "Endrika mailaka tsy manara-dalàna",
+            "privacy": "Tsy ampitaina amin'olon-kafa ny filazanao."
+        },
         "formationChoice": {
             "title": "Misafidia ny karazana fianarana",
             "subtitle": "Safidio ny lalana mifanaraka amin'ny tetikasao",
+            "imageAlt": "Toby misy ny Sampam-pianarana Siansa",
+            "imageCaption": "Oniversiten'Antananarivo",
             "academic": {
                 "title": "Fianarana Akademika",
                 "description": "Lalana mitodika any amin'ny fikarohana sy ny fanamafisana teoria. Mety ho an'ny fandrosoana any amin'ny master sy doctorat.",
@@ -238,6 +291,7 @@
             }
         },
         "bacType": {
+            "label": "Karazana bakalorea",
             "malagasy": "Bacc Malagasy",
             "foreign": "Bacc Vahiny"
         },
@@ -249,16 +303,20 @@
             "help": "Mila fanampiana? Mifandraisa amin'ny service fisoratrana anarana :"
         },
         "steps": {
-            "malagasy": ["Fampahalalana", "Fanamarinana"],
+            "malagasy": [
+                "Fahafahana miditra",
+                "Vavahady",
+                "Fandoavam-bola",
+                "Fifandraisana",
+                "Fanamarinana"
+            ],
             "stranger": ["Fampahalalana manokana", "Taratasy sy lalana", "Fanamarinana"]
         },
         "stepOne": {
             "title": "Fanamarinana fahafahana miditra",
             "subtitle": "Ampidiro ny filazana momba ny bakalorea",
             "bacNumberLabel": "Laharana bakalorea",
-            "bacNumberExample": "(Ohatra:3280151) *",
-            "gradYearLabel": "Taona nahazoana ny bakalorea",
-            "gradYearExample": "(Ohatra:2025) *",
+            "gradYearLabel": "Taonan'ny bakalorea",
             "errors": {
                 "requiredFields": "Fenoy ny bokotra rehetra ilaina",
                 "invalidYear": "Taona nahazoana tsy manara-dalàna",
@@ -326,7 +384,8 @@
             },
             "submission": {
                 "submitting": "Alefa...",
-                "submit": "Alefa ny fangatahana"
+                "submit": "Alefa ny fangatahana",
+                "submitShort": "Alefa"
             },
             "success": {
                 "title": "Arahabaina !",
@@ -340,10 +399,10 @@
             },
             "nextSteps": {
                 "title": "Dingana manaraka :",
-                "emailConfirmation": "Hahazo mailaka fanamafisana ianao amin'ny {email}",
                 "documentVerification": "Ho verifien'ny ekipanay ny antontan-taratasinao",
+                "selectionDate": "Miandrasa ny datin'ny fifantenana : aorian'izay vao haseho ny valiny.",
                 "resultsPublication": "Hoboaka ny 15 Septembre 2025 ny vokatra",
-                "keepNumber": "Ataovy ny laharan'ny fisoratana anaranao hanarahan-dia : {number}"
+                "keepNumber": "Ataovy ny laharan'ny fisoratana anaranao hanarahan-dia : {{number}}"
             },
             "help": {
                 "title": "Mila fanampiana ?",
@@ -352,7 +411,9 @@
             },
             "buttons": {
                 "back": "Hiverina",
+                "receiptTitle": "Taratasy fanamarinana ny fisoratana anarana",
                 "printReceipt": "Printy ny rosia",
+                "newPortal": "Hisoratra anarana amin'ny vavahady hafa",
                 "returnHome": "Hiverina any an-tranony"
             },
             "errors": {

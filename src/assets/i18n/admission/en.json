@@ -218,9 +218,62 @@
         }
     },
     "formulaire": {
+        "hero": {
+            "faculty": "Faculty of Sciences",
+            "university": "University of Antananarivo",
+            "badge": "Online pre-registration"
+        },
+        "progress": {
+            "ariaLabel": "Pre-registration steps",
+            "goToStep": "Go back to step {{step}}: {{title}}",
+            "stepCounter": "Step {{current}} of {{total}}"
+        },
+        "identity": {
+            "verifiedCandidate": "Verified candidate",
+            "unknownName": "Candidate",
+            "series": "Series",
+            "bacNumber": "BAC number",
+            "bacYear": "BAC year",
+            "hint": "These details come from the official baccalaureate register."
+        },
+        "stepEligibility": {
+            "badge": "Malagasy Baccalaureate",
+            "privacyNote": "Your data is used only to process your pre-registration.",
+            "yearPlaceholder": "Select a year"
+        },
+        "stepPortal": {
+            "title": "Choose your portal",
+            "subtitle": "Select the programme you want to join.",
+            "loadError": "The portals could not be loaded. Check your connection and try again.",
+            "retry": "Try again",
+            "empty": "No portal is open for your series. Please contact the registration office.",
+            "selected": "Selected",
+            "alreadyRegistered": "Already registered",
+            "registeredHint": "Portals marked \"Already registered\" have already been validated for this academic year.",
+            "allRegistered": "You are already registered for every portal in your series this academic year."
+        },
+        "stepBank": {
+            "badge": "Payment",
+            "subtitle": "Enter the reference printed on your pre-registration payment receipt.",
+            "hint": "This reference appears on the receipt issued by the bank (example: YMA7730/COT).",
+            "counter": "{{length}} / {{max}} characters",
+            "errors": {
+                "required": "The bank reference is required",
+                "tooShort": "This reference looks too short"
+            }
+        },
+        "stepContact": {
+            "badge": "Email confirmation",
+            "subtitle": "We use these details to send your confirmation and to reach you if needed.",
+            "emailHint": "Use an address you check regularly.",
+            "emailInvalid": "Invalid email address",
+            "privacy": "Your contact details are not shared with third parties."
+        },
         "formationChoice": {
             "title": "Choose your type of training",
             "subtitle": "Select the path that matches your project",
+            "imageAlt": "Faculty of Sciences campus",
+            "imageCaption": "University of Antananarivo",
             "academic": {
                 "title": "Academic Training",
                 "description": "Path oriented towards research and theoretical deepening. Ideal for pursuing master's and doctorate.",
@@ -236,6 +289,7 @@
             }
         },
         "bacType": {
+            "label": "Baccalaureate type",
             "malagasy": "Malagasy Baccalaureate",
             "foreign": "Foreign Baccalaureate"
         },
@@ -247,16 +301,20 @@
             "help": "Need help? Contact the registration service:"
         },
         "steps": {
-            "malagasy": ["Information", "Confirmation"],
+            "malagasy": [
+                "Eligibility",
+                "Portal",
+                "Payment",
+                "Contact",
+                "Confirmation"
+            ],
             "stranger": ["Personal Information", "Documents and background", "Confirmation"]
         },
         "stepOne": {
             "title": "Eligibility Verification",
             "subtitle": "Please enter your baccalaureate information",
             "bacNumberLabel": "Baccalaureate number",
-            "bacNumberExample": "(Ex:3280151) *",
-            "gradYearLabel": "Graduation year",
-            "gradYearExample": "(Ex:2025) *",
+            "gradYearLabel": "Baccalaureate year",
             "errors": {
                 "requiredFields": "Please fill in all required fields",
                 "invalidYear": "Invalid graduation year",
@@ -324,7 +382,8 @@
             },
             "submission": {
                 "submitting": "Submitting...",
-                "submit": "Submit application"
+                "submit": "Submit application",
+                "submitShort": "Submit"
             },
             "success": {
                 "title": "Congratulations!",
@@ -338,10 +397,10 @@
             },
             "nextSteps": {
                 "title": "Next steps:",
-                "emailConfirmation": "You will receive a confirmation email at {email}",
                 "documentVerification": "Your documents will be verified by our administrative team",
+                "selectionDate": "Wait for the selection date: the result will be published afterwards.",
                 "resultsPublication": "Pre-selection results will be published on September 15, 2025",
-                "keepNumber": "Keep your pre-registration number for tracking: {number}"
+                "keepNumber": "Keep your pre-registration number for tracking: {{number}}"
             },
             "help": {
                 "title": "Need help?",
@@ -350,7 +409,9 @@
             },
             "buttons": {
                 "back": "Back",
+                "receiptTitle": "Pre-registration receipt",
                 "printReceipt": "Print receipt",
+                "newPortal": "Register for another portal",
                 "returnHome": "Return to home"
             },
             "errors": {
