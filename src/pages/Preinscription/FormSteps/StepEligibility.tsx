@@ -10,7 +10,7 @@ interface StepEligibilityProps {
   onVerified: (candidate: CandidateInfo) => void;
 }
 
-const MIN_YEAR = 2020;
+const MIN_YEAR = 2022;
 
 /**
  * Étape 1 : l'étudiant saisit son numéro de baccalauréat et l'année
