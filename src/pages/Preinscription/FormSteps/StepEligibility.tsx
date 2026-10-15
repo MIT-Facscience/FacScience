@@ -17,6 +17,7 @@ const MIN_YEAR = 2022;
  * d'obtention. Le web service renvoie son nom, son prénom et sa série :
  * ces informations seront affichées à l'étape suivante (choix du portail).
  */
+
 export function StepEligibility({ onVerified }: StepEligibilityProps) {
   const { t } = useTranslation("admission");
 
