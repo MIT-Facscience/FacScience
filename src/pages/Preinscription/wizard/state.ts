@@ -19,7 +19,12 @@ export interface WizardState {
   programs: Program[];
   programsStatus: ProgramsStatus;
   selectedProgram: Program | null;
-  bankReference: string;
+  /**
+   * Références bancaires du dossier. Une préinscription peut en porter
+   * plusieurs (paiement en plusieurs fois) ; la première est la référence
+   * principale, seule retenue par le modèle backend `preinscription.ref_bancaire`.
+   */
+  bankReferences: string[];
   email: string;
   telephone: string;
   /** idPortail (normalisés en chaîne) déjà préinscrits cette année universitaire. */
@@ -32,7 +37,7 @@ export const initialWizardState: WizardState = {
   programs: [],
   programsStatus: "idle",
   selectedProgram: null,
-  bankReference: "",
+  bankReferences: [],
   email: "",
   telephone: "",
   registeredPortals: [],
@@ -44,7 +49,7 @@ export type WizardAction =
   | { type: "programsLoaded"; programs: Program[] }
   | { type: "programsFailed" }
   | { type: "programSelected"; program: Program }
-  | { type: "bankReferenceChanged"; reference: string }
+  | { type: "bankReferencesChanged"; references: string[] }
   | { type: "contactChanged"; email: string; telephone: string }
   | { type: "registeredPortalsLoaded"; portals: string[] }
   | { type: "newPortalRequested" }
@@ -77,8 +82,8 @@ export function wizardReducer(
     case "programSelected":
       return { ...state, selectedProgram: action.program };
 
-    case "bankReferenceChanged":
-      return { ...state, bankReference: action.reference };
+    case "bankReferencesChanged":
+      return { ...state, bankReferences: action.references };
 
     case "contactChanged":
       return { ...state, email: action.email, telephone: action.telephone };
@@ -94,7 +99,7 @@ export function wizardReducer(
         ...state,
         step: 2,
         selectedProgram: null,
-        bankReference: "",
+        bankReferences: [],
       };
 
     case "goToStep":
@@ -115,7 +120,11 @@ export type BacType = "mg" | "etg";
 export interface WizardDraft {
   formationType: FormationType | null;
   bacType: BacType;
-  wizard: WizardState;
+  /**
+   * `bankReference` (chaîne unique) n'est présent que dans les brouillons
+   * enregistrés avant le passage au multi-référence ; il est lu en secours.
+   */
+  wizard: WizardState & { bankReference?: string };
 }
 
 const STORAGE_KEY = "ps-preinscription-draft-v1";
@@ -133,7 +142,7 @@ export const emptyDraft: WizardDraft = {
 function lastReachableStep(state: WizardState): number {
   if (!state.candidate) return 1;
   if (!state.selectedProgram) return 2;
-  if (!state.bankReference) return 3;
+  if (state.bankReferences.length === 0) return 3;
   if (!state.email || !state.telephone) return 4;
   return TOTAL_STEPS;
 }
@@ -153,7 +162,11 @@ export function loadWizardDraft(): WizardDraft {
       ...initialWizardState,
       candidate,
       selectedProgram: parsed.wizard?.selectedProgram ?? null,
-      bankReference: parsed.wizard?.bankReference ?? "",
+      // Les brouillons enregistrés avant le multi-référence ne portent qu'une
+      // chaîne unique : on les relit sans perdre la saisie du candidat.
+      bankReferences:
+        parsed.wizard?.bankReferences ??
+        (parsed.wizard?.bankReference ? [parsed.wizard.bankReference] : []),
       email: parsed.wizard?.email ?? "",
       telephone: parsed.wizard?.telephone ?? "",
       registeredPortals: parsed.wizard?.registeredPortals ?? [],

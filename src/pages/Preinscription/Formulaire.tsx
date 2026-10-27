@@ -454,9 +454,16 @@ const Formulaire: React.FC = () => {
         email: wizard.email,
         telephone: wizard.telephone,
       },
-      bankInfo: { reference: wizard.bankReference },
+      // Le backend historique lit `bankInfo.reference` (une seule valeur) ;
+      // une préinscription peut désormais porter plusieurs références. On
+      // envoie donc la liste complète ET la première comme référence
+      // principale, pour rester compatible avec le contrôleur actuel.
+      bankInfo: {
+        reference: wizard.bankReferences[0] ?? "",
+        references: wizard.bankReferences,
+      },
     };
-  }, [wizard.candidate, wizard.selectedProgram, wizard.email, wizard.telephone, wizard.bankReference]);
+  }, [wizard.candidate, wizard.selectedProgram, wizard.email, wizard.telephone, wizard.bankReferences]);
 
   return (
     <div className="ps-page ps-scope relative min-h-[100dvh] overflow-hidden">
@@ -511,10 +518,10 @@ const Formulaire: React.FC = () => {
 
                     {wizard.step === 3 && (
                       <StepBank
-                        initialReference={wizard.bankReference}
+                        initialReferences={wizard.bankReferences}
                         onBack={() => dispatch({ type: "goToStep", step: 2 })}
-                        onNext={(reference) => {
-                          dispatch({ type: "bankReferenceChanged", reference });
+                        onNext={(references) => {
+                          dispatch({ type: "bankReferencesChanged", references });
                           dispatch({ type: "goToStep", step: 4 });
                         }}
                       />
